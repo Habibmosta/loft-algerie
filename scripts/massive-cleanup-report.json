@@ -1,0 +1,1437 @@
+{
+  "timestamp": "2025-08-08T15:04:48.050Z",
+  "backupTimestamp": 1754665488039,
+  "cleanupResults": {
+    "fr": {
+      "cleanedCount": 115,
+      "cleanedKeys": [
+        {
+          "key": "lofts.loftUpdated",
+          "oldValue": "",
+          "newValue": "Loft mis à jour"
+        },
+        {
+          "key": "lofts.updatePropertyDetails",
+          "oldValue": "",
+          "newValue": "Mettre à jour les détails de la propriété"
+        },
+        {
+          "key": "lofts.allStatuses",
+          "oldValue": "",
+          "newValue": "Tous les statuts"
+        },
+        {
+          "key": "lofts.allOwners",
+          "oldValue": "",
+          "newValue": "Tous les propriétaires"
+        },
+        {
+          "key": "lofts.allZoneAreas",
+          "oldValue": "",
+          "newValue": "Toutes les zones"
+        },
+        {
+          "key": "lofts.couldNotLoadData",
+          "oldValue": "",
+          "newValue": "Impossible de charger les données"
+        },
+        {
+          "key": "lofts.loftInfoTitle",
+          "oldValue": "",
+          "newValue": "Informations du loft"
+        },
+        {
+          "key": "lofts.loftInfoDescription",
+          "oldValue": "",
+          "newValue": "Détails et caractéristiques du loft"
+        },
+        {
+          "key": "lofts.loftName",
+          "oldValue": "",
+          "newValue": "Nom du loft"
+        },
+        {
+          "key": "lofts.loftAddress",
+          "oldValue": "",
+          "newValue": "Adresse du loft"
+        },
+        {
+          "key": "lofts.pricePerDay",
+          "oldValue": "",
+          "newValue": "Prix par jour"
+        },
+        {
+          "key": "lofts.internetConnection",
+          "oldValue": "",
+          "newValue": "Connexion Internet"
+        },
+        {
+          "key": "lofts.companyPercentage",
+          "oldValue": "",
+          "newValue": "Pourcentage de la société"
+        },
+        {
+          "key": "lofts.ownerPercentage",
+          "oldValue": "",
+          "newValue": "Pourcentage du propriétaire"
+        },
+        {
+          "key": "lofts.total",
+          "oldValue": "",
+          "newValue": "Total"
+        },
+        {
+          "key": "lofts.shouldEqual100",
+          "oldValue": "",
+          "newValue": "Doit égaler 100%"
+        },
+        {
+          "key": "lofts.loftDescription",
+          "oldValue": "",
+          "newValue": "Description du loft"
+        },
+        {
+          "key": "lofts.utilityInformation",
+          "oldValue": "",
+          "newValue": "Informations sur les services publics"
+        },
+        {
+          "key": "lofts.waterCustomerCode",
+          "oldValue": "",
+          "newValue": "Code client eau"
+        },
+        {
+          "key": "lofts.waterContractCode",
+          "oldValue": "",
+          "newValue": "Code contrat eau"
+        },
+        {
+          "key": "lofts.waterMeterNumber",
+          "oldValue": "",
+          "newValue": "Numéro compteur eau"
+        },
+        {
+          "key": "lofts.electricityPdlRef",
+          "oldValue": "",
+          "newValue": "Référence PDL électricité"
+        },
+        {
+          "key": "lofts.electricityCustomerNumber",
+          "oldValue": "",
+          "newValue": "Numéro client électricité"
+        },
+        {
+          "key": "lofts.electricityMeterNumber",
+          "oldValue": "",
+          "newValue": "Numéro compteur électricité"
+        },
+        {
+          "key": "lofts.gasPdlRef",
+          "oldValue": "",
+          "newValue": "Référence PDL gaz"
+        },
+        {
+          "key": "lofts.gasCustomerNumber",
+          "oldValue": "",
+          "newValue": "Numéro client gaz"
+        },
+        {
+          "key": "lofts.gasMeterNumber",
+          "oldValue": "",
+          "newValue": "Numéro compteur gaz"
+        },
+        {
+          "key": "lofts.billingAlerts",
+          "oldValue": "",
+          "newValue": "Alertes de facturation"
+        },
+        {
+          "key": "lofts.billingAlertsDescription",
+          "oldValue": "",
+          "newValue": "Configuration des alertes de facturation"
+        },
+        {
+          "key": "lofts.waterBillFrequency",
+          "oldValue": "",
+          "newValue": "Fréquence facture eau"
+        },
+        {
+          "key": "lofts.selectFrequency",
+          "oldValue": "",
+          "newValue": "Sélectionner la fréquence"
+        },
+        {
+          "key": "lofts.nextWaterBill",
+          "oldValue": "",
+          "newValue": "Prochaine facture eau"
+        },
+        {
+          "key": "lofts.energyBillFrequency",
+          "oldValue": "",
+          "newValue": "Fréquence facture énergie"
+        },
+        {
+          "key": "lofts.nextEnergyBill",
+          "oldValue": "",
+          "newValue": "Prochaine facture énergie"
+        },
+        {
+          "key": "lofts.phoneNumber",
+          "oldValue": "",
+          "newValue": "Numéro de téléphone"
+        },
+        {
+          "key": "lofts.phoneBillFrequency",
+          "oldValue": "",
+          "newValue": "Fréquence facture téléphone"
+        },
+        {
+          "key": "lofts.nextPhoneBill",
+          "oldValue": "",
+          "newValue": "Prochaine facture téléphone"
+        },
+        {
+          "key": "lofts.internetBillFrequency",
+          "oldValue": "",
+          "newValue": "Fréquence facture internet"
+        },
+        {
+          "key": "lofts.nextInternetBill",
+          "oldValue": "",
+          "newValue": "Prochaine facture internet"
+        },
+        {
+          "key": "lofts.tvBillFrequency",
+          "oldValue": "",
+          "newValue": "Fréquence facture TV"
+        },
+        {
+          "key": "lofts.nextTvBill",
+          "oldValue": "",
+          "newValue": "Prochaine facture TV"
+        },
+        {
+          "key": "lofts.deleteConfirmTitle",
+          "oldValue": "",
+          "newValue": "Confirmer la suppression"
+        },
+        {
+          "key": "lofts.deleteConfirmMessage",
+          "oldValue": "",
+          "newValue": "Êtes-vous sûr de vouloir supprimer ce loft ?"
+        },
+        {
+          "key": "lofts.deleteConfirmPrompt",
+          "oldValue": "",
+          "newValue": "Tapez le nom du loft pour confirmer"
+        },
+        {
+          "key": "lofts.deleteInProgress",
+          "oldValue": "",
+          "newValue": "Suppression en cours"
+        },
+        {
+          "key": "lofts.deletingLoftData",
+          "oldValue": "",
+          "newValue": "Suppression des données du loft"
+        },
+        {
+          "key": "lofts.loftDeletedSuccess",
+          "oldValue": "",
+          "newValue": "Loft supprimé avec succès"
+        },
+        {
+          "key": "lofts.loftDataDeleted",
+          "oldValue": "",
+          "newValue": "Données du loft supprimées"
+        },
+        {
+          "key": "lofts.deleteError",
+          "oldValue": "",
+          "newValue": "Erreur de suppression"
+        },
+        {
+          "key": "lofts.deleteErrorMessage",
+          "oldValue": "",
+          "newValue": "Impossible de supprimer le loft"
+        },
+        {
+          "key": "lofts.deleteCancelled",
+          "oldValue": "",
+          "newValue": "Suppression annulée"
+        },
+        {
+          "key": "lofts.deleteConfirmationIncorrect",
+          "oldValue": "",
+          "newValue": "Confirmation incorrecte"
+        },
+        {
+          "key": "lofts.updating",
+          "oldValue": "",
+          "newValue": "Mise à jour en cours"
+        },
+        {
+          "key": "lofts.creating",
+          "oldValue": "",
+          "newValue": "Création en cours"
+        },
+        {
+          "key": "lofts.updateLoft",
+          "oldValue": "",
+          "newValue": "Mettre à jour le loft"
+        },
+        {
+          "key": "common.error",
+          "oldValue": "",
+          "newValue": "Erreur"
+        },
+        {
+          "key": "common.view",
+          "oldValue": "",
+          "newValue": "Voir"
+        },
+        {
+          "key": "common.actions",
+          "oldValue": "",
+          "newValue": "Actions"
+        },
+        {
+          "key": "common.success",
+          "oldValue": "",
+          "newValue": "Succès"
+        },
+        {
+          "key": "common.back",
+          "oldValue": "",
+          "newValue": "Retour"
+        },
+        {
+          "key": "common.saving",
+          "oldValue": "",
+          "newValue": "Enregistrement en cours"
+        },
+        {
+          "key": "common.code",
+          "oldValue": "",
+          "newValue": "Code"
+        },
+        {
+          "key": "common.symbol",
+          "oldValue": "",
+          "newValue": "Symbole"
+        },
+        {
+          "key": "common.ratio",
+          "oldValue": "",
+          "newValue": "Ratio"
+        },
+        {
+          "key": "common.yes",
+          "oldValue": "",
+          "newValue": "Oui"
+        },
+        {
+          "key": "common.no",
+          "oldValue": "",
+          "newValue": "Non"
+        },
+        {
+          "key": "common.copyId",
+          "oldValue": "",
+          "newValue": "Copier l'ID"
+        },
+        {
+          "key": "common.confirmDelete",
+          "oldValue": "",
+          "newValue": "Confirmer la suppression"
+        },
+        {
+          "key": "common.refresh",
+          "oldValue": "",
+          "newValue": "Actualiser"
+        },
+        {
+          "key": "common.selectOption",
+          "oldValue": "",
+          "newValue": "Sélectionner une option"
+        },
+        {
+          "key": "common.none",
+          "oldValue": "",
+          "newValue": "Aucun"
+        },
+        {
+          "key": "common.next",
+          "oldValue": "",
+          "newValue": "Suivant"
+        },
+        {
+          "key": "common.previous",
+          "oldValue": "",
+          "newValue": "Précédent"
+        },
+        {
+          "key": "common.today",
+          "oldValue": "",
+          "newValue": "Aujourd'hui"
+        },
+        {
+          "key": "common.date",
+          "oldValue": "",
+          "newValue": "Date"
+        },
+        {
+          "key": "common.time",
+          "oldValue": "",
+          "newValue": "Heure"
+        },
+        {
+          "key": "common.add",
+          "oldValue": "",
+          "newValue": "Ajouter"
+        },
+        {
+          "key": "common.pickDate",
+          "oldValue": "",
+          "newValue": "Choisir une date"
+        },
+        {
+          "key": "common.pickDateRange",
+          "oldValue": "",
+          "newValue": "Choisir une plage de dates"
+        },
+        {
+          "key": "owners.saving",
+          "oldValue": "",
+          "newValue": "Enregistrement en cours"
+        },
+        {
+          "key": "reservations.form.total",
+          "oldValue": "",
+          "newValue": "Total"
+        },
+        {
+          "key": "reservations.form.creating",
+          "oldValue": "",
+          "newValue": "Création en cours"
+        },
+        {
+          "key": "reservations.details.total",
+          "oldValue": "",
+          "newValue": "Total"
+        },
+        {
+          "key": "transactions.ratio",
+          "oldValue": "",
+          "newValue": "Ratio"
+        },
+        {
+          "key": "transactions.deleteConfirmTitle",
+          "oldValue": "",
+          "newValue": "Confirmer la suppression"
+        },
+        {
+          "key": "transactions.date",
+          "oldValue": "",
+          "newValue": "Date"
+        },
+        {
+          "key": "transactions.updateSuccess",
+          "oldValue": "",
+          "newValue": "Mise à jour réussie"
+        },
+        {
+          "key": "transactions.updateError",
+          "oldValue": "",
+          "newValue": "Erreur de mise à jour"
+        },
+        {
+          "key": "zoneAreas.updateSuccess",
+          "oldValue": "",
+          "newValue": "Mise à jour réussie"
+        },
+        {
+          "key": "zoneAreas.createSuccess",
+          "oldValue": "",
+          "newValue": "Création réussie"
+        },
+        {
+          "key": "zoneAreas.deleteError",
+          "oldValue": "",
+          "newValue": "Erreur de suppression"
+        },
+        {
+          "key": "zoneAreas.actions",
+          "oldValue": "",
+          "newValue": "Actions"
+        },
+        {
+          "key": "tasks.updateSuccess",
+          "oldValue": "",
+          "newValue": "Mise à jour réussie"
+        },
+        {
+          "key": "tasks.updateError",
+          "oldValue": "",
+          "newValue": "Erreur de mise à jour"
+        },
+        {
+          "key": "tasks.dueDateFormat",
+          "oldValue": "",
+          "newValue": "Format de date d'échéance"
+        },
+        {
+          "key": "tasks.noDueDate",
+          "oldValue": "",
+          "newValue": "Aucune date d'échéance"
+        },
+        {
+          "key": "tasks.updateStatus",
+          "oldValue": "",
+          "newValue": "Mettre à jour le statut"
+        },
+        {
+          "key": "tasks.createSuccess",
+          "oldValue": "",
+          "newValue": "Création réussie"
+        },
+        {
+          "key": "tasks.createError",
+          "oldValue": "",
+          "newValue": "Erreur de création"
+        },
+        {
+          "key": "tasks.filters.allStatuses",
+          "oldValue": "",
+          "newValue": "Tous les statuts"
+        },
+        {
+          "key": "tasks.assignedTo",
+          "oldValue": "",
+          "newValue": "Assigné à"
+        },
+        {
+          "key": "tasks.viewTask",
+          "oldValue": "",
+          "newValue": "Voir la tâche"
+        },
+        {
+          "key": "tasks.yourTasks",
+          "oldValue": "",
+          "newValue": "Vos tâches"
+        },
+        {
+          "key": "tasks.memberCanOnlyUpdateStatus",
+          "oldValue": "",
+          "newValue": "Les membres ne peuvent que mettre à jour le statut"
+        },
+        {
+          "key": "tasks.fillTaskInformation",
+          "oldValue": "",
+          "newValue": "Remplir les informations de la tâche"
+        },
+        {
+          "key": "tasks.taskTitle",
+          "oldValue": "",
+          "newValue": "Titre de la tâche"
+        },
+        {
+          "key": "tasks.taskDescription",
+          "oldValue": "",
+          "newValue": "Description de la tâche"
+        },
+        {
+          "key": "tasks.taskStatus",
+          "oldValue": "",
+          "newValue": "Statut de la tâche"
+        },
+        {
+          "key": "tasks.taskDueDate",
+          "oldValue": "",
+          "newValue": "Date d'échéance"
+        },
+        {
+          "key": "tasks.assignTo",
+          "oldValue": "",
+          "newValue": "Assigner à"
+        },
+        {
+          "key": "tasks.saving",
+          "oldValue": "",
+          "newValue": "Enregistrement en cours"
+        },
+        {
+          "key": "tasks.updateTask",
+          "oldValue": "",
+          "newValue": "Mettre à jour la tâche"
+        },
+        {
+          "key": "teams.saving",
+          "oldValue": "",
+          "newValue": "Enregistrement en cours"
+        },
+        {
+          "key": "notifications.view",
+          "oldValue": "",
+          "newValue": "Voir"
+        },
+        {
+          "key": "paymentMethods.saving",
+          "oldValue": "",
+          "newValue": "Enregistrement en cours"
+        }
+      ]
+    },
+    "en": {
+      "cleanedCount": 115,
+      "cleanedKeys": [
+        {
+          "key": "lofts.loftUpdated",
+          "oldValue": "",
+          "newValue": "Loft updated"
+        },
+        {
+          "key": "lofts.updatePropertyDetails",
+          "oldValue": "",
+          "newValue": "Update property details"
+        },
+        {
+          "key": "lofts.allStatuses",
+          "oldValue": "",
+          "newValue": "All statuses"
+        },
+        {
+          "key": "lofts.allOwners",
+          "oldValue": "",
+          "newValue": "All owners"
+        },
+        {
+          "key": "lofts.allZoneAreas",
+          "oldValue": "",
+          "newValue": "All zones"
+        },
+        {
+          "key": "lofts.couldNotLoadData",
+          "oldValue": "",
+          "newValue": "Could not load data"
+        },
+        {
+          "key": "lofts.loftInfoTitle",
+          "oldValue": "",
+          "newValue": "Loft information"
+        },
+        {
+          "key": "lofts.loftInfoDescription",
+          "oldValue": "",
+          "newValue": "Loft details and characteristics"
+        },
+        {
+          "key": "lofts.loftName",
+          "oldValue": "",
+          "newValue": "Loft name"
+        },
+        {
+          "key": "lofts.loftAddress",
+          "oldValue": "",
+          "newValue": "Loft address"
+        },
+        {
+          "key": "lofts.pricePerDay",
+          "oldValue": "",
+          "newValue": "Price per day"
+        },
+        {
+          "key": "lofts.internetConnection",
+          "oldValue": "",
+          "newValue": "Internet connection"
+        },
+        {
+          "key": "lofts.companyPercentage",
+          "oldValue": "",
+          "newValue": "Company percentage"
+        },
+        {
+          "key": "lofts.ownerPercentage",
+          "oldValue": "",
+          "newValue": "Owner percentage"
+        },
+        {
+          "key": "lofts.total",
+          "oldValue": "",
+          "newValue": "Total"
+        },
+        {
+          "key": "lofts.shouldEqual100",
+          "oldValue": "",
+          "newValue": "Should equal 100%"
+        },
+        {
+          "key": "lofts.loftDescription",
+          "oldValue": "",
+          "newValue": "Loft description"
+        },
+        {
+          "key": "lofts.utilityInformation",
+          "oldValue": "",
+          "newValue": "Utility information"
+        },
+        {
+          "key": "lofts.waterCustomerCode",
+          "oldValue": "",
+          "newValue": "Water customer code"
+        },
+        {
+          "key": "lofts.waterContractCode",
+          "oldValue": "",
+          "newValue": "Water contract code"
+        },
+        {
+          "key": "lofts.waterMeterNumber",
+          "oldValue": "",
+          "newValue": "Water meter number"
+        },
+        {
+          "key": "lofts.electricityPdlRef",
+          "oldValue": "",
+          "newValue": "Electricity PDL reference"
+        },
+        {
+          "key": "lofts.electricityCustomerNumber",
+          "oldValue": "",
+          "newValue": "Electricity customer number"
+        },
+        {
+          "key": "lofts.electricityMeterNumber",
+          "oldValue": "",
+          "newValue": "Electricity meter number"
+        },
+        {
+          "key": "lofts.gasPdlRef",
+          "oldValue": "",
+          "newValue": "Gas PDL reference"
+        },
+        {
+          "key": "lofts.gasCustomerNumber",
+          "oldValue": "",
+          "newValue": "Gas customer number"
+        },
+        {
+          "key": "lofts.gasMeterNumber",
+          "oldValue": "",
+          "newValue": "Gas meter number"
+        },
+        {
+          "key": "lofts.billingAlerts",
+          "oldValue": "",
+          "newValue": "Billing alerts"
+        },
+        {
+          "key": "lofts.billingAlertsDescription",
+          "oldValue": "",
+          "newValue": "Billing alerts configuration"
+        },
+        {
+          "key": "lofts.waterBillFrequency",
+          "oldValue": "",
+          "newValue": "Water bill frequency"
+        },
+        {
+          "key": "lofts.selectFrequency",
+          "oldValue": "",
+          "newValue": "Select frequency"
+        },
+        {
+          "key": "lofts.nextWaterBill",
+          "oldValue": "",
+          "newValue": "Next water bill"
+        },
+        {
+          "key": "lofts.energyBillFrequency",
+          "oldValue": "",
+          "newValue": "Energy bill frequency"
+        },
+        {
+          "key": "lofts.nextEnergyBill",
+          "oldValue": "",
+          "newValue": "Next energy bill"
+        },
+        {
+          "key": "lofts.phoneNumber",
+          "oldValue": "",
+          "newValue": "Phone number"
+        },
+        {
+          "key": "lofts.phoneBillFrequency",
+          "oldValue": "",
+          "newValue": "Phone bill frequency"
+        },
+        {
+          "key": "lofts.nextPhoneBill",
+          "oldValue": "",
+          "newValue": "Next phone bill"
+        },
+        {
+          "key": "lofts.internetBillFrequency",
+          "oldValue": "",
+          "newValue": "Internet bill frequency"
+        },
+        {
+          "key": "lofts.nextInternetBill",
+          "oldValue": "",
+          "newValue": "Next internet bill"
+        },
+        {
+          "key": "lofts.tvBillFrequency",
+          "oldValue": "",
+          "newValue": "TV bill frequency"
+        },
+        {
+          "key": "lofts.nextTvBill",
+          "oldValue": "",
+          "newValue": "Next TV bill"
+        },
+        {
+          "key": "lofts.deleteConfirmTitle",
+          "oldValue": "",
+          "newValue": "Confirm deletion"
+        },
+        {
+          "key": "lofts.deleteConfirmMessage",
+          "oldValue": "",
+          "newValue": "Are you sure you want to delete this loft?"
+        },
+        {
+          "key": "lofts.deleteConfirmPrompt",
+          "oldValue": "",
+          "newValue": "Type the loft name to confirm"
+        },
+        {
+          "key": "lofts.deleteInProgress",
+          "oldValue": "",
+          "newValue": "Deletion in progress"
+        },
+        {
+          "key": "lofts.deletingLoftData",
+          "oldValue": "",
+          "newValue": "Deleting loft data"
+        },
+        {
+          "key": "lofts.loftDeletedSuccess",
+          "oldValue": "",
+          "newValue": "Loft deleted successfully"
+        },
+        {
+          "key": "lofts.loftDataDeleted",
+          "oldValue": "",
+          "newValue": "Loft data deleted"
+        },
+        {
+          "key": "lofts.deleteError",
+          "oldValue": "",
+          "newValue": "Deletion error"
+        },
+        {
+          "key": "lofts.deleteErrorMessage",
+          "oldValue": "",
+          "newValue": "Unable to delete loft"
+        },
+        {
+          "key": "lofts.deleteCancelled",
+          "oldValue": "",
+          "newValue": "Deletion cancelled"
+        },
+        {
+          "key": "lofts.deleteConfirmationIncorrect",
+          "oldValue": "",
+          "newValue": "Incorrect confirmation"
+        },
+        {
+          "key": "lofts.updating",
+          "oldValue": "",
+          "newValue": "Updating"
+        },
+        {
+          "key": "lofts.creating",
+          "oldValue": "",
+          "newValue": "Creating"
+        },
+        {
+          "key": "lofts.updateLoft",
+          "oldValue": "",
+          "newValue": "Update loft"
+        },
+        {
+          "key": "common.error",
+          "oldValue": "",
+          "newValue": "Error"
+        },
+        {
+          "key": "common.view",
+          "oldValue": "",
+          "newValue": "View"
+        },
+        {
+          "key": "common.actions",
+          "oldValue": "",
+          "newValue": "Actions"
+        },
+        {
+          "key": "common.success",
+          "oldValue": "",
+          "newValue": "Success"
+        },
+        {
+          "key": "common.back",
+          "oldValue": "",
+          "newValue": "Back"
+        },
+        {
+          "key": "common.saving",
+          "oldValue": "",
+          "newValue": "Saving"
+        },
+        {
+          "key": "common.code",
+          "oldValue": "",
+          "newValue": "Code"
+        },
+        {
+          "key": "common.symbol",
+          "oldValue": "",
+          "newValue": "Symbol"
+        },
+        {
+          "key": "common.ratio",
+          "oldValue": "",
+          "newValue": "Ratio"
+        },
+        {
+          "key": "common.yes",
+          "oldValue": "",
+          "newValue": "Yes"
+        },
+        {
+          "key": "common.no",
+          "oldValue": "",
+          "newValue": "No"
+        },
+        {
+          "key": "common.copyId",
+          "oldValue": "",
+          "newValue": "Copy ID"
+        },
+        {
+          "key": "common.confirmDelete",
+          "oldValue": "",
+          "newValue": "Confirm delete"
+        },
+        {
+          "key": "common.refresh",
+          "oldValue": "",
+          "newValue": "Refresh"
+        },
+        {
+          "key": "common.selectOption",
+          "oldValue": "",
+          "newValue": "Select option"
+        },
+        {
+          "key": "common.none",
+          "oldValue": "",
+          "newValue": "None"
+        },
+        {
+          "key": "common.next",
+          "oldValue": "",
+          "newValue": "Next"
+        },
+        {
+          "key": "common.previous",
+          "oldValue": "",
+          "newValue": "Previous"
+        },
+        {
+          "key": "common.today",
+          "oldValue": "",
+          "newValue": "Today"
+        },
+        {
+          "key": "common.date",
+          "oldValue": "",
+          "newValue": "Date"
+        },
+        {
+          "key": "common.time",
+          "oldValue": "",
+          "newValue": "Time"
+        },
+        {
+          "key": "common.add",
+          "oldValue": "",
+          "newValue": "Add"
+        },
+        {
+          "key": "common.pickDate",
+          "oldValue": "",
+          "newValue": "Pick date"
+        },
+        {
+          "key": "common.pickDateRange",
+          "oldValue": "",
+          "newValue": "Pick date range"
+        },
+        {
+          "key": "owners.saving",
+          "oldValue": "",
+          "newValue": "Saving"
+        },
+        {
+          "key": "reservations.form.total",
+          "oldValue": "",
+          "newValue": "Total"
+        },
+        {
+          "key": "reservations.form.creating",
+          "oldValue": "",
+          "newValue": "Creating"
+        },
+        {
+          "key": "reservations.details.total",
+          "oldValue": "",
+          "newValue": "Total"
+        },
+        {
+          "key": "transactions.ratio",
+          "oldValue": "",
+          "newValue": "Ratio"
+        },
+        {
+          "key": "transactions.deleteConfirmTitle",
+          "oldValue": "",
+          "newValue": "Confirm deletion"
+        },
+        {
+          "key": "transactions.date",
+          "oldValue": "",
+          "newValue": "Date"
+        },
+        {
+          "key": "transactions.updateSuccess",
+          "oldValue": "",
+          "newValue": "Update successful"
+        },
+        {
+          "key": "transactions.updateError",
+          "oldValue": "",
+          "newValue": "Update error"
+        },
+        {
+          "key": "zoneAreas.updateSuccess",
+          "oldValue": "",
+          "newValue": "Update successful"
+        },
+        {
+          "key": "zoneAreas.createSuccess",
+          "oldValue": "",
+          "newValue": "Creation successful"
+        },
+        {
+          "key": "zoneAreas.deleteError",
+          "oldValue": "",
+          "newValue": "Deletion error"
+        },
+        {
+          "key": "zoneAreas.actions",
+          "oldValue": "",
+          "newValue": "Actions"
+        },
+        {
+          "key": "tasks.updateSuccess",
+          "oldValue": "",
+          "newValue": "Update successful"
+        },
+        {
+          "key": "tasks.updateError",
+          "oldValue": "",
+          "newValue": "Update error"
+        },
+        {
+          "key": "tasks.dueDateFormat",
+          "oldValue": "",
+          "newValue": "Due date format"
+        },
+        {
+          "key": "tasks.noDueDate",
+          "oldValue": "",
+          "newValue": "No due date"
+        },
+        {
+          "key": "tasks.updateStatus",
+          "oldValue": "",
+          "newValue": "Update status"
+        },
+        {
+          "key": "tasks.createSuccess",
+          "oldValue": "",
+          "newValue": "Creation successful"
+        },
+        {
+          "key": "tasks.createError",
+          "oldValue": "",
+          "newValue": "Creation error"
+        },
+        {
+          "key": "tasks.filters.allStatuses",
+          "oldValue": "",
+          "newValue": "All statuses"
+        },
+        {
+          "key": "tasks.assignedTo",
+          "oldValue": "",
+          "newValue": "Assigned to"
+        },
+        {
+          "key": "tasks.viewTask",
+          "oldValue": "",
+          "newValue": "View task"
+        },
+        {
+          "key": "tasks.yourTasks",
+          "oldValue": "",
+          "newValue": "Your tasks"
+        },
+        {
+          "key": "tasks.memberCanOnlyUpdateStatus",
+          "oldValue": "",
+          "newValue": "Members can only update status"
+        },
+        {
+          "key": "tasks.fillTaskInformation",
+          "oldValue": "",
+          "newValue": "Fill task information"
+        },
+        {
+          "key": "tasks.taskTitle",
+          "oldValue": "",
+          "newValue": "Task title"
+        },
+        {
+          "key": "tasks.taskDescription",
+          "oldValue": "",
+          "newValue": "Task description"
+        },
+        {
+          "key": "tasks.taskStatus",
+          "oldValue": "",
+          "newValue": "Task status"
+        },
+        {
+          "key": "tasks.taskDueDate",
+          "oldValue": "",
+          "newValue": "Due date"
+        },
+        {
+          "key": "tasks.assignTo",
+          "oldValue": "",
+          "newValue": "Assign to"
+        },
+        {
+          "key": "tasks.saving",
+          "oldValue": "",
+          "newValue": "Saving"
+        },
+        {
+          "key": "tasks.updateTask",
+          "oldValue": "",
+          "newValue": "Update task"
+        },
+        {
+          "key": "teams.saving",
+          "oldValue": "",
+          "newValue": "Saving"
+        },
+        {
+          "key": "notifications.view",
+          "oldValue": "",
+          "newValue": "View"
+        },
+        {
+          "key": "paymentMethods.saving",
+          "oldValue": "",
+          "newValue": "Saving"
+        }
+      ]
+    },
+    "ar": {
+      "cleanedCount": 52,
+      "cleanedKeys": [
+        {
+          "key": "lofts.couldNotLoadData",
+          "oldValue": "[AR] lofts.couldNotLoadData",
+          "newValue": "لا يمكن تحميل البيانات"
+        },
+        {
+          "key": "lofts.loftInfoTitle",
+          "oldValue": "[AR] lofts.loftInfoTitle",
+          "newValue": "معلومات اللوفت"
+        },
+        {
+          "key": "lofts.loftInfoDescription",
+          "oldValue": "[AR] lofts.loftInfoDescription",
+          "newValue": "تفاصيل وخصائص اللوفت"
+        },
+        {
+          "key": "lofts.loftName",
+          "oldValue": "[AR] lofts.loftName",
+          "newValue": "اسم اللوفت"
+        },
+        {
+          "key": "lofts.loftAddress",
+          "oldValue": "[AR] lofts.loftAddress",
+          "newValue": "عنوان اللوفت"
+        },
+        {
+          "key": "lofts.pricePerDay",
+          "oldValue": "[AR] lofts.pricePerDay",
+          "newValue": "السعر لليوم"
+        },
+        {
+          "key": "lofts.internetConnection",
+          "oldValue": "[AR] lofts.internetConnection",
+          "newValue": "اتصال الإنترنت"
+        },
+        {
+          "key": "lofts.companyPercentage",
+          "oldValue": "[AR] lofts.companyPercentage",
+          "newValue": "نسبة الشركة"
+        },
+        {
+          "key": "lofts.ownerPercentage",
+          "oldValue": "[AR] lofts.ownerPercentage",
+          "newValue": "نسبة المالك"
+        },
+        {
+          "key": "lofts.shouldEqual100",
+          "oldValue": "[AR] lofts.shouldEqual100",
+          "newValue": "يجب أن يساوي 100%"
+        },
+        {
+          "key": "lofts.loftDescription",
+          "oldValue": "[AR] lofts.loftDescription",
+          "newValue": "وصف اللوفت"
+        },
+        {
+          "key": "lofts.utilityInformation",
+          "oldValue": "[AR] lofts.utilityInformation",
+          "newValue": "معلومات المرافق"
+        },
+        {
+          "key": "lofts.waterCustomerCode",
+          "oldValue": "[AR] lofts.waterCustomerCode",
+          "newValue": "رمز عميل المياه"
+        },
+        {
+          "key": "lofts.waterContractCode",
+          "oldValue": "[AR] lofts.waterContractCode",
+          "newValue": "رمز عقد المياه"
+        },
+        {
+          "key": "lofts.waterMeterNumber",
+          "oldValue": "[AR] lofts.waterMeterNumber",
+          "newValue": "رقم عداد المياه"
+        },
+        {
+          "key": "lofts.electricityPdlRef",
+          "oldValue": "[AR] lofts.electricityPdlRef",
+          "newValue": "مرجع PDL الكهرباء"
+        },
+        {
+          "key": "lofts.electricityCustomerNumber",
+          "oldValue": "[AR] lofts.electricityCustomerNumber",
+          "newValue": "رقم عميل الكهرباء"
+        },
+        {
+          "key": "lofts.electricityMeterNumber",
+          "oldValue": "[AR] lofts.electricityMeterNumber",
+          "newValue": "رقم عداد الكهرباء"
+        },
+        {
+          "key": "lofts.gasPdlRef",
+          "oldValue": "[AR] lofts.gasPdlRef",
+          "newValue": "مرجع PDL الغاز"
+        },
+        {
+          "key": "lofts.gasCustomerNumber",
+          "oldValue": "[AR] lofts.gasCustomerNumber",
+          "newValue": "رقم عميل الغاز"
+        },
+        {
+          "key": "lofts.gasMeterNumber",
+          "oldValue": "[AR] lofts.gasMeterNumber",
+          "newValue": "رقم عداد الغاز"
+        },
+        {
+          "key": "lofts.billingAlerts",
+          "oldValue": "[AR] lofts.billingAlerts",
+          "newValue": "تنبيهات الفواتير"
+        },
+        {
+          "key": "lofts.billingAlertsDescription",
+          "oldValue": "[AR] lofts.billingAlertsDescription",
+          "newValue": "إعداد تنبيهات الفواتير"
+        },
+        {
+          "key": "lofts.waterBillFrequency",
+          "oldValue": "[AR] lofts.waterBillFrequency",
+          "newValue": "تكرار فاتورة المياه"
+        },
+        {
+          "key": "lofts.selectFrequency",
+          "oldValue": "[AR] lofts.selectFrequency",
+          "newValue": "اختر التكرار"
+        },
+        {
+          "key": "lofts.nextWaterBill",
+          "oldValue": "[AR] lofts.nextWaterBill",
+          "newValue": "فاتورة المياه التالية"
+        },
+        {
+          "key": "lofts.energyBillFrequency",
+          "oldValue": "[AR] lofts.energyBillFrequency",
+          "newValue": "تكرار فاتورة الطاقة"
+        },
+        {
+          "key": "lofts.nextEnergyBill",
+          "oldValue": "[AR] lofts.nextEnergyBill",
+          "newValue": "فاتورة الطاقة التالية"
+        },
+        {
+          "key": "lofts.phoneNumber",
+          "oldValue": "[AR] lofts.phoneNumber",
+          "newValue": "رقم الهاتف"
+        },
+        {
+          "key": "lofts.phoneBillFrequency",
+          "oldValue": "[AR] lofts.phoneBillFrequency",
+          "newValue": "تكرار فاتورة الهاتف"
+        },
+        {
+          "key": "lofts.nextPhoneBill",
+          "oldValue": "[AR] lofts.nextPhoneBill",
+          "newValue": "فاتورة الهاتف التالية"
+        },
+        {
+          "key": "lofts.internetBillFrequency",
+          "oldValue": "[AR] lofts.internetBillFrequency",
+          "newValue": "تكرار فاتورة الإنترنت"
+        },
+        {
+          "key": "lofts.nextInternetBill",
+          "oldValue": "[AR] lofts.nextInternetBill",
+          "newValue": "فاتورة الإنترنت التالية"
+        },
+        {
+          "key": "lofts.tvBillFrequency",
+          "oldValue": "[AR] lofts.tvBillFrequency",
+          "newValue": "تكرار فاتورة التلفزيون"
+        },
+        {
+          "key": "lofts.nextTvBill",
+          "oldValue": "[AR] lofts.nextTvBill",
+          "newValue": "فاتورة التلفزيون التالية"
+        },
+        {
+          "key": "lofts.deleteConfirmTitle",
+          "oldValue": "[AR] lofts.deleteConfirmTitle",
+          "newValue": "تأكيد الحذف"
+        },
+        {
+          "key": "lofts.deleteConfirmMessage",
+          "oldValue": "[AR] lofts.deleteConfirmMessage",
+          "newValue": "هل أنت متأكد من حذف هذا اللوفت؟"
+        },
+        {
+          "key": "lofts.deleteConfirmPrompt",
+          "oldValue": "[AR] lofts.deleteConfirmPrompt",
+          "newValue": "اكتب اسم اللوفت للتأكيد"
+        },
+        {
+          "key": "lofts.deleteInProgress",
+          "oldValue": "[AR] lofts.deleteInProgress",
+          "newValue": "الحذف قيد التنفيذ"
+        },
+        {
+          "key": "lofts.deletingLoftData",
+          "oldValue": "[AR] lofts.deletingLoftData",
+          "newValue": "حذف بيانات اللوفت"
+        },
+        {
+          "key": "lofts.loftDeletedSuccess",
+          "oldValue": "[AR] lofts.loftDeletedSuccess",
+          "newValue": "تم حذف اللوفت بنجاح"
+        },
+        {
+          "key": "lofts.loftDataDeleted",
+          "oldValue": "[AR] lofts.loftDataDeleted",
+          "newValue": "تم حذف بيانات اللوفت"
+        },
+        {
+          "key": "lofts.deleteError",
+          "oldValue": "[AR] lofts.deleteError",
+          "newValue": "خطأ في الحذف"
+        },
+        {
+          "key": "lofts.deleteErrorMessage",
+          "oldValue": "[AR] lofts.deleteErrorMessage",
+          "newValue": "لا يمكن حذف اللوفت"
+        },
+        {
+          "key": "lofts.deleteCancelled",
+          "oldValue": "[AR] lofts.deleteCancelled",
+          "newValue": "تم إلغاء الحذف"
+        },
+        {
+          "key": "lofts.deleteConfirmationIncorrect",
+          "oldValue": "[AR] lofts.deleteConfirmationIncorrect",
+          "newValue": "التأكيد غير صحيح"
+        },
+        {
+          "key": "lofts.updating",
+          "oldValue": "[AR] lofts.updating",
+          "newValue": "جاري التحديث"
+        },
+        {
+          "key": "lofts.creating",
+          "oldValue": "[AR] lofts.creating",
+          "newValue": "جاري الإنشاء"
+        },
+        {
+          "key": "lofts.updateLoft",
+          "oldValue": "[AR] lofts.updateLoft",
+          "newValue": "تحديث اللوفت"
+        },
+        {
+          "key": "reservations.form.creating",
+          "oldValue": "[AR] reservations.form.creating",
+          "newValue": "جاري الإنشاء"
+        },
+        {
+          "key": "transactions.deleteConfirmTitle",
+          "oldValue": "[AR] transactions.deleteConfirmTitle",
+          "newValue": "تأكيد الحذف"
+        },
+        {
+          "key": "zoneAreas.deleteError",
+          "oldValue": "[AR] zoneAreas.deleteError",
+          "newValue": "خطأ في الحذف"
+        }
+      ]
+    }
+  },
+  "totalCleaned": 282,
+  "dictionarySize": {
+    "fr": 97,
+    "en": 97,
+    "ar": 55
+  }
+}

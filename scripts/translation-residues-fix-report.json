@@ -1,0 +1,150 @@
+{
+  "timestamp": "2025-08-08T15:02:22.057Z",
+  "backupTimestamp": 1754665342048,
+  "identifiedResidues": [
+    "lofts.filterByStatus",
+    "lofts.filterByOwner",
+    "lofts.filterByZoneArea",
+    "lofts.status.available",
+    "lofts.status.occupied",
+    "lofts.status.maintenance",
+    "lofts.dailyRent",
+    "lofts.owner",
+    "lofts.zoneArea",
+    "lofts.companyShare"
+  ],
+  "fixedCount": {
+    "fr": 10,
+    "en": 10,
+    "ar": 3
+  },
+  "fixes": {
+    "fr": [
+      {
+        "key": "lofts.filterByStatus",
+        "oldValue": "MANQUANT",
+        "newValue": "Filtrer par statut"
+      },
+      {
+        "key": "lofts.filterByOwner",
+        "oldValue": "MANQUANT",
+        "newValue": "Filtrer par propriétaire"
+      },
+      {
+        "key": "lofts.filterByZoneArea",
+        "oldValue": "MANQUANT",
+        "newValue": "Filtrer par zone"
+      },
+      {
+        "key": "lofts.status.available",
+        "oldValue": "MANQUANT",
+        "newValue": "Disponible"
+      },
+      {
+        "key": "lofts.status.occupied",
+        "oldValue": "MANQUANT",
+        "newValue": "Occupé"
+      },
+      {
+        "key": "lofts.status.maintenance",
+        "oldValue": "MANQUANT",
+        "newValue": "Maintenance"
+      },
+      {
+        "key": "lofts.dailyRent",
+        "oldValue": "MANQUANT",
+        "newValue": "Loyer journalier"
+      },
+      {
+        "key": "lofts.owner",
+        "oldValue": "MANQUANT",
+        "newValue": "Propriétaire"
+      },
+      {
+        "key": "lofts.zoneArea",
+        "oldValue": "MANQUANT",
+        "newValue": "Zone"
+      },
+      {
+        "key": "lofts.companyShare",
+        "oldValue": "MANQUANT",
+        "newValue": "Part de la société"
+      }
+    ],
+    "en": [
+      {
+        "key": "lofts.filterByStatus",
+        "oldValue": "MANQUANT",
+        "newValue": "Filter by status"
+      },
+      {
+        "key": "lofts.filterByOwner",
+        "oldValue": "MANQUANT",
+        "newValue": "Filter by owner"
+      },
+      {
+        "key": "lofts.filterByZoneArea",
+        "oldValue": "MANQUANT",
+        "newValue": "Filter by zone"
+      },
+      {
+        "key": "lofts.status.available",
+        "oldValue": "MANQUANT",
+        "newValue": "Available"
+      },
+      {
+        "key": "lofts.status.occupied",
+        "oldValue": "MANQUANT",
+        "newValue": "Occupied"
+      },
+      {
+        "key": "lofts.status.maintenance",
+        "oldValue": "MANQUANT",
+        "newValue": "Maintenance"
+      },
+      {
+        "key": "lofts.dailyRent",
+        "oldValue": "MANQUANT",
+        "newValue": "Daily rent"
+      },
+      {
+        "key": "lofts.owner",
+        "oldValue": "MANQUANT",
+        "newValue": "Owner"
+      },
+      {
+        "key": "lofts.zoneArea",
+        "oldValue": "MANQUANT",
+        "newValue": "Zone"
+      },
+      {
+        "key": "lofts.companyShare",
+        "oldValue": "MANQUANT",
+        "newValue": "Company share"
+      }
+    ],
+    "ar": [
+      {
+        "key": "lofts.status.available",
+        "oldValue": "MANQUANT",
+        "newValue": "متاح"
+      },
+      {
+        "key": "lofts.status.occupied",
+        "oldValue": "MANQUANT",
+        "newValue": "مشغول"
+      },
+      {
+        "key": "lofts.status.maintenance",
+        "oldValue": "MANQUANT",
+        "newValue": "صيانة"
+      }
+    ]
+  },
+  "potentialResidues": {
+    "fr": 558,
+    "en": 551,
+    "ar": 473
+  },
+  "totalFixed": 23
+}
