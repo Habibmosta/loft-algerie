@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-08T14:34:18.458Z",
+  "backupTimestamp": 1754663658414,
+  "sectionsRestored": [
+    "auth",
+    "landing",
+    "nav",
+    "theme"
+  ],
+  "statistics": {
+    "fr": {
+      "keysRestored": 0,
+      "backupFile": "../locales/fr/translation.backup.1754663658414.json"
+    },
+    "en": {
+      "keysRestored": 0,
+      "backupFile": "../locales/en/translation.backup.1754663658414.json"
+    }
+  },
+  "totalKeysRestored": 0
+}

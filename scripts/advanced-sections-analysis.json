@@ -1,0 +1,3549 @@
+{
+  "timestamp": "2025-08-08T14:27:43.692Z",
+  "targetSections": [
+    "conversations",
+    "notifications",
+    "reports"
+  ],
+  "analysisResults": {
+    "conversations": {
+      "maxKeys": 42,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "conversations.unknownUser",
+              "value": "",
+              "subsection": "root",
+              "property": "unknownUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.group",
+              "value": "",
+              "subsection": "root",
+              "property": "group",
+              "type": "text"
+            },
+            {
+              "key": "conversations.members",
+              "value": "",
+              "subsection": "root",
+              "property": "members",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noMessagesYet",
+              "value": "",
+              "subsection": "root",
+              "property": "noMessagesYet",
+              "type": "text"
+            },
+            {
+              "key": "conversations.you",
+              "value": "",
+              "subsection": "root",
+              "property": "you",
+              "type": "text"
+            },
+            {
+              "key": "conversations.someone",
+              "value": "",
+              "subsection": "root",
+              "property": "someone",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversationsYet",
+              "value": "",
+              "subsection": "root",
+              "property": "noConversationsYet",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startNewConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "startNewConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchConversations",
+              "value": "",
+              "subsection": "root",
+              "property": "searchConversations",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversationsMatch",
+              "value": "",
+              "subsection": "root",
+              "property": "noConversationsMatch",
+              "type": "text"
+            },
+            {
+              "key": "conversations.messages",
+              "value": "",
+              "subsection": "root",
+              "property": "messages",
+              "type": "text"
+            },
+            {
+              "key": "conversations.new",
+              "value": "",
+              "subsection": "root",
+              "property": "new",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversations",
+              "value": "",
+              "subsection": "root",
+              "property": "noConversations",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "startConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.direct",
+              "value": "",
+              "subsection": "root",
+              "property": "direct",
+              "type": "text"
+            },
+            {
+              "key": "conversations.participants",
+              "value": "",
+              "subsection": "root",
+              "property": "participants",
+              "type": "text"
+            },
+            {
+              "key": "conversations.participant",
+              "value": "",
+              "subsection": "root",
+              "property": "participant",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "selectConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectConversationDesc",
+              "value": "",
+              "subsection": "root",
+              "property": "selectConversationDesc",
+              "type": "description"
+            },
+            {
+              "key": "conversations.newConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "newConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.failedToSearchUsers",
+              "value": "",
+              "subsection": "root",
+              "property": "failedToSearchUsers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectAtLeastOneUser",
+              "value": "",
+              "subsection": "root",
+              "property": "selectAtLeastOneUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.enterGroupName",
+              "value": "",
+              "subsection": "root",
+              "property": "enterGroupName",
+              "type": "text"
+            },
+            {
+              "key": "conversations.conversation",
+              "value": "",
+              "subsection": "root",
+              "property": "conversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.createdSuccessfully",
+              "value": "",
+              "subsection": "root",
+              "property": "createdSuccessfully",
+              "type": "message"
+            },
+            {
+              "key": "conversations.failedToCreateConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "failedToCreateConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.createDirectOrGroup",
+              "value": "",
+              "subsection": "root",
+              "property": "createDirectOrGroup",
+              "type": "text"
+            },
+            {
+              "key": "conversations.directMessage",
+              "value": "",
+              "subsection": "root",
+              "property": "directMessage",
+              "type": "text"
+            },
+            {
+              "key": "conversations.groupChat",
+              "value": "",
+              "subsection": "root",
+              "property": "groupChat",
+              "type": "text"
+            },
+            {
+              "key": "conversations.findUserToMessage",
+              "value": "",
+              "subsection": "root",
+              "property": "findUserToMessage",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchByNameOrEmail",
+              "value": "",
+              "subsection": "root",
+              "property": "searchByNameOrEmail",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectedUser",
+              "value": "",
+              "subsection": "root",
+              "property": "selectedUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.groupName",
+              "value": "",
+              "subsection": "root",
+              "property": "groupName",
+              "type": "text"
+            },
+            {
+              "key": "conversations.addMembers",
+              "value": "",
+              "subsection": "root",
+              "property": "addMembers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectedMembers",
+              "value": "",
+              "subsection": "root",
+              "property": "selectedMembers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchResults",
+              "value": "",
+              "subsection": "root",
+              "property": "searchResults",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searching",
+              "value": "",
+              "subsection": "root",
+              "property": "searching",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noUsersFound",
+              "value": "",
+              "subsection": "root",
+              "property": "noUsersFound",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noMessages",
+              "value": "",
+              "subsection": "root",
+              "property": "noMessages",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startConversationDesc",
+              "value": "",
+              "subsection": "root",
+              "property": "startConversationDesc",
+              "type": "description"
+            },
+            {
+              "key": "conversations.typeMessage",
+              "value": "",
+              "subsection": "root",
+              "property": "typeMessage",
+              "type": "category"
+            },
+            {
+              "key": "conversations.sendInstructions",
+              "value": "",
+              "subsection": "root",
+              "property": "sendInstructions",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "conversations.unknownUser",
+              "conversations.group",
+              "conversations.members",
+              "conversations.noMessagesYet",
+              "conversations.you",
+              "conversations.someone",
+              "conversations.noConversationsYet",
+              "conversations.startNewConversation",
+              "conversations.searchConversations",
+              "conversations.noConversationsMatch",
+              "conversations.messages",
+              "conversations.new",
+              "conversations.noConversations",
+              "conversations.startConversation",
+              "conversations.direct",
+              "conversations.participants",
+              "conversations.participant",
+              "conversations.selectConversation",
+              "conversations.selectConversationDesc",
+              "conversations.newConversation",
+              "conversations.failedToSearchUsers",
+              "conversations.selectAtLeastOneUser",
+              "conversations.enterGroupName",
+              "conversations.conversation",
+              "conversations.createdSuccessfully",
+              "conversations.failedToCreateConversation",
+              "conversations.createDirectOrGroup",
+              "conversations.directMessage",
+              "conversations.groupChat",
+              "conversations.findUserToMessage",
+              "conversations.searchByNameOrEmail",
+              "conversations.selectedUser",
+              "conversations.groupName",
+              "conversations.addMembers",
+              "conversations.selectedMembers",
+              "conversations.searchResults",
+              "conversations.searching",
+              "conversations.noUsersFound",
+              "conversations.noMessages",
+              "conversations.startConversationDesc",
+              "conversations.typeMessage",
+              "conversations.sendInstructions"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 38,
+              "examples": [
+                "conversations.unknownUser",
+                "conversations.group",
+                "conversations.members"
+              ],
+              "description": "Pattern de text répété 38 fois"
+            },
+            {
+              "type": "description_pattern",
+              "count": 2,
+              "examples": [
+                "conversations.selectConversationDesc",
+                "conversations.startConversationDesc"
+              ],
+              "description": "Pattern de description répété 2 fois"
+            }
+          ],
+          "totalKeys": 42
+        },
+        "en": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "conversations.unknownUser",
+              "value": "",
+              "subsection": "root",
+              "property": "unknownUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.group",
+              "value": "",
+              "subsection": "root",
+              "property": "group",
+              "type": "text"
+            },
+            {
+              "key": "conversations.members",
+              "value": "",
+              "subsection": "root",
+              "property": "members",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noMessagesYet",
+              "value": "",
+              "subsection": "root",
+              "property": "noMessagesYet",
+              "type": "text"
+            },
+            {
+              "key": "conversations.you",
+              "value": "",
+              "subsection": "root",
+              "property": "you",
+              "type": "text"
+            },
+            {
+              "key": "conversations.someone",
+              "value": "",
+              "subsection": "root",
+              "property": "someone",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversationsYet",
+              "value": "",
+              "subsection": "root",
+              "property": "noConversationsYet",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startNewConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "startNewConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchConversations",
+              "value": "",
+              "subsection": "root",
+              "property": "searchConversations",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversationsMatch",
+              "value": "",
+              "subsection": "root",
+              "property": "noConversationsMatch",
+              "type": "text"
+            },
+            {
+              "key": "conversations.messages",
+              "value": "",
+              "subsection": "root",
+              "property": "messages",
+              "type": "text"
+            },
+            {
+              "key": "conversations.new",
+              "value": "",
+              "subsection": "root",
+              "property": "new",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversations",
+              "value": "",
+              "subsection": "root",
+              "property": "noConversations",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "startConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.direct",
+              "value": "",
+              "subsection": "root",
+              "property": "direct",
+              "type": "text"
+            },
+            {
+              "key": "conversations.participants",
+              "value": "",
+              "subsection": "root",
+              "property": "participants",
+              "type": "text"
+            },
+            {
+              "key": "conversations.participant",
+              "value": "",
+              "subsection": "root",
+              "property": "participant",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "selectConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectConversationDesc",
+              "value": "",
+              "subsection": "root",
+              "property": "selectConversationDesc",
+              "type": "description"
+            },
+            {
+              "key": "conversations.newConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "newConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.failedToSearchUsers",
+              "value": "",
+              "subsection": "root",
+              "property": "failedToSearchUsers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectAtLeastOneUser",
+              "value": "",
+              "subsection": "root",
+              "property": "selectAtLeastOneUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.enterGroupName",
+              "value": "",
+              "subsection": "root",
+              "property": "enterGroupName",
+              "type": "text"
+            },
+            {
+              "key": "conversations.conversation",
+              "value": "",
+              "subsection": "root",
+              "property": "conversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.createdSuccessfully",
+              "value": "",
+              "subsection": "root",
+              "property": "createdSuccessfully",
+              "type": "message"
+            },
+            {
+              "key": "conversations.failedToCreateConversation",
+              "value": "",
+              "subsection": "root",
+              "property": "failedToCreateConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.createDirectOrGroup",
+              "value": "",
+              "subsection": "root",
+              "property": "createDirectOrGroup",
+              "type": "text"
+            },
+            {
+              "key": "conversations.directMessage",
+              "value": "",
+              "subsection": "root",
+              "property": "directMessage",
+              "type": "text"
+            },
+            {
+              "key": "conversations.groupChat",
+              "value": "",
+              "subsection": "root",
+              "property": "groupChat",
+              "type": "text"
+            },
+            {
+              "key": "conversations.findUserToMessage",
+              "value": "",
+              "subsection": "root",
+              "property": "findUserToMessage",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchByNameOrEmail",
+              "value": "",
+              "subsection": "root",
+              "property": "searchByNameOrEmail",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectedUser",
+              "value": "",
+              "subsection": "root",
+              "property": "selectedUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.groupName",
+              "value": "",
+              "subsection": "root",
+              "property": "groupName",
+              "type": "text"
+            },
+            {
+              "key": "conversations.addMembers",
+              "value": "",
+              "subsection": "root",
+              "property": "addMembers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectedMembers",
+              "value": "",
+              "subsection": "root",
+              "property": "selectedMembers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchResults",
+              "value": "",
+              "subsection": "root",
+              "property": "searchResults",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searching",
+              "value": "",
+              "subsection": "root",
+              "property": "searching",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noUsersFound",
+              "value": "",
+              "subsection": "root",
+              "property": "noUsersFound",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noMessages",
+              "value": "",
+              "subsection": "root",
+              "property": "noMessages",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startConversationDesc",
+              "value": "",
+              "subsection": "root",
+              "property": "startConversationDesc",
+              "type": "description"
+            },
+            {
+              "key": "conversations.typeMessage",
+              "value": "",
+              "subsection": "root",
+              "property": "typeMessage",
+              "type": "category"
+            },
+            {
+              "key": "conversations.sendInstructions",
+              "value": "",
+              "subsection": "root",
+              "property": "sendInstructions",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "conversations.unknownUser",
+              "conversations.group",
+              "conversations.members",
+              "conversations.noMessagesYet",
+              "conversations.you",
+              "conversations.someone",
+              "conversations.noConversationsYet",
+              "conversations.startNewConversation",
+              "conversations.searchConversations",
+              "conversations.noConversationsMatch",
+              "conversations.messages",
+              "conversations.new",
+              "conversations.noConversations",
+              "conversations.startConversation",
+              "conversations.direct",
+              "conversations.participants",
+              "conversations.participant",
+              "conversations.selectConversation",
+              "conversations.selectConversationDesc",
+              "conversations.newConversation",
+              "conversations.failedToSearchUsers",
+              "conversations.selectAtLeastOneUser",
+              "conversations.enterGroupName",
+              "conversations.conversation",
+              "conversations.createdSuccessfully",
+              "conversations.failedToCreateConversation",
+              "conversations.createDirectOrGroup",
+              "conversations.directMessage",
+              "conversations.groupChat",
+              "conversations.findUserToMessage",
+              "conversations.searchByNameOrEmail",
+              "conversations.selectedUser",
+              "conversations.groupName",
+              "conversations.addMembers",
+              "conversations.selectedMembers",
+              "conversations.searchResults",
+              "conversations.searching",
+              "conversations.noUsersFound",
+              "conversations.noMessages",
+              "conversations.startConversationDesc",
+              "conversations.typeMessage",
+              "conversations.sendInstructions"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 38,
+              "examples": [
+                "conversations.unknownUser",
+                "conversations.group",
+                "conversations.members"
+              ],
+              "description": "Pattern de text répété 38 fois"
+            },
+            {
+              "type": "description_pattern",
+              "count": 2,
+              "examples": [
+                "conversations.selectConversationDesc",
+                "conversations.startConversationDesc"
+              ],
+              "description": "Pattern de description répété 2 fois"
+            }
+          ],
+          "totalKeys": 42
+        },
+        "ar": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "conversations.unknownUser",
+              "value": "[AR] conversations.unknownUser",
+              "subsection": "root",
+              "property": "unknownUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.group",
+              "value": "[AR] conversations.group",
+              "subsection": "root",
+              "property": "group",
+              "type": "text"
+            },
+            {
+              "key": "conversations.members",
+              "value": "[AR] conversations.members",
+              "subsection": "root",
+              "property": "members",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noMessagesYet",
+              "value": "[AR] conversations.noMessagesYet",
+              "subsection": "root",
+              "property": "noMessagesYet",
+              "type": "text"
+            },
+            {
+              "key": "conversations.you",
+              "value": "[AR] conversations.you",
+              "subsection": "root",
+              "property": "you",
+              "type": "text"
+            },
+            {
+              "key": "conversations.someone",
+              "value": "[AR] conversations.someone",
+              "subsection": "root",
+              "property": "someone",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversationsYet",
+              "value": "[AR] conversations.noConversationsYet",
+              "subsection": "root",
+              "property": "noConversationsYet",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startNewConversation",
+              "value": "[AR] conversations.startNewConversation",
+              "subsection": "root",
+              "property": "startNewConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchConversations",
+              "value": "[AR] conversations.searchConversations",
+              "subsection": "root",
+              "property": "searchConversations",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversationsMatch",
+              "value": "[AR] conversations.noConversationsMatch",
+              "subsection": "root",
+              "property": "noConversationsMatch",
+              "type": "text"
+            },
+            {
+              "key": "conversations.messages",
+              "value": "[AR] conversations.messages",
+              "subsection": "root",
+              "property": "messages",
+              "type": "text"
+            },
+            {
+              "key": "conversations.new",
+              "value": "[AR] conversations.new",
+              "subsection": "root",
+              "property": "new",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noConversations",
+              "value": "[AR] conversations.noConversations",
+              "subsection": "root",
+              "property": "noConversations",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startConversation",
+              "value": "[AR] conversations.startConversation",
+              "subsection": "root",
+              "property": "startConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.direct",
+              "value": "[AR] conversations.direct",
+              "subsection": "root",
+              "property": "direct",
+              "type": "text"
+            },
+            {
+              "key": "conversations.participants",
+              "value": "[AR] conversations.participants",
+              "subsection": "root",
+              "property": "participants",
+              "type": "text"
+            },
+            {
+              "key": "conversations.participant",
+              "value": "[AR] conversations.participant",
+              "subsection": "root",
+              "property": "participant",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectConversation",
+              "value": "[AR] conversations.selectConversation",
+              "subsection": "root",
+              "property": "selectConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectConversationDesc",
+              "value": "[AR] conversations.selectConversationDesc",
+              "subsection": "root",
+              "property": "selectConversationDesc",
+              "type": "description"
+            },
+            {
+              "key": "conversations.newConversation",
+              "value": "[AR] conversations.newConversation",
+              "subsection": "root",
+              "property": "newConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.failedToSearchUsers",
+              "value": "[AR] conversations.failedToSearchUsers",
+              "subsection": "root",
+              "property": "failedToSearchUsers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectAtLeastOneUser",
+              "value": "[AR] conversations.selectAtLeastOneUser",
+              "subsection": "root",
+              "property": "selectAtLeastOneUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.enterGroupName",
+              "value": "[AR] conversations.enterGroupName",
+              "subsection": "root",
+              "property": "enterGroupName",
+              "type": "text"
+            },
+            {
+              "key": "conversations.conversation",
+              "value": "[AR] conversations.conversation",
+              "subsection": "root",
+              "property": "conversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.createdSuccessfully",
+              "value": "[AR] conversations.createdSuccessfully",
+              "subsection": "root",
+              "property": "createdSuccessfully",
+              "type": "message"
+            },
+            {
+              "key": "conversations.failedToCreateConversation",
+              "value": "[AR] conversations.failedToCreateConversation",
+              "subsection": "root",
+              "property": "failedToCreateConversation",
+              "type": "text"
+            },
+            {
+              "key": "conversations.createDirectOrGroup",
+              "value": "[AR] conversations.createDirectOrGroup",
+              "subsection": "root",
+              "property": "createDirectOrGroup",
+              "type": "text"
+            },
+            {
+              "key": "conversations.directMessage",
+              "value": "[AR] conversations.directMessage",
+              "subsection": "root",
+              "property": "directMessage",
+              "type": "text"
+            },
+            {
+              "key": "conversations.groupChat",
+              "value": "[AR] conversations.groupChat",
+              "subsection": "root",
+              "property": "groupChat",
+              "type": "text"
+            },
+            {
+              "key": "conversations.findUserToMessage",
+              "value": "[AR] conversations.findUserToMessage",
+              "subsection": "root",
+              "property": "findUserToMessage",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchByNameOrEmail",
+              "value": "[AR] conversations.searchByNameOrEmail",
+              "subsection": "root",
+              "property": "searchByNameOrEmail",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectedUser",
+              "value": "[AR] conversations.selectedUser",
+              "subsection": "root",
+              "property": "selectedUser",
+              "type": "text"
+            },
+            {
+              "key": "conversations.groupName",
+              "value": "[AR] conversations.groupName",
+              "subsection": "root",
+              "property": "groupName",
+              "type": "text"
+            },
+            {
+              "key": "conversations.addMembers",
+              "value": "[AR] conversations.addMembers",
+              "subsection": "root",
+              "property": "addMembers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.selectedMembers",
+              "value": "[AR] conversations.selectedMembers",
+              "subsection": "root",
+              "property": "selectedMembers",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searchResults",
+              "value": "[AR] conversations.searchResults",
+              "subsection": "root",
+              "property": "searchResults",
+              "type": "text"
+            },
+            {
+              "key": "conversations.searching",
+              "value": "[AR] conversations.searching",
+              "subsection": "root",
+              "property": "searching",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noUsersFound",
+              "value": "[AR] conversations.noUsersFound",
+              "subsection": "root",
+              "property": "noUsersFound",
+              "type": "text"
+            },
+            {
+              "key": "conversations.noMessages",
+              "value": "[AR] conversations.noMessages",
+              "subsection": "root",
+              "property": "noMessages",
+              "type": "text"
+            },
+            {
+              "key": "conversations.startConversationDesc",
+              "value": "[AR] conversations.startConversationDesc",
+              "subsection": "root",
+              "property": "startConversationDesc",
+              "type": "description"
+            },
+            {
+              "key": "conversations.typeMessage",
+              "value": "[AR] conversations.typeMessage",
+              "subsection": "root",
+              "property": "typeMessage",
+              "type": "category"
+            },
+            {
+              "key": "conversations.sendInstructions",
+              "value": "[AR] conversations.sendInstructions",
+              "subsection": "root",
+              "property": "sendInstructions",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "conversations.unknownUser",
+              "conversations.group",
+              "conversations.members",
+              "conversations.noMessagesYet",
+              "conversations.you",
+              "conversations.someone",
+              "conversations.noConversationsYet",
+              "conversations.startNewConversation",
+              "conversations.searchConversations",
+              "conversations.noConversationsMatch",
+              "conversations.messages",
+              "conversations.new",
+              "conversations.noConversations",
+              "conversations.startConversation",
+              "conversations.direct",
+              "conversations.participants",
+              "conversations.participant",
+              "conversations.selectConversation",
+              "conversations.selectConversationDesc",
+              "conversations.newConversation",
+              "conversations.failedToSearchUsers",
+              "conversations.selectAtLeastOneUser",
+              "conversations.enterGroupName",
+              "conversations.conversation",
+              "conversations.createdSuccessfully",
+              "conversations.failedToCreateConversation",
+              "conversations.createDirectOrGroup",
+              "conversations.directMessage",
+              "conversations.groupChat",
+              "conversations.findUserToMessage",
+              "conversations.searchByNameOrEmail",
+              "conversations.selectedUser",
+              "conversations.groupName",
+              "conversations.addMembers",
+              "conversations.selectedMembers",
+              "conversations.searchResults",
+              "conversations.searching",
+              "conversations.noUsersFound",
+              "conversations.noMessages",
+              "conversations.startConversationDesc",
+              "conversations.typeMessage",
+              "conversations.sendInstructions"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 38,
+              "examples": [
+                "conversations.unknownUser",
+                "conversations.group",
+                "conversations.members"
+              ],
+              "description": "Pattern de text répété 38 fois"
+            },
+            {
+              "type": "description_pattern",
+              "count": 2,
+              "examples": [
+                "conversations.selectConversationDesc",
+                "conversations.startConversationDesc"
+              ],
+              "description": "Pattern de description répété 2 fois"
+            }
+          ],
+          "totalKeys": 42
+        }
+      },
+      "coverage": {
+        "fr": 100,
+        "en": 100,
+        "ar": 100,
+        "average": 100
+      },
+      "subsections": [
+        "root"
+      ],
+      "patterns": [
+        {
+          "type": "text_pattern",
+          "count": 38,
+          "examples": [
+            "conversations.unknownUser",
+            "conversations.group",
+            "conversations.members"
+          ],
+          "description": "Pattern de text répété 38 fois"
+        },
+        {
+          "type": "description_pattern",
+          "count": 2,
+          "examples": [
+            "conversations.selectConversationDesc",
+            "conversations.startConversationDesc"
+          ],
+          "description": "Pattern de description répété 2 fois"
+        }
+      ],
+      "complexity": "ÉLEVÉE"
+    },
+    "notifications": {
+      "maxKeys": 3,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "notifications.viewMembers",
+              "value": "",
+              "subsection": "root",
+              "property": "viewMembers",
+              "type": "text"
+            },
+            {
+              "key": "notifications.newMessageFrom",
+              "value": "",
+              "subsection": "root",
+              "property": "newMessageFrom",
+              "type": "text"
+            },
+            {
+              "key": "notifications.view",
+              "value": "",
+              "subsection": "root",
+              "property": "view",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "notifications.viewMembers",
+              "notifications.newMessageFrom",
+              "notifications.view"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 3,
+              "examples": [
+                "notifications.viewMembers",
+                "notifications.newMessageFrom",
+                "notifications.view"
+              ],
+              "description": "Pattern de text répété 3 fois"
+            }
+          ],
+          "totalKeys": 3
+        },
+        "en": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "notifications.viewMembers",
+              "value": "",
+              "subsection": "root",
+              "property": "viewMembers",
+              "type": "text"
+            },
+            {
+              "key": "notifications.newMessageFrom",
+              "value": "",
+              "subsection": "root",
+              "property": "newMessageFrom",
+              "type": "text"
+            },
+            {
+              "key": "notifications.view",
+              "value": "",
+              "subsection": "root",
+              "property": "view",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "notifications.viewMembers",
+              "notifications.newMessageFrom",
+              "notifications.view"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 3,
+              "examples": [
+                "notifications.viewMembers",
+                "notifications.newMessageFrom",
+                "notifications.view"
+              ],
+              "description": "Pattern de text répété 3 fois"
+            }
+          ],
+          "totalKeys": 3
+        },
+        "ar": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "notifications.viewMembers",
+              "value": "[AR] notifications.viewMembers",
+              "subsection": "root",
+              "property": "viewMembers",
+              "type": "text"
+            },
+            {
+              "key": "notifications.newMessageFrom",
+              "value": "[AR] notifications.newMessageFrom",
+              "subsection": "root",
+              "property": "newMessageFrom",
+              "type": "text"
+            },
+            {
+              "key": "notifications.view",
+              "value": "[AR] notifications.view",
+              "subsection": "root",
+              "property": "view",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "notifications.viewMembers",
+              "notifications.newMessageFrom",
+              "notifications.view"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 3,
+              "examples": [
+                "notifications.viewMembers",
+                "notifications.newMessageFrom",
+                "notifications.view"
+              ],
+              "description": "Pattern de text répété 3 fois"
+            }
+          ],
+          "totalKeys": 3
+        }
+      },
+      "coverage": {
+        "fr": 100,
+        "en": 100,
+        "ar": 100,
+        "average": 100
+      },
+      "subsections": [
+        "root"
+      ],
+      "patterns": [
+        {
+          "type": "text_pattern",
+          "count": 3,
+          "examples": [
+            "notifications.viewMembers",
+            "notifications.newMessageFrom",
+            "notifications.view"
+          ],
+          "description": "Pattern de text répété 3 fois"
+        }
+      ],
+      "complexity": "FAIBLE"
+    },
+    "reports": {
+      "maxKeys": 13,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "reports.exportReports",
+              "value": "",
+              "subsection": "root",
+              "property": "exportReports",
+              "type": "text"
+            },
+            {
+              "key": "reports.downloadReports",
+              "value": "",
+              "subsection": "root",
+              "property": "downloadReports",
+              "type": "text"
+            },
+            {
+              "key": "reports.format",
+              "value": "",
+              "subsection": "root",
+              "property": "format",
+              "type": "text"
+            },
+            {
+              "key": "reports.dateRange",
+              "value": "",
+              "subsection": "root",
+              "property": "dateRange",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.thisWeek",
+              "value": "",
+              "subsection": "root",
+              "property": "thisWeek",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisMonth",
+              "value": "",
+              "subsection": "root",
+              "property": "thisMonth",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisQuarter",
+              "value": "",
+              "subsection": "root",
+              "property": "thisQuarter",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisYear",
+              "value": "",
+              "subsection": "root",
+              "property": "thisYear",
+              "type": "text"
+            },
+            {
+              "key": "reports.customRange",
+              "value": "",
+              "subsection": "root",
+              "property": "customRange",
+              "type": "text"
+            },
+            {
+              "key": "reports.startDate",
+              "value": "",
+              "subsection": "root",
+              "property": "startDate",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.endDate",
+              "value": "",
+              "subsection": "root",
+              "property": "endDate",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.exporting",
+              "value": "",
+              "subsection": "root",
+              "property": "exporting",
+              "type": "text"
+            },
+            {
+              "key": "reports.export",
+              "value": "",
+              "subsection": "root",
+              "property": "export",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "reports.exportReports",
+              "reports.downloadReports",
+              "reports.format",
+              "reports.dateRange",
+              "reports.thisWeek",
+              "reports.thisMonth",
+              "reports.thisQuarter",
+              "reports.thisYear",
+              "reports.customRange",
+              "reports.startDate",
+              "reports.endDate",
+              "reports.exporting",
+              "reports.export"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 10,
+              "examples": [
+                "reports.exportReports",
+                "reports.downloadReports",
+                "reports.format"
+              ],
+              "description": "Pattern de text répété 10 fois"
+            },
+            {
+              "type": "datetime_pattern",
+              "count": 3,
+              "examples": [
+                "reports.dateRange",
+                "reports.startDate",
+                "reports.endDate"
+              ],
+              "description": "Pattern de datetime répété 3 fois"
+            }
+          ],
+          "totalKeys": 13
+        },
+        "en": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "reports.exportReports",
+              "value": "",
+              "subsection": "root",
+              "property": "exportReports",
+              "type": "text"
+            },
+            {
+              "key": "reports.downloadReports",
+              "value": "",
+              "subsection": "root",
+              "property": "downloadReports",
+              "type": "text"
+            },
+            {
+              "key": "reports.format",
+              "value": "",
+              "subsection": "root",
+              "property": "format",
+              "type": "text"
+            },
+            {
+              "key": "reports.dateRange",
+              "value": "",
+              "subsection": "root",
+              "property": "dateRange",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.thisWeek",
+              "value": "",
+              "subsection": "root",
+              "property": "thisWeek",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisMonth",
+              "value": "",
+              "subsection": "root",
+              "property": "thisMonth",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisQuarter",
+              "value": "",
+              "subsection": "root",
+              "property": "thisQuarter",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisYear",
+              "value": "",
+              "subsection": "root",
+              "property": "thisYear",
+              "type": "text"
+            },
+            {
+              "key": "reports.customRange",
+              "value": "",
+              "subsection": "root",
+              "property": "customRange",
+              "type": "text"
+            },
+            {
+              "key": "reports.startDate",
+              "value": "",
+              "subsection": "root",
+              "property": "startDate",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.endDate",
+              "value": "",
+              "subsection": "root",
+              "property": "endDate",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.exporting",
+              "value": "",
+              "subsection": "root",
+              "property": "exporting",
+              "type": "text"
+            },
+            {
+              "key": "reports.export",
+              "value": "",
+              "subsection": "root",
+              "property": "export",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "reports.exportReports",
+              "reports.downloadReports",
+              "reports.format",
+              "reports.dateRange",
+              "reports.thisWeek",
+              "reports.thisMonth",
+              "reports.thisQuarter",
+              "reports.thisYear",
+              "reports.customRange",
+              "reports.startDate",
+              "reports.endDate",
+              "reports.exporting",
+              "reports.export"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 10,
+              "examples": [
+                "reports.exportReports",
+                "reports.downloadReports",
+                "reports.format"
+              ],
+              "description": "Pattern de text répété 10 fois"
+            },
+            {
+              "type": "datetime_pattern",
+              "count": 3,
+              "examples": [
+                "reports.dateRange",
+                "reports.startDate",
+                "reports.endDate"
+              ],
+              "description": "Pattern de datetime répété 3 fois"
+            }
+          ],
+          "totalKeys": 13
+        },
+        "ar": {
+          "exists": true,
+          "keys": [
+            {
+              "key": "reports.exportReports",
+              "value": "[AR] reports.exportReports",
+              "subsection": "root",
+              "property": "exportReports",
+              "type": "text"
+            },
+            {
+              "key": "reports.downloadReports",
+              "value": "[AR] reports.downloadReports",
+              "subsection": "root",
+              "property": "downloadReports",
+              "type": "text"
+            },
+            {
+              "key": "reports.format",
+              "value": "[AR] reports.format",
+              "subsection": "root",
+              "property": "format",
+              "type": "text"
+            },
+            {
+              "key": "reports.dateRange",
+              "value": "[AR] reports.dateRange",
+              "subsection": "root",
+              "property": "dateRange",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.thisWeek",
+              "value": "[AR] reports.thisWeek",
+              "subsection": "root",
+              "property": "thisWeek",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisMonth",
+              "value": "[AR] reports.thisMonth",
+              "subsection": "root",
+              "property": "thisMonth",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisQuarter",
+              "value": "[AR] reports.thisQuarter",
+              "subsection": "root",
+              "property": "thisQuarter",
+              "type": "text"
+            },
+            {
+              "key": "reports.thisYear",
+              "value": "[AR] reports.thisYear",
+              "subsection": "root",
+              "property": "thisYear",
+              "type": "text"
+            },
+            {
+              "key": "reports.customRange",
+              "value": "[AR] reports.customRange",
+              "subsection": "root",
+              "property": "customRange",
+              "type": "text"
+            },
+            {
+              "key": "reports.startDate",
+              "value": "[AR] reports.startDate",
+              "subsection": "root",
+              "property": "startDate",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.endDate",
+              "value": "[AR] reports.endDate",
+              "subsection": "root",
+              "property": "endDate",
+              "type": "datetime"
+            },
+            {
+              "key": "reports.exporting",
+              "value": "[AR] reports.exporting",
+              "subsection": "root",
+              "property": "exporting",
+              "type": "text"
+            },
+            {
+              "key": "reports.export",
+              "value": "[AR] reports.export",
+              "subsection": "root",
+              "property": "export",
+              "type": "text"
+            }
+          ],
+          "subsections": {
+            "root": [
+              "reports.exportReports",
+              "reports.downloadReports",
+              "reports.format",
+              "reports.dateRange",
+              "reports.thisWeek",
+              "reports.thisMonth",
+              "reports.thisQuarter",
+              "reports.thisYear",
+              "reports.customRange",
+              "reports.startDate",
+              "reports.endDate",
+              "reports.exporting",
+              "reports.export"
+            ]
+          },
+          "patterns": [
+            {
+              "type": "text_pattern",
+              "count": 10,
+              "examples": [
+                "reports.exportReports",
+                "reports.downloadReports",
+                "reports.format"
+              ],
+              "description": "Pattern de text répété 10 fois"
+            },
+            {
+              "type": "datetime_pattern",
+              "count": 3,
+              "examples": [
+                "reports.dateRange",
+                "reports.startDate",
+                "reports.endDate"
+              ],
+              "description": "Pattern de datetime répété 3 fois"
+            }
+          ],
+          "totalKeys": 13
+        }
+      },
+      "coverage": {
+        "fr": 100,
+        "en": 100,
+        "ar": 100,
+        "average": 100
+      },
+      "subsections": [
+        "root"
+      ],
+      "patterns": [
+        {
+          "type": "text_pattern",
+          "count": 10,
+          "examples": [
+            "reports.exportReports",
+            "reports.downloadReports",
+            "reports.format"
+          ],
+          "description": "Pattern de text répété 10 fois"
+        },
+        {
+          "type": "datetime_pattern",
+          "count": 3,
+          "examples": [
+            "reports.dateRange",
+            "reports.startDate",
+            "reports.endDate"
+          ],
+          "description": "Pattern de datetime répété 3 fois"
+        }
+      ],
+      "complexity": "MOYENNE"
+    }
+  },
+  "globalStats": {
+    "totalSections": 3,
+    "sectionsWithData": 3,
+    "totalKeys": 58,
+    "averageCoverage": {
+      "fr": 100,
+      "en": 100,
+      "ar": 100
+    },
+    "complexitySummary": {
+      "ÉLEVÉE": 1,
+      "FAIBLE": 1,
+      "MOYENNE": 1
+    }
+  },
+  "priorities": [
+    {
+      "section": "conversations",
+      "priority": "BASSE",
+      "avgCoverage": 100,
+      "keyCount": 42,
+      "complexity": "ÉLEVÉE",
+      "reason": "Couverture satisfaisante (100%)",
+      "details": {
+        "maxKeys": 42,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "conversations.unknownUser",
+                "value": "",
+                "subsection": "root",
+                "property": "unknownUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.group",
+                "value": "",
+                "subsection": "root",
+                "property": "group",
+                "type": "text"
+              },
+              {
+                "key": "conversations.members",
+                "value": "",
+                "subsection": "root",
+                "property": "members",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noMessagesYet",
+                "value": "",
+                "subsection": "root",
+                "property": "noMessagesYet",
+                "type": "text"
+              },
+              {
+                "key": "conversations.you",
+                "value": "",
+                "subsection": "root",
+                "property": "you",
+                "type": "text"
+              },
+              {
+                "key": "conversations.someone",
+                "value": "",
+                "subsection": "root",
+                "property": "someone",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversationsYet",
+                "value": "",
+                "subsection": "root",
+                "property": "noConversationsYet",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startNewConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "startNewConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchConversations",
+                "value": "",
+                "subsection": "root",
+                "property": "searchConversations",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversationsMatch",
+                "value": "",
+                "subsection": "root",
+                "property": "noConversationsMatch",
+                "type": "text"
+              },
+              {
+                "key": "conversations.messages",
+                "value": "",
+                "subsection": "root",
+                "property": "messages",
+                "type": "text"
+              },
+              {
+                "key": "conversations.new",
+                "value": "",
+                "subsection": "root",
+                "property": "new",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversations",
+                "value": "",
+                "subsection": "root",
+                "property": "noConversations",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "startConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.direct",
+                "value": "",
+                "subsection": "root",
+                "property": "direct",
+                "type": "text"
+              },
+              {
+                "key": "conversations.participants",
+                "value": "",
+                "subsection": "root",
+                "property": "participants",
+                "type": "text"
+              },
+              {
+                "key": "conversations.participant",
+                "value": "",
+                "subsection": "root",
+                "property": "participant",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "selectConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectConversationDesc",
+                "value": "",
+                "subsection": "root",
+                "property": "selectConversationDesc",
+                "type": "description"
+              },
+              {
+                "key": "conversations.newConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "newConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.failedToSearchUsers",
+                "value": "",
+                "subsection": "root",
+                "property": "failedToSearchUsers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectAtLeastOneUser",
+                "value": "",
+                "subsection": "root",
+                "property": "selectAtLeastOneUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.enterGroupName",
+                "value": "",
+                "subsection": "root",
+                "property": "enterGroupName",
+                "type": "text"
+              },
+              {
+                "key": "conversations.conversation",
+                "value": "",
+                "subsection": "root",
+                "property": "conversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.createdSuccessfully",
+                "value": "",
+                "subsection": "root",
+                "property": "createdSuccessfully",
+                "type": "message"
+              },
+              {
+                "key": "conversations.failedToCreateConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "failedToCreateConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.createDirectOrGroup",
+                "value": "",
+                "subsection": "root",
+                "property": "createDirectOrGroup",
+                "type": "text"
+              },
+              {
+                "key": "conversations.directMessage",
+                "value": "",
+                "subsection": "root",
+                "property": "directMessage",
+                "type": "text"
+              },
+              {
+                "key": "conversations.groupChat",
+                "value": "",
+                "subsection": "root",
+                "property": "groupChat",
+                "type": "text"
+              },
+              {
+                "key": "conversations.findUserToMessage",
+                "value": "",
+                "subsection": "root",
+                "property": "findUserToMessage",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchByNameOrEmail",
+                "value": "",
+                "subsection": "root",
+                "property": "searchByNameOrEmail",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectedUser",
+                "value": "",
+                "subsection": "root",
+                "property": "selectedUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.groupName",
+                "value": "",
+                "subsection": "root",
+                "property": "groupName",
+                "type": "text"
+              },
+              {
+                "key": "conversations.addMembers",
+                "value": "",
+                "subsection": "root",
+                "property": "addMembers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectedMembers",
+                "value": "",
+                "subsection": "root",
+                "property": "selectedMembers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchResults",
+                "value": "",
+                "subsection": "root",
+                "property": "searchResults",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searching",
+                "value": "",
+                "subsection": "root",
+                "property": "searching",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noUsersFound",
+                "value": "",
+                "subsection": "root",
+                "property": "noUsersFound",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noMessages",
+                "value": "",
+                "subsection": "root",
+                "property": "noMessages",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startConversationDesc",
+                "value": "",
+                "subsection": "root",
+                "property": "startConversationDesc",
+                "type": "description"
+              },
+              {
+                "key": "conversations.typeMessage",
+                "value": "",
+                "subsection": "root",
+                "property": "typeMessage",
+                "type": "category"
+              },
+              {
+                "key": "conversations.sendInstructions",
+                "value": "",
+                "subsection": "root",
+                "property": "sendInstructions",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "conversations.unknownUser",
+                "conversations.group",
+                "conversations.members",
+                "conversations.noMessagesYet",
+                "conversations.you",
+                "conversations.someone",
+                "conversations.noConversationsYet",
+                "conversations.startNewConversation",
+                "conversations.searchConversations",
+                "conversations.noConversationsMatch",
+                "conversations.messages",
+                "conversations.new",
+                "conversations.noConversations",
+                "conversations.startConversation",
+                "conversations.direct",
+                "conversations.participants",
+                "conversations.participant",
+                "conversations.selectConversation",
+                "conversations.selectConversationDesc",
+                "conversations.newConversation",
+                "conversations.failedToSearchUsers",
+                "conversations.selectAtLeastOneUser",
+                "conversations.enterGroupName",
+                "conversations.conversation",
+                "conversations.createdSuccessfully",
+                "conversations.failedToCreateConversation",
+                "conversations.createDirectOrGroup",
+                "conversations.directMessage",
+                "conversations.groupChat",
+                "conversations.findUserToMessage",
+                "conversations.searchByNameOrEmail",
+                "conversations.selectedUser",
+                "conversations.groupName",
+                "conversations.addMembers",
+                "conversations.selectedMembers",
+                "conversations.searchResults",
+                "conversations.searching",
+                "conversations.noUsersFound",
+                "conversations.noMessages",
+                "conversations.startConversationDesc",
+                "conversations.typeMessage",
+                "conversations.sendInstructions"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 38,
+                "examples": [
+                  "conversations.unknownUser",
+                  "conversations.group",
+                  "conversations.members"
+                ],
+                "description": "Pattern de text répété 38 fois"
+              },
+              {
+                "type": "description_pattern",
+                "count": 2,
+                "examples": [
+                  "conversations.selectConversationDesc",
+                  "conversations.startConversationDesc"
+                ],
+                "description": "Pattern de description répété 2 fois"
+              }
+            ],
+            "totalKeys": 42
+          },
+          "en": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "conversations.unknownUser",
+                "value": "",
+                "subsection": "root",
+                "property": "unknownUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.group",
+                "value": "",
+                "subsection": "root",
+                "property": "group",
+                "type": "text"
+              },
+              {
+                "key": "conversations.members",
+                "value": "",
+                "subsection": "root",
+                "property": "members",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noMessagesYet",
+                "value": "",
+                "subsection": "root",
+                "property": "noMessagesYet",
+                "type": "text"
+              },
+              {
+                "key": "conversations.you",
+                "value": "",
+                "subsection": "root",
+                "property": "you",
+                "type": "text"
+              },
+              {
+                "key": "conversations.someone",
+                "value": "",
+                "subsection": "root",
+                "property": "someone",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversationsYet",
+                "value": "",
+                "subsection": "root",
+                "property": "noConversationsYet",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startNewConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "startNewConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchConversations",
+                "value": "",
+                "subsection": "root",
+                "property": "searchConversations",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversationsMatch",
+                "value": "",
+                "subsection": "root",
+                "property": "noConversationsMatch",
+                "type": "text"
+              },
+              {
+                "key": "conversations.messages",
+                "value": "",
+                "subsection": "root",
+                "property": "messages",
+                "type": "text"
+              },
+              {
+                "key": "conversations.new",
+                "value": "",
+                "subsection": "root",
+                "property": "new",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversations",
+                "value": "",
+                "subsection": "root",
+                "property": "noConversations",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "startConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.direct",
+                "value": "",
+                "subsection": "root",
+                "property": "direct",
+                "type": "text"
+              },
+              {
+                "key": "conversations.participants",
+                "value": "",
+                "subsection": "root",
+                "property": "participants",
+                "type": "text"
+              },
+              {
+                "key": "conversations.participant",
+                "value": "",
+                "subsection": "root",
+                "property": "participant",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "selectConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectConversationDesc",
+                "value": "",
+                "subsection": "root",
+                "property": "selectConversationDesc",
+                "type": "description"
+              },
+              {
+                "key": "conversations.newConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "newConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.failedToSearchUsers",
+                "value": "",
+                "subsection": "root",
+                "property": "failedToSearchUsers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectAtLeastOneUser",
+                "value": "",
+                "subsection": "root",
+                "property": "selectAtLeastOneUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.enterGroupName",
+                "value": "",
+                "subsection": "root",
+                "property": "enterGroupName",
+                "type": "text"
+              },
+              {
+                "key": "conversations.conversation",
+                "value": "",
+                "subsection": "root",
+                "property": "conversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.createdSuccessfully",
+                "value": "",
+                "subsection": "root",
+                "property": "createdSuccessfully",
+                "type": "message"
+              },
+              {
+                "key": "conversations.failedToCreateConversation",
+                "value": "",
+                "subsection": "root",
+                "property": "failedToCreateConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.createDirectOrGroup",
+                "value": "",
+                "subsection": "root",
+                "property": "createDirectOrGroup",
+                "type": "text"
+              },
+              {
+                "key": "conversations.directMessage",
+                "value": "",
+                "subsection": "root",
+                "property": "directMessage",
+                "type": "text"
+              },
+              {
+                "key": "conversations.groupChat",
+                "value": "",
+                "subsection": "root",
+                "property": "groupChat",
+                "type": "text"
+              },
+              {
+                "key": "conversations.findUserToMessage",
+                "value": "",
+                "subsection": "root",
+                "property": "findUserToMessage",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchByNameOrEmail",
+                "value": "",
+                "subsection": "root",
+                "property": "searchByNameOrEmail",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectedUser",
+                "value": "",
+                "subsection": "root",
+                "property": "selectedUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.groupName",
+                "value": "",
+                "subsection": "root",
+                "property": "groupName",
+                "type": "text"
+              },
+              {
+                "key": "conversations.addMembers",
+                "value": "",
+                "subsection": "root",
+                "property": "addMembers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectedMembers",
+                "value": "",
+                "subsection": "root",
+                "property": "selectedMembers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchResults",
+                "value": "",
+                "subsection": "root",
+                "property": "searchResults",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searching",
+                "value": "",
+                "subsection": "root",
+                "property": "searching",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noUsersFound",
+                "value": "",
+                "subsection": "root",
+                "property": "noUsersFound",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noMessages",
+                "value": "",
+                "subsection": "root",
+                "property": "noMessages",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startConversationDesc",
+                "value": "",
+                "subsection": "root",
+                "property": "startConversationDesc",
+                "type": "description"
+              },
+              {
+                "key": "conversations.typeMessage",
+                "value": "",
+                "subsection": "root",
+                "property": "typeMessage",
+                "type": "category"
+              },
+              {
+                "key": "conversations.sendInstructions",
+                "value": "",
+                "subsection": "root",
+                "property": "sendInstructions",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "conversations.unknownUser",
+                "conversations.group",
+                "conversations.members",
+                "conversations.noMessagesYet",
+                "conversations.you",
+                "conversations.someone",
+                "conversations.noConversationsYet",
+                "conversations.startNewConversation",
+                "conversations.searchConversations",
+                "conversations.noConversationsMatch",
+                "conversations.messages",
+                "conversations.new",
+                "conversations.noConversations",
+                "conversations.startConversation",
+                "conversations.direct",
+                "conversations.participants",
+                "conversations.participant",
+                "conversations.selectConversation",
+                "conversations.selectConversationDesc",
+                "conversations.newConversation",
+                "conversations.failedToSearchUsers",
+                "conversations.selectAtLeastOneUser",
+                "conversations.enterGroupName",
+                "conversations.conversation",
+                "conversations.createdSuccessfully",
+                "conversations.failedToCreateConversation",
+                "conversations.createDirectOrGroup",
+                "conversations.directMessage",
+                "conversations.groupChat",
+                "conversations.findUserToMessage",
+                "conversations.searchByNameOrEmail",
+                "conversations.selectedUser",
+                "conversations.groupName",
+                "conversations.addMembers",
+                "conversations.selectedMembers",
+                "conversations.searchResults",
+                "conversations.searching",
+                "conversations.noUsersFound",
+                "conversations.noMessages",
+                "conversations.startConversationDesc",
+                "conversations.typeMessage",
+                "conversations.sendInstructions"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 38,
+                "examples": [
+                  "conversations.unknownUser",
+                  "conversations.group",
+                  "conversations.members"
+                ],
+                "description": "Pattern de text répété 38 fois"
+              },
+              {
+                "type": "description_pattern",
+                "count": 2,
+                "examples": [
+                  "conversations.selectConversationDesc",
+                  "conversations.startConversationDesc"
+                ],
+                "description": "Pattern de description répété 2 fois"
+              }
+            ],
+            "totalKeys": 42
+          },
+          "ar": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "conversations.unknownUser",
+                "value": "[AR] conversations.unknownUser",
+                "subsection": "root",
+                "property": "unknownUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.group",
+                "value": "[AR] conversations.group",
+                "subsection": "root",
+                "property": "group",
+                "type": "text"
+              },
+              {
+                "key": "conversations.members",
+                "value": "[AR] conversations.members",
+                "subsection": "root",
+                "property": "members",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noMessagesYet",
+                "value": "[AR] conversations.noMessagesYet",
+                "subsection": "root",
+                "property": "noMessagesYet",
+                "type": "text"
+              },
+              {
+                "key": "conversations.you",
+                "value": "[AR] conversations.you",
+                "subsection": "root",
+                "property": "you",
+                "type": "text"
+              },
+              {
+                "key": "conversations.someone",
+                "value": "[AR] conversations.someone",
+                "subsection": "root",
+                "property": "someone",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversationsYet",
+                "value": "[AR] conversations.noConversationsYet",
+                "subsection": "root",
+                "property": "noConversationsYet",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startNewConversation",
+                "value": "[AR] conversations.startNewConversation",
+                "subsection": "root",
+                "property": "startNewConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchConversations",
+                "value": "[AR] conversations.searchConversations",
+                "subsection": "root",
+                "property": "searchConversations",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversationsMatch",
+                "value": "[AR] conversations.noConversationsMatch",
+                "subsection": "root",
+                "property": "noConversationsMatch",
+                "type": "text"
+              },
+              {
+                "key": "conversations.messages",
+                "value": "[AR] conversations.messages",
+                "subsection": "root",
+                "property": "messages",
+                "type": "text"
+              },
+              {
+                "key": "conversations.new",
+                "value": "[AR] conversations.new",
+                "subsection": "root",
+                "property": "new",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noConversations",
+                "value": "[AR] conversations.noConversations",
+                "subsection": "root",
+                "property": "noConversations",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startConversation",
+                "value": "[AR] conversations.startConversation",
+                "subsection": "root",
+                "property": "startConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.direct",
+                "value": "[AR] conversations.direct",
+                "subsection": "root",
+                "property": "direct",
+                "type": "text"
+              },
+              {
+                "key": "conversations.participants",
+                "value": "[AR] conversations.participants",
+                "subsection": "root",
+                "property": "participants",
+                "type": "text"
+              },
+              {
+                "key": "conversations.participant",
+                "value": "[AR] conversations.participant",
+                "subsection": "root",
+                "property": "participant",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectConversation",
+                "value": "[AR] conversations.selectConversation",
+                "subsection": "root",
+                "property": "selectConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectConversationDesc",
+                "value": "[AR] conversations.selectConversationDesc",
+                "subsection": "root",
+                "property": "selectConversationDesc",
+                "type": "description"
+              },
+              {
+                "key": "conversations.newConversation",
+                "value": "[AR] conversations.newConversation",
+                "subsection": "root",
+                "property": "newConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.failedToSearchUsers",
+                "value": "[AR] conversations.failedToSearchUsers",
+                "subsection": "root",
+                "property": "failedToSearchUsers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectAtLeastOneUser",
+                "value": "[AR] conversations.selectAtLeastOneUser",
+                "subsection": "root",
+                "property": "selectAtLeastOneUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.enterGroupName",
+                "value": "[AR] conversations.enterGroupName",
+                "subsection": "root",
+                "property": "enterGroupName",
+                "type": "text"
+              },
+              {
+                "key": "conversations.conversation",
+                "value": "[AR] conversations.conversation",
+                "subsection": "root",
+                "property": "conversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.createdSuccessfully",
+                "value": "[AR] conversations.createdSuccessfully",
+                "subsection": "root",
+                "property": "createdSuccessfully",
+                "type": "message"
+              },
+              {
+                "key": "conversations.failedToCreateConversation",
+                "value": "[AR] conversations.failedToCreateConversation",
+                "subsection": "root",
+                "property": "failedToCreateConversation",
+                "type": "text"
+              },
+              {
+                "key": "conversations.createDirectOrGroup",
+                "value": "[AR] conversations.createDirectOrGroup",
+                "subsection": "root",
+                "property": "createDirectOrGroup",
+                "type": "text"
+              },
+              {
+                "key": "conversations.directMessage",
+                "value": "[AR] conversations.directMessage",
+                "subsection": "root",
+                "property": "directMessage",
+                "type": "text"
+              },
+              {
+                "key": "conversations.groupChat",
+                "value": "[AR] conversations.groupChat",
+                "subsection": "root",
+                "property": "groupChat",
+                "type": "text"
+              },
+              {
+                "key": "conversations.findUserToMessage",
+                "value": "[AR] conversations.findUserToMessage",
+                "subsection": "root",
+                "property": "findUserToMessage",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchByNameOrEmail",
+                "value": "[AR] conversations.searchByNameOrEmail",
+                "subsection": "root",
+                "property": "searchByNameOrEmail",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectedUser",
+                "value": "[AR] conversations.selectedUser",
+                "subsection": "root",
+                "property": "selectedUser",
+                "type": "text"
+              },
+              {
+                "key": "conversations.groupName",
+                "value": "[AR] conversations.groupName",
+                "subsection": "root",
+                "property": "groupName",
+                "type": "text"
+              },
+              {
+                "key": "conversations.addMembers",
+                "value": "[AR] conversations.addMembers",
+                "subsection": "root",
+                "property": "addMembers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.selectedMembers",
+                "value": "[AR] conversations.selectedMembers",
+                "subsection": "root",
+                "property": "selectedMembers",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searchResults",
+                "value": "[AR] conversations.searchResults",
+                "subsection": "root",
+                "property": "searchResults",
+                "type": "text"
+              },
+              {
+                "key": "conversations.searching",
+                "value": "[AR] conversations.searching",
+                "subsection": "root",
+                "property": "searching",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noUsersFound",
+                "value": "[AR] conversations.noUsersFound",
+                "subsection": "root",
+                "property": "noUsersFound",
+                "type": "text"
+              },
+              {
+                "key": "conversations.noMessages",
+                "value": "[AR] conversations.noMessages",
+                "subsection": "root",
+                "property": "noMessages",
+                "type": "text"
+              },
+              {
+                "key": "conversations.startConversationDesc",
+                "value": "[AR] conversations.startConversationDesc",
+                "subsection": "root",
+                "property": "startConversationDesc",
+                "type": "description"
+              },
+              {
+                "key": "conversations.typeMessage",
+                "value": "[AR] conversations.typeMessage",
+                "subsection": "root",
+                "property": "typeMessage",
+                "type": "category"
+              },
+              {
+                "key": "conversations.sendInstructions",
+                "value": "[AR] conversations.sendInstructions",
+                "subsection": "root",
+                "property": "sendInstructions",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "conversations.unknownUser",
+                "conversations.group",
+                "conversations.members",
+                "conversations.noMessagesYet",
+                "conversations.you",
+                "conversations.someone",
+                "conversations.noConversationsYet",
+                "conversations.startNewConversation",
+                "conversations.searchConversations",
+                "conversations.noConversationsMatch",
+                "conversations.messages",
+                "conversations.new",
+                "conversations.noConversations",
+                "conversations.startConversation",
+                "conversations.direct",
+                "conversations.participants",
+                "conversations.participant",
+                "conversations.selectConversation",
+                "conversations.selectConversationDesc",
+                "conversations.newConversation",
+                "conversations.failedToSearchUsers",
+                "conversations.selectAtLeastOneUser",
+                "conversations.enterGroupName",
+                "conversations.conversation",
+                "conversations.createdSuccessfully",
+                "conversations.failedToCreateConversation",
+                "conversations.createDirectOrGroup",
+                "conversations.directMessage",
+                "conversations.groupChat",
+                "conversations.findUserToMessage",
+                "conversations.searchByNameOrEmail",
+                "conversations.selectedUser",
+                "conversations.groupName",
+                "conversations.addMembers",
+                "conversations.selectedMembers",
+                "conversations.searchResults",
+                "conversations.searching",
+                "conversations.noUsersFound",
+                "conversations.noMessages",
+                "conversations.startConversationDesc",
+                "conversations.typeMessage",
+                "conversations.sendInstructions"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 38,
+                "examples": [
+                  "conversations.unknownUser",
+                  "conversations.group",
+                  "conversations.members"
+                ],
+                "description": "Pattern de text répété 38 fois"
+              },
+              {
+                "type": "description_pattern",
+                "count": 2,
+                "examples": [
+                  "conversations.selectConversationDesc",
+                  "conversations.startConversationDesc"
+                ],
+                "description": "Pattern de description répété 2 fois"
+              }
+            ],
+            "totalKeys": 42
+          }
+        },
+        "coverage": {
+          "fr": 100,
+          "en": 100,
+          "ar": 100,
+          "average": 100
+        },
+        "subsections": [
+          "root"
+        ],
+        "patterns": [
+          {
+            "type": "text_pattern",
+            "count": 38,
+            "examples": [
+              "conversations.unknownUser",
+              "conversations.group",
+              "conversations.members"
+            ],
+            "description": "Pattern de text répété 38 fois"
+          },
+          {
+            "type": "description_pattern",
+            "count": 2,
+            "examples": [
+              "conversations.selectConversationDesc",
+              "conversations.startConversationDesc"
+            ],
+            "description": "Pattern de description répété 2 fois"
+          }
+        ],
+        "complexity": "ÉLEVÉE"
+      }
+    },
+    {
+      "section": "notifications",
+      "priority": "BASSE",
+      "avgCoverage": 100,
+      "keyCount": 3,
+      "complexity": "FAIBLE",
+      "reason": "Couverture satisfaisante (100%)",
+      "details": {
+        "maxKeys": 3,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "notifications.viewMembers",
+                "value": "",
+                "subsection": "root",
+                "property": "viewMembers",
+                "type": "text"
+              },
+              {
+                "key": "notifications.newMessageFrom",
+                "value": "",
+                "subsection": "root",
+                "property": "newMessageFrom",
+                "type": "text"
+              },
+              {
+                "key": "notifications.view",
+                "value": "",
+                "subsection": "root",
+                "property": "view",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "notifications.viewMembers",
+                "notifications.newMessageFrom",
+                "notifications.view"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 3,
+                "examples": [
+                  "notifications.viewMembers",
+                  "notifications.newMessageFrom",
+                  "notifications.view"
+                ],
+                "description": "Pattern de text répété 3 fois"
+              }
+            ],
+            "totalKeys": 3
+          },
+          "en": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "notifications.viewMembers",
+                "value": "",
+                "subsection": "root",
+                "property": "viewMembers",
+                "type": "text"
+              },
+              {
+                "key": "notifications.newMessageFrom",
+                "value": "",
+                "subsection": "root",
+                "property": "newMessageFrom",
+                "type": "text"
+              },
+              {
+                "key": "notifications.view",
+                "value": "",
+                "subsection": "root",
+                "property": "view",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "notifications.viewMembers",
+                "notifications.newMessageFrom",
+                "notifications.view"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 3,
+                "examples": [
+                  "notifications.viewMembers",
+                  "notifications.newMessageFrom",
+                  "notifications.view"
+                ],
+                "description": "Pattern de text répété 3 fois"
+              }
+            ],
+            "totalKeys": 3
+          },
+          "ar": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "notifications.viewMembers",
+                "value": "[AR] notifications.viewMembers",
+                "subsection": "root",
+                "property": "viewMembers",
+                "type": "text"
+              },
+              {
+                "key": "notifications.newMessageFrom",
+                "value": "[AR] notifications.newMessageFrom",
+                "subsection": "root",
+                "property": "newMessageFrom",
+                "type": "text"
+              },
+              {
+                "key": "notifications.view",
+                "value": "[AR] notifications.view",
+                "subsection": "root",
+                "property": "view",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "notifications.viewMembers",
+                "notifications.newMessageFrom",
+                "notifications.view"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 3,
+                "examples": [
+                  "notifications.viewMembers",
+                  "notifications.newMessageFrom",
+                  "notifications.view"
+                ],
+                "description": "Pattern de text répété 3 fois"
+              }
+            ],
+            "totalKeys": 3
+          }
+        },
+        "coverage": {
+          "fr": 100,
+          "en": 100,
+          "ar": 100,
+          "average": 100
+        },
+        "subsections": [
+          "root"
+        ],
+        "patterns": [
+          {
+            "type": "text_pattern",
+            "count": 3,
+            "examples": [
+              "notifications.viewMembers",
+              "notifications.newMessageFrom",
+              "notifications.view"
+            ],
+            "description": "Pattern de text répété 3 fois"
+          }
+        ],
+        "complexity": "FAIBLE"
+      }
+    },
+    {
+      "section": "reports",
+      "priority": "BASSE",
+      "avgCoverage": 100,
+      "keyCount": 13,
+      "complexity": "MOYENNE",
+      "reason": "Couverture satisfaisante (100%)",
+      "details": {
+        "maxKeys": 13,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "reports.exportReports",
+                "value": "",
+                "subsection": "root",
+                "property": "exportReports",
+                "type": "text"
+              },
+              {
+                "key": "reports.downloadReports",
+                "value": "",
+                "subsection": "root",
+                "property": "downloadReports",
+                "type": "text"
+              },
+              {
+                "key": "reports.format",
+                "value": "",
+                "subsection": "root",
+                "property": "format",
+                "type": "text"
+              },
+              {
+                "key": "reports.dateRange",
+                "value": "",
+                "subsection": "root",
+                "property": "dateRange",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.thisWeek",
+                "value": "",
+                "subsection": "root",
+                "property": "thisWeek",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisMonth",
+                "value": "",
+                "subsection": "root",
+                "property": "thisMonth",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisQuarter",
+                "value": "",
+                "subsection": "root",
+                "property": "thisQuarter",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisYear",
+                "value": "",
+                "subsection": "root",
+                "property": "thisYear",
+                "type": "text"
+              },
+              {
+                "key": "reports.customRange",
+                "value": "",
+                "subsection": "root",
+                "property": "customRange",
+                "type": "text"
+              },
+              {
+                "key": "reports.startDate",
+                "value": "",
+                "subsection": "root",
+                "property": "startDate",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.endDate",
+                "value": "",
+                "subsection": "root",
+                "property": "endDate",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.exporting",
+                "value": "",
+                "subsection": "root",
+                "property": "exporting",
+                "type": "text"
+              },
+              {
+                "key": "reports.export",
+                "value": "",
+                "subsection": "root",
+                "property": "export",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "reports.exportReports",
+                "reports.downloadReports",
+                "reports.format",
+                "reports.dateRange",
+                "reports.thisWeek",
+                "reports.thisMonth",
+                "reports.thisQuarter",
+                "reports.thisYear",
+                "reports.customRange",
+                "reports.startDate",
+                "reports.endDate",
+                "reports.exporting",
+                "reports.export"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 10,
+                "examples": [
+                  "reports.exportReports",
+                  "reports.downloadReports",
+                  "reports.format"
+                ],
+                "description": "Pattern de text répété 10 fois"
+              },
+              {
+                "type": "datetime_pattern",
+                "count": 3,
+                "examples": [
+                  "reports.dateRange",
+                  "reports.startDate",
+                  "reports.endDate"
+                ],
+                "description": "Pattern de datetime répété 3 fois"
+              }
+            ],
+            "totalKeys": 13
+          },
+          "en": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "reports.exportReports",
+                "value": "",
+                "subsection": "root",
+                "property": "exportReports",
+                "type": "text"
+              },
+              {
+                "key": "reports.downloadReports",
+                "value": "",
+                "subsection": "root",
+                "property": "downloadReports",
+                "type": "text"
+              },
+              {
+                "key": "reports.format",
+                "value": "",
+                "subsection": "root",
+                "property": "format",
+                "type": "text"
+              },
+              {
+                "key": "reports.dateRange",
+                "value": "",
+                "subsection": "root",
+                "property": "dateRange",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.thisWeek",
+                "value": "",
+                "subsection": "root",
+                "property": "thisWeek",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisMonth",
+                "value": "",
+                "subsection": "root",
+                "property": "thisMonth",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisQuarter",
+                "value": "",
+                "subsection": "root",
+                "property": "thisQuarter",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisYear",
+                "value": "",
+                "subsection": "root",
+                "property": "thisYear",
+                "type": "text"
+              },
+              {
+                "key": "reports.customRange",
+                "value": "",
+                "subsection": "root",
+                "property": "customRange",
+                "type": "text"
+              },
+              {
+                "key": "reports.startDate",
+                "value": "",
+                "subsection": "root",
+                "property": "startDate",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.endDate",
+                "value": "",
+                "subsection": "root",
+                "property": "endDate",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.exporting",
+                "value": "",
+                "subsection": "root",
+                "property": "exporting",
+                "type": "text"
+              },
+              {
+                "key": "reports.export",
+                "value": "",
+                "subsection": "root",
+                "property": "export",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "reports.exportReports",
+                "reports.downloadReports",
+                "reports.format",
+                "reports.dateRange",
+                "reports.thisWeek",
+                "reports.thisMonth",
+                "reports.thisQuarter",
+                "reports.thisYear",
+                "reports.customRange",
+                "reports.startDate",
+                "reports.endDate",
+                "reports.exporting",
+                "reports.export"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 10,
+                "examples": [
+                  "reports.exportReports",
+                  "reports.downloadReports",
+                  "reports.format"
+                ],
+                "description": "Pattern de text répété 10 fois"
+              },
+              {
+                "type": "datetime_pattern",
+                "count": 3,
+                "examples": [
+                  "reports.dateRange",
+                  "reports.startDate",
+                  "reports.endDate"
+                ],
+                "description": "Pattern de datetime répété 3 fois"
+              }
+            ],
+            "totalKeys": 13
+          },
+          "ar": {
+            "exists": true,
+            "keys": [
+              {
+                "key": "reports.exportReports",
+                "value": "[AR] reports.exportReports",
+                "subsection": "root",
+                "property": "exportReports",
+                "type": "text"
+              },
+              {
+                "key": "reports.downloadReports",
+                "value": "[AR] reports.downloadReports",
+                "subsection": "root",
+                "property": "downloadReports",
+                "type": "text"
+              },
+              {
+                "key": "reports.format",
+                "value": "[AR] reports.format",
+                "subsection": "root",
+                "property": "format",
+                "type": "text"
+              },
+              {
+                "key": "reports.dateRange",
+                "value": "[AR] reports.dateRange",
+                "subsection": "root",
+                "property": "dateRange",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.thisWeek",
+                "value": "[AR] reports.thisWeek",
+                "subsection": "root",
+                "property": "thisWeek",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisMonth",
+                "value": "[AR] reports.thisMonth",
+                "subsection": "root",
+                "property": "thisMonth",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisQuarter",
+                "value": "[AR] reports.thisQuarter",
+                "subsection": "root",
+                "property": "thisQuarter",
+                "type": "text"
+              },
+              {
+                "key": "reports.thisYear",
+                "value": "[AR] reports.thisYear",
+                "subsection": "root",
+                "property": "thisYear",
+                "type": "text"
+              },
+              {
+                "key": "reports.customRange",
+                "value": "[AR] reports.customRange",
+                "subsection": "root",
+                "property": "customRange",
+                "type": "text"
+              },
+              {
+                "key": "reports.startDate",
+                "value": "[AR] reports.startDate",
+                "subsection": "root",
+                "property": "startDate",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.endDate",
+                "value": "[AR] reports.endDate",
+                "subsection": "root",
+                "property": "endDate",
+                "type": "datetime"
+              },
+              {
+                "key": "reports.exporting",
+                "value": "[AR] reports.exporting",
+                "subsection": "root",
+                "property": "exporting",
+                "type": "text"
+              },
+              {
+                "key": "reports.export",
+                "value": "[AR] reports.export",
+                "subsection": "root",
+                "property": "export",
+                "type": "text"
+              }
+            ],
+            "subsections": {
+              "root": [
+                "reports.exportReports",
+                "reports.downloadReports",
+                "reports.format",
+                "reports.dateRange",
+                "reports.thisWeek",
+                "reports.thisMonth",
+                "reports.thisQuarter",
+                "reports.thisYear",
+                "reports.customRange",
+                "reports.startDate",
+                "reports.endDate",
+                "reports.exporting",
+                "reports.export"
+              ]
+            },
+            "patterns": [
+              {
+                "type": "text_pattern",
+                "count": 10,
+                "examples": [
+                  "reports.exportReports",
+                  "reports.downloadReports",
+                  "reports.format"
+                ],
+                "description": "Pattern de text répété 10 fois"
+              },
+              {
+                "type": "datetime_pattern",
+                "count": 3,
+                "examples": [
+                  "reports.dateRange",
+                  "reports.startDate",
+                  "reports.endDate"
+                ],
+                "description": "Pattern de datetime répété 3 fois"
+              }
+            ],
+            "totalKeys": 13
+          }
+        },
+        "coverage": {
+          "fr": 100,
+          "en": 100,
+          "ar": 100,
+          "average": 100
+        },
+        "subsections": [
+          "root"
+        ],
+        "patterns": [
+          {
+            "type": "text_pattern",
+            "count": 10,
+            "examples": [
+              "reports.exportReports",
+              "reports.downloadReports",
+              "reports.format"
+            ],
+            "description": "Pattern de text répété 10 fois"
+          },
+          {
+            "type": "datetime_pattern",
+            "count": 3,
+            "examples": [
+              "reports.dateRange",
+              "reports.startDate",
+              "reports.endDate"
+            ],
+            "description": "Pattern de datetime répété 3 fois"
+          }
+        ],
+        "complexity": "MOYENNE"
+      }
+    }
+  ],
+  "recommendations": {
+    "immediate": [],
+    "priority": []
+  }
+}

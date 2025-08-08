@@ -167,56 +167,56 @@
     "update": "Mettre à jour"
   },
   "landing": {
-    "title": "",
+    "title": "Gestion Immobilière Loft Algérie",
     "features": {
       "property": {
-        "title": "",
-        "description": ""
+        "title": "Gestion des Propriétés",
+        "description": "Gérez vos lofts et propriétés en toute simplicité"
       },
       "financial": {
-        "title": "",
-        "description": ""
+        "title": "Gestion Financière",
+        "description": "Suivez vos revenus, dépenses et transactions"
       },
       "tasks": {
-        "title": "",
-        "description": ""
+        "title": "Gestion des Tâches",
+        "description": "Organisez et suivez toutes vos tâches de maintenance"
       },
       "notifications": {
-        "title": "",
-        "description": ""
+        "title": "Notifications",
+        "description": "Restez informé de tous les événements importants"
       },
-      "title": ""
+      "title": "Fonctionnalités"
     },
-    "signIn": "",
-    "subtitle": "",
-    "description": "",
-    "getStarted": ""
+    "signIn": "Se connecter",
+    "subtitle": "Solution complète pour la gestion de vos propriétés",
+    "description": "Gérez efficacement vos lofts, réservations, tâches et finances avec notre plateforme intégrée",
+    "getStarted": "Commencer"
   },
   "auth": {
-    "signInDescription": "",
-    "welcomeBack": "",
-    "email": "",
-    "enterEmail": "",
-    "password": "",
-    "enterPassword": "",
-    "forgotPassword": "",
-    "signingIn": "",
-    "signIn": "",
-    "noAccount": "",
-    "signUp": "",
-    "demoAccounts": "",
-    "admin": "",
-    "manager": "",
-    "member": "",
-    "registrationFailed": "",
-    "unexpectedError": "",
-    "signUpTitle": "",
-    "signUpDescription": "",
-    "fullName": "",
-    "enterFullName": "",
-    "signingUp": "",
-    "haveAccount": "",
-    "signOut": ""
+    "signInDescription": "Connectez-vous à votre compte",
+    "welcomeBack": "Bon retour",
+    "email": "Email",
+    "enterEmail": "Entrez votre email",
+    "password": "Mot de passe",
+    "enterPassword": "Entrez votre mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signingIn": "Connexion en cours...",
+    "signIn": "Se connecter",
+    "noAccount": "Pas de compte ?",
+    "signUp": "S'inscrire",
+    "demoAccounts": "Comptes de démonstration",
+    "admin": "Administrateur",
+    "manager": "Gestionnaire",
+    "member": "Membre",
+    "registrationFailed": "Échec de l'inscription",
+    "unexpectedError": "Une erreur inattendue s'est produite",
+    "signUpTitle": "Créer un compte",
+    "signUpDescription": "Créez votre compte pour commencer",
+    "fullName": "Nom complet",
+    "enterFullName": "Entrez votre nom complet",
+    "signingUp": "Création du compte...",
+    "haveAccount": "Déjà un compte ?",
+    "signOut": "Se déconnecter"
   },
   "owners": {
     "title": "",
@@ -544,23 +544,23 @@
     "enterAmount": ""
   },
   "nav": {
-    "categories": "",
-    "currencies": "",
-    "internetConnections": "",
-    "paymentMethods": "",
-    "zoneAreas": "",
-    "dashboard": "",
-    "conversations": "",
-    "notifications": "",
-    "lofts": "",
-    "reservations": "",
-    "tasks": "",
-    "teams": "",
-    "owners": "",
-    "transactions": "",
-    "reports": "",
-    "settings": "",
-    "application": ""
+    "categories": "Catégories",
+    "currencies": "Devises",
+    "internetConnections": "Connexions Internet",
+    "paymentMethods": "Méthodes de Paiement",
+    "zoneAreas": "Zones",
+    "dashboard": "Tableau de Bord",
+    "conversations": "Conversations",
+    "notifications": "Notifications",
+    "lofts": "Lofts",
+    "reservations": "Réservations",
+    "tasks": "Tâches",
+    "teams": "Équipes",
+    "owners": "Propriétaires",
+    "transactions": "Transactions",
+    "reports": "Rapports",
+    "settings": "Paramètres",
+    "application": "Application"
   },
   "internetConnections": {
     "loadError": "",
@@ -832,8 +832,8 @@
     "cancel": ""
   },
   "theme": {
-    "light": "",
-    "dark": "",
-    "system": ""
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
   }
 }

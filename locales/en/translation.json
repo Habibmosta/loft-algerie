@@ -167,56 +167,56 @@
     "update": "Update"
   },
   "landing": {
-    "title": "",
+    "title": "Loft Algeria Property Management",
     "features": {
       "property": {
-        "title": "",
-        "description": ""
+        "title": "Property Management",
+        "description": "Manage your lofts and properties with ease"
       },
       "financial": {
-        "title": "",
-        "description": ""
+        "title": "Financial Management",
+        "description": "Track your income, expenses and transactions"
       },
       "tasks": {
-        "title": "",
-        "description": ""
+        "title": "Task Management",
+        "description": "Organize and track all your maintenance tasks"
       },
       "notifications": {
-        "title": "",
-        "description": ""
+        "title": "Notifications",
+        "description": "Stay informed about all important events"
       },
-      "title": ""
+      "title": "Features"
     },
-    "signIn": "",
-    "subtitle": "",
-    "description": "",
-    "getStarted": ""
+    "signIn": "Sign In",
+    "subtitle": "Complete solution for managing your properties",
+    "description": "Efficiently manage your lofts, reservations, tasks and finances with our integrated platform",
+    "getStarted": "Get Started"
   },
   "auth": {
-    "signInDescription": "",
-    "welcomeBack": "",
-    "email": "",
-    "enterEmail": "",
-    "password": "",
-    "enterPassword": "",
-    "forgotPassword": "",
-    "signingIn": "",
-    "signIn": "",
-    "noAccount": "",
-    "signUp": "",
-    "demoAccounts": "",
-    "admin": "",
-    "manager": "",
-    "member": "",
-    "registrationFailed": "",
-    "unexpectedError": "",
-    "signUpTitle": "",
-    "signUpDescription": "",
-    "fullName": "",
-    "enterFullName": "",
-    "signingUp": "",
-    "haveAccount": "",
-    "signOut": ""
+    "signInDescription": "Sign in to your account",
+    "welcomeBack": "Welcome back",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "forgotPassword": "Forgot password?",
+    "signingIn": "Signing in...",
+    "signIn": "Sign In",
+    "noAccount": "No account?",
+    "signUp": "Sign Up",
+    "demoAccounts": "Demo Accounts",
+    "admin": "Admin",
+    "manager": "Manager",
+    "member": "Member",
+    "registrationFailed": "Registration failed",
+    "unexpectedError": "An unexpected error occurred",
+    "signUpTitle": "Create Account",
+    "signUpDescription": "Create your account to get started",
+    "fullName": "Full Name",
+    "enterFullName": "Enter your full name",
+    "signingUp": "Creating account...",
+    "haveAccount": "Already have an account?",
+    "signOut": "Sign Out"
   },
   "owners": {
     "title": "",
@@ -540,23 +540,23 @@
     "enterAmount": ""
   },
   "nav": {
-    "categories": "",
-    "currencies": "",
-    "internetConnections": "",
-    "paymentMethods": "",
-    "zoneAreas": "",
-    "dashboard": "",
-    "conversations": "",
-    "notifications": "",
-    "lofts": "",
-    "reservations": "",
-    "tasks": "",
-    "teams": "",
-    "owners": "",
-    "transactions": "",
-    "reports": "",
-    "settings": "",
-    "application": ""
+    "categories": "Categories",
+    "currencies": "Currencies",
+    "internetConnections": "Internet Connections",
+    "paymentMethods": "Payment Methods",
+    "zoneAreas": "Zone Areas",
+    "dashboard": "Dashboard",
+    "conversations": "Conversations",
+    "notifications": "Notifications",
+    "lofts": "Lofts",
+    "reservations": "Reservations",
+    "tasks": "Tasks",
+    "teams": "Teams",
+    "owners": "Owners",
+    "transactions": "Transactions",
+    "reports": "Reports",
+    "settings": "Settings",
+    "application": "Application"
   },
   "internetConnections": {
     "loadError": "",
@@ -827,8 +827,8 @@
     "cancel": ""
   },
   "theme": {
-    "light": "",
-    "dark": "",
-    "system": ""
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   }
 }

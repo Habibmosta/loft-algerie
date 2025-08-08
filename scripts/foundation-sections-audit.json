@@ -1,0 +1,3302 @@
+{
+  "timestamp": "2025-08-08T14:35:23.446Z",
+  "foundationSections": [
+    "auth",
+    "landing",
+    "nav",
+    "theme"
+  ],
+  "auditResults": {
+    "auth": {
+      "maxKeys": 24,
+      "avgScore": 96,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "totalKeys": 24,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "auth.signInDescription",
+              "value": "Connectez-vous à votre compte",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.welcomeBack",
+              "value": "Bon retour",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.email",
+              "value": "Email",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterEmail",
+              "value": "Entrez votre email",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.password",
+              "value": "Mot de passe",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterPassword",
+              "value": "Entrez votre mot de passe",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.forgotPassword",
+              "value": "Mot de passe oublié ?",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signingIn",
+              "value": "Connexion en cours...",
+              "score": 95,
+              "issues": [
+                {
+                  "type": "punctuation",
+                  "severity": "low",
+                  "message": "Points de suspension incorrects"
+                }
+              ]
+            },
+            {
+              "key": "auth.signIn",
+              "value": "Se connecter",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.noAccount",
+              "value": "Pas de compte ?",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signUp",
+              "value": "S'inscrire",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.demoAccounts",
+              "value": "Comptes de démonstration",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.admin",
+              "value": "Administrateur",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.manager",
+              "value": "Gestionnaire",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.member",
+              "value": "Membre",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.registrationFailed",
+              "value": "Échec de l'inscription",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.unexpectedError",
+              "value": "Une erreur inattendue s'est produite",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signUpTitle",
+              "value": "Créer un compte",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signUpDescription",
+              "value": "Créez votre compte pour commencer",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.fullName",
+              "value": "Nom complet",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterFullName",
+              "value": "Entrez votre nom complet",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signingUp",
+              "value": "Création du compte...",
+              "score": 95,
+              "issues": [
+                {
+                  "type": "punctuation",
+                  "severity": "low",
+                  "message": "Points de suspension incorrects"
+                }
+              ]
+            },
+            {
+              "key": "auth.haveAccount",
+              "value": "Déjà un compte ?",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signOut",
+              "value": "Se déconnecter",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [
+            {
+              "type": "punctuation",
+              "severity": "low",
+              "message": "Points de suspension incorrects",
+              "key": "auth.signingIn",
+              "value": "Connexion en cours..."
+            },
+            {
+              "type": "punctuation",
+              "severity": "low",
+              "message": "Points de suspension incorrects",
+              "key": "auth.signingUp",
+              "value": "Création du compte..."
+            }
+          ],
+          "recommendations": [],
+          "issueTypes": {
+            "punctuation": 2
+          }
+        },
+        "en": {
+          "exists": true,
+          "totalKeys": 24,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "auth.signInDescription",
+              "value": "Sign in to your account",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.welcomeBack",
+              "value": "Welcome back",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.email",
+              "value": "Email",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterEmail",
+              "value": "Enter your email",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.password",
+              "value": "Password",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterPassword",
+              "value": "Enter your password",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.forgotPassword",
+              "value": "Forgot password?",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signingIn",
+              "value": "Signing in...",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signIn",
+              "value": "Sign In",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.noAccount",
+              "value": "No account?",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signUp",
+              "value": "Sign Up",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.demoAccounts",
+              "value": "Demo Accounts",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.admin",
+              "value": "Admin",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.manager",
+              "value": "Manager",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.member",
+              "value": "Member",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.registrationFailed",
+              "value": "Registration failed",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.unexpectedError",
+              "value": "An unexpected error occurred",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signUpTitle",
+              "value": "Create Account",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signUpDescription",
+              "value": "Create your account to get started",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.fullName",
+              "value": "Full Name",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterFullName",
+              "value": "Enter your full name",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signingUp",
+              "value": "Creating account...",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.haveAccount",
+              "value": "Already have an account?",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.signOut",
+              "value": "Sign Out",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "ar": {
+          "exists": true,
+          "totalKeys": 24,
+          "averageScore": 88,
+          "keys": [
+            {
+              "key": "auth.signInDescription",
+              "value": "[AR] auth.signInDescription",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.welcomeBack",
+              "value": "مرحباً بعودتك",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.email",
+              "value": "البريد الإلكتروني",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterEmail",
+              "value": "[AR] auth.enterEmail",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.password",
+              "value": "كلمة المرور",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterPassword",
+              "value": "[AR] auth.enterPassword",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.forgotPassword",
+              "value": "[AR] auth.forgotPassword",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signingIn",
+              "value": "[AR] auth.signingIn",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signIn",
+              "value": "تسجيل الدخول",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.noAccount",
+              "value": "[AR] auth.noAccount",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signUp",
+              "value": "التسجيل",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.demoAccounts",
+              "value": "[AR] auth.demoAccounts",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.admin",
+              "value": "مدير",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.manager",
+              "value": "مدير",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.member",
+              "value": "عضو",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.registrationFailed",
+              "value": "[AR] auth.registrationFailed",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.unexpectedError",
+              "value": "[AR] auth.unexpectedError",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signUpTitle",
+              "value": "[AR] auth.signUpTitle",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signUpDescription",
+              "value": "[AR] auth.signUpDescription",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.fullName",
+              "value": "الاسم الكامل",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "auth.enterFullName",
+              "value": "[AR] auth.enterFullName",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signingUp",
+              "value": "[AR] auth.signingUp",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.haveAccount",
+              "value": "[AR] auth.haveAccount",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "auth.signOut",
+              "value": "تسجيل الخروج",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.signInDescription",
+              "value": "[AR] auth.signInDescription"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.enterEmail",
+              "value": "[AR] auth.enterEmail"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.enterPassword",
+              "value": "[AR] auth.enterPassword"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.forgotPassword",
+              "value": "[AR] auth.forgotPassword"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.signingIn",
+              "value": "[AR] auth.signingIn"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.noAccount",
+              "value": "[AR] auth.noAccount"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.demoAccounts",
+              "value": "[AR] auth.demoAccounts"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.registrationFailed",
+              "value": "[AR] auth.registrationFailed"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.unexpectedError",
+              "value": "[AR] auth.unexpectedError"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.signUpTitle",
+              "value": "[AR] auth.signUpTitle"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.signUpDescription",
+              "value": "[AR] auth.signUpDescription"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.enterFullName",
+              "value": "[AR] auth.enterFullName"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.signingUp",
+              "value": "[AR] auth.signingUp"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "auth.haveAccount",
+              "value": "[AR] auth.haveAccount"
+            }
+          ],
+          "recommendations": [
+            "Réviser 14 traductions avec marqueurs de fallback"
+          ],
+          "issueTypes": {
+            "fallback": 14
+          }
+        }
+      },
+      "totalIssues": 16,
+      "issueFrequency": {
+        "punctuation": 2,
+        "fallback": 14
+      },
+      "recommendations": [
+        "Réviser 14 traductions avec marqueurs de fallback"
+      ],
+      "priority": "CRITIQUE"
+    },
+    "landing": {
+      "maxKeys": 14,
+      "avgScore": 98,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "totalKeys": 14,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "landing.title",
+              "value": "Gestion Immobilière Loft Algérie",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.property.title",
+              "value": "Gestion des Propriétés",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.property.description",
+              "value": "Gérez vos lofts et propriétés en toute simplicité",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.financial.title",
+              "value": "Gestion Financière",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.financial.description",
+              "value": "Suivez vos revenus, dépenses et transactions",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.tasks.title",
+              "value": "Gestion des Tâches",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.tasks.description",
+              "value": "Organisez et suivez toutes vos tâches de maintenance",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.notifications.title",
+              "value": "Notifications",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.notifications.description",
+              "value": "Restez informé de tous les événements importants",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.title",
+              "value": "Fonctionnalités",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.signIn",
+              "value": "Se connecter",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.subtitle",
+              "value": "Solution complète pour la gestion de vos propriétés",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.description",
+              "value": "Gérez efficacement vos lofts, réservations, tâches et finances avec notre plateforme intégrée",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.getStarted",
+              "value": "Commencer",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "en": {
+          "exists": true,
+          "totalKeys": 14,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "landing.title",
+              "value": "Loft Algeria Property Management",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.property.title",
+              "value": "Property Management",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.property.description",
+              "value": "Manage your lofts and properties with ease",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.financial.title",
+              "value": "Financial Management",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.financial.description",
+              "value": "Track your income, expenses and transactions",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.tasks.title",
+              "value": "Task Management",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.tasks.description",
+              "value": "Organize and track all your maintenance tasks",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.notifications.title",
+              "value": "Notifications",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.notifications.description",
+              "value": "Stay informed about all important events",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.title",
+              "value": "Features",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.signIn",
+              "value": "Sign In",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.subtitle",
+              "value": "Complete solution for managing your properties",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.description",
+              "value": "Efficiently manage your lofts, reservations, tasks and finances with our integrated platform",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.getStarted",
+              "value": "Get Started",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "ar": {
+          "exists": true,
+          "totalKeys": 14,
+          "averageScore": 95,
+          "keys": [
+            {
+              "key": "landing.title",
+              "value": "إدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.property.title",
+              "value": "إدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.property.description",
+              "value": "الوصف",
+              "score": 85,
+              "issues": [
+                {
+                  "type": "insufficient_marketing",
+                  "severity": "medium",
+                  "message": "Description marketing insuffisante"
+                }
+              ]
+            },
+            {
+              "key": "landing.features.financial.title",
+              "value": "إدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.financial.description",
+              "value": "الوصف",
+              "score": 85,
+              "issues": [
+                {
+                  "type": "insufficient_marketing",
+                  "severity": "medium",
+                  "message": "Description marketing insuffisante"
+                }
+              ]
+            },
+            {
+              "key": "landing.features.tasks.title",
+              "value": "إدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.tasks.description",
+              "value": "الوصف",
+              "score": 85,
+              "issues": [
+                {
+                  "type": "insufficient_marketing",
+                  "severity": "medium",
+                  "message": "Description marketing insuffisante"
+                }
+              ]
+            },
+            {
+              "key": "landing.features.notifications.title",
+              "value": "إدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.features.notifications.description",
+              "value": "الوصف",
+              "score": 85,
+              "issues": [
+                {
+                  "type": "insufficient_marketing",
+                  "severity": "medium",
+                  "message": "Description marketing insuffisante"
+                }
+              ]
+            },
+            {
+              "key": "landing.features.title",
+              "value": "إدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.signIn",
+              "value": "تسجيل الدخول",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.subtitle",
+              "value": "نظام شامل لإدارة العقارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "landing.description",
+              "value": "الوصف",
+              "score": 85,
+              "issues": [
+                {
+                  "type": "insufficient_marketing",
+                  "severity": "medium",
+                  "message": "Description marketing insuffisante"
+                }
+              ]
+            },
+            {
+              "key": "landing.getStarted",
+              "value": "ابدأ الآن",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [
+            {
+              "type": "insufficient_marketing",
+              "severity": "medium",
+              "message": "Description marketing insuffisante",
+              "key": "landing.features.property.description",
+              "value": "الوصف"
+            },
+            {
+              "type": "insufficient_marketing",
+              "severity": "medium",
+              "message": "Description marketing insuffisante",
+              "key": "landing.features.financial.description",
+              "value": "الوصف"
+            },
+            {
+              "type": "insufficient_marketing",
+              "severity": "medium",
+              "message": "Description marketing insuffisante",
+              "key": "landing.features.tasks.description",
+              "value": "الوصف"
+            },
+            {
+              "type": "insufficient_marketing",
+              "severity": "medium",
+              "message": "Description marketing insuffisante",
+              "key": "landing.features.notifications.description",
+              "value": "الوصف"
+            },
+            {
+              "type": "insufficient_marketing",
+              "severity": "medium",
+              "message": "Description marketing insuffisante",
+              "key": "landing.description",
+              "value": "الوصف"
+            }
+          ],
+          "recommendations": [],
+          "issueTypes": {
+            "insufficient_marketing": 5
+          }
+        }
+      },
+      "totalIssues": 5,
+      "issueFrequency": {
+        "insufficient_marketing": 5
+      },
+      "recommendations": [],
+      "priority": "HAUTE"
+    },
+    "nav": {
+      "maxKeys": 17,
+      "avgScore": 97,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "totalKeys": 17,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "nav.categories",
+              "value": "Catégories",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.currencies",
+              "value": "Devises",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.internetConnections",
+              "value": "Connexions Internet",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.paymentMethods",
+              "value": "Méthodes de Paiement",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.zoneAreas",
+              "value": "Zones",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.dashboard",
+              "value": "Tableau de Bord",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.conversations",
+              "value": "Conversations",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.notifications",
+              "value": "Notifications",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.lofts",
+              "value": "Lofts",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.reservations",
+              "value": "Réservations",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.tasks",
+              "value": "Tâches",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.teams",
+              "value": "Équipes",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.owners",
+              "value": "Propriétaires",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.transactions",
+              "value": "Transactions",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.reports",
+              "value": "Rapports",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.settings",
+              "value": "Paramètres",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.application",
+              "value": "Application",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "en": {
+          "exists": true,
+          "totalKeys": 17,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "nav.categories",
+              "value": "Categories",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.currencies",
+              "value": "Currencies",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.internetConnections",
+              "value": "Internet Connections",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.paymentMethods",
+              "value": "Payment Methods",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.zoneAreas",
+              "value": "Zone Areas",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.dashboard",
+              "value": "Dashboard",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.conversations",
+              "value": "Conversations",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.notifications",
+              "value": "Notifications",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.lofts",
+              "value": "Lofts",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.reservations",
+              "value": "Reservations",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.tasks",
+              "value": "Tasks",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.teams",
+              "value": "Teams",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.owners",
+              "value": "Owners",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.transactions",
+              "value": "Transactions",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.reports",
+              "value": "Reports",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.settings",
+              "value": "Settings",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.application",
+              "value": "Application",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "ar": {
+          "exists": true,
+          "totalKeys": 17,
+          "averageScore": 91,
+          "keys": [
+            {
+              "key": "nav.categories",
+              "value": "[AR] nav.categories",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.currencies",
+              "value": "[AR] nav.currencies",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.internetConnections",
+              "value": "[AR] nav.internetConnections",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.paymentMethods",
+              "value": "[AR] nav.paymentMethods",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.zoneAreas",
+              "value": "[AR] nav.zoneAreas",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.dashboard",
+              "value": "لوحة التحكم",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.conversations",
+              "value": "المحادثات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.notifications",
+              "value": "الإشعارات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.lofts",
+              "value": "اللوفت",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.reservations",
+              "value": "الحجوزات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.tasks",
+              "value": "المهام",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.teams",
+              "value": "[AR] nav.teams",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.owners",
+              "value": "[AR] nav.owners",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            },
+            {
+              "key": "nav.transactions",
+              "value": "المعاملات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.reports",
+              "value": "التقارير",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.settings",
+              "value": "الإعدادات",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "nav.application",
+              "value": "[AR] nav.application",
+              "score": 80,
+              "issues": [
+                {
+                  "type": "fallback",
+                  "severity": "medium",
+                  "message": "Marqueur de fallback présent"
+                }
+              ]
+            }
+          ],
+          "issues": [
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.categories",
+              "value": "[AR] nav.categories"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.currencies",
+              "value": "[AR] nav.currencies"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.internetConnections",
+              "value": "[AR] nav.internetConnections"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.paymentMethods",
+              "value": "[AR] nav.paymentMethods"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.zoneAreas",
+              "value": "[AR] nav.zoneAreas"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.teams",
+              "value": "[AR] nav.teams"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.owners",
+              "value": "[AR] nav.owners"
+            },
+            {
+              "type": "fallback",
+              "severity": "medium",
+              "message": "Marqueur de fallback présent",
+              "key": "nav.application",
+              "value": "[AR] nav.application"
+            }
+          ],
+          "recommendations": [
+            "Réviser 8 traductions avec marqueurs de fallback"
+          ],
+          "issueTypes": {
+            "fallback": 8
+          }
+        }
+      },
+      "totalIssues": 8,
+      "issueFrequency": {
+        "fallback": 8
+      },
+      "recommendations": [
+        "Réviser 8 traductions avec marqueurs de fallback"
+      ],
+      "priority": "HAUTE"
+    },
+    "theme": {
+      "maxKeys": 3,
+      "avgScore": 100,
+      "languages": {
+        "fr": {
+          "exists": true,
+          "totalKeys": 3,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "theme.light",
+              "value": "Clair",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "theme.dark",
+              "value": "Sombre",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "theme.system",
+              "value": "Système",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "en": {
+          "exists": true,
+          "totalKeys": 3,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "theme.light",
+              "value": "Light",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "theme.dark",
+              "value": "Dark",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "theme.system",
+              "value": "System",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        },
+        "ar": {
+          "exists": true,
+          "totalKeys": 3,
+          "averageScore": 100,
+          "keys": [
+            {
+              "key": "theme.light",
+              "value": "فاتح",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "theme.dark",
+              "value": "داكن",
+              "score": 100,
+              "issues": []
+            },
+            {
+              "key": "theme.system",
+              "value": "النظام",
+              "score": 100,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "recommendations": [],
+          "issueTypes": {}
+        }
+      },
+      "totalIssues": 0,
+      "issueFrequency": {},
+      "recommendations": [],
+      "priority": "BASSE"
+    }
+  },
+  "globalStats": {
+    "totalSections": 4,
+    "sectionsWithData": 4,
+    "totalKeys": 58,
+    "averageScore": 98,
+    "totalIssues": 29,
+    "priorityDistribution": {
+      "CRITIQUE": 1,
+      "HAUTE": 2,
+      "BASSE": 1
+    }
+  },
+  "actionPlan": [
+    {
+      "section": "auth",
+      "priority": "CRITIQUE",
+      "avgScore": 96,
+      "issueCount": 16,
+      "action": "Refonte complète requise",
+      "effort": "Élevé",
+      "details": {
+        "maxKeys": 24,
+        "avgScore": 96,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "totalKeys": 24,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "auth.signInDescription",
+                "value": "Connectez-vous à votre compte",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.welcomeBack",
+                "value": "Bon retour",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.email",
+                "value": "Email",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterEmail",
+                "value": "Entrez votre email",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.password",
+                "value": "Mot de passe",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterPassword",
+                "value": "Entrez votre mot de passe",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.forgotPassword",
+                "value": "Mot de passe oublié ?",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signingIn",
+                "value": "Connexion en cours...",
+                "score": 95,
+                "issues": [
+                  {
+                    "type": "punctuation",
+                    "severity": "low",
+                    "message": "Points de suspension incorrects"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signIn",
+                "value": "Se connecter",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.noAccount",
+                "value": "Pas de compte ?",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signUp",
+                "value": "S'inscrire",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.demoAccounts",
+                "value": "Comptes de démonstration",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.admin",
+                "value": "Administrateur",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.manager",
+                "value": "Gestionnaire",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.member",
+                "value": "Membre",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.registrationFailed",
+                "value": "Échec de l'inscription",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.unexpectedError",
+                "value": "Une erreur inattendue s'est produite",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signUpTitle",
+                "value": "Créer un compte",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signUpDescription",
+                "value": "Créez votre compte pour commencer",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.fullName",
+                "value": "Nom complet",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterFullName",
+                "value": "Entrez votre nom complet",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signingUp",
+                "value": "Création du compte...",
+                "score": 95,
+                "issues": [
+                  {
+                    "type": "punctuation",
+                    "severity": "low",
+                    "message": "Points de suspension incorrects"
+                  }
+                ]
+              },
+              {
+                "key": "auth.haveAccount",
+                "value": "Déjà un compte ?",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signOut",
+                "value": "Se déconnecter",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [
+              {
+                "type": "punctuation",
+                "severity": "low",
+                "message": "Points de suspension incorrects",
+                "key": "auth.signingIn",
+                "value": "Connexion en cours..."
+              },
+              {
+                "type": "punctuation",
+                "severity": "low",
+                "message": "Points de suspension incorrects",
+                "key": "auth.signingUp",
+                "value": "Création du compte..."
+              }
+            ],
+            "recommendations": [],
+            "issueTypes": {
+              "punctuation": 2
+            }
+          },
+          "en": {
+            "exists": true,
+            "totalKeys": 24,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "auth.signInDescription",
+                "value": "Sign in to your account",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.welcomeBack",
+                "value": "Welcome back",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.email",
+                "value": "Email",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterEmail",
+                "value": "Enter your email",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.password",
+                "value": "Password",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterPassword",
+                "value": "Enter your password",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.forgotPassword",
+                "value": "Forgot password?",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signingIn",
+                "value": "Signing in...",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signIn",
+                "value": "Sign In",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.noAccount",
+                "value": "No account?",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signUp",
+                "value": "Sign Up",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.demoAccounts",
+                "value": "Demo Accounts",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.admin",
+                "value": "Admin",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.manager",
+                "value": "Manager",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.member",
+                "value": "Member",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.registrationFailed",
+                "value": "Registration failed",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.unexpectedError",
+                "value": "An unexpected error occurred",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signUpTitle",
+                "value": "Create Account",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signUpDescription",
+                "value": "Create your account to get started",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.fullName",
+                "value": "Full Name",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterFullName",
+                "value": "Enter your full name",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signingUp",
+                "value": "Creating account...",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.haveAccount",
+                "value": "Already have an account?",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.signOut",
+                "value": "Sign Out",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "ar": {
+            "exists": true,
+            "totalKeys": 24,
+            "averageScore": 88,
+            "keys": [
+              {
+                "key": "auth.signInDescription",
+                "value": "[AR] auth.signInDescription",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.welcomeBack",
+                "value": "مرحباً بعودتك",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.email",
+                "value": "البريد الإلكتروني",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterEmail",
+                "value": "[AR] auth.enterEmail",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.password",
+                "value": "كلمة المرور",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterPassword",
+                "value": "[AR] auth.enterPassword",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.forgotPassword",
+                "value": "[AR] auth.forgotPassword",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signingIn",
+                "value": "[AR] auth.signingIn",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signIn",
+                "value": "تسجيل الدخول",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.noAccount",
+                "value": "[AR] auth.noAccount",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signUp",
+                "value": "التسجيل",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.demoAccounts",
+                "value": "[AR] auth.demoAccounts",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.admin",
+                "value": "مدير",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.manager",
+                "value": "مدير",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.member",
+                "value": "عضو",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.registrationFailed",
+                "value": "[AR] auth.registrationFailed",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.unexpectedError",
+                "value": "[AR] auth.unexpectedError",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signUpTitle",
+                "value": "[AR] auth.signUpTitle",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signUpDescription",
+                "value": "[AR] auth.signUpDescription",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.fullName",
+                "value": "الاسم الكامل",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "auth.enterFullName",
+                "value": "[AR] auth.enterFullName",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signingUp",
+                "value": "[AR] auth.signingUp",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.haveAccount",
+                "value": "[AR] auth.haveAccount",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "auth.signOut",
+                "value": "تسجيل الخروج",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.signInDescription",
+                "value": "[AR] auth.signInDescription"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.enterEmail",
+                "value": "[AR] auth.enterEmail"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.enterPassword",
+                "value": "[AR] auth.enterPassword"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.forgotPassword",
+                "value": "[AR] auth.forgotPassword"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.signingIn",
+                "value": "[AR] auth.signingIn"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.noAccount",
+                "value": "[AR] auth.noAccount"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.demoAccounts",
+                "value": "[AR] auth.demoAccounts"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.registrationFailed",
+                "value": "[AR] auth.registrationFailed"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.unexpectedError",
+                "value": "[AR] auth.unexpectedError"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.signUpTitle",
+                "value": "[AR] auth.signUpTitle"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.signUpDescription",
+                "value": "[AR] auth.signUpDescription"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.enterFullName",
+                "value": "[AR] auth.enterFullName"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.signingUp",
+                "value": "[AR] auth.signingUp"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "auth.haveAccount",
+                "value": "[AR] auth.haveAccount"
+              }
+            ],
+            "recommendations": [
+              "Réviser 14 traductions avec marqueurs de fallback"
+            ],
+            "issueTypes": {
+              "fallback": 14
+            }
+          }
+        },
+        "totalIssues": 16,
+        "issueFrequency": {
+          "punctuation": 2,
+          "fallback": 14
+        },
+        "recommendations": [
+          "Réviser 14 traductions avec marqueurs de fallback"
+        ],
+        "priority": "CRITIQUE"
+      }
+    },
+    {
+      "section": "landing",
+      "priority": "HAUTE",
+      "avgScore": 98,
+      "issueCount": 5,
+      "action": "Amélioration majeure nécessaire",
+      "effort": "Moyen-Élevé",
+      "details": {
+        "maxKeys": 14,
+        "avgScore": 98,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "totalKeys": 14,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "landing.title",
+                "value": "Gestion Immobilière Loft Algérie",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.property.title",
+                "value": "Gestion des Propriétés",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.property.description",
+                "value": "Gérez vos lofts et propriétés en toute simplicité",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.financial.title",
+                "value": "Gestion Financière",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.financial.description",
+                "value": "Suivez vos revenus, dépenses et transactions",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.tasks.title",
+                "value": "Gestion des Tâches",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.tasks.description",
+                "value": "Organisez et suivez toutes vos tâches de maintenance",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.notifications.title",
+                "value": "Notifications",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.notifications.description",
+                "value": "Restez informé de tous les événements importants",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.title",
+                "value": "Fonctionnalités",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.signIn",
+                "value": "Se connecter",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.subtitle",
+                "value": "Solution complète pour la gestion de vos propriétés",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.description",
+                "value": "Gérez efficacement vos lofts, réservations, tâches et finances avec notre plateforme intégrée",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.getStarted",
+                "value": "Commencer",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "en": {
+            "exists": true,
+            "totalKeys": 14,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "landing.title",
+                "value": "Loft Algeria Property Management",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.property.title",
+                "value": "Property Management",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.property.description",
+                "value": "Manage your lofts and properties with ease",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.financial.title",
+                "value": "Financial Management",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.financial.description",
+                "value": "Track your income, expenses and transactions",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.tasks.title",
+                "value": "Task Management",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.tasks.description",
+                "value": "Organize and track all your maintenance tasks",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.notifications.title",
+                "value": "Notifications",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.notifications.description",
+                "value": "Stay informed about all important events",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.title",
+                "value": "Features",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.signIn",
+                "value": "Sign In",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.subtitle",
+                "value": "Complete solution for managing your properties",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.description",
+                "value": "Efficiently manage your lofts, reservations, tasks and finances with our integrated platform",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.getStarted",
+                "value": "Get Started",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "ar": {
+            "exists": true,
+            "totalKeys": 14,
+            "averageScore": 95,
+            "keys": [
+              {
+                "key": "landing.title",
+                "value": "إدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.property.title",
+                "value": "إدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.property.description",
+                "value": "الوصف",
+                "score": 85,
+                "issues": [
+                  {
+                    "type": "insufficient_marketing",
+                    "severity": "medium",
+                    "message": "Description marketing insuffisante"
+                  }
+                ]
+              },
+              {
+                "key": "landing.features.financial.title",
+                "value": "إدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.financial.description",
+                "value": "الوصف",
+                "score": 85,
+                "issues": [
+                  {
+                    "type": "insufficient_marketing",
+                    "severity": "medium",
+                    "message": "Description marketing insuffisante"
+                  }
+                ]
+              },
+              {
+                "key": "landing.features.tasks.title",
+                "value": "إدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.tasks.description",
+                "value": "الوصف",
+                "score": 85,
+                "issues": [
+                  {
+                    "type": "insufficient_marketing",
+                    "severity": "medium",
+                    "message": "Description marketing insuffisante"
+                  }
+                ]
+              },
+              {
+                "key": "landing.features.notifications.title",
+                "value": "إدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.features.notifications.description",
+                "value": "الوصف",
+                "score": 85,
+                "issues": [
+                  {
+                    "type": "insufficient_marketing",
+                    "severity": "medium",
+                    "message": "Description marketing insuffisante"
+                  }
+                ]
+              },
+              {
+                "key": "landing.features.title",
+                "value": "إدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.signIn",
+                "value": "تسجيل الدخول",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.subtitle",
+                "value": "نظام شامل لإدارة العقارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "landing.description",
+                "value": "الوصف",
+                "score": 85,
+                "issues": [
+                  {
+                    "type": "insufficient_marketing",
+                    "severity": "medium",
+                    "message": "Description marketing insuffisante"
+                  }
+                ]
+              },
+              {
+                "key": "landing.getStarted",
+                "value": "ابدأ الآن",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [
+              {
+                "type": "insufficient_marketing",
+                "severity": "medium",
+                "message": "Description marketing insuffisante",
+                "key": "landing.features.property.description",
+                "value": "الوصف"
+              },
+              {
+                "type": "insufficient_marketing",
+                "severity": "medium",
+                "message": "Description marketing insuffisante",
+                "key": "landing.features.financial.description",
+                "value": "الوصف"
+              },
+              {
+                "type": "insufficient_marketing",
+                "severity": "medium",
+                "message": "Description marketing insuffisante",
+                "key": "landing.features.tasks.description",
+                "value": "الوصف"
+              },
+              {
+                "type": "insufficient_marketing",
+                "severity": "medium",
+                "message": "Description marketing insuffisante",
+                "key": "landing.features.notifications.description",
+                "value": "الوصف"
+              },
+              {
+                "type": "insufficient_marketing",
+                "severity": "medium",
+                "message": "Description marketing insuffisante",
+                "key": "landing.description",
+                "value": "الوصف"
+              }
+            ],
+            "recommendations": [],
+            "issueTypes": {
+              "insufficient_marketing": 5
+            }
+          }
+        },
+        "totalIssues": 5,
+        "issueFrequency": {
+          "insufficient_marketing": 5
+        },
+        "recommendations": [],
+        "priority": "HAUTE"
+      }
+    },
+    {
+      "section": "nav",
+      "priority": "HAUTE",
+      "avgScore": 97,
+      "issueCount": 8,
+      "action": "Amélioration majeure nécessaire",
+      "effort": "Moyen-Élevé",
+      "details": {
+        "maxKeys": 17,
+        "avgScore": 97,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "totalKeys": 17,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "nav.categories",
+                "value": "Catégories",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.currencies",
+                "value": "Devises",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.internetConnections",
+                "value": "Connexions Internet",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.paymentMethods",
+                "value": "Méthodes de Paiement",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.zoneAreas",
+                "value": "Zones",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.dashboard",
+                "value": "Tableau de Bord",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.conversations",
+                "value": "Conversations",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.notifications",
+                "value": "Notifications",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.lofts",
+                "value": "Lofts",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.reservations",
+                "value": "Réservations",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.tasks",
+                "value": "Tâches",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.teams",
+                "value": "Équipes",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.owners",
+                "value": "Propriétaires",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.transactions",
+                "value": "Transactions",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.reports",
+                "value": "Rapports",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.settings",
+                "value": "Paramètres",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.application",
+                "value": "Application",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "en": {
+            "exists": true,
+            "totalKeys": 17,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "nav.categories",
+                "value": "Categories",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.currencies",
+                "value": "Currencies",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.internetConnections",
+                "value": "Internet Connections",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.paymentMethods",
+                "value": "Payment Methods",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.zoneAreas",
+                "value": "Zone Areas",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.dashboard",
+                "value": "Dashboard",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.conversations",
+                "value": "Conversations",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.notifications",
+                "value": "Notifications",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.lofts",
+                "value": "Lofts",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.reservations",
+                "value": "Reservations",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.tasks",
+                "value": "Tasks",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.teams",
+                "value": "Teams",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.owners",
+                "value": "Owners",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.transactions",
+                "value": "Transactions",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.reports",
+                "value": "Reports",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.settings",
+                "value": "Settings",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.application",
+                "value": "Application",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "ar": {
+            "exists": true,
+            "totalKeys": 17,
+            "averageScore": 91,
+            "keys": [
+              {
+                "key": "nav.categories",
+                "value": "[AR] nav.categories",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.currencies",
+                "value": "[AR] nav.currencies",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.internetConnections",
+                "value": "[AR] nav.internetConnections",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.paymentMethods",
+                "value": "[AR] nav.paymentMethods",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.zoneAreas",
+                "value": "[AR] nav.zoneAreas",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.dashboard",
+                "value": "لوحة التحكم",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.conversations",
+                "value": "المحادثات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.notifications",
+                "value": "الإشعارات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.lofts",
+                "value": "اللوفت",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.reservations",
+                "value": "الحجوزات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.tasks",
+                "value": "المهام",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.teams",
+                "value": "[AR] nav.teams",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.owners",
+                "value": "[AR] nav.owners",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              },
+              {
+                "key": "nav.transactions",
+                "value": "المعاملات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.reports",
+                "value": "التقارير",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.settings",
+                "value": "الإعدادات",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "nav.application",
+                "value": "[AR] nav.application",
+                "score": 80,
+                "issues": [
+                  {
+                    "type": "fallback",
+                    "severity": "medium",
+                    "message": "Marqueur de fallback présent"
+                  }
+                ]
+              }
+            ],
+            "issues": [
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.categories",
+                "value": "[AR] nav.categories"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.currencies",
+                "value": "[AR] nav.currencies"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.internetConnections",
+                "value": "[AR] nav.internetConnections"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.paymentMethods",
+                "value": "[AR] nav.paymentMethods"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.zoneAreas",
+                "value": "[AR] nav.zoneAreas"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.teams",
+                "value": "[AR] nav.teams"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.owners",
+                "value": "[AR] nav.owners"
+              },
+              {
+                "type": "fallback",
+                "severity": "medium",
+                "message": "Marqueur de fallback présent",
+                "key": "nav.application",
+                "value": "[AR] nav.application"
+              }
+            ],
+            "recommendations": [
+              "Réviser 8 traductions avec marqueurs de fallback"
+            ],
+            "issueTypes": {
+              "fallback": 8
+            }
+          }
+        },
+        "totalIssues": 8,
+        "issueFrequency": {
+          "fallback": 8
+        },
+        "recommendations": [
+          "Réviser 8 traductions avec marqueurs de fallback"
+        ],
+        "priority": "HAUTE"
+      }
+    },
+    {
+      "section": "theme",
+      "priority": "BASSE",
+      "avgScore": 100,
+      "issueCount": 0,
+      "action": "Maintenance légère",
+      "effort": "Faible",
+      "details": {
+        "maxKeys": 3,
+        "avgScore": 100,
+        "languages": {
+          "fr": {
+            "exists": true,
+            "totalKeys": 3,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "theme.light",
+                "value": "Clair",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "theme.dark",
+                "value": "Sombre",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "theme.system",
+                "value": "Système",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "en": {
+            "exists": true,
+            "totalKeys": 3,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "theme.light",
+                "value": "Light",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "theme.dark",
+                "value": "Dark",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "theme.system",
+                "value": "System",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          },
+          "ar": {
+            "exists": true,
+            "totalKeys": 3,
+            "averageScore": 100,
+            "keys": [
+              {
+                "key": "theme.light",
+                "value": "فاتح",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "theme.dark",
+                "value": "داكن",
+                "score": 100,
+                "issues": []
+              },
+              {
+                "key": "theme.system",
+                "value": "النظام",
+                "score": 100,
+                "issues": []
+              }
+            ],
+            "issues": [],
+            "recommendations": [],
+            "issueTypes": {}
+          }
+        },
+        "totalIssues": 0,
+        "issueFrequency": {},
+        "recommendations": [],
+        "priority": "BASSE"
+      }
+    }
+  ],
+  "strategicRecommendations": {
+    "immediate": [
+      {
+        "section": "auth",
+        "currentScore": 96,
+        "targetScore": 85,
+        "issues": 16,
+        "effort": "Élevé"
+      }
+    ],
+    "priority": [
+      {
+        "section": "landing",
+        "currentScore": 98,
+        "targetScore": 90,
+        "mainIssues": [
+          "insufficient_marketing"
+        ]
+      },
+      {
+        "section": "nav",
+        "currentScore": 97,
+        "targetScore": 90,
+        "mainIssues": [
+          "fallback"
+        ]
+      }
+    ]
+  }
+}
