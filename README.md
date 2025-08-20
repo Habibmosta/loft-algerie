@@ -1,0 +1,5 @@
+# back_loft-algerie-v1
+
+Ceci est un projet Next.js.
+
+## Déploiement de prévisualisation pour la branche dev.
