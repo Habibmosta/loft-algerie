@@ -1,5 +1,4 @@
 import { ModernTransactionsPage } from "@/components/transactions/modern-transactions-page"
-import { TranslationTest } from "@/components/debug/translation-test"
 
 // Mock data for demonstration
 const mockSession = {
@@ -112,7 +111,6 @@ const mockPaymentMethods = [
 export default function TransactionsDemoPage() {
   return (
     <div>
-      <TranslationTest />
       <ModernTransactionsPage
         session={mockSession}
         transactions={mockTransactions}
