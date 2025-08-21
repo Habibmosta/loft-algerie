@@ -131,10 +131,10 @@ return (
             <DollarSign className="h-8 w-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {transaction ? t('transactions.editTransaction') : t('transactions.addNewTransaction')}
+            {transaction ? t('editTransaction', { ns: 'transactions' }) : t('addNewTransaction', { ns: 'transactions' })}
           </h1>
           <p className="text-gray-600 text-lg">
-            {transaction ? t('transactions.updateTransactionInfo') : t('transactions.createNewTransaction')}
+            {transaction ? t('updateTransactionInfo', { ns: 'transactions' }) : t('createNewTransaction', { ns: 'transactions' })}
           </p>
         </div>
 
@@ -144,7 +144,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl">
                 {getTypeIcon(transactionType)}
-                {t('transactions.transactionType')}
+                {t('transactionType', { ns: 'transactions' })}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -152,7 +152,7 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="transaction_type" className="flex items-center gap-2">
                     <Tag className="h-4 w-4" />
-                    {t('transactions.type')}
+                    {t('type', { ns: 'transactions' })}
                   </Label>
                   <Select onValueChange={(value) => setValue('transaction_type', value as any)} defaultValue={transaction?.transaction_type}>
                     <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
@@ -162,13 +162,13 @@ return (
                       <SelectItem value="income" className="flex items-center gap-2">
                         <div className="flex items-center gap-2">
                           <TrendingUp className="h-4 w-4 text-green-600" />
-                          {t('transactions.income')}
+                          {t('income', { ns: 'transactions' })}
                         </div>
                       </SelectItem>
                       <SelectItem value="expense" className="flex items-center gap-2">
                         <div className="flex items-center gap-2">
                           <TrendingDown className="h-4 w-4 text-red-600" />
-                          {t('transactions.expense')}
+                          {t('expense', { ns: 'transactions' })}
                         </div>
                       </SelectItem>
                     </SelectContent>
@@ -179,7 +179,7 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="status" className="flex items-center gap-2">
                     {getStatusIcon(status)}
-                    {t('transactions.status')}
+                    {t('status', { ns: 'transactions' })}
                   </Label>
                   <Select onValueChange={(value) => setValue('status', value as any)} defaultValue={transaction?.status}>
                     <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
@@ -189,19 +189,19 @@ return (
                       <SelectItem value="pending">
                         <div className="flex items-center gap-2">
                           <Clock className="h-4 w-4 text-yellow-600" />
-                          {t('transactions.pending')}
+                          {t('pending', { ns: 'transactions' })}
                         </div>
                       </SelectItem>
                       <SelectItem value="completed">
                         <div className="flex items-center gap-2">
                           <CheckCircle className="h-4 w-4 text-green-600" />
-                          {t('transactions.completed')}
+                          {t('completed', { ns: 'transactions' })}
                         </div>
                       </SelectItem>
                       <SelectItem value="failed">
                         <div className="flex items-center gap-2">
                           <XCircle className="h-4 w-4 text-red-600" />
-                          {t('transactions.failed')}
+                          {t('failed', { ns: 'transactions' })}
                         </div>
                       </SelectItem>
                     </SelectContent>
@@ -217,7 +217,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl">
                 <DollarSign className="h-5 w-5" />
-                {t('transactions.amountAndDate')}
+                {t('amountAndDate', { ns: 'transactions' })}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -225,7 +225,7 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="amount" className="flex items-center gap-2">
                     <Coins className="h-4 w-4" />
-                    {t('transactions.amount')}
+                    {t('amount', { ns: 'transactions' })}
                   </Label>
                   <div className="relative">
                     <Input 
@@ -244,11 +244,11 @@ return (
                   {amount !== null && amount !== undefined && amount > 0 && (
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 space-y-2">
                       <p className="text-sm font-medium text-blue-800">
-                        {t('transactions.selectedCurrency')}: {currencies.find(c => c.id === currencyId)?.symbol || ''}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)}
+                        {t('selectedCurrency', { ns: 'transactions' })}: {currencies.find(c => c.id === currencyId)?.symbol || ''}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)}
                       </p>
                       {convertedAmount !== null && (
                         <p className="text-sm text-blue-700">
-                          {t('transactions.equivalent')} {currencies.find(c => c.is_default)?.symbol || 'Default'}: {new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(convertedAmount)}
+                          {t('equivalent', { ns: 'transactions' })} {currencies.find(c => c.is_default)?.symbol || 'Default'}: {new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(convertedAmount)}
                         </p>
                       )}
                     </div>
@@ -258,7 +258,7 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="date" className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    {t('transactions.date')}
+                    {t('date', { ns: 'transactions' })}
                   </Label>
                   <Input 
                     id="date" 
@@ -277,20 +277,20 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl">
                 <FileText className="h-5 w-5" />
-                {t('transactions.description')}
+                {t('description', { ns: 'transactions' })}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
                 <Label htmlFor="description" className="flex items-center gap-2">
                   <FileText className="h-4 w-4" />
-                  {t('transactions.transactionDescription')}
+                  {t('transactionDescription', { ns: 'transactions' })}
                 </Label>
                 <Textarea 
                   id="description" 
                   {...register('description')}
                   className="bg-white border-2 hover:border-blue-300 focus:border-blue-500 transition-colors min-h-[100px] resize-none"
-                  placeholder={t('transactions.descriptionPlaceholder')}
+                  placeholder={t('descriptionPlaceholder', { ns: 'transactions' })}
                 />
                 {errors.description && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="h-3 w-3" />{errors.description.message}</p>}
               </div>
@@ -302,7 +302,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl">
                 <Tag className="h-5 w-5" />
-                {t('transactions.categoriesAndProperties')}
+                {t('categoriesAndProperties', { ns: 'transactions' })}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -310,7 +310,7 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="category" className="flex items-center gap-2">
                     <Tag className="h-4 w-4" />
-                    {t('transactions.category')}
+                    {t('category', { ns: 'transactions' })}
                   </Label>
                   <Select onValueChange={(value) => setValue('category', value)} defaultValue={transaction?.category || ''}>
                     <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
@@ -328,8 +328,8 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="loft" className="flex items-center gap-2">
                     <Building className="h-4 w-4" />
-                    {t('transactions.loft')} 
-                    <Badge variant="secondary" className="text-xs">{t('transactions.optional')}</Badge>
+                    {t('loft', { ns: 'transactions' })} 
+                    <Badge variant="secondary" className="text-xs">{t('optional', { ns: 'transactions' })}</Badge>
                   </Label>
                   <Select onValueChange={(value) => setValue('loft_id', value)} defaultValue={transaction?.loft_id || ''}>
                     <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
@@ -352,7 +352,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl">
                 <CreditCard className="h-5 w-5" />
-                {t('transactions.paymentDetails')}
+                {t('paymentDetails', { ns: 'transactions' })}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -360,8 +360,8 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="currency_id" className="flex items-center gap-2">
                     <Coins className="h-4 w-4" />
-                    {t('transactions.currency')} 
-                    <Badge variant="secondary" className="text-xs">{t('transactions.optional')}</Badge>
+                    {t('currency', { ns: 'transactions' })} 
+                    <Badge variant="secondary" className="text-xs">{t('optional', { ns: 'transactions' })}</Badge>
                   </Label>
                   <Select onValueChange={(value) => setValue('currency_id', value)} defaultValue={transaction?.currency_id || ''}>
                     <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
@@ -385,8 +385,8 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="payment_method_id" className="flex items-center gap-2">
                     <CreditCard className="h-4 w-4" />
-                    {t('transactions.paymentMethod')} 
-                    <Badge variant="secondary" className="text-xs">{t('transactions.optional')}</Badge>
+                    {t('paymentMethod', { ns: 'transactions' })} 
+                    <Badge variant="secondary" className="text-xs">{t('optional', { ns: 'transactions' })}</Badge>
                   </Label>
                   <Select onValueChange={(value) => setValue('payment_method_id', value)} defaultValue={transaction?.payment_method_id || ''}>
                     <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
@@ -421,7 +421,7 @@ return (
                   ) : (
                     <div className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5" />
-                      {transaction ? t('transactions.updateTransaction') : t('transactions.createTransaction')}
+                      {transaction ? t('updateTransaction', { ns: 'transactions' }) : t('createTransaction', { ns: 'transactions' })}
                     </div>
                   )}
                 </Button>

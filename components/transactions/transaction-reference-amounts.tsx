@@ -47,7 +47,7 @@ export function TransactionReferenceAmounts() {
       setReferences(data || [])
     } catch (error) {
       console.error('Error fetching transaction references:', error)
-      toast.error(t('transactions.loadingError'))
+      toast.error(t('loadingError', { ns: 'transactions' }))
     } finally {
       setLoading(false)
     }
@@ -66,18 +66,18 @@ export function TransactionReferenceAmounts() {
         throw error
       }
       
-      toast.success(t('transactions.updateSuccess'))
+      toast.success(t('updateSuccess', { ns: 'transactions' }))
       fetchReferences()
       setEditDialog({ open: false, reference: null })
     } catch (error) {
       console.error('Error updating reference:', error)
-      toast.error(t('transactions.updateError'))
+      toast.error(t('updateError', { ns: 'transactions' }))
     }
   }
 
   const addNewReference = async () => {
     if (!newReference.category || !newReference.amount || !newReference.type) {
-      toast.error(t('transactions.fillAllFields'))
+      toast.error(t('fillAllFields', { ns: 'transactions' }))
       return
     }
 
@@ -92,7 +92,7 @@ export function TransactionReferenceAmounts() {
       setNewReference({ category: '', type: 'expense', amount: '', description: '' })
     } catch (error) {
       console.error('Error adding reference:', error)
-      toast.error(t('transactions.addError'))
+      toast.error(t('addError', { ns: 'transactions' }))
     }
   }
 
@@ -135,7 +135,7 @@ export function TransactionReferenceAmounts() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" />
-            {t('transactions.referenceAmountsTitle')}
+            {t('referenceAmountsTitle', { ns: 'transactions' })}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -155,7 +155,7 @@ export function TransactionReferenceAmounts() {
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" />
-            {t('transactions.referenceAmountsTitle')}
+            {t('referenceAmountsTitle', { ns: 'transactions' })}
           </CardTitle>
           <Dialog>
             <DialogTrigger asChild>
@@ -166,32 +166,32 @@ export function TransactionReferenceAmounts() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{t('transactions.addNewCategory')}</DialogTitle>
+                <DialogTitle>{t('addNewCategory', { ns: 'transactions' })}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="new-category">{t('transactions.categoryLabel')}</Label>
+                  <Label htmlFor="new-category">{t('categoryLabel', { ns: 'transactions' })}</Label>
                   <Input
                     id="new-category"
-                    placeholder={t('transactions.categoryPlaceholder')}
+                    placeholder={t('categoryPlaceholder', { ns: 'transactions' })}
                     value={newReference.category}
                     onChange={(e) => setNewReference({...newReference, category: e.target.value})}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="new-type">{t('transactions.transactionType')}</Label>
+                  <Label htmlFor="new-type">{t('transactionType', { ns: 'transactions' })}</Label>
                   <Select onValueChange={(value) => setNewReference({...newReference, type: value})} value={newReference.type}>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('transactions.selectType')} />
+                      <SelectValue placeholder={t('selectType', { ns: 'transactions' })} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="expense">{t('transactions.expense')}</SelectItem>
-                      <SelectItem value="income">{t('transactions.income')}</SelectItem>
+                      <SelectItem value="expense">{t('expense', { ns: 'transactions' })}</SelectItem>
+                      <SelectItem value="income">{t('income', { ns: 'transactions' })}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="new-amount">{t('transactions.referenceAmountDZD')}</Label>
+                  <Label htmlFor="new-amount">{t('referenceAmountDZD', { ns: 'transactions' })}</Label>
                   <Input
                     id="new-amount"
                     type="number"
@@ -202,17 +202,17 @@ export function TransactionReferenceAmounts() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="new-description">{t('transactions.description')}</Label>
+                  <Label htmlFor="new-description">{t('description', { ns: 'transactions' })}</Label>
                   <Textarea
                     id="new-description"
-                    placeholder={t('transactions.description')}
+                    placeholder={t('description', { ns: 'transactions' })}
                     value={newReference.description}
                     onChange={(e) => setNewReference({...newReference, description: e.target.value})}
                   />
                 </div>
                 <Button onClick={addNewReference} className="w-full">
                   <Save className="h-4 w-4 mr-2" />
-                  {t('transactions.addCategory')}
+                  {t('addCategory', { ns: 'transactions' })}
                 </Button>
               </div>
             </DialogContent>
@@ -223,11 +223,11 @@ export function TransactionReferenceAmounts() {
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="expenses" className="flex items-center gap-2">
                 <TrendingDown className="h-4 w-4" />
-                {t('transactions.expenses')} ({expenseReferences.length})
+                {t('expenses', { ns: 'transactions' })} ({expenseReferences.length})
               </TabsTrigger>
               <TabsTrigger value="income" className="flex items-center gap-2">
                 <TrendingUp className="h-4 w-4" />
-                {t('transactions.income')} ({incomeReferences.length})
+                {t('income', { ns: 'transactions' })} ({incomeReferences.length})
               </TabsTrigger>
             </TabsList>
             
@@ -248,12 +248,12 @@ export function TransactionReferenceAmounts() {
             <div className="flex items-start gap-2">
               <AlertTriangle className="h-5 w-5 text-blue-600 mt-0.5" />
               <div className="text-sm text-blue-800">
-                <p className="font-medium">{t('transactions.howItWorks')}</p>
+                <p className="font-medium">{t('howItWorks', { ns: 'transactions' })}</p>
                 <ul className="mt-2 space-y-1 list-disc list-inside">
-                  <li>{t('transactions.howItWorksSteps.step1')}</li>
-                  <li>{t('transactions.howItWorksSteps.step2')}</li>
-                  <li>{t('transactions.howItWorksSteps.step3')}</li>
-                  <li>{t('transactions.howItWorksSteps.step4')}</li>
+                  <li>{t('howItWorksSteps.step1', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps.step2', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps.step3', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps.step4', { ns: 'transactions' })}</li>
                 </ul>
               </div>
             </div>
@@ -335,7 +335,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
 
   const handleSave = () => {
     if (!amount) {
-      toast.error(t('transactions.enterAmount'))
+      toast.error(t('enterAmount', { ns: 'transactions' }))
       return
     }
     
@@ -345,7 +345,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
   return (
     <div className="space-y-4">
       <div>
-        <Label htmlFor="edit-amount">{t('transactions.referenceAmountDZD')}</Label>
+        <Label htmlFor="edit-amount">{t('referenceAmountDZD', { ns: 'transactions' })}</Label>
         <Input
           id="edit-amount"
           type="number"
@@ -355,7 +355,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
         />
       </div>
       <div>
-        <Label htmlFor="edit-description">{t('transactions.description')}</Label>
+        <Label htmlFor="edit-description">{t('description', { ns: 'transactions' })}</Label>
         <Textarea
           id="edit-description"
           value={description}

@@ -57,15 +57,15 @@ export function CreateForm({
     <form onSubmit={handleSubmit} className="p-6 space-y-6 bg-card border rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 bg-background rounded-lg">
-          <p className="text-sm text-muted-foreground">{t('transactions.totalIncome')}</p>
+          <p className="text-sm text-muted-foreground">{t('totalIncome', { ns: 'transactions' })}</p>
           <p className="text-2xl font-bold">0.00 DA</p>
         </div>
         <div className="p-4 bg-background rounded-lg">
-          <p className="text-sm text-muted-foreground">{t('transactions.totalExpenses')}</p>
+          <p className="text-sm text-muted-foreground">{t('totalExpenses', { ns: 'transactions' })}</p>
           <p className="text-2xl font-bold">0.00 DA</p>
         </div>
         <div className="p-4 bg-background rounded-lg">
-          <p className="text-sm text-muted-foreground">{t('transactions.netIncome')}</p>
+          <p className="text-sm text-muted-foreground">{t('netIncome', { ns: 'transactions' })}</p>
           <p className="text-2xl font-bold">0.00 DA</p>
         </div>
       </div>
@@ -77,38 +77,38 @@ export function CreateForm({
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <Select name="type" onValueChange={(value) => handleSelect('type', value)}>
-          <SelectTrigger><SelectValue placeholder={t('transactions.type')} /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder={t('type', { ns: 'transactions' })} /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="income">{t('transactions.income')}</SelectItem>
-            <SelectItem value="expense">{t('transactions.expense')}</SelectItem>
+            <SelectItem value="income">{t('income', { ns: 'transactions' })}</SelectItem>
+            <SelectItem value="expense">{t('expense', { ns: 'transactions' })}</SelectItem>
           </SelectContent>
         </Select>
         <Select name="categoryId" onValueChange={(value) => handleSelect('categoryId', value)}>
-          <SelectTrigger><SelectValue placeholder={t('transactions.category')} /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder={t('category', { ns: 'transactions' })} /></SelectTrigger>
           <SelectContent>
             {categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select name="loftId" onValueChange={(value) => handleSelect('loftId', value)}>
-          <SelectTrigger><SelectValue placeholder={t('transactions.loft')} /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder={t('loft', { ns: 'transactions' })} /></SelectTrigger>
           <SelectContent>
             {lofts.map(l => <SelectItem key={l.id} value={l.id}>{l.name}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select name="currencyId" onValueChange={(value) => handleSelect('currencyId', value)}>
-          <SelectTrigger><SelectValue placeholder={t('transactions.currency')} /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder={t('currency', { ns: 'transactions' })} /></SelectTrigger>
           <SelectContent>
             {currencies.map(c => <SelectItem key={c.id} value={c.id}>{c.name} ({c.symbol})</SelectItem>)}
           </SelectContent>
         </Select>
         <Select name="paymentMethodId" onValueChange={(value) => handleSelect('paymentMethodId', value)}>
-          <SelectTrigger><SelectValue placeholder={t('transactions.paymentMethod')} /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder={t('paymentMethod', { ns: 'transactions' })} /></SelectTrigger>
           <SelectContent>
             {paymentMethods.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
           </SelectContent>
         </Select>
       </div>
-      <Button type="submit">{t('transactions.createTransaction')}</Button>
+      <Button type="submit">{t('createTransaction', { ns: 'transactions' })}</Button>
     </form>
   )
 }

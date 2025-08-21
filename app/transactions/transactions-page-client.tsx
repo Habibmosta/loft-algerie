@@ -61,15 +61,15 @@ export function TransactionsPageClient({
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t('transactions.title')}</h1>
-          <p className="text-muted-foreground">{t('transactions.subtitle')}</p>
+          <h1 className="text-3xl font-bold tracking-tight">{t('title', { ns: 'transactions' })}</h1>
+          <p className="text-muted-foreground">{t('subtitle', { ns: 'transactions' })}</p>
         </div>
         <div className="flex gap-2">
           {(session.user.role === "admin" || session.user.role === "manager") && (
             <Button asChild variant="outline">
               <Link href="/transactions/reference-amounts">
                 <DollarSign className="mr-2 h-4 w-4" />
-                {t('transactions.referenceAmounts')}
+                {t('referenceAmounts', { ns: 'transactions' })}
               </Link>
             </Button>
           )}
@@ -77,7 +77,7 @@ export function TransactionsPageClient({
             <Button asChild>
               <Link href="/transactions/new">
                 <Plus className="mr-2 h-4 w-4" />
-                {t('transactions.addNewTransaction')}
+                {t('addNewTransaction', { ns: 'transactions' })}
               </Link>
             </Button>
           )}

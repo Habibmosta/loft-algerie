@@ -25,7 +25,7 @@ export default function DebugForm() {
   return (
     <div className="space-y-4 p-4">
       <div>
-        <label>{t('transactions.type')}:</label>
+        <label>{t('type', { ns: 'transactions' })}:</label>
         <select
           value={type}
           onChange={(e) => {
@@ -34,13 +34,13 @@ export default function DebugForm() {
           }}
           className="border p-2 ml-2"
         >
-          <option value="income">{t('transactions.income')}</option>
-          <option value="expense">{t('transactions.expense')}</option>
+          <option value="income">{t('income', { ns: 'transactions' })}</option>
+          <option value="expense">{t('expense', { ns: 'transactions' })}</option>
         </select>
       </div>
 
       <div>
-        <label>{t('transactions.status')}:</label>
+        <label>{t('status', { ns: 'transactions' })}:</label>
         <select
           value={status}
           onChange={(e) => {
@@ -49,8 +49,8 @@ export default function DebugForm() {
           }}
           className="border p-2 ml-2"
         >
-          <option value="pending">{t('transactions.pending')}</option>
-          <option value="completed">{t('transactions.completed')}</option>
+          <option value="pending">{t('pending', { ns: 'transactions' })}</option>
+          <option value="completed">{t('completed', { ns: 'transactions' })}</option>
         </select>
       </div>
 

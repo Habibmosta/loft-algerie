@@ -156,13 +156,13 @@ export function CategoryForm({
                           <SelectItem value="income" className="flex items-center">
                             <div className="flex items-center gap-2">
                               <TrendingUp className="h-4 w-4 text-green-600" />
-                              {t('transactions.income')}
+                              {t('income', { ns: 'transactions' })}
                             </div>
                           </SelectItem>
                           <SelectItem value="expense" className="flex items-center">
                             <div className="flex items-center gap-2">
                               <TrendingDown className="h-4 w-4 text-red-600" />
-                              {t('transactions.expense')}
+                              {t('expense', { ns: 'transactions' })}
                             </div>
                           </SelectItem>
                         </SelectContent>
@@ -179,7 +179,7 @@ export function CategoryForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-base font-medium">
-                      {t('settings.categories.description')} ({t('transactions.optional')})
+                      {t('settings.categories.description')} ({t('optional', { ns: 'transactions' })})
                     </FormLabel>
                     <FormControl>
                       <Textarea 

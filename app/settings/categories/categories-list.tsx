@@ -26,7 +26,7 @@ export function CategoriesList({ categories, onDelete }: CategoriesListProps) {
         <TableRow>
           <TableHead>{t('common.name')}</TableHead>
           <TableHead>{t('settings.categories.description')}</TableHead>
-          <TableHead>{t('transactions.type')}</TableHead>
+          <TableHead>{t('type', { ns: 'transactions' })}</TableHead>
           <TableHead className="text-center">{t('common.actions')}</TableHead>
         </TableRow>
       </TableHeader>

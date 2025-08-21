@@ -192,10 +192,10 @@ export function ModernTransactionsPage({
             <BarChart3 className="h-10 w-10 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            {t('transactions.title')}
+            {t('title', { ns: 'transactions' })}
           </h1>
           <p className="text-xl text-gray-600 mb-6">
-            {t('transactions.subtitle')}
+            {t('subtitle', { ns: 'transactions' })}
           </p>
           
           {/* Action Buttons */}
@@ -208,7 +208,7 @@ export function ModernTransactionsPage({
               >
                 <Link href="/transactions/reference-amounts" className="flex items-center justify-center gap-2">
                   <DollarSign className="h-4 w-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap font-medium">{t('transactions.referenceAmounts')}</span>
+                  <span className="whitespace-nowrap font-medium">{t('referenceAmounts', { ns: 'transactions' })}</span>
                 </Link>
               </Button>
             )}
@@ -219,7 +219,7 @@ export function ModernTransactionsPage({
               >
                 <Link href="/transactions/new" className="flex items-center justify-center gap-2">
                   <Plus className="h-4 w-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap font-medium text-white">{t('transactions.addNewTransaction')}</span>
+                  <span className="whitespace-nowrap font-medium text-white">{t('addNewTransaction', { ns: 'transactions' })}</span>
                 </Link>
               </Button>
             )}
@@ -232,7 +232,7 @@ export function ModernTransactionsPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-green-700">
-                  {t('transactions.totalIncome')}
+                  {t('totalIncome', { ns: 'transactions' })}
                 </CardTitle>
                 <div className="p-2 bg-green-500 rounded-full">
                   <TrendingUp className="h-4 w-4 text-white" />
@@ -254,7 +254,7 @@ export function ModernTransactionsPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-red-700">
-                  {t('transactions.totalExpenses')}
+                  {t('totalExpenses', { ns: 'transactions' })}
                 </CardTitle>
                 <div className="p-2 bg-red-500 rounded-full">
                   <TrendingDown className="h-4 w-4 text-white" />
@@ -276,7 +276,7 @@ export function ModernTransactionsPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-blue-700">
-                  {t('transactions.netIncome')}
+                  {t('netIncome', { ns: 'transactions' })}
                 </CardTitle>
                 <div className="p-2 bg-blue-500 rounded-full">
                   <Wallet className="h-4 w-4 text-white" />
@@ -303,7 +303,7 @@ export function ModernTransactionsPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-purple-700">
-                  {t('transactions.transactionCount')}
+                  {t('transactionCount', { ns: 'transactions' })}
                 </CardTitle>
                 <div className="p-2 bg-purple-500 rounded-full">
                   <BarChart3 className="h-4 w-4 text-white" />
@@ -313,11 +313,11 @@ export function ModernTransactionsPage({
             <CardContent>
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-purple-600">{t('transactions.completed')}</span>
+                  <span className="text-sm text-purple-600">{t('completed', { ns: 'transactions' })}</span>
                   <span className="font-bold text-purple-600">{completedCount}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-yellow-600">{t('transactions.pending')}</span>
+                  <span className="text-sm text-yellow-600">{t('pending', { ns: 'transactions' })}</span>
                   <span className="font-bold text-yellow-600">{pendingCount}</span>
                 </div>
               </div>
@@ -331,11 +331,11 @@ export function ModernTransactionsPage({
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <Filter className="h-5 w-5" />
-                {t('transactions.filters')}
+                {t('filters', { ns: 'transactions' })}
               </CardTitle>
               <Button variant="outline" size="sm" onClick={clearFilters}>
                 <RefreshCw className="h-4 w-4 mr-2" />
-                {t('transactions.clearFilters')}
+                {t('clearFilters', { ns: 'transactions' })}
               </Button>
             </div>
           </CardHeader>
@@ -345,10 +345,10 @@ export function ModernTransactionsPage({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Search className="h-4 w-4" />
-                  {t('transactions.search')}
+                  {t('search', { ns: 'transactions' })}
                 </Label>
                 <Input
-                  placeholder={t('transactions.searchPlaceholder')}
+                  placeholder={t('searchPlaceholder', { ns: 'transactions' })}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="bg-white border-2 hover:border-blue-300 focus:border-blue-500"
@@ -359,7 +359,7 @@ export function ModernTransactionsPage({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  {t('transactions.dateRange')}
+                  {t('dateRange', { ns: 'transactions' })}
                 </Label>
                 <DatePickerWithRange value={dateRange} onChange={setDateRange} />
               </div>
@@ -368,24 +368,24 @@ export function ModernTransactionsPage({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Tag className="h-4 w-4" />
-                  {t('transactions.type')}
+                  {t('type', { ns: 'transactions' })}
                 </Label>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t('transactions.allTypes')}</SelectItem>
+                    <SelectItem value="all">{t('allTypes', { ns: 'transactions' })}</SelectItem>
                     <SelectItem value="income">
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-4 w-4 text-green-600" />
-                        {t('transactions.income')}
+                        {t('income', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                     <SelectItem value="expense">
                       <div className="flex items-center gap-2">
                         <TrendingDown className="h-4 w-4 text-red-600" />
-                        {t('transactions.expense')}
+                        {t('expense', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                   </SelectContent>
@@ -396,30 +396,30 @@ export function ModernTransactionsPage({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4" />
-                  {t('transactions.status')}
+                  {t('status', { ns: 'transactions' })}
                 </Label>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t('transactions.allStatuses')}</SelectItem>
+                    <SelectItem value="all">{t('allStatuses', { ns: 'transactions' })}</SelectItem>
                     <SelectItem value="completed">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        {t('transactions.completed')}
+                        {t('completed', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                     <SelectItem value="pending">
                       <div className="flex items-center gap-2">
                         <Clock className="h-4 w-4 text-yellow-600" />
-                        {t('transactions.pending')}
+                        {t('pending', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                     <SelectItem value="failed">
                       <div className="flex items-center gap-2">
                         <XCircle className="h-4 w-4 text-red-600" />
-                        {t('transactions.failed')}
+                        {t('failed', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                   </SelectContent>
@@ -430,14 +430,14 @@ export function ModernTransactionsPage({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Tag className="h-4 w-4" />
-                  {t('transactions.category')}
+                  {t('category', { ns: 'transactions' })}
                 </Label>
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t('transactions.allCategories')}</SelectItem>
+                    <SelectItem value="all">{t('allCategories', { ns: 'transactions' })}</SelectItem>
                     {categories.map((category) => (
                       <SelectItem key={category.id} value={category.name}>
                         {category.name}
@@ -451,14 +451,14 @@ export function ModernTransactionsPage({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Building className="h-4 w-4" />
-                  {t('transactions.loft')}
+                  {t('loft', { ns: 'transactions' })}
                 </Label>
                 <Select value={loftFilter} onValueChange={setLoftFilter}>
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t('transactions.allLofts')}</SelectItem>
+                    <SelectItem value="all">{t('allLofts', { ns: 'transactions' })}</SelectItem>
                     {lofts.map((loft) => (
                       <SelectItem key={loft.id} value={loft.id}>
                         {loft.name}
@@ -476,7 +476,7 @@ export function ModernTransactionsPage({
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
               <Sparkles className="h-6 w-6 text-blue-500" />
-              {t('transactions.transactionsList')} ({filteredTransactions.length})
+              {t('transactionsList', { ns: 'transactions' })} ({filteredTransactions.length})
             </h2>
           </div>
 
@@ -487,16 +487,16 @@ export function ModernTransactionsPage({
                   <BarChart3 className="h-8 w-8 text-gray-400" />
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {t('transactions.noTransactions')}
+                  {t('noTransactions', { ns: 'transactions' })}
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  {t('transactions.noTransactionsDescription')}
+                  {t('noTransactionsDescription', { ns: 'transactions' })}
                 </p>
                 {session.user.role === "admin" && (
                   <Button asChild>
                     <Link href="/transactions/new">
                       <Plus className="mr-2 h-4 w-4" />
-                      {t('transactions.createFirstTransaction')}
+                      {t('createFirstTransaction', { ns: 'transactions' })}
                     </Link>
                   </Button>
                 )}
@@ -522,7 +522,7 @@ export function ModernTransactionsPage({
                               }
                             </div>
                             <CardTitle className="text-lg font-semibold text-gray-900 truncate">
-                              {transaction.description || t('transactions.noDescription')}
+                              {transaction.description || t('noDescription', { ns: 'transactions' })}
                             </CardTitle>
                           </div>
                           <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -543,7 +543,7 @@ export function ModernTransactionsPage({
                       {/* Amount */}
                       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <span className="text-sm font-medium text-gray-700">
-                          {t('transactions.amount')}
+                          {t('amount', { ns: 'transactions' })}
                         </span>
                         <div className="text-right">
                           <div className={`text-lg font-bold ${transaction.transaction_type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
@@ -564,7 +564,7 @@ export function ModernTransactionsPage({
                         {transaction.category && (
                           <div className="flex items-center gap-2 text-sm">
                             <Tag className="h-3 w-3 text-gray-400" />
-                            <span className="text-gray-600">{t('transactions.category')}:</span>
+                            <span className="text-gray-600">{t('category', { ns: 'transactions' })}:</span>
                             <span className="font-medium">{transaction.category}</span>
                           </div>
                         )}
@@ -572,7 +572,7 @@ export function ModernTransactionsPage({
                         {loft && (
                           <div className="flex items-center gap-2 text-sm">
                             <Building className="h-3 w-3 text-gray-400" />
-                            <span className="text-gray-600">{t('transactions.loft')}:</span>
+                            <span className="text-gray-600">{t('loft', { ns: 'transactions' })}:</span>
                             <span className="font-medium">{loft.name}</span>
                           </div>
                         )}
@@ -580,7 +580,7 @@ export function ModernTransactionsPage({
                         {paymentMethod && (
                           <div className="flex items-center gap-2 text-sm">
                             <CreditCard className="h-3 w-3 text-gray-400" />
-                            <span className="text-gray-600">{t('transactions.paymentMethod')}:</span>
+                            <span className="text-gray-600">{t('paymentMethod', { ns: 'transactions' })}:</span>
                             <span className="font-medium">{paymentMethod.name}</span>
                           </div>
                         )}
@@ -611,9 +611,9 @@ export function ModernTransactionsPage({
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>{t('transactions.deleteConfirmTitle')}</AlertDialogTitle>
+                                  <AlertDialogTitle>{t('deleteConfirmTitle', { ns: 'transactions' })}</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    {t('transactions.deleteConfirmDescription')}
+                                    {t('deleteConfirmDescription', { ns: 'transactions' })}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>

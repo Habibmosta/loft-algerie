@@ -23,6 +23,7 @@
   "deleteConfirmTitle": "Êtes-vous sûr de vouloir supprimer cette transaction ?",
   "description": "Description",
   "descriptionPlaceholder": "Décrivez cette transaction...",
+  "transactionDescription": "Description de la transaction",
   "editTransaction": "Modifier la transaction",
   "endDate": "Date de fin",
   "enterTransactionInfo": "Saisissez les informations de la transaction",

@@ -67,10 +67,10 @@ export function NewTransactionForm({ onSubmit }: {
           <DollarSign className="h-6 w-6 text-white" />
         </div>
         <h2 className="text-2xl font-bold text-gray-900 mb-1">
-          {t('transactions.quickTransaction')}
+          {t('quickTransaction', { ns: 'transactions' })}
         </h2>
         <p className="text-gray-600">
-          {t('transactions.createQuickTransaction')}
+          {t('createQuickTransaction', { ns: 'transactions' })}
         </p>
       </div>
 
@@ -80,7 +80,7 @@ export function NewTransactionForm({ onSubmit }: {
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               {getTypeIcon(transactionType)}
-              {t('transactions.transactionType')}
+              {t('transactionType', { ns: 'transactions' })}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -88,7 +88,7 @@ export function NewTransactionForm({ onSubmit }: {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Tag className="h-4 w-4" />
-                  {t('transactions.type')}
+                  {t('type', { ns: 'transactions' })}
                 </Label>
                 <Select 
                   onValueChange={(value: "income" | "expense") => {
@@ -103,13 +103,13 @@ export function NewTransactionForm({ onSubmit }: {
                     <SelectItem value="income">
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-4 w-4 text-green-600" />
-                        {t('transactions.income')}
+                        {t('income', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                     <SelectItem value="expense">
                       <div className="flex items-center gap-2">
                         <TrendingDown className="h-4 w-4 text-red-600" />
-                        {t('transactions.expense')}
+                        {t('expense', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                   </SelectContent>
@@ -120,7 +120,7 @@ export function NewTransactionForm({ onSubmit }: {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   {getStatusIcon(status)}
-                  {t('transactions.status')}
+                  {t('status', { ns: 'transactions' })}
                 </Label>
                 <Select
                   onValueChange={(value: "pending" | "completed" | "failed") => {
@@ -135,19 +135,19 @@ export function NewTransactionForm({ onSubmit }: {
                     <SelectItem value="pending">
                       <div className="flex items-center gap-2">
                         <Clock className="h-4 w-4 text-yellow-600" />
-                        {t('transactions.pending')}
+                        {t('pending', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                     <SelectItem value="completed">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        {t('transactions.completed')}
+                        {t('completed', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                     <SelectItem value="failed">
                       <div className="flex items-center gap-2">
                         <XCircle className="h-4 w-4 text-red-600" />
-                        {t('transactions.failed')}
+                        {t('failed', { ns: 'transactions' })}
                       </div>
                     </SelectItem>
                   </SelectContent>
@@ -163,7 +163,7 @@ export function NewTransactionForm({ onSubmit }: {
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               <DollarSign className="h-5 w-5" />
-              {t('transactions.amountAndDate')}
+              {t('amountAndDate', { ns: 'transactions' })}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -171,7 +171,7 @@ export function NewTransactionForm({ onSubmit }: {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <DollarSign className="h-4 w-4" />
-                  {t('transactions.amount')}
+                  {t('amount', { ns: 'transactions' })}
                 </Label>
                 <div className="relative">
                   <Input
@@ -189,7 +189,7 @@ export function NewTransactionForm({ onSubmit }: {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  {t('transactions.date')}
+                  {t('date', { ns: 'transactions' })}
                 </Label>
                 <Input
                   type="date"
@@ -210,7 +210,7 @@ export function NewTransactionForm({ onSubmit }: {
           >
             <div className="flex items-center gap-2">
               <CheckCircle className="h-5 w-5" />
-              {t('transactions.createTransaction')}
+              {t('createTransaction', { ns: 'transactions' })}
             </div>
           </Button>
         </div>

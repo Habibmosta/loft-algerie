@@ -112,7 +112,7 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
       <div className="mb-6 grid gap-6 md:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>{t('transactions.totalIncome')}</CardTitle>
+            <CardTitle>{t('totalIncome', { ns: 'transactions' })}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-green-600">
@@ -125,7 +125,7 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>{t('transactions.totalExpenses')}</CardTitle>
+            <CardTitle>{t('totalExpenses', { ns: 'transactions' })}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-red-600">
@@ -138,7 +138,7 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>{t('transactions.netIncome')}</CardTitle>
+            <CardTitle>{t('netIncome', { ns: 'transactions' })}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className={`text-2xl font-bold ${netTotal >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -152,34 +152,34 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
         <div>
-          <Label htmlFor="start-date">{t('transactions.startDate')}</Label>
+          <Label htmlFor="start-date">{t('startDate', { ns: 'transactions' })}</Label>
           <DatePicker date={startDate} setDate={setStartDate} />
         </div>
         <div>
-          <Label htmlFor="end-date">{t('transactions.endDate')}</Label>
+          <Label htmlFor="end-date">{t('endDate', { ns: 'transactions' })}</Label>
           <DatePicker date={endDate} setDate={setEndDate} />
         </div>
         <div>
-          <Label htmlFor="type-filter">{t('transactions.type')}</Label>
+          <Label htmlFor="type-filter">{t('type', { ns: 'transactions' })}</Label>
           <Select value={typeFilter} onValueChange={setTypeFilter}>
             <SelectTrigger id="type-filter">
-              <SelectValue placeholder={t('transactions.allTypes')} />
+              <SelectValue placeholder={t('allTypes', { ns: 'transactions' })} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('transactions.allTypes')}</SelectItem>
-              <SelectItem value="income">{t('transactions.income')}</SelectItem>
-              <SelectItem value="expense">{t('transactions.expense')}</SelectItem>
+              <SelectItem value="all">{t('allTypes', { ns: 'transactions' })}</SelectItem>
+              <SelectItem value="income">{t('income', { ns: 'transactions' })}</SelectItem>
+              <SelectItem value="expense">{t('expense', { ns: 'transactions' })}</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div>
-          <Label htmlFor="category-filter">{t('transactions.category')}</Label>
+          <Label htmlFor="category-filter">{t('category', { ns: 'transactions' })}</Label>
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
             <SelectTrigger id="category-filter">
-              <SelectValue placeholder={t('transactions.allCategories')} />
+              <SelectValue placeholder={t('allCategories', { ns: 'transactions' })} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('transactions.allCategories')}</SelectItem>
+              <SelectItem value="all">{t('allCategories', { ns: 'transactions' })}</SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category.id} value={category.id}>
                   {category.name}
@@ -189,13 +189,13 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
           </Select>
         </div>
         <div>
-          <Label htmlFor="loft-filter">{t('transactions.loft')}</Label>
+          <Label htmlFor="loft-filter">{t('loft', { ns: 'transactions' })}</Label>
           <Select value={loftFilter} onValueChange={setLoftFilter}>
             <SelectTrigger id="loft-filter">
-              <SelectValue placeholder={t('transactions.allLofts')} />
+              <SelectValue placeholder={t('allLofts', { ns: 'transactions' })} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('transactions.allLofts')}</SelectItem>
+              <SelectItem value="all">{t('allLofts', { ns: 'transactions' })}</SelectItem>
               {lofts.map((loft) => (
                 <SelectItem key={loft.id} value={loft.id}>
                   {loft.name}
@@ -205,13 +205,13 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
           </Select>
         </div>
         <div>
-          <Label htmlFor="currency-filter">{t('transactions.currency')}</Label>
+          <Label htmlFor="currency-filter">{t('currency', { ns: 'transactions' })}</Label>
           <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
             <SelectTrigger id="currency-filter">
-              <SelectValue placeholder={t('transactions.allCurrencies')} />
+              <SelectValue placeholder={t('allCurrencies', { ns: 'transactions' })} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('transactions.allCurrencies')}</SelectItem>
+              <SelectItem value="all">{t('allCurrencies', { ns: 'transactions' })}</SelectItem>
               {currencies.map((currency) => (
                 <SelectItem key={currency.id} value={currency.id}>
                   {currency.name} ({currency.symbol})
@@ -221,13 +221,13 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
           </Select>
         </div>
         <div>
-          <Label htmlFor="payment-method-filter">{t('transactions.paymentMethod')}</Label>
+          <Label htmlFor="payment-method-filter">{t('paymentMethod', { ns: 'transactions' })}</Label>
           <Select value={paymentMethodFilter} onValueChange={setPaymentMethodFilter}>
             <SelectTrigger id="payment-method-filter">
-              <SelectValue placeholder={t('transactions.allPaymentMethods')} />
+              <SelectValue placeholder={t('allPaymentMethods', { ns: 'transactions' })} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('transactions.allPaymentMethods')}</SelectItem>
+              <SelectItem value="all">{t('allPaymentMethods', { ns: 'transactions' })}</SelectItem>
               {paymentMethods.map((method) => (
                 <SelectItem key={method.id} value={method.id}>
                   {method.name}
@@ -252,22 +252,22 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
             </CardHeader>
             <CardContent>
               <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">{t('transactions.amount')}:</span>
+                <span className="text-sm text-muted-foreground">{t('amount', { ns: 'transactions' })}:</span>
                 <span className={`font-medium ${transaction.transaction_type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
                   {transaction.transaction_type === 'income' ? '+' : '-'}{currencies.find(c => c.id === transaction.currency_id)?.symbol || '$'}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(transaction.amount)}
                 </span>
               </div>
               {transaction.equivalent_amount_default_currency !== null && transaction.equivalent_amount_default_currency !== undefined && transaction.currency_id !== currencies.find(c => c.is_default)?.id && (
                 <div className="flex justify-between">
-                  <span className="text-xs text-muted-foreground">{t('transactions.equivalent')}:</span>
+                  <span className="text-xs text-muted-foreground">{t('equivalent', { ns: 'transactions' })}:</span>
                   <span className={`text-xs ${transaction.transaction_type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
-                    {defaultCurrencySymbol}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(transaction.equivalent_amount_default_currency)} ({t('transactions.ratio')}: {new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 8, useGrouping: false }).format(transaction.ratio_at_transaction || 0)})
+                    {defaultCurrencySymbol}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(transaction.equivalent_amount_default_currency)} ({t('ratio', { ns: 'transactions' })}: {new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 8, useGrouping: false }).format(transaction.ratio_at_transaction || 0)})
                   </span>
                 </div>
               )}
               {transaction.payment_method_id && (
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">{t('transactions.paymentMethod')}:</span>
+                  <span className="text-sm text-muted-foreground">{t('paymentMethod', { ns: 'transactions' })}:</span>
                   <span className="font-medium">{translatePaymentMethod(paymentMethods.find(pm => pm.id === transaction.payment_method_id)?.name || '')}</span>
                 </div>
               )}
@@ -288,15 +288,15 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>{t('transactions.deleteConfirmTitle')}</AlertDialogTitle>
+                          <AlertDialogTitle>{t('deleteConfirmTitle', { ns: 'transactions' })}</AlertDialogTitle>
                           <AlertDialogDescription>
-                            {t('transactions.deleteConfirmDescription')}
+                            {t('deleteConfirmDescription', { ns: 'transactions' })}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
                           <AlertDialogAction onClick={() => handleDelete(transaction.id)}>
-                            {t('transactions.continue')}
+                            {t('continue', { ns: 'transactions' })}
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -309,7 +309,7 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
         ))}
         {filteredTransactions.length === 0 && (
           <div className="col-span-full text-center text-muted-foreground">
-            {t('transactions.noTransactions')}
+            {t('noTransactions', { ns: 'transactions' })}
           </div>
         )}
       </div>
