@@ -1,6 +1,7 @@
 {
+  "appName": "Loft Manager",
   "actions": {
-    "save": "EnregistrerAction"
+    "save": "Enregistrer"
   },
   "analytics": {
     "subtitle": "Aperçu détaillé de vos opérations.",
@@ -206,46 +207,7 @@
   },
   "date": "Date",
   "enterprise": "Entreprise",
-  "executive": {
-    "accessDenied": "Accès Refusé",
-    "accessDeniedDesc": "Vous n'avez pas le niveau d'accès exécutif requis pour cette page.",
-    "activeAlerts": "Alertes Actives",
-    "averagePrice": "Prix Moyen",
-    "cashFlow": "Flux de Trésorerie",
-    "companyRevenue": "Revenus de l'Entreprise",
-    "companyShare": "Part de l'Entreprise",
-    "confidential": "Confidentiel",
-    "criticalAlerts": "Alertes Critiques",
-    "executiveLevelRequired": "Niveau Exécutif Requis",
-    "executiveOnly": "Exécutif Uniquement",
-    "expenses": "Dépenses",
-    "financialTrends": "Tendances Financières",
-    "financialTrendsDesc": "Analyse des tendances financières sur les 12 derniers mois.",
-    "growth": "Croissance",
-    "maintenanceCosts": "Coûts de Maintenance",
-    "margin": "Marge",
-    "monthlyCashFlow": "Flux de Trésorerie Mensuel",
-    "netProfit": "Bénéfice Net",
-    "occupancyRate": "Taux d'Occupation",
-    "onTotalRevenue": "sur le Revenu Total",
-    "profit": "Bénéfice",
-    "realEstatePortfolio": "Portefeuille Immobilier",
-    "revenue": "Revenu",
-    "revenueDistribution": "Répartition des Revenus",
-    "revenueDistributionDesc": "Répartition des revenus par catégorie et source.",
-    "secured": "Sécurisé",
-    "security": "Sécurité",
-    "subtitle": "Vue d'overview et analyse pour la direction.",
-    "systemStatus": "État du Système",
-    "thirdPartyRevenue": "Revenus Tiers",
-    "title": "Tableau de Bord Exécutif",
-    "totalLofts": "Lofts au Total",
-    "totalRevenue": "Revenu Total",
-    "trend": "Tendance",
-    "vsLastMonth": "vs Mois Dernier",
-    "yearOverYearDesc": "Comparaison des performances financières d'une année sur l'autre.",
-    "yearOverYearPerformance": "Performance Année après Année"
-  },
+  "executive": "Direction",
   "internetConnections": {
     "addFirstConnection": "Ajoutez votre première connexion Internet pour commencer",
     "addNewConnectionType": "Ajouter un Nouveau Type de Connexion",
@@ -772,5 +734,8 @@
   "freelanceWork": "Travail en Freelance",
   "monthlySalary": "Salaire Mensuel",
   "groceries": "Courses",
-  "utilities": "Charges"
+  "utilities": "Charges",
+  "admin": "Admin",
+  "manager": "Gérant",
+  "member": "Membre"
 }
