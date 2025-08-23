@@ -163,75 +163,83 @@ export function ReportGenerator() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* En-tête */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">{t('reports:financialReports')}</h1>
-          <p className="text-muted-foreground">
-            {t('reports:generateDetailedReports')}
-          </p>
-        </div>
-        <Badge variant="outline" className="text-sm">
-          <FileText className="w-4 h-4 mr-1" />
+    <div className="space-y-8">
+      {/* En-tête amélioré */}
+      <div className="text-center space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
+          <FileText className="w-4 h-4" />
           {t('reports:pdfGeneration')}
-        </Badge>
+        </div>
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+          {t('reports:financialReports')}
+        </h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          {t('reports:generateDetailedReports')}
+        </p>
       </div>
 
-      {/* Statistiques rapides */}
+      {/* Statistiques rapides améliorées */}
       {quickStats && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="w-4 h-4 text-green-500" />
-                <div>
-                  <p className="text-sm text-muted-foreground">{t('reports:revenue')}</p>
-                  <p className="text-lg font-semibold text-green-600">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200/50 dark:border-green-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-green-700 dark:text-green-300">{t('reports:revenue')}</p>
+                  <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {quickStats.totalIncome.toLocaleString()} DA
                   </p>
                 </div>
+                <div className="p-3 bg-green-100 dark:bg-green-800/30 rounded-full">
+                  <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <TrendingDown className="w-4 h-4 text-red-500" />
-                <div>
-                  <p className="text-sm text-muted-foreground">{t('reports:expenses')}</p>
-                  <p className="text-lg font-semibold text-red-600">
+          <Card className="bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-200/50 dark:border-red-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-red-700 dark:text-red-300">{t('reports:expenses')}</p>
+                  <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                     {quickStats.totalExpenses.toLocaleString()} DA
                   </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <DollarSign className="w-4 h-4 text-blue-500" />
-                <div>
-                  <p className="text-sm text-muted-foreground">{t('reports:netResult')}</p>
-                  <p className={`text-lg font-semibold ${quickStats.netResult >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {quickStats.netResult.toLocaleString()} DA
-                  </p>
+                <div className="p-3 bg-red-100 dark:bg-red-800/30 rounded-full">
+                  <TrendingDown className="w-6 h-6 text-red-600 dark:text-red-400" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Hash className="w-4 h-4 text-gray-500" />
-                <div>
-                  <p className="text-sm text-muted-foreground">{t('reports:transactionsCount')}</p>
-                  <p className="text-lg font-semibold">
+          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200/50 dark:border-blue-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300">{t('reports:netResult')}</p>
+                  <p className={`text-2xl font-bold ${quickStats.netResult >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                    {quickStats.netResult.toLocaleString()} DA
+                  </p>
+                </div>
+                <div className="p-3 bg-blue-100 dark:bg-blue-800/30 rounded-full">
+                  <DollarSign className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border-purple-200/50 dark:border-purple-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-purple-700 dark:text-purple-300">{t('reports:transactionsCount')}</p>
+                  <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                     {quickStats.transactionCount}
                   </p>
+                </div>
+                <div className="p-3 bg-purple-100 dark:bg-purple-800/30 rounded-full">
+                  <Hash className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
             </CardContent>
@@ -239,12 +247,17 @@ export function ReportGenerator() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Filtres */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle>{t('reports:reportFilters')}</CardTitle>
-            <CardDescription>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Filtres améliorés */}
+        <Card className="lg:col-span-1 bg-gradient-to-br from-gray-50/50 to-slate-50/50 dark:from-gray-800/50 dark:to-slate-800/50 border-0 shadow-xl backdrop-blur-sm">
+          <CardHeader className="pb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-gray-500 to-slate-500"></div>
+              <CardTitle className="text-lg font-semibold bg-gradient-to-r from-gray-600 to-slate-600 bg-clip-text text-transparent">
+                {t('reports:reportFilters')}
+              </CardTitle>
+            </div>
+            <CardDescription className="text-sm text-muted-foreground">
               {t('reports:configureFilters')}
             </CardDescription>
           </CardHeader>
@@ -265,6 +278,7 @@ export function ReportGenerator() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleQuickDateRange(key)}
+                    className="hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent transition-all duration-300"
                   >
                     {label}
                   </Button>
