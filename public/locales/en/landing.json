@@ -1,16 +1,69 @@
 {
-  "title": "Loft Algerie",
-  "subtitle": "Professional Property Management Platform",
-  "description": "Streamline your property management with our comprehensive platform for lofts, reservations, and financial tracking.",
-  "features.financial.description": "Monitor your revenue streams and expenses with our detailed financial reports and analytics.",
-  "features.financial.title": "In-Depth Financial Tracking",
-  "features.notifications.description": "Receive real-time alerts for new bookings, guest messages, and important property updates.",
-  "features.notifications.title": "Instant Notifications",
-  "features.property.description": "Effortlessly oversee all your properties from a single, intuitive dashboard.",
-  "features.property.title": "Centralized Property Management",
-  "features.tasks.description": "Assign, track, and manage tasks across your team to ensure smooth operations.",
-  "features.tasks.title": "Collaborative Task Management",
-  "features.title": "Core Features",
+  "title": "Loft Algeria",
+  "description": "Complete real estate management system with professional PDF report generation to optimize your operations.",
+  "subtitle": "Optimize your real estate management.",
   "getStarted": "Get Started",
-  "signIn": "Sign In"
+  "signIn": "Sign In",
+  "viewButton": "View →",
+  "features": {
+    "title": "Key Features",
+    "property": {
+      "title": "Intuitive Property Management",
+      "description": "Easily manage multiple properties, from details to documents."
+    },
+    "financial": {
+      "title": "Complete Financial Management",
+      "description": "Track revenue, expenses and generate detailed financial reports."
+    },
+    "tasks": {
+      "title": "Efficient Task Management",
+      "description": "Organize maintenance tasks and team assignments with ease."
+    },
+    "notifications": {
+      "title": "Real-Time Notifications",
+      "description": "Receive real-time alerts for tasks, bills and important events."
+    }
+  },
+  "sections": {
+    "reservations": {
+      "title": "Reservations",
+      "description": "Manage your reservations and availability"
+    },
+    "availability": {
+      "title": "Availability",
+      "description": "View and manage availability"
+    },
+    "tasks": {
+      "title": "Tasks",
+      "description": "Organize maintenance tasks"
+    },
+    "teams": {
+      "title": "Teams",
+      "description": "Manage your teams and collaborators"
+    },
+    "owners": {
+      "title": "Owners",
+      "description": "Manage your owner relationships"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "description": "Track revenue and expenses"
+    },
+    "reports": {
+      "title": "Reports",
+      "description": "Generate professional reports"
+    }
+  },
+  "quickAccess": {
+    "title": "Quick Access",
+    "description": "Access the most used features directly",
+    "dashboard": "Dashboard",
+    "conversations": "Conversations",
+    "notifications": "Notifications",
+    "pdfReports": "PDF Reports"
+  },
+  "systemStatus": {
+    "title": "System Operational",
+    "description": "All services are running normally. PDF report generation available."
+  }
 }

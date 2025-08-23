@@ -239,7 +239,7 @@
     "updateConnectionInfo": "Mettre à jour les informations de connexion"
   },
   "landing": {
-    "description": "Loft Algérie est votre solution tout-en-un pour la gestion immobilière, simplifiant les opérations et maximisant la rentabilité.",
+    "description": "Système de gestion immobilière complet avec génération de rapports PDF professionnels pour optimiser vos opérations.",
     "features": {
       "financial": {
         "description": "Suivez les revenus, les dépenses et générez des rapports financiers détaillés.",
@@ -262,7 +262,7 @@
     "getStarted": "Commencer",
     "signIn": "Se Connecter",
     "subtitle": "Optimisez votre gestion immobilière.",
-    "title": "Simplifiez la Gestion de Vos Lofts en Algérie"
+    "title": "Loft Algérie"
   },
   "list": "Liste",
   "loading": "Chargement...",
