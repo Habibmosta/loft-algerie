@@ -5,7 +5,8 @@
   },
   "analytics": {
     "subtitle": "Visualisez les performances financières et les tendances de vos lofts",
-    "title": "Rapports et Analyses"
+    "title": "Rapports et Analyses",
+    "realTimeDataBadge": "Données en temps réel"
   },
   "auth": {
     "admin": "Admin",

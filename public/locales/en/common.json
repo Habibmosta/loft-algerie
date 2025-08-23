@@ -4,7 +4,8 @@
   },
   "analytics": {
     "subtitle": "Visualize financial performance and trends of your lofts",
-    "title": "Reports and Analytics"
+    "title": "Reports and Analytics",
+    "realTimeDataBadge": "Real-time Data"
   },
   "auth": {
     "admin": "Admin",
