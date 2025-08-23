@@ -39,7 +39,7 @@ export function SimpleLoginForm() {
     try {
       const result = await login(data.email, data.password)
       if (result.success) {
-        router.push("/dashboard")
+        router.push("/")
         router.refresh()
       } else {
         setError(result.error || "Login failed")

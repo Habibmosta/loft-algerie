@@ -103,8 +103,8 @@ export async function login(email: string, password: string): Promise<{ success:
     return { success: false, error: error.message }
   }
 
-  // If login is successful, redirect to a protected page to ensure session is set
-  redirect('/dashboard'); 
+  // If login is successful, redirect to home page
+  redirect('/'); 
   return { success: true }
 }
 
