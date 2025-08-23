@@ -1,8 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
-import { createScriptClient } from '@/utils/supabase/script'
 import { logger, measurePerformance } from '@/lib/logger'
 import { createNotification, sendBulkNotifications } from '@/lib/services/notifications'
-import { createScriptNotification, sendScriptBulkNotifications } from '@/lib/services/script-notifications'
 
 interface OverdueBill {
   loft_name: string;
@@ -53,13 +51,8 @@ export async function runBillMonitoring(): Promise<void> {
 
 // Helper function to get the appropriate Supabase client
 async function getSupabaseClient() {
-  try {
-    // Try to use the server client (works in request context)
-    return await createClient()
-  } catch (error) {
-    // Fall back to script client (works outside request context)
-    return createScriptClient()
-  }
+  // Always use server client in API routes
+  return await createClient()
 }
 
 async function scanForBillAlerts(): Promise<BillAlert[]> {
@@ -200,7 +193,7 @@ async function sendBillAlert(alert: BillAlert, adminUsers: { id: string }[]): Pr
   try {
     // Send notification to loft owner
     if (alert.ownerId) {
-      await createScriptNotification(
+      await createNotification(
         alert.ownerId,
         title,
         message,
@@ -211,7 +204,7 @@ async function sendBillAlert(alert: BillAlert, adminUsers: { id: string }[]): Pr
 
     // Send notification to admin users
     for (const admin of adminUsers) {
-      await createScriptNotification(
+      await createNotification(
         admin.id,
         title,
         message,
@@ -256,7 +249,7 @@ async function checkOverdueBills(): Promise<void> {
         const loftNames = [...new Set(overdueBills.map((bill: OverdueBill) => bill.loft_name))].slice(0, 3)
         const loftList = loftNames.join(', ') + (overdueBills.length > 3 ? ` and ${overdueBills.length - 3} more` : '')
 
-        await sendScriptBulkNotifications(
+        await sendBulkNotifications(
           adminIds,
           `📊 Daily Overdue Bills Summary`,
           `There are ${overdueCount} overdue bills across properties: ${loftList}. Please review and take action.`,
