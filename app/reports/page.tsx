@@ -31,9 +31,9 @@ export default function ReportsPage() {
     <div className="container mx-auto py-6">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Rapports & Analytics</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('reports:pageTitle')}</h1>
           <p className="text-muted-foreground">
-            Générez des rapports PDF détaillés et visualisez vos données avec des graphiques interactifs
+            {t('reports:subtitle')}
           </p>
         </div>
 
@@ -41,11 +41,11 @@ export default function ReportsPage() {
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
-              Analytics & Graphiques
+              {t('reports:analyticsTab')}
             </TabsTrigger>
             <TabsTrigger value="generator" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Générateur PDF
+              {t('reports:pdfTab')}
             </TabsTrigger>
           </TabsList>
 

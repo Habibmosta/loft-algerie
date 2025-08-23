@@ -1,5 +1,7 @@
 {
   "analytics": {
+    "title": "Reports and Analytics",
+    "subtitle": "Visualize financial performance and trends of your lofts",
     "detailedFinancialPerformance": "Detailed Financial Performance",
     "expenses": "Expenses",
     "financial": "Financial",
