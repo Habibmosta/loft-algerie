@@ -2,7 +2,7 @@
 
 import { 
   Building2, Calendar, DollarSign, Home, LogOut, Settings, Users, 
-  ClipboardList, UserCheck, ChevronDown, ChevronRight, LayoutDashboard, CreditCard, MessageSquare, Bell
+  ClipboardList, UserCheck, ChevronDown, ChevronRight, LayoutDashboard, CreditCard, MessageSquare, Bell, Search
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -50,6 +50,7 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
     { name: t('nav.owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },
     { name: t('nav.transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
     { name: t('nav.reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
+    { name: t('nav.availability'), href: "/availability", icon: Search, roles: ["admin", "manager", "member"] },
     { 
       name: t('nav.settings'), 
       href: "/settings", 
