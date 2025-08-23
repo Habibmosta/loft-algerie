@@ -41,9 +41,18 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Check if environment variables are available
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Missing Supabase environment variables in middleware')
+    return supabaseResponse
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {
@@ -63,8 +72,23 @@ export async function middleware(request: NextRequest) {
   // IMPORTANT: Do not run any other code between createServerClient and getUser
   // or getSession. A simple mistake could make it very hard to debug issues
   // with users being randomly logged out.
-  const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  let session = null
+  let user = null
+  let sessionError = null
+  let userError = null
+
+  try {
+    const sessionResult = await supabase.auth.getSession()
+    session = sessionResult.data.session
+    sessionError = sessionResult.error
+
+    const userResult = await supabase.auth.getUser()
+    user = userResult.data.user
+    userError = userResult.error
+  } catch (error) {
+    console.error('Middleware: Error getting session/user:', error)
+    return supabaseResponse
+  }
 
   // Manually set cookies on the response
   if (session && session.access_token) {
@@ -132,13 +156,20 @@ export async function middleware(request: NextRequest) {
     }
     
     // Get user profile to check role
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single()
-    
-    if (!profile || profile.role !== 'executive') {
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+      
+      if (!profile || profile.role !== 'executive') {
+        const redirectUrl = request.nextUrl.clone()
+        redirectUrl.pathname = '/dashboard'
+        return NextResponse.redirect(redirectUrl)
+      }
+    } catch (error) {
+      console.error('Middleware: Error checking executive role:', error)
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/dashboard'
       return NextResponse.redirect(redirectUrl)
