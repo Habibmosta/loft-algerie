@@ -9,10 +9,9 @@ import { EnhancedRealtimeProvider } from '@/components/providers/enhanced-realti
 import { NotificationProvider } from '@/components/providers/notification-context'
 import { CriticalAlertsNotification } from '@/components/executive/critical-alerts-notification'
 import { InstallPrompt } from '@/components/pwa/install-prompt'
-import { getSession } from "@/lib/auth"
-import { getUnreadNotificationsCount } from "@/app/actions/notifications"
 import { Sidebar } from "@/components/layout/sidebar"
 import { Header } from "@/components/layout/header"
+import { ErrorBoundary } from "@/components/error-boundary"
 
 interface ClientProvidersProps {
   children: React.ReactNode;
@@ -23,45 +22,66 @@ interface ClientProvidersProps {
 
 export default function ClientProviders({ children, session, unreadCount, lang }: ClientProvidersProps) {
   return (
-    <I18nProvider lang={lang}>
-      <SupabaseProvider>
+    <ErrorBoundary>
+      {!session ? (
+        // For pages without session (like homepage), use minimal providers
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-        <ToastProvider />
-        {session ? ( // Render full layout with sidebar/header if session exists
-          <EnhancedRealtimeProvider userId={session.user.id}>
-            <NotificationProvider userId={session.user.id}>
-              <div className="flex h-screen bg-background md:gap-x-4">
-                <div className="hidden md:flex">
-                  <Sidebar user={session.user} unreadCount={unreadCount} />
-                </div>
-                <div className="flex flex-1 flex-col">
-                  <Header user={session.user} />
-                  <main className="flex-1 overflow-y-auto">
-                    {children}
-                  </main>
-                </div>
-                {/* Notifications d'alertes critiques pour les executives */}
-                <CriticalAlertsNotification
-                  userId={session.user.id}
-                  userRole={session.user.role}
-                />
-                {/* Prompt d'installation PWA */}
-                <InstallPrompt />
-              </div>
-            </NotificationProvider>
-          </EnhancedRealtimeProvider>
-        ) : ( // Render children directly (e.g., login page) if no session
           <main className="flex-1 overflow-y-auto">
             {children}
           </main>
-        )}
         </ThemeProvider>
-      </SupabaseProvider>
-    </I18nProvider>
+      ) : (
+        // For authenticated pages, use full provider stack
+        <I18nProvider lang={lang}>
+          <SupabaseProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+            <ToastProvider />
+            <ErrorBoundary>
+              <EnhancedRealtimeProvider userId={session.user.id}>
+                <NotificationProvider userId={session.user.id}>
+                  <div className="flex h-screen bg-background md:gap-x-4">
+                    <div className="hidden md:flex">
+                      <ErrorBoundary>
+                        <Sidebar user={session.user} unreadCount={unreadCount} />
+                      </ErrorBoundary>
+                    </div>
+                    <div className="flex flex-1 flex-col">
+                      <ErrorBoundary>
+                        <Header user={session.user} />
+                      </ErrorBoundary>
+                      <main className="flex-1 overflow-y-auto">
+                        {children}
+                      </main>
+                    </div>
+                    {/* Notifications d'alertes critiques pour les executives */}
+                    <ErrorBoundary>
+                      <CriticalAlertsNotification
+                        userId={session.user.id}
+                        userRole={session.user.role}
+                      />
+                    </ErrorBoundary>
+                    {/* Prompt d'installation PWA */}
+                    <ErrorBoundary>
+                      <InstallPrompt />
+                    </ErrorBoundary>
+                  </div>
+                </NotificationProvider>
+              </EnhancedRealtimeProvider>
+            </ErrorBoundary>
+            </ThemeProvider>
+          </SupabaseProvider>
+        </I18nProvider>
+      )}
+    </ErrorBoundary>
   );
 }

@@ -1,8 +1,6 @@
-'use client'
+"use client"
 
 import React from 'react'
-import { AlertTriangle, RefreshCw } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 interface ErrorBoundaryState {
   hasError: boolean
@@ -11,7 +9,7 @@ interface ErrorBoundaryState {
 
 interface ErrorBoundaryProps {
   children: React.ReactNode
-  fallback?: React.ComponentType<{ error: Error; resetError: () => void }>
+  fallback?: React.ReactNode
 }
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -26,55 +24,43 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo)
-    
-    // Here you could send error to monitoring service
-    // Example: Sentry.captureException(error, { contexts: { react: errorInfo } })
-  }
-
-  resetError = () => {
-    this.setState({ hasError: false, error: undefined })
   }
 
   render() {
     if (this.state.hasError) {
-      if (this.props.fallback) {
-        const FallbackComponent = this.props.fallback
-        return <FallbackComponent error={this.state.error!} resetError={this.resetError} />
-      }
-
-      return <DefaultErrorFallback error={this.state.error!} resetError={this.resetError} />
+      return this.props.fallback || (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center p-8">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              Oops! Something went wrong
+            </h1>
+            <p className="text-gray-600 mb-6">
+              The application encountered an error. Please refresh the page.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      )
     }
 
     return this.props.children
   }
 }
 
-function DefaultErrorFallback({ error, resetError }: { error: Error; resetError: () => void }) {
-  return (
-    <div className="min-h-[400px] flex items-center justify-center p-4">
-      <div className="text-center space-y-4 max-w-md">
-        <div className="flex justify-center">
-          <AlertTriangle className="h-12 w-12 text-destructive" />
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">Something went wrong</h2>
-          <p className="text-muted-foreground text-sm">
-            {error.message || 'An unexpected error occurred'}
-          </p>
-        </div>
-        <Button onClick={resetError} variant="outline" className="gap-2">
-          <RefreshCw className="h-4 w-4" />
-          Try again
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-// Hook for functional components
-export function useErrorHandler() {
-  return (error: Error, errorInfo?: { componentStack: string }) => {
-    console.error('Error caught by useErrorHandler:', error, errorInfo)
-    // Send to monitoring service
+export function withErrorBoundary<P extends object>(
+  Component: React.ComponentType<P>,
+  fallback?: React.ReactNode
+) {
+  return function WrappedComponent(props: P) {
+    return (
+      <ErrorBoundary fallback={fallback}>
+        <Component {...props} />
+      </ErrorBoundary>
+    )
   }
 }

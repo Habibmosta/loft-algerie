@@ -7,20 +7,20 @@ import type { AuthSession } from "./types"
 
 export async function getSession(): Promise<AuthSession | null> {
   const supabase = await createClient(); // Create client here for each request
-
+ 
   const { data: { user }, error: userError } = await supabase.auth.getUser();
-
+ 
   if (userError || !user) {
     return null;
   }
-
+ 
   // Get profile information from the profiles table (not user_metadata)
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('full_name, role')
     .eq('id', user.id)
     .single();
-
+ 
   if (profileError) {
     console.error('Error fetching user profile:', profileError);
     // Fallback to user_metadata if profile doesn't exist
@@ -28,11 +28,11 @@ export async function getSession(): Promise<AuthSession | null> {
     const role = user.user_metadata?.role || 'member';
     
     const { data: { session: supabaseSessionData }, error: sessionError } = await supabase.auth.getSession();
-
+ 
     if (sessionError || !supabaseSessionData) {
       return null;
     }
-
+ 
     return {
       user: {
         id: user.id,
@@ -45,13 +45,13 @@ export async function getSession(): Promise<AuthSession | null> {
       token: supabaseSessionData.access_token
     };
   }
-
+ 
   const { data: { session: supabaseSessionData }, error: sessionError } = await supabase.auth.getSession();
-
+ 
   if (sessionError || !supabaseSessionData) {
     return null;
   }
-
+ 
   const newSession = {
     user: {
       id: user.id,
@@ -68,10 +68,13 @@ export async function getSession(): Promise<AuthSession | null> {
 }
 
 export async function requireAuth(): Promise<AuthSession> {
+  console.log('requireAuth: Calling getSession()');
   const session = await getSession()
   if (!session) {
+    console.log('requireAuth: No session, redirecting to /login');
     redirect("/login")
   }
+  console.log('requireAuth: Session found, returning session');
   return session
 }
 

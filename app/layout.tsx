@@ -45,13 +45,22 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const session = await getSession(); // Fetch session in the root layout
-  const { count: unreadCount } = session ? await getUnreadNotificationsCount(session.user.id) : { count: null };
+  let unreadCount: number | null = null; // Correct type declaration
+  if (session) {
+    try {
+      const { count } = await getUnreadNotificationsCount(session.user.id);
+      unreadCount = count;
+    } catch (error) {
+      console.error('Error fetching unread notifications count:', error);
+      unreadCount = null; // Set to null on error to ensure page loads
+    }
+  }
   
   // Get language from cookies or default to 'fr'
   const cookieStore = await cookies();
   const languageCookie = cookieStore.get('language');
-  const lang = languageCookie?.value && ['en', 'fr', 'ar'].includes(languageCookie.value) 
-    ? languageCookie.value 
+  const lang = languageCookie?.value && ['en', 'fr', 'ar'].includes(languageCookie.value)
+    ? languageCookie.value
     : 'fr';
 
   return (

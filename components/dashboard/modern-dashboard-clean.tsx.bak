@@ -61,8 +61,9 @@ interface BillMonitoringStats {
   overdueBills: number;
   dueToday: number;
   totalLoftsWithBills: number;
-}interfac
-e MonthlyRevenueData {
+}
+
+interface MonthlyRevenueData {
   month: string;
   revenue: number;
   expenses: number;

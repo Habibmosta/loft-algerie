@@ -317,6 +317,40 @@ export const translations = {
       income: "Income",
       expense: "Expense",
       optional: "Optional"
+    },
+    reports: {
+      title: "Reports",
+      subtitle: "Generate detailed PDF reports and visualize your data with interactive charts",
+      pageTitle: "Reports & Analytics",
+      pageSubtitle: "Generate detailed PDF reports and visualize your data with interactive charts",
+      analyticsTab: "Analytics & Charts",
+      pdfTab: "PDF Generator",
+      charts: "Charts",
+      pdfGenerator: "PDF Generator",
+      generate_report: "Generate Report",
+      report_details: "Report Details",
+      table: {
+        id: "ID",
+        name: "Name",
+        type: "Type",
+        date_created: "Date Created",
+        actions: "Actions"
+      },
+      form: {
+        report_name: "Report Name",
+        report_name_placeholder: "Enter report name",
+        report_type: "Report Type",
+        sales_report: "Sales Report",
+        occupancy_report: "Occupancy Report",
+        financial_report: "Financial Report",
+        start_date: "Start Date",
+        end_date: "End Date"
+      },
+      messages: {
+        generated_success: "Report generated successfully.",
+        deleted_success: "Report deleted successfully.",
+        delete_confirm: "Are you sure you want to delete this report?"
+      }
     }
   },
   fr: {
@@ -636,6 +670,40 @@ export const translations = {
       income: "Revenus",
       expense: "Dépenses",
       optional: "Optionnel"
+    },
+    reports: {
+      title: "Rapports",
+      subtitle: "Générez des rapports PDF détaillés et visualisez vos données avec des graphiques interactifs",
+      pageTitle: "Rapports & Analytics",
+      pageSubtitle: "Générez des rapports PDF détaillés et visualisez vos données avec des graphiques interactifs",
+      analyticsTab: "Analytics & Graphiques",
+      pdfTab: "Générateur PDF",
+      charts: "Graphiques",
+      pdfGenerator: "Générateur PDF",
+      generate_report: "Générer un Rapport",
+      report_details: "Détails du Rapport",
+      table: {
+        id: "ID",
+        name: "Nom",
+        type: "Type",
+        date_created: "Date de Création",
+        actions: "Actions"
+      },
+      form: {
+        report_name: "Nom du Rapport",
+        report_name_placeholder: "Entrez le nom du rapport",
+        report_type: "Type de Rapport",
+        sales_report: "Rapport de Ventes",
+        occupancy_report: "Rapport d'Occupation",
+        financial_report: "Rapport Financier",
+        start_date: "Date de Début",
+        end_date: "Date de Fin"
+      },
+      messages: {
+        generated_success: "Rapport généré avec succès.",
+        deleted_success: "Rapport supprimé avec succès.",
+        delete_confirm: "Êtes-vous sûr de vouloir supprimer ce rapport ?"
+      }
     }
   },
   ar: {
@@ -966,7 +1034,13 @@ export const translations = {
     },
     reports: {
       title: "التقارير",
-      subtitle: "إنشاء وعرض التقارير.",
+      subtitle: "إنشاء تقارير PDF مفصلة وتصور بياناتك بالرسوم البيانية التفاعلية",
+      pageTitle: "التقارير والتحليلات",
+      pageSubtitle: "إنشاء تقارير PDF مفصلة وتصور بياناتك بالرسوم البيانية التفاعلية",
+      analyticsTab: "التحليلات والرسوم البيانية",
+      pdfTab: "مولد PDF",
+      charts: "الرسوم البيانية",
+      pdfGenerator: "مولد PDF",
       generate_report: "إنشاء تقرير",
       report_details: "تفاصيل التقرير",
       table: {
