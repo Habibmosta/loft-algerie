@@ -2,7 +2,7 @@
 
 import { 
   Building2, Calendar, DollarSign, Home, LogOut, Settings, Users, 
-  ClipboardList, UserCheck, ChevronDown, ChevronRight, LayoutDashboard, CreditCard, MessageSquare, Bell
+  ClipboardList, UserCheck, ChevronDown, ChevronRight, LayoutDashboard, CreditCard, MessageSquare, Bell, CalendarCheck
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -38,6 +38,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
     { name: t('notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
     { name: t('lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
     { name: t('reservations'), href: "/reservations", icon: Calendar, roles: ["admin", "manager"] },
+    { name: t('availability'), href: "/availability", icon: CalendarCheck, roles: ["admin", "manager"] },
     { name: t('tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
     { name: t('teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
     { name: t('owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },

@@ -1,0 +1,63 @@
+# Page snapshot
+
+```yaml
+- generic:
+  - generic [active]:
+    - generic [ref=e5] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e6] [cursor=pointer]:
+        - img [ref=e7] [cursor=pointer]
+      - generic [ref=e12] [cursor=pointer]:
+        - button "Open issues overlay" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14] [cursor=pointer]:
+            - generic [ref=e15] [cursor=pointer]: "0"
+            - generic [ref=e16] [cursor=pointer]: "1"
+          - generic [ref=e17] [cursor=pointer]: Issue
+        - button "Collapse issues badge" [ref=e18] [cursor=pointer]:
+          - img [ref=e19] [cursor=pointer]
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - navigation [ref=e26]:
+            - button "previous" [disabled] [ref=e27]:
+              - img "previous" [ref=e28]
+            - generic [ref=e30]:
+              - generic [ref=e31]: 1/
+              - generic [ref=e32]: "1"
+            - button "next" [disabled] [ref=e33]:
+              - img "next" [ref=e34]
+          - img
+        - generic [ref=e36]:
+          - link "Next.js 15.4.6 (stale) Webpack" [ref=e37]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e38]
+            - generic "There is a newer version (15.5.0) available, upgrade recommended!" [ref=e40]: Next.js 15.4.6 (stale)
+            - generic [ref=e41]: Webpack
+          - img
+      - generic [ref=e42]:
+        - dialog "Runtime SyntaxError" [ref=e43]:
+          - generic [ref=e47]:
+            - generic [ref=e48]:
+              - generic [ref=e50]: Runtime SyntaxError
+              - generic [ref=e51]:
+                - button "Copy Stack Trace" [ref=e52] [cursor=pointer]:
+                  - img [ref=e53] [cursor=pointer]
+                - button "No related documentation found" [disabled] [ref=e55]:
+                  - img [ref=e56]
+                - link "Learn more about enabling Node.js inspector for server code with Chrome DevTools" [ref=e58]:
+                  - /url: https://nextjs.org/docs/app/building-your-application/configuring/debugging#server-side-code
+                  - img [ref=e59]
+            - paragraph [ref=e71]: Unexpected end of JSON input
+          - generic [ref=e73]:
+            - generic [ref=e74]: "1"
+            - generic [ref=e75]: "2"
+        - contentinfo [ref=e76]:
+          - region "Error feedback" [ref=e77]:
+            - paragraph [ref=e78]:
+              - link "Was this helpful?" [ref=e79]:
+                - /url: https://nextjs.org/telemetry#error-feedback
+            - button "Mark as helpful" [ref=e80] [cursor=pointer]:
+              - img [ref=e81] [cursor=pointer]
+            - button "Mark as not helpful" [ref=e84] [cursor=pointer]:
+              - img [ref=e85] [cursor=pointer]
+  - alert [ref=e87]
+```

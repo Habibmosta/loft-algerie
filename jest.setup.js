@@ -12,76 +12,66 @@ jest.mock('next/navigation', () => ({
       refresh: jest.fn(),
     }
   },
-  useSearchParams() {
-    return new URLSearchParams()
-  },
   usePathname() {
     return '/'
   },
+  useSearchParams() {
+    return new URLSearchParams()
+  },
 }))
 
-// Mock Supabase
-jest.mock('@/utils/supabase/server', () => ({
-  createClient: jest.fn(() => ({
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        eq: jest.fn(() => ({
-          data: [],
-          error: null,
-        })),
-        in: jest.fn(() => ({
-          data: [],
-          error: null,
-        })),
-        order: jest.fn(() => ({
-          limit: jest.fn(() => ({
-            data: [],
-            error: null,
-          })),
-        })),
-      })),
-      insert: jest.fn(() => ({
-        data: [],
-        error: null,
-      })),
-      update: jest.fn(() => ({
-        eq: jest.fn(() => ({
-          data: [],
-          error: null,
-        })),
-      })),
-      delete: jest.fn(() => ({
-        eq: jest.fn(() => ({
-          data: [],
-          error: null,
-        })),
-      })),
-    })),
-    auth: {
-      getUser: jest.fn(() => ({
-        data: { user: null },
-        error: null,
-      })),
-      signInWithPassword: jest.fn(() => ({
-        data: { user: null },
-        error: null,
-      })),
-      signUp: jest.fn(() => ({
-        data: { user: null },
-        error: null,
-      })),
-      signOut: jest.fn(() => ({
-        error: null,
-      })),
-    },
-    rpc: jest.fn(() => ({
-      data: [],
-      error: null,
-    })),
-  })),
+// Mock Next.js image
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img {...props} />
+  },
 }))
 
 // Mock environment variables
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key'
-process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/test'
+
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
+// Mock IntersectionObserver
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  observe() {
+    return null
+  }
+  disconnect() {
+    return null
+  }
+  unobserve() {
+    return null
+  }
+}
+
+// Mock ResizeObserver
+global.ResizeObserver = class ResizeObserver {
+  constructor() {}
+  observe() {
+    return null
+  }
+  disconnect() {
+    return null
+  }
+  unobserve() {
+    return null
+  }
+}
