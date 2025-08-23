@@ -65,6 +65,11 @@
   "pageTitle": "Rapports et Analyses",
   "analyticsTab": "Analyses et Graphiques",
   "pdfTab": "Générateur PDF",
+  "realTimeData": "Données en temps réel",
+  "advancedAnalytics": "Analyses avancées", 
+  "customReports": "Rapports personnalisés",
+  "realTimeDataBadge": "Données en temps réel",
+  "featuresText": "Données en temps réel • Analyses avancées • Rapports personnalisés",
   "table": {
     "id": "ID",
     "name": "Nom",

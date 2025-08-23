@@ -15,6 +15,7 @@
     "revenue": "الإيرادات",
     "revenueExpensesByLoft": "الإيرادات والمصروفات حسب الشقة",
     "top5ProfitableLofts": "أفضل 5 شقق ربحية",
-    "trackRevenueExpenses": "تتبع الإيرادات والمصروفات بمرور الوقت."
+    "trackRevenueExpenses": "تتبع الإيرادات والمصروفات بمرور الوقت.",
+  "realTimeDataBadge": "بيانات في الوقت الفعلي"
   }
 }

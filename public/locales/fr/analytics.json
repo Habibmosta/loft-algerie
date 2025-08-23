@@ -15,6 +15,7 @@
     "revenue": "Revenus",
     "revenueExpensesByLoft": "Revenus et Dépenses par Loft",
     "top5ProfitableLofts": "Top 5 des Lofts les Plus Rentables",
-    "trackRevenueExpenses": "Suivez les revenus et les dépenses au fil du temps."
+    "trackRevenueExpenses": "Suivez les revenus et les dépenses au fil du temps.",
+  "realTimeDataBadge": "Données en temps réel"
   }
 }

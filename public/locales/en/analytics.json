@@ -15,6 +15,7 @@
     "revenue": "Revenue",
     "revenueExpensesByLoft": "Revenue and Expenses by Loft",
     "top5ProfitableLofts": "Top 5 Most Profitable Lofts",
-    "trackRevenueExpenses": "Track revenue and expenses over time."
+    "trackRevenueExpenses": "Track revenue and expenses over time.",
+  "realTimeDataBadge": "Real-time Data"
   }
 }

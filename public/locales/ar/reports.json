@@ -65,6 +65,11 @@
   "pageTitle": "التقارير والتحليلات",
   "analyticsTab": "التحليلات والرسوم البيانية",
   "pdfTab": "مولد PDF",
+  "realTimeData": "بيانات في الوقت الفعلي",
+  "advancedAnalytics": "تحليلات متقدمة",
+  "customReports": "تقارير مخصصة",
+  "realTimeDataBadge": "بيانات في الوقت الفعلي",
+  "featuresText": "بيانات في الوقت الفعلي • تحليلات متقدمة • تقارير مخصصة",
   "table": {
     "id": "المعرف",
     "name": "الاسم",

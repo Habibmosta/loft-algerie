@@ -48,7 +48,7 @@ export default function ReportsPage() {
               </div>
               <div className="flex items-center gap-2 text-sm text-blue-100">
                 <TrendingUp className="h-4 w-4" />
-                <span>Données en temps réel • Analyses avancées • Rapports personnalisés</span>
+                <span>{t('reports:featuresText')}</span>
               </div>
             </div>
             {/* Éléments décoratifs */}

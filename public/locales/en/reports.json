@@ -65,6 +65,11 @@
   "pageTitle": "Reports and Analytics",
   "analyticsTab": "Analytics and Charts",
   "pdfTab": "PDF Generator",
+  "realTimeData": "Real-time Data",
+  "advancedAnalytics": "Advanced Analytics",
+  "customReports": "Custom Reports", 
+  "realTimeDataBadge": "Real-time Data",
+  "featuresText": "Real-time Data • Advanced Analytics • Custom Reports",
   "table": {
     "id": "ID",
     "name": "Name",

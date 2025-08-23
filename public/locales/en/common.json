@@ -3,8 +3,8 @@
     "save": "actions.save"
   },
   "analytics": {
-    "subtitle": "Detailed overview of your operations.",
-    "title": "Analytics"
+    "subtitle": "Visualize financial performance and trends of your lofts",
+    "title": "Reports and Analytics"
   },
   "auth": {
     "admin": "Admin",
