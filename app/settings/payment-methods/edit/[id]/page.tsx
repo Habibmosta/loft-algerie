@@ -2,6 +2,7 @@ import { requireRole } from "@/lib/auth"
 import { createClient } from "@/utils/supabase/server"
 import { PaymentMethodForm } from "@/components/forms/payment-method-form"
 import { updatePaymentMethod } from "@/app/actions/payment-methods"
+import { EditPaymentMethodHeader } from "@/components/payment-methods/edit-payment-method-header"
 
 export default async function EditPaymentMethodPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -17,10 +18,11 @@ export default async function EditPaymentMethodPage({ params }: { params: Promis
   if (error) {
     console.error("Error fetching payment method:", error)
     return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Error</h1>
-          <p className="text-muted-foreground">Failed to load payment method data.</p>
+      <div className="space-y-6 p-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-red-600">Erreur</h1>
+          <p className="text-muted-foreground mt-2">Impossible de charger les données de la méthode de paiement.</p>
+          <p className="text-sm text-gray-500 mt-1">Erreur: {error.message}</p>
         </div>
       </div>
     )
@@ -28,26 +30,19 @@ export default async function EditPaymentMethodPage({ params }: { params: Promis
 
   if (!paymentMethod) {
     return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Payment Method Not Found</h1>
-          <p className="text-muted-foreground">Could not find payment method with ID {id}</p>
+      <div className="space-y-6 p-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold tracking-tight">Méthode de Paiement Introuvable</h1>
+          <p className="text-muted-foreground mt-2">Impossible de trouver la méthode de paiement avec l'ID {id}</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Payment Method</h1>
-        <p className="text-muted-foreground">Update payment method information</p>
-      </div>
-
-      <PaymentMethodForm 
-        paymentMethod={paymentMethod}
-        action={updatePaymentMethod.bind(null, id)}
-      />
-    </div>
+    <PaymentMethodForm 
+      paymentMethod={paymentMethod}
+      action={updatePaymentMethod.bind(null, id)}
+    />
   )
 }

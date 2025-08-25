@@ -35,12 +35,25 @@ export async function createPaymentMethod(formData: FormData) {
     return { error: "Name is required" }
   }
 
+  // Fonction pour parser les détails de manière sécurisée
+  const parseDetails = (detailsString: string) => {
+    if (!detailsString) return null
+    
+    try {
+      // Essayer de parser comme JSON
+      return JSON.parse(detailsString)
+    } catch {
+      // Si ce n'est pas du JSON valide, retourner comme chaîne
+      return detailsString
+    }
+  }
+
   const { data: newPaymentMethod, error } = await supabase
     .from("payment_methods")
     .insert({
       name,
       type,
-      details: details ? JSON.parse(details) : null,
+      details: parseDetails(details || ''),
     })
     .select()
     .single()
@@ -66,12 +79,25 @@ export async function updatePaymentMethod(id: string, formData: FormData) {
     return { error: "Name is required" }
   }
 
+  // Fonction pour parser les détails de manière sécurisée
+  const parseDetails = (detailsString: string) => {
+    if (!detailsString) return null
+    
+    try {
+      // Essayer de parser comme JSON
+      return JSON.parse(detailsString)
+    } catch {
+      // Si ce n'est pas du JSON valide, retourner comme chaîne
+      return detailsString
+    }
+  }
+
   const { error } = await supabase
     .from("payment_methods")
     .update({
       name,
       type,
-      details: details ? JSON.parse(details) : null,
+      details: parseDetails(details || ''),
     })
     .eq("id", id)
 

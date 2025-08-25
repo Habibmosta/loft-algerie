@@ -29,7 +29,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
   const [isSettingsOpen, setIsSettingsOpen] = useState(pathname?.startsWith('/settings') || false)
   const { unreadMessagesCount } = useEnhancedRealtime()
   const { unreadCount: realtimeUnreadCount } = useNotifications()
-  const { t } = useTranslation(['nav', 'roles', 'auth']);
+  const { t } = useTranslation(['nav', 'roles', 'auth'])
 
   const navigation = [
     { name: t('executive'), href: "/executive", icon: LayoutDashboard, roles: ["executive"], className: "bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold" },
@@ -53,7 +53,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
         { name: t('categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
         { name: t('currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
         { name: t('zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
-        { name: t('paymentMethodsNav'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
+        { name: t('paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
         { name: t('internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
         { name: t('application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
       ]
@@ -71,7 +71,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
             <div className="absolute -bottom-1 -right-1 h-2.5 w-2.5 rounded-full border-2 border-gray-900 bg-blue-500"></div>
           </div>
           <span className="ml-2 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 truncate">
-            {t('loftManager', { ns: 'conversations' })}
+            {t('loftManager')}
           </span>
         </Link>
         <div className="flex items-center bg-gray-700/50 dark:bg-gray-800 rounded-md p-0.5 gap-0.5 flex-shrink-0">
@@ -80,7 +80,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
         </div>
       </div>
 
-      <nav className="flex-1 space-y-1 px-2 py-4">
+      <nav className="flex-1 space-y-1 px-2 py-4 overflow-y-auto">
         {filteredNavigation.map((item) => {
           const isActive = pathname === item.href || 
                          (item.subItems && item.subItems.some(sub => pathname === sub.href))

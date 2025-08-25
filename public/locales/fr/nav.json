@@ -21,5 +21,7 @@
   "signOut": "Déconnexion",
   "toggleTheme": "Changer de thème",
   "executive": "Direction",
-  "loftManager": "Loft Manager"
+  "loftManager": "Loft Manager",
+  "admin": "Administrateur",
+  "configure": "Configurer"
 }

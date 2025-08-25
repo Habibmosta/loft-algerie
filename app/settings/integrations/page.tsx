@@ -3,10 +3,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { getTranslations } from "@/lib/i18n/server"
+import { cookies } from "next/headers"
 
 export default async function IntegrationsPage() {
   await requireRole(["admin"])
-  const t = await getTranslations()
+  
+  // Get language from cookies or default to 'fr'
+  const cookieStore = await cookies();
+  const languageCookie = cookieStore.get('language');
+  const lang = languageCookie?.value && ['en', 'fr', 'ar'].includes(languageCookie.value)
+    ? languageCookie.value
+    : 'fr';
+
+  const i18n = await getTranslations(lang, ['settings', 'common'])
+  const t = i18n.t.bind(i18n)
 
   return (
     <div className="space-y-6">
