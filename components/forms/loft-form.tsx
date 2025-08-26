@@ -8,7 +8,7 @@ import { useEffect, useState, useCallback } from "react"
 import type { Loft, LoftOwner, InternetConnectionType } from "@/lib/types"
 import type { ZoneArea } from "@/app/actions/zone-areas"
 import { Textarea } from "@/components/ui/textarea"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "@/lib/i18n/context"
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation'
 import { PhotoUpload } from "@/components/lofts/photo-upload"
@@ -22,7 +22,7 @@ interface LoftFormProps {
 }
 
 export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit, loft }: LoftFormProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["lofts", "common"]);
   const router = useRouter()
   const [formData, setFormData] = useState({
     name: "",
@@ -142,12 +142,16 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
     setIsSubmitting(true)
     
     try {
-      // Convert empty date strings to null to prevent database errors
+      // Convert empty strings to null to prevent database errors
       const processedData = {
         ...formData,
         price_per_month: Number(formData.price_per_month),
         company_percentage: Number(formData.company_percentage),
         owner_percentage: Number(formData.owner_percentage),
+        // Convert empty UUID strings to null
+        owner_id: formData.owner_id || null,
+        zone_area_id: formData.zone_area_id || null,
+        internet_connection_type_id: formData.internet_connection_type_id || null,
         // Convert empty date strings to null
         prochaine_echeance_eau: formData.prochaine_echeance_eau || null,
         prochaine_echeance_energie: formData.prochaine_echeance_energie || null,

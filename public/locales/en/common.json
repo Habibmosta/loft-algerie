@@ -4,5 +4,8 @@
   },
   "owners": {
     "ownershipType": "Ownership Type"
-  }
+  },
+  "selectOption": "Select an option",
+  "error": "Error",
+  "systemError": "System Error"
 }

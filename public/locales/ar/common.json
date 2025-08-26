@@ -4,5 +4,8 @@
   },
   "owners": {
     "ownershipType": "نوع الملكية"
-  }
+  },
+  "selectOption": "اختر خياراً",
+  "error": "خطأ",
+  "systemError": "خطأ في النظام"
 }

@@ -111,9 +111,9 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
               <Eye className="h-8 w-8 text-muted-foreground" />
             </div>
             <div>
-              <h3 className="font-medium mb-2">{t('lofts:photos.noPhotos')}</h3>
+              <h3 className="font-medium mb-2">{t('photos.noPhotos')}</h3>
               <p className="text-sm text-muted-foreground">
-                {t('lofts:photos.noPhotosDescription')}
+                {t('photos.noPhotosDescription')}
               </p>
             </div>
           </div>

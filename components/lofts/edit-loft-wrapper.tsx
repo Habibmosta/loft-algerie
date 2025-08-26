@@ -19,10 +19,10 @@ export function EditLoftWrapper({
   const { t } = useTranslation(["common", "lofts"]);
 
   const translations = {
-    editLoft: t('lofts.editLoft'),
-    updatePropertyDetails: t('lofts.updatePropertyDetails'),
-    loftUpdated: t('lofts.loftUpdated'),
-    error: t('common.error'),
+    editLoft: t('lofts:editLoft'),
+    updatePropertyDetails: t('lofts:updatePropertyDetails'),
+    loftUpdated: t('lofts:loftUpdated'),
+    error: t('common:error'),
   };
 
   return (

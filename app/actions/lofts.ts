@@ -57,10 +57,19 @@ export async function getLoft(id: string): Promise<Loft | null> {
 export async function updateLoft(id: string, data: Omit<Loft, "id" | "created_at" | "updated_at">): Promise<{ success: boolean }> {
   await requireRole(["admin", "manager"])
 
+  // Clean up empty strings to prevent UUID errors
+  const cleanedData = Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [
+      key,
+      // Convert empty strings to null for UUID fields and other nullable fields
+      value === "" ? null : value
+    ])
+  )
+
   const supabase = await createClient() // Create client here
   const { error } = await supabase
     .from("lofts")
-    .update(data)
+    .update(cleanedData)
     .eq("id", id)
 
   if (error) {
@@ -79,10 +88,19 @@ interface CreateLoftResult {
 export async function createLoft(data: Omit<Loft, "id" | "created_at" | "updated_at">): Promise<CreateLoftResult> {
   await requireRole(["admin"])
 
+  // Clean up empty strings to prevent UUID errors
+  const cleanedData = Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [
+      key,
+      // Convert empty strings to null for UUID fields and other nullable fields
+      value === "" ? null : value
+    ])
+  )
+
   const supabase = await createClient() // Create client here
   const { data: newLoft, error } = await supabase
     .from("lofts")
-    .insert(data)
+    .insert(cleanedData)
     .select()
     .single()
 

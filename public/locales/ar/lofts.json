@@ -110,7 +110,6 @@
   "loftInfoDescription": "توفير التفاصيل الرئيسية للشقة، بما في ذلك اسمها وعنوانها وسعر الإيجار.",
   "loftCreatedSuccess": "تم إنشاء الشقة بنجاح",
   "loftCreatedSuccessDescription": "تم إضافة الشقة الجديدة إلى قائمة العقارات الخاصة بك.",
-  "loftInfoTitle": "معلومات الشقة",
   "loftName": "اسم الشقة",
   "nextEnergyBill": "فاتورة الطاقة التالية المستحقة",
   "nextInternetBill": "فاتورة الإنترنت التالية المستحقة",
@@ -166,6 +165,7 @@
     "fileSize": "{{size}} ميجابايت",
     "photoDownloaded": "تم تحميل الصورة",
     "downloadError": "خطأ في التحميل",
+    "loadError": "خطأ في تحميل الصور",
     "deleteSuccess": "تم حذف الصورة",
     "deleteError": "خطأ في حذف الصورة",
     "fileTooLarge": "{{filename}} كبير جداً (حد أقصى 5 ميجابايت)",
@@ -209,5 +209,8 @@
   "noLoftsMatch": "لا توجد شقق تطابق المرشحات",
   "loftName": "اسم الشقة",
   "pricePerMonth": "السعر شهرياً",
-  "loftCreateError": "خطأ في إنشاء الشقة"
+  "loftCreateError": "خطأ في إنشاء الشقة",
+  "loftUpdatedDescription": "تم حفظ جميع التعديلات بنجاح",
+  "updateError": "فشل في حفظ التعديلات. تحقق من البيانات وحاول مرة أخرى",
+  "systemErrorDescription": "حدث خطأ غير متوقع أثناء التحديث. اتصل بالدعم إذا استمرت المشكلة"
 }
