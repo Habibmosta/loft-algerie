@@ -9,5 +9,6 @@
   "error": "Error",
   "systemError": "System Error",
   "view": "View",
-  "edit": "Edit"
+  "edit": "Edit",
+  "cancel": "Cancel"
 }

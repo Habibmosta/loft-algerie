@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Upload, X, Image as ImageIcon, Loader2 } from "lucide-react";
+import { Upload, X, Image as ImageIcon, Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -32,6 +33,15 @@ export function PhotoUpload({
   const { t } = useTranslation("lofts");
   const [photos, setPhotos] = useState<LoftPhoto[]>(existingPhotos);
   const [isDragging, setIsDragging] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState<{
+    isOpen: boolean;
+    photoIndex: number | null;
+    photoName: string;
+  }>({
+    isOpen: false,
+    photoIndex: null,
+    photoName: "",
+  });
 
   // Sync photos state when existingPhotos prop changes
   useEffect(() => {
@@ -198,8 +208,35 @@ export function PhotoUpload({
     setIsDragging(false);
   }, []);
 
-  const removePhoto = async (index: number) => {
+  const openDeleteConfirmation = (index: number, event?: React.MouseEvent) => {
+    // Empêcher la propagation de l'événement pour éviter la redirection
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     const photo = photos[index];
+    setDeleteConfirmation({
+      isOpen: true,
+      photoIndex: index,
+      photoName: photo.name,
+    });
+  };
+
+  const closeDeleteConfirmation = () => {
+    setDeleteConfirmation({
+      isOpen: false,
+      photoIndex: null,
+      photoName: "",
+    });
+  };
+
+  const confirmDeletePhoto = async () => {
+    const { photoIndex } = deleteConfirmation;
+    
+    if (photoIndex === null) return;
+
+    const photo = photos[photoIndex];
 
     if (photo.id && loftId) {
       try {
@@ -211,15 +248,17 @@ export function PhotoUpload({
           throw new Error("Erreur lors de la suppression");
         }
 
-        toast.success(t("photos.deleteSuccess"));
+        toast.success(t("photos.deleteSuccess") || "Photo supprimée avec succès");
       } catch (error) {
-        toast.error(t("photos.deleteError"));
+        toast.error(t("photos.deleteError") || "Erreur lors de la suppression");
+        closeDeleteConfirmation();
         return;
       }
     }
 
-    const newPhotos = photos.filter((_, i) => i !== index);
+    const newPhotos = photos.filter((_, i) => i !== photoIndex);
     updatePhotos(newPhotos);
+    closeDeleteConfirmation();
   };
 
   return (
@@ -297,8 +336,9 @@ export function PhotoUpload({
                       <Button
                         size="sm"
                         variant="destructive"
-                        onClick={() => removePhoto(index)}
+                        onClick={(e) => openDeleteConfirmation(index, e)}
                         className="h-8 w-8 p-0"
+                        title={t("photos.deletePhoto") || "Supprimer la photo"}
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -314,20 +354,61 @@ export function PhotoUpload({
                     </div>
                   )}
                 </div>
-
-                <div className="p-2">
-                  <p className="text-xs text-muted-foreground truncate">
-                    {photo.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {(photo.size / 1024 / 1024).toFixed(1)} MB
-                  </p>
-                </div>
               </CardContent>
             </Card>
           ))}
         </div>
       )}
+
+      {/* Modale de confirmation de suppression */}
+      <Dialog open={deleteConfirmation.isOpen} onOpenChange={closeDeleteConfirmation}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              {t("photos.confirmDelete") || "Confirmer la suppression"}
+            </DialogTitle>
+            <DialogDescription className="text-left">
+              {t("photos.confirmDeleteDescription") || 
+                "Êtes-vous sûr de vouloir supprimer cette photo ? Cette action est irréversible."}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-4">
+            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+              <div className="flex-shrink-0">
+                <ImageIcon className="h-8 w-8 text-muted-foreground" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-foreground truncate">
+                  {deleteConfirmation.photoName}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {t("photos.willBeDeleted") || "Cette photo sera définitivement supprimée"}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+            <Button
+              variant="outline"
+              onClick={closeDeleteConfirmation}
+              className="mt-2 sm:mt-0"
+            >
+              {t("photos.cancel") || "Annuler"}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmDeletePhoto}
+              className="w-full sm:w-auto"
+            >
+              <X className="h-4 w-4 mr-2" />
+              {t("photos.deletePhoto") || "Supprimer"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

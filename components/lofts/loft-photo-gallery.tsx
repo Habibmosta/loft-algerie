@@ -140,15 +140,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
               
               {/* Overlay avec actions */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
-                <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                  <div className="text-white">
-                    <p className="font-medium">{photos[0].file_name}</p>
-                    <p className="text-sm opacity-75">
-                      {(photos[0].file_size / 1024 / 1024).toFixed(1)} MB
-                    </p>
-                  </div>
-                  
-                  <div className="flex gap-2">
+                <div className="absolute bottom-4 right-4 flex gap-2">
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button 
@@ -176,14 +168,13 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
                       </DialogContent>
                     </Dialog>
                     
-                    <Button 
-                      size="sm" 
-                      variant="secondary"
-                      onClick={() => downloadPhoto(photos[0])}
-                    >
-                      <Download className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  <Button 
+                    size="sm" 
+                    variant="secondary"
+                    onClick={() => downloadPhoto(photos[0])}
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </div>
@@ -322,18 +313,9 @@ function PhotoViewer({
       )}
 
       {/* Info */}
-      <div className="absolute bottom-4 left-4 right-4 bg-black/50 text-white p-4 rounded">
-        <div className="flex justify-between items-center">
-          <div>
-            <h3 className="font-medium">{photo.file_name}</h3>
-            <p className="text-sm opacity-75">
-              {(photo.file_size / 1024 / 1024).toFixed(1)} MB • 
-              {photo.uploader?.full_name && ` ${t('photos.addedBy', { name: photo.uploader.full_name })}`}
-            </p>
-          </div>
-          <div className="text-sm">
-            {selectedIndex + 1} / {photos.length}
-          </div>
+      <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-2 rounded">
+        <div className="text-sm">
+          {selectedIndex + 1} / {photos.length}
         </div>
       </div>
     </div>
