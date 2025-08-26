@@ -53,7 +53,13 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
 
   const filteredData = data.filter(loft => {
     if (filters.region !== 'all' && loft.region.toLowerCase() !== filters.region) return false
-    if (filters.owner !== 'all' && loft.owner.toLowerCase().replace(' ', '-') !== filters.owner) return false
+    
+    // Nouveau filtre multi-sélection pour les propriétaires
+    if (filters.owners && filters.owners.length > 0) {
+      const loftOwnerKey = loft.owner.toLowerCase().replace(' ', '-')
+      if (!filters.owners.includes(loftOwnerKey)) return false
+    }
+    
     if (loft.capacity < filters.guests) return false
     if (loft.pricePerNight < filters.minPrice || loft.pricePerNight > filters.maxPrice) return false
     return true

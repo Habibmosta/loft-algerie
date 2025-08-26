@@ -89,8 +89,14 @@ export function LoftGrid({ data, filters, isLoading }: LoftGridProps) {
   }
 
   const filteredData = data.filter(loft => {
-    if (filters.region !== 'all' && loft.region.toLowerCase() !== filters.region) return false
-    if (filters.owner !== 'all' && loft.owner.toLowerCase().replace(' ', '-') !== filters.owner) return false
+    // Filter by region using database IDs
+    if (filters.region !== 'all' && loft.zone_area_id !== filters.region) return false
+    
+    // Filter by owners using database IDs
+    if (filters.owners && filters.owners.length > 0) {
+      if (!filters.owners.includes(loft.owner_id)) return false
+    }
+    
     if (loft.capacity < filters.guests) return false
     if (loft.pricePerNight < filters.minPrice || loft.pricePerNight > filters.maxPrice) return false
     return true

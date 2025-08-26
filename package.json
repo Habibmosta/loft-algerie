@@ -18,6 +18,7 @@
     "db:migrate": "node scripts/migrate.cjs",
     "db:migrate:supabase": "node scripts/supabase_migrations/run-migration.cjs",
     "db:backup": "tsx scripts/backup-database.ts",
+    "db:seed-lofts": "tsx scripts/seed-lofts.ts",
     "db:restore": "tsx scripts/restore-database.ts",
     "check-bills": "tsx scripts/check-bill-notifications.ts",
     "notifications:check": "tsx scripts/check-bill-notifications.ts",

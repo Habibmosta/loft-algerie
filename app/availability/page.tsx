@@ -35,51 +35,32 @@ export default function AvailabilityPage() {
   })
 
   const [availabilityData, setAvailabilityData] = useState([])
+  const [filterOptions, setFilterOptions] = useState({ regions: [], owners: [], zoneAreas: [], ownersData: [] })
   const [isLoading, setIsLoading] = useState(false)
 
-  // Mock data - replace with real API calls
+  // Fetch real loft data from database
   useEffect(() => {
-    // Simulate API call
-    setIsLoading(true)
-    setTimeout(() => {
-      setAvailabilityData([
-        {
-          id: '1',
-          name: 'Loft Artistique Hydra',
-          region: 'Hydra',
-          owner: 'Ahmed Benali',
-          pricePerNight: 12000,
-          capacity: 4,
-          status: 'available',
-          image: '/images/loft1.jpg',
-          amenities: ['wifi', 'parking', 'kitchen', 'ac'],
-          availability: {
-            '2024-03-15': 'available',
-            '2024-03-16': 'occupied',
-            '2024-03-17': 'available',
-            // ... more dates
-          }
-        },
-        {
-          id: '2',
-          name: 'Loft Moderne Centre-Ville',
-          region: 'Centre-Ville',
-          owner: 'Fatima Khelil',
-          pricePerNight: 15000,
-          capacity: 2,
-          status: 'available',
-          image: '/images/loft2.jpg',
-          amenities: ['wifi', 'kitchen', 'balcony'],
-          availability: {
-            '2024-03-15': 'available',
-            '2024-03-16': 'available',
-            '2024-03-17': 'maintenance',
-            // ... more dates
-          }
+    const fetchLofts = async () => {
+      setIsLoading(true)
+      try {
+        const response = await fetch('/api/lofts/availability')
+        if (response.ok) {
+          const data = await response.json()
+          setAvailabilityData(data.lofts || [])
+          setFilterOptions(data.filterOptions || { regions: [], owners: [], zoneAreas: [], ownersData: [] })
+        } else {
+          console.error('Failed to fetch lofts')
+          setAvailabilityData([])
         }
-      ])
-      setIsLoading(false)
-    }, 1000)
+      } catch (error) {
+        console.error('Error fetching lofts:', error)
+        setAvailabilityData([])
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchLofts()
   }, [filters])
 
   return (
@@ -122,6 +103,7 @@ export default function AvailabilityPage() {
                 filters={filters} 
                 onFiltersChange={setFilters}
                 isLoading={isLoading}
+                filterOptions={filterOptions}
               />
             </div>
 
