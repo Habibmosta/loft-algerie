@@ -1,6 +1,6 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "loft-algerie",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -28,6 +28,7 @@
     "deploy:dev": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1 -Environment development",
     "deploy:staging": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1 -Environment staging",
     "deploy:prod": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1 -Environment production",
+    "deploy:vercel": "node scripts/deploy-vercel.js",
     "setup:github": "powershell -ExecutionPolicy Bypass -File scripts/setup-github.ps1",
     "env:switch:dev": "scripts\\switch-to-dev.bat",
     "env:switch:test": "scripts\\switch-to-test.bat",
