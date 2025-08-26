@@ -1,93 +1,82 @@
 # 🏢 Loft Algérie - Système de Gestion Immobilière
 
-> Système de gestion immobilière complet avec génération de rapports PDF professionnels pour optimiser vos opérations.
+Une application web complète pour la gestion de propriétés immobilières en Algérie, développée avec Next.js 15 et Supabase.
 
-## 🌟 Fonctionnalités
+## ✨ Fonctionnalités
 
-### 🏠 **Gestion des Propriétés**
-- Gestion complète des lofts et propriétés
-- Suivi des propriétaires et zones géographiques
-- Galerie photos et documentation
+### 🏠 Gestion des Lofts
+- ✅ Création, modification et suppression de lofts
+- ✅ Gestion des photos avec galerie intégrée
+- ✅ Suivi des statuts (Disponible, Occupé, Maintenance)
+- ✅ Calcul automatique des revenus
+- ✅ Filtrage avancé par statut, propriétaire et zone
 
-### 📅 **Réservations & Disponibilités**
-- Système de réservation avancé
-- Gestion des disponibilités en temps réel
-- Calendrier interactif
+### 💰 Gestion Financière
+- ✅ Suivi des transactions (revenus/dépenses)
+- ✅ Gestion des factures automatisées
+- ✅ Rapports financiers détaillés
+- ✅ Support multi-devises (DZD, EUR, USD)
+- ✅ Alertes de paiement
 
-### 💰 **Gestion Financière**
-- Suivi des transactions et revenus
-- Gestion des dépenses et factures
-- Rapports financiers détaillés
+### 👥 Gestion des Utilisateurs
+- ✅ Système d'authentification sécurisé
+- ✅ Rôles et permissions (Admin, Manager, Viewer)
+- ✅ Gestion des propriétaires
+- ✅ Équipes et assignations
 
-### 👥 **Équipes & Tâches**
-- Gestion des équipes et collaborateurs
-- Attribution et suivi des tâches
-- Notifications en temps réel
+### 💬 Communication
+- ✅ Système de conversations intégré
+- ✅ Notifications en temps réel
+- ✅ Gestion des tâches et assignations
 
-### 📊 **Rapports & Analytics**
-- Génération de rapports PDF professionnels
-- Dashboard avec statistiques avancées
-- Analyses de performance
+### 🌍 Multilingue
+- ✅ Support complet pour 3 langues :
+  - 🇫🇷 Français
+  - 🇺🇸 English  
+  - 🇩🇿 العربية (Arabe)
+- ✅ Interface adaptée RTL pour l'arabe
+- ✅ Traductions dynamiques des contenus
 
-### 💬 **Communication**
-- Système de conversations intégré
-- Notifications push en temps réel
-- Interface WhatsApp-like
+## 🛠️ Technologies Utilisées
 
-## 🌍 **Multilingue**
-
-L'application supporte 3 langues :
-- 🇫🇷 **Français**
-- 🇬🇧 **Anglais** 
-- 🇸🇦 **Arabe**
-
-## 🎨 **Interface Moderne**
-
-- ✅ **100% Responsive** (Mobile, Tablette, Desktop)
-- 🌙 **Mode Dark/Light** complet
-- 🎯 **UX/UI optimisée**
-- ⚡ **Performance élevée**
-
-## 🛠️ **Technologies Utilisées**
-
-### **Frontend**
-- **Next.js 15** - Framework React
+### Frontend
+- **Next.js 15** - Framework React avec App Router
 - **TypeScript** - Typage statique
-- **Tailwind CSS** - Styling moderne
+- **Tailwind CSS** - Framework CSS utilitaire
+- **Shadcn/ui** - Composants UI modernes
+- **React Hook Form** - Gestion des formulaires
 - **React i18next** - Internationalisation
-- **Lucide React** - Icônes
 
-### **Backend & Base de Données**
-- **Supabase** - Backend as a Service
-- **PostgreSQL** - Base de données
-- **Real-time** - Synchronisation temps réel
+### Backend
+- **Supabase** - Base de données PostgreSQL et authentification
+- **Row Level Security (RLS)** - Sécurité au niveau des données
+- **Real-time subscriptions** - Mises à jour en temps réel
 
-### **Outils & Qualité**
-- **ESLint** - Linting
-- **Prettier** - Formatage de code
-- **TypeScript** - Sécurité des types
+### Outils de Développement
+- **ESLint** - Linting du code
+- **Prettier** - Formatage du code
+- **Husky** - Git hooks
+- **TypeScript** - Vérification de types
 
-## 🚀 **Installation**
+## 🚀 Installation
 
-### **Prérequis**
+### Prérequis
 - Node.js 18+ 
 - npm ou yarn
 - Compte Supabase
 
-### **1. Cloner le projet**
+### 1. Cloner le projet
 ```bash
 git clone https://github.com/votre-username/loft-algerie.git
 cd loft-algerie
 ```
 
-### **2. Installer les dépendances**
+### 2. Installer les dépendances
 ```bash
 npm install
-# ou
-yarn install
 ```
 
-### **3. Configuration**
+### 3. Configuration de l'environnement
 Créer un fichier `.env.local` :
 ```env
 NEXT_PUBLIC_SUPABASE_URL=votre_supabase_url
@@ -95,80 +84,136 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=votre_service_role_key
 ```
 
-### **4. Lancer le serveur de développement**
+### 4. Configuration de la base de données
 ```bash
-npm run dev
-# ou
-yarn dev
+# Exécuter les migrations SQL dans Supabase
+# Fichiers disponibles dans /sql-backup/
 ```
 
-Ouvrir [http://localhost:3000](http://localhost:3000) dans votre navigateur.
+### 5. Lancer le serveur de développement
+```bash
+npm run dev
+```
 
-## 📱 **Captures d'Écran**
+L'application sera accessible sur `http://localhost:3000`
 
-### **Page d'Accueil**
-- Interface moderne et responsive
-- Navigation intuitive
-- Support multilingue
-
-### **Dashboard**
-- Statistiques en temps réel
-- Graphiques interactifs
-- Alertes et notifications
-
-### **Gestion des Lofts**
-- Liste et détails des propriétés
-- Galerie photos
-- Informations complètes
-
-## 🏗️ **Architecture**
+## 📁 Structure du Projet
 
 ```
 loft-algerie/
-├── app/                    # Pages Next.js 13+
-├── components/             # Composants React réutilisables
-├── lib/                    # Utilitaires et configurations
-├── public/                 # Assets statiques
-├── hooks/                  # Hooks personnalisés
-├── utils/                  # Fonctions utilitaires
-└── types/                  # Types TypeScript
+├── app/                    # Pages Next.js (App Router)
+│   ├── dashboard/         # Tableau de bord
+│   ├── lofts/            # Gestion des lofts
+│   ├── transactions/     # Gestion financière
+│   ├── conversations/    # Messagerie
+│   └── settings/         # Configuration
+├── components/           # Composants réutilisables
+│   ├── ui/              # Composants UI de base
+│   ├── forms/           # Formulaires
+│   └── lofts/           # Composants spécifiques aux lofts
+├── lib/                 # Utilitaires et configuration
+│   ├── auth/           # Authentification
+│   ├── i18n/           # Internationalisation
+│   └── types/          # Types TypeScript
+├── public/             # Fichiers statiques
+│   └── locales/        # Fichiers de traduction
+├── utils/              # Utilitaires Supabase
+└── sql-backup/         # Scripts SQL
 ```
 
-## 🔧 **Scripts Disponibles**
+## 🌐 Internationalisation
 
+Le projet supporte 3 langues avec traductions complètes :
+
+### Langues supportées
+- **Français** (par défaut) - Interface complète
+- **English** - Interface complète  
+- **العربية** - Interface complète avec support RTL
+
+### Ajout de nouvelles traductions
+1. Ajouter les clés dans `/public/locales/[lang]/[namespace].json`
+2. Utiliser `t('namespace:key')` dans les composants
+3. Tester avec le sélecteur de langue
+
+## 🔐 Sécurité
+
+- **Row Level Security (RLS)** activé sur toutes les tables
+- **Authentification JWT** avec Supabase Auth
+- **Validation côté serveur** pour tous les formulaires
+- **Sanitisation des données** utilisateur
+- **HTTPS** obligatoire en production
+
+## 📊 Fonctionnalités Avancées
+
+### Rapports et Analytics
+- Génération de rapports PDF
+- Graphiques de performance
+- Suivi des tendances financières
+- Export de données
+
+### Notifications
+- Alertes de factures en retard
+- Notifications de nouvelles réservations
+- Rappels de maintenance
+- Système de messagerie temps réel
+
+### Gestion des Médias
+- Upload d'images optimisé
+- Galeries photos pour chaque loft
+- Compression automatique
+- Support multi-formats
+
+## 🚀 Déploiement
+
+### Vercel (Recommandé)
 ```bash
-npm run dev          # Serveur de développement
-npm run build        # Build de production
-npm run start        # Serveur de production
-npm run lint         # Vérification ESLint
-npm run type-check   # Vérification TypeScript
+npm run build
+vercel --prod
 ```
 
-## 🤝 **Contribution**
+### Variables d'environnement de production
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+```
+
+## 🤝 Contribution
 
 1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
+2. Créer une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. Commit les changements (`git commit -m 'Ajout nouvelle fonctionnalité'`)
+4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
 5. Ouvrir une Pull Request
 
-## 📄 **Licence**
+## 📝 Licence
 
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## 👨‍💻 **Auteur**
+## 🆘 Support
 
-**Votre Nom**
-- GitHub: [@votre-username](https://github.com/votre-username)
-- Email: votre.email@example.com
+Pour toute question ou problème :
+- Ouvrir une issue sur GitHub
+- Consulter la documentation
+- Contacter l'équipe de développement
 
-## 🙏 **Remerciements**
+## 🎯 Roadmap
 
-- [Next.js](https://nextjs.org/) pour le framework
-- [Supabase](https://supabase.com/) pour le backend
-- [Tailwind CSS](https://tailwindcss.com/) pour le styling
-- [Lucide](https://lucide.dev/) pour les icônes
+### Version 2.0
+- [ ] Application mobile (React Native)
+- [ ] API REST publique
+- [ ] Intégration avec services externes
+- [ ] Module de comptabilité avancée
+- [ ] Système de réservation en ligne
+
+### Version 1.5
+- [ ] Amélioration des performances
+- [ ] Tests automatisés
+- [ ] Documentation API
+- [ ] Mode hors ligne
 
 ---
 
-⭐ **N'hésitez pas à donner une étoile si ce projet vous a aidé !**
+**Développé avec ❤️ pour la gestion immobilière en Algérie**

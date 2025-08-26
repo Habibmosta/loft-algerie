@@ -7,5 +7,7 @@
   },
   "selectOption": "Select an option",
   "error": "Error",
-  "systemError": "System Error"
+  "systemError": "System Error",
+  "view": "View",
+  "edit": "Edit"
 }

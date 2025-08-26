@@ -27,6 +27,23 @@ import {
   Home
 } from "lucide-react"
 
+// Fonction pour traduire les descriptions des lofts
+const getTranslatedDescription = (originalDescription: string, loftName: string, t: any) => {
+  const descriptionMap: Record<string, string> = {
+    'Profitez avec toute la famille dans cet appartement confortable, calme, avec une magnifique vue panoramique': 'descriptions.heavenLoft',
+    'Oubliez vos soucis dans ce logement spacieux et serein. Il offre une vue panoramique sur la forêt. Situé dans une résidence fermée et gardée avec un stationnement sécurisé.': 'descriptions.aidaLoft',
+    'Logement paisible offrant un séjour détente pour toute la famille. Il est situé en face la forêt de Bainem vue panoramique. La résidence est gardée et sécurisée. Le stationnement est disponible à l\'intérieure de la résidence.': 'descriptions.nadaLoft',
+    'Loft moderne avec vue sur la baie d\'Alger': 'descriptions.modernCenterAlger',
+    'Studio haut de gamme dans le quartier d\'Hydra': 'descriptions.studioHydraPremium',
+    'Loft adapté aux étudiants, proche de l\'université': 'descriptions.loftStudentBabEzzouar',
+    'Penthouse avec vue panoramique sur la mer': 'descriptions.penthouseOranSeaView',
+    'Loft spacieux pour famille, quartier calme': 'descriptions.familyLoftConstantine'
+  }
+  
+  const translationKey = descriptionMap[originalDescription]
+  return translationKey ? t(translationKey) : originalDescription
+}
+
 export default async function LoftDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const awaitedParams = await params;
   
@@ -67,8 +84,8 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
       return (
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-yellow-600">Loft non trouvé</h1>
-            <p className="text-muted-foreground">Aucun loft trouvé pour l'ID: {awaitedParams.id}</p>
+            <h1 className="text-3xl font-bold tracking-tight text-yellow-600">{t('loftNotFound')}</h1>
+            <p className="text-muted-foreground">{t('noLoftFoundForId')}: {awaitedParams.id}</p>
           </div>
         </div>
       )
@@ -172,7 +189,7 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
                     <Separator />
                     <div>
                       <p className="text-sm text-muted-foreground mb-2">{t('lofts:loftDescription')}</p>
-                      <p className="text-base leading-relaxed">{loft.description}</p>
+                      <p className="text-base leading-relaxed">{getTranslatedDescription(loft.description, loft.name, t)}</p>
                     </div>
                   </>
                 )}

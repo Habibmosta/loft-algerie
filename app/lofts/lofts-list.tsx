@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslation } from 'react-i18next'
 import { Home, Users, MapPin, TrendingUp, Eye, Edit, Trash2 } from "lucide-react"
 
 interface LoftsListProps {
@@ -20,6 +20,23 @@ interface LoftsListProps {
 }
 
 const LOFT_STATUSES: LoftStatus[] = ["available", "occupied", "maintenance"]
+
+// Fonction pour traduire les descriptions des lofts
+const getTranslatedDescription = (originalDescription: string, loftName: string, t: any) => {
+  const descriptionMap: Record<string, string> = {
+    'Profitez avec toute la famille dans cet appartement confortable, calme, avec une magnifique vue panoramique': 'lofts:descriptions.heavenLoft',
+    'Oubliez vos soucis dans ce logement spacieux et serein. Il offre une vue panoramique sur la forêt. Situé dans une résidence fermée et gardée avec un stationnement sécurisé.': 'lofts:descriptions.aidaLoft',
+    'Logement paisible offrant un séjour détente pour toute la famille. Il est situé en face la forêt de Bainem vue panoramique. La résidence est gardée et sécurisée. Le stationnement est disponible à l\'intérieure de la résidence.': 'lofts:descriptions.nadaLoft',
+    'Loft moderne avec vue sur la baie d\'Alger': 'lofts:descriptions.modernCenterAlger',
+    'Studio haut de gamme dans le quartier d\'Hydra': 'lofts:descriptions.studioHydraPremium',
+    'Loft adapté aux étudiants, proche de l\'université': 'lofts:descriptions.loftStudentBabEzzouar',
+    'Penthouse avec vue panoramique sur la mer': 'lofts:descriptions.penthouseOranSeaView',
+    'Loft spacieux pour famille, quartier calme': 'lofts:descriptions.familyLoftConstantine'
+  }
+  
+  const translationKey = descriptionMap[originalDescription]
+  return translationKey ? t(translationKey) : originalDescription
+}
 
 export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps) {
   const { t } = useTranslation(["common", "lofts"])
@@ -59,7 +76,7 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
       <div className="mb-8 p-6 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl border border-gray-200">
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-          Filtrer vos lofts
+          {t('lofts:filterTitle')}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
@@ -168,7 +185,7 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
               <div className="space-y-4">
                 {/* Prix en vedette */}
                 <div className="text-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200">
-                  <p className="text-sm text-green-600 font-medium">Prix mensuel</p>
+                  <p className="text-sm text-green-600 font-medium">{t('lofts:pricePerMonth')}</p>
                   <p className="text-2xl font-bold text-green-700">{loft.price_per_month?.toLocaleString()} DA</p>
                 </div>
 
@@ -201,7 +218,7 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
 
                 {loft.description && (
                   <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <p className="text-sm text-blue-800 line-clamp-2">{loft.description}</p>
+                    <p className="text-sm text-blue-800 line-clamp-2">{getTranslatedDescription(loft.description, loft.name, t)}</p>
                   </div>
                 )}
               </div>
@@ -245,7 +262,7 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
                 <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-gray-100 to-blue-100 rounded-full flex items-center justify-center">
                   <Home className="w-10 h-10 text-gray-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">Aucun loft trouvé</h3>
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">{t('lofts:noLoftsFound')}</h3>
                 <p className="text-gray-500 mb-6">
                   {t('lofts:noLoftsMatch')}
                 </p>

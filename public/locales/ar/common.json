@@ -7,5 +7,7 @@
   },
   "selectOption": "اختر خياراً",
   "error": "خطأ",
-  "systemError": "خطأ في النظام"
+  "systemError": "خطأ في النظام",
+  "view": "عرض",
+  "edit": "تعديل"
 }

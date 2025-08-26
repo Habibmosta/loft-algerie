@@ -12,14 +12,10 @@ export default async function LoftsPage() {
   const supabase = await createClient()
 
   try {
-    // Récupération des lofts avec les relations
+    // Récupération des lofts sans les relations pour éviter l'ambiguïté
     const { data: loftsData, error: loftsError } = await supabase
       .from("lofts")
-      .select(`
-        *,
-        loft_owners!inner(id, name),
-        zone_areas(id, name)
-      `)
+      .select("*")
       .order("created_at", { ascending: false })
 
     // Récupération des propriétaires
@@ -54,10 +50,14 @@ export default async function LoftsPage() {
       )
     }
 
+    // Créer un map des propriétaires et zones pour les relations
+    const ownersMap = new Map((ownersData || []).map(owner => [owner.id, owner.name]))
+    const zonesMap = new Map((zoneAreasData || []).map(zone => [zone.id, zone.name]))
+
     const lofts = (loftsData || []).map(loft => ({
       ...loft,
-      owner_name: loft.loft_owners?.name || null,
-      zone_area_name: loft.zone_areas?.name || null
+      owner_name: ownersMap.get(loft.owner_id) || null,
+      zone_area_name: zonesMap.get(loft.zone_area_id) || null
     })) as LoftWithRelations[]
 
     const owners = ownersData || []

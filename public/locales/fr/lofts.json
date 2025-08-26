@@ -212,5 +212,27 @@
   "loftCreateError": "Erreur lors de la création du loft",
   "loftUpdatedDescription": "Toutes les modifications ont été sauvegardées",
   "updateError": "Impossible de sauvegarder les modifications. Vérifiez vos données et réessayez",
-  "systemErrorDescription": "Une erreur inattendue s'est produite lors de la mise à jour. Contactez le support si le problème persiste"
+  "systemErrorDescription": "Une erreur inattendue s'est produite lors de la mise à jour. Contactez le support si le problème persiste",
+  "managePropertiesDescription": "Gérez vos propriétés - Découvrez et gérez votre portfolio immobilier avec style",
+  "totalRevenue": "Revenus Total",
+  "filterTitle": "Filtrer vos lofts",
+  "available": "Disponibles",
+  "occupied": "Occupés",
+  "maintenance": "Maintenance",
+  "noLoftsYet": "Aucun loft pour le moment",
+  "startYourJourney": "Commencez votre aventure immobilière en ajoutant votre premier loft !",
+  "addFirstLoft": "Ajouter mon premier loft",
+  "loftNotFound": "Loft non trouvé",
+  "noLoftFoundForId": "Aucun loft trouvé pour l'ID",
+  "noLoftsFound": "Aucun loft trouvé",
+  "descriptions": {
+    "heavenLoft": "Profitez avec toute la famille dans cet appartement confortable, calme, avec une magnifique vue panoramique",
+    "aidaLoft": "Oubliez vos soucis dans ce logement spacieux et serein. Il offre une vue panoramique sur la forêt. Situé dans une résidence fermée et gardée avec un stationnement sécurisé.",
+    "nadaLoft": "Logement paisible offrant un séjour détente pour toute la famille. Il est situé en face la forêt de Bainem vue panoramique. La résidence est gardée et sécurisée. Le stationnement est disponible à l'intérieure de la résidence.",
+    "modernCenterAlger": "Loft moderne avec vue sur la baie d'Alger",
+    "studioHydraPremium": "Studio haut de gamme dans le quartier d'Hydra",
+    "loftStudentBabEzzouar": "Loft adapté aux étudiants, proche de l'université",
+    "penthouseOranSeaView": "Penthouse avec vue panoramique sur la mer",
+    "familyLoftConstantine": "Loft spacieux pour famille, quartier calme"
+  }
 }
