@@ -1,195 +1,451 @@
-#!/usr/bin/env tsx
-/**
- * CLONAGE COMPLET DE BASE DE DONNÉES
- * Solution alternative pour cloner complètement PROD vers TEST/DEV
- */
-
 import { createClient } from '@supabase/supabase-js'
-import { readFileSync, existsSync } from 'fs'
-import { execSync } from 'child_process'
+import dotenv from 'dotenv'
+import fs from 'fs'
 
-interface Environment {
-  name: string
-  url: string
-  key: string
-  client: any
-  projectRef: string
+// Charger les variables d'environnement
+dotenv.config({ path: '.env.production' })
+
+const environments = {
+  prod: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\r?\n/g, '') || '',
+    key: process.env.SUPABASE_SERVICE_ROLE_KEY?.replace(/\r?\n/g, '') || ''
+  },
+  test: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL_TEST?.replace(/\r?\n/g, '') || '',
+    key: process.env.SUPABASE_SERVICE_ROLE_KEY_TEST?.replace(/\r?\n/g, '') || ''
+  },
+  dev: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL_DEV?.replace(/\r?\n/g, '') || '',
+    key: process.env.SUPABASE_SERVICE_ROLE_KEY_DEV?.replace(/\r?\n/g, '') || ''
+  }
+}
+
+// TOUTES LES TABLES DÉCOUVERTES (30 tables)
+const ALL_TABLES = [
+  'bills',
+  'categories', 
+  'conversation_participants',
+  'conversations',
+  'critical_alerts',
+  'currencies',
+  'executive_metrics',
+  'executive_permissions',
+  'guest_communications',
+  'internet_connection_types',
+  'loft_availability',
+  'loft_owners',
+  'loft_photos',
+  'lofts',
+  'messages',
+  'notifications',
+  'payment_methods',
+  'pricing_rules',
+  'profiles',
+  'reservation_payments',
+  'reservation_reviews',
+  'reservations',
+  'settings',
+  'task_category_references',
+  'tasks',
+  'team_members',
+  'teams',
+  'transaction_category_references',
+  'transactions',
+  'zone_areas'
+]
+
+// Tables avec des dépendances (ordre important pour l'insertion)
+const TABLE_DEPENDENCIES = {
+  // Tables de base (pas de dépendances)
+  base: [
+    'currencies',
+    'zone_areas',
+    'categories',
+    'internet_connection_types',
+    'payment_methods',
+    'settings'
+  ],
+  
+  // Tables utilisateurs et équipes
+  users: [
+    'profiles',
+    'teams',
+    'team_members'
+  ],
+  
+  // Tables lofts et propriétaires
+  lofts: [
+    'loft_owners',
+    'lofts',
+    'loft_photos',
+    'loft_availability',
+    'pricing_rules'
+  ],
+  
+  // Tables réservations
+  reservations: [
+    'reservations',
+    'reservation_payments',
+    'reservation_reviews',
+    'guest_communications'
+  ],
+  
+  // Tables transactions et tâches
+  operations: [
+    'transactions',
+    'transaction_category_references',
+    'tasks',
+    'task_category_references',
+    'bills'
+  ],
+  
+  // Tables communications
+  communications: [
+    'conversations',
+    'conversation_participants',
+    'messages',
+    'notifications'
+  ],
+  
+  // Tables executive et alertes
+  executive: [
+    'executive_permissions',
+    'executive_metrics',
+    'critical_alerts'
+  ]
+}
+
+// Tables sensibles à anonymiser
+const SENSITIVE_TABLES = {
+  'profiles': ['email', 'full_name', 'password_hash', 'reset_token'],
+  'guest_communications': ['guest_email', 'guest_phone', 'guest_name'],
+  'reservations': ['guest_email', 'guest_phone', 'guest_name'],
+  'messages': ['content'],
+  'notifications': ['message']
+}
+
+interface CloneOptions {
+  sourceEnv: 'prod' | 'test' | 'dev'
+  targetEnv: 'prod' | 'test' | 'dev'
+  anonymize?: boolean
+  excludeTables?: string[]
+  includeTables?: string[]
+  dryRun?: boolean
+  batchSize?: number
 }
 
 class CompleteDatabaseClone {
-  private environments: Map<string, Environment> = new Map()
-
-  constructor() {
-    this.loadEnvironments()
+  private sourceClient: any
+  private targetClient: any
+  private options: CloneOptions
+  private stats = {
+    tablesProcessed: 0,
+    recordsCloned: 0,
+    errors: 0,
+    startTime: Date.now()
   }
 
-  private loadEnvironments() {
-    const envConfigs = [
-      { name: 'prod', file: '.env.production' },
-      { name: 'test', file: '.env.test' },
-      { name: 'dev', file: '.env.development' }
-    ]
-
-    for (const config of envConfigs) {
-      try {
-        if (existsSync(config.file)) {
-          const envContent = readFileSync(config.file, 'utf8')
-          const envVars: any = {}
-          
-          envContent.split('\n').forEach(line => {
-            const [key, ...valueParts] = line.split('=')
-            if (key && valueParts.length > 0) {
-              envVars[key.trim()] = valueParts.join('=').replace(/"/g, '').trim()
-            }
-          })
-
-          if (envVars.NEXT_PUBLIC_SUPABASE_URL && envVars.SUPABASE_SERVICE_ROLE_KEY) {
-            const hasPlaceholders = envVars.NEXT_PUBLIC_SUPABASE_URL.includes('[') || 
-                                   envVars.SUPABASE_SERVICE_ROLE_KEY.includes('[')
-            
-            if (!hasPlaceholders) {
-              const projectRef = this.extractProjectRef(envVars.NEXT_PUBLIC_SUPABASE_URL)
-              const env: Environment = {
-                name: config.name,
-                url: envVars.NEXT_PUBLIC_SUPABASE_URL,
-                key: envVars.SUPABASE_SERVICE_ROLE_KEY,
-                client: createClient(envVars.NEXT_PUBLIC_SUPABASE_URL, envVars.SUPABASE_SERVICE_ROLE_KEY),
-                projectRef: projectRef
-              }
-              this.environments.set(config.name, env)
-            }
-          }
-        }
-      } catch (error) {
-        // Ignorer les erreurs
-      }
+  constructor(options: CloneOptions) {
+    this.options = {
+      batchSize: 1000,
+      ...options
     }
+    
+    this.sourceClient = createClient(
+      environments[options.sourceEnv].url,
+      environments[options.sourceEnv].key
+    )
+    
+    this.targetClient = createClient(
+      environments[options.targetEnv].url,
+      environments[options.targetEnv].key
+    )
   }
 
-  private extractProjectRef(supabaseUrl: string): string {
-    const match = supabaseUrl.match(/https:\/\/([^.]+)\.supabase\.co/)
-    return match ? match[1] : 'unknown'
-  }
+  async clone() {
+    console.log('🚀 CLONAGE COMPLET DE LA BASE DE DONNÉES')
+    console.log('=========================================')
+    console.log(`📤 Source: ${this.options.sourceEnv.toUpperCase()}`)
+    console.log(`📥 Cible: ${this.options.targetEnv.toUpperCase()}`)
+    console.log(`🔒 Anonymisation: ${this.options.anonymize ? 'OUI' : 'NON'}`)
+    console.log(`🧪 Mode test: ${this.options.dryRun ? 'OUI' : 'NON'}`)
+    console.log('')
 
-  async showCloneOptions(): Promise<void> {
-    console.log('🔄 OPTIONS DE CLONAGE COMPLET')
-    console.log('='.repeat(50))
+    // Vérifier les connexions
+    await this.verifyConnections()
 
-    const prodEnv = this.environments.get('prod')
-    const testEnv = this.environments.get('test')
-    const devEnv = this.environments.get('dev')
-
-    if (!prodEnv) {
-      console.log('❌ Environnement PROD non configuré')
+    // Obtenir la liste des tables à cloner
+    const tablesToClone = this.getTablesList()
+    console.log(`📋 Tables à cloner: ${tablesToClone.length}`)
+    
+    if (this.options.dryRun) {
+      console.log('🧪 MODE TEST - Aucune donnée ne sera modifiée')
+      tablesToClone.forEach((table, index) => {
+        console.log(`${index + 1}. ${table}`)
+      })
       return
     }
 
-    console.log('\n📋 ENVIRONNEMENTS DÉTECTÉS:')
-    console.log(`✅ PROD: ${prodEnv.projectRef}`)
-    if (testEnv) console.log(`✅ TEST: ${testEnv.projectRef}`)
-    if (devEnv) console.log(`✅ DEV: ${devEnv.projectRef}`)
-
-    console.log('\n🎯 MÉTHODES DE CLONAGE DISPONIBLES:')
-    console.log('='.repeat(40))
-
-    console.log('\n1. 📊 SUPABASE DASHBOARD (Recommandé - Plus Simple)')
-    console.log('   🔗 Étapes:')
-    console.log(`   • Aller sur: https://supabase.com/dashboard/project/${prodEnv.projectRef}`)
-    console.log('   • Settings → Database → Database backups')
-    console.log('   • Cliquer sur "Download backup"')
-    console.log('   • Aller sur TEST/DEV dashboard → Settings → Database')
-    console.log('   • Utiliser "Restore from backup"')
-
-    console.log('\n2. 🔧 SUPABASE CLI (Automatique)')
-    console.log('   🔗 Commandes:')
-    console.log(`   npx supabase db dump --project-ref ${prodEnv.projectRef} --file prod_backup.sql`)
-    if (testEnv) {
-      console.log(`   npx supabase db reset --project-ref ${testEnv.projectRef} --file prod_backup.sql`)
-    }
-    if (devEnv) {
-      console.log(`   npx supabase db reset --project-ref ${devEnv.projectRef} --file prod_backup.sql`)
+    // Cloner dans l'ordre des dépendances
+    const orderedTables = this.getOrderedTables(tablesToClone)
+    
+    for (const table of orderedTables) {
+      await this.cloneTable(table)
     }
 
-    console.log('\n3. 🗄️ POSTGRESQL DIRECT (Avancé)')
-    console.log('   🔗 Commandes (nécessite mots de passe DB):')
-    console.log(`   pg_dump "postgresql://postgres:[PROD_PASSWORD]@db.${prodEnv.projectRef}.supabase.co:5432/postgres" -f prod_backup.sql`)
-    if (testEnv) {
-      console.log(`   psql "postgresql://postgres:[TEST_PASSWORD]@db.${testEnv.projectRef}.supabase.co:5432/postgres" -f prod_backup.sql`)
-    }
-    if (devEnv) {
-      console.log(`   psql "postgresql://postgres:[DEV_PASSWORD]@db.${devEnv.projectRef}.supabase.co:5432/postgres" -f prod_backup.sql`)
-    }
-
-    console.log('\n4. 🔄 DUPLICATION DE PROJET (Idéal)')
-    console.log('   🔗 Étapes:')
-    console.log('   • Créer de nouveaux projets Supabase')
-    console.log('   • Utiliser la fonction "Fork project" si disponible')
-    console.log('   • Ou importer le schéma + données manuellement')
-
-    await this.tryAutomaticClone()
+    this.printSummary()
   }
 
-  private async tryAutomaticClone(): Promise<void> {
-    console.log('\n🚀 TENTATIVE DE CLONAGE AUTOMATIQUE')
-    console.log('='.repeat(50))
-
-    const prodEnv = this.environments.get('prod')
-    if (!prodEnv) return
+  private async verifyConnections() {
+    console.log('🔍 Vérification des connexions...')
+    
+    try {
+      const { data: sourceTest } = await this.sourceClient.from('profiles').select('count').limit(1)
+      console.log('✅ Connexion source OK')
+    } catch (error) {
+      throw new Error(`❌ Erreur connexion source: ${error}`)
+    }
 
     try {
-      console.log('\n📤 Tentative d\'export PROD via Supabase CLI...')
-      
-      // Essayer d'exporter avec Supabase CLI
-      const exportCmd = `npx supabase db dump --project-ref ${prodEnv.projectRef} --file prod_complete_backup.sql`
-      console.log(`Commande: ${exportCmd}`)
-      
-      execSync(exportCmd, { stdio: 'inherit' })
-      console.log('✅ Export PROD réussi!')
+      const { data: targetTest } = await this.targetClient.from('profiles').select('count').limit(1)
+      console.log('✅ Connexion cible OK')
+    } catch (error) {
+      throw new Error(`❌ Erreur connexion cible: ${error}`)
+    }
+  }
 
-      // Essayer d'importer vers TEST
-      const testEnv = this.environments.get('test')
-      if (testEnv) {
-        console.log('\n📥 Import vers TEST...')
-        const importTestCmd = `npx supabase db reset --project-ref ${testEnv.projectRef} --file prod_complete_backup.sql`
-        console.log(`Commande: ${importTestCmd}`)
-        
-        execSync(importTestCmd, { stdio: 'inherit' })
-        console.log('✅ Import TEST réussi!')
+  private getTablesList(): string[] {
+    let tables = [...ALL_TABLES]
+    
+    if (this.options.includeTables?.length) {
+      tables = tables.filter(t => this.options.includeTables!.includes(t))
+    }
+    
+    if (this.options.excludeTables?.length) {
+      tables = tables.filter(t => !this.options.excludeTables!.includes(t))
+    }
+    
+    return tables
+  }
+
+  private getOrderedTables(tables: string[]): string[] {
+    const ordered: string[] = []
+    
+    // Ajouter les tables dans l'ordre des dépendances
+    Object.values(TABLE_DEPENDENCIES).forEach(group => {
+      group.forEach(table => {
+        if (tables.includes(table) && !ordered.includes(table)) {
+          ordered.push(table)
+        }
+      })
+    })
+    
+    // Ajouter les tables restantes
+    tables.forEach(table => {
+      if (!ordered.includes(table)) {
+        ordered.push(table)
+      }
+    })
+    
+    return ordered
+  }
+
+  private async cloneTable(tableName: string) {
+    console.log(`\n📋 Clonage de ${tableName}...`)
+    
+    try {
+      // Compter les enregistrements source
+      const { count: sourceCount, error: countError } = await this.sourceClient
+        .from(tableName)
+        .select('*', { count: 'exact', head: true })
+
+      if (countError) {
+        console.log(`❌ ${tableName}: Erreur de comptage - ${countError.message}`)
+        this.stats.errors++
+        return
       }
 
-      // Essayer d'importer vers DEV
-      const devEnv = this.environments.get('dev')
-      if (devEnv) {
-        console.log('\n📥 Import vers DEV...')
-        const importDevCmd = `npx supabase db reset --project-ref ${devEnv.projectRef} --file prod_complete_backup.sql`
-        console.log(`Commande: ${importDevCmd}`)
-        
-        execSync(importDevCmd, { stdio: 'inherit' })
-        console.log('✅ Import DEV réussi!')
+      if (!sourceCount || sourceCount === 0) {
+        console.log(`⏭️ ${tableName}: Table vide, ignorée`)
+        return
       }
 
-      console.log('\n🎉 CLONAGE AUTOMATIQUE TERMINÉ!')
-      console.log('🔍 Vérifiez avec: npx tsx scripts/complete-sync-diagnosis.ts')
+      console.log(`📊 ${tableName}: ${sourceCount} enregistrements à cloner`)
+
+      // Vider la table cible si elle existe
+      if (!this.options.dryRun) {
+        await this.clearTargetTable(tableName)
+      }
+
+      // Cloner par lots
+      let offset = 0
+      let totalCloned = 0
+
+      while (offset < sourceCount) {
+        const { data: batch, error: fetchError } = await this.sourceClient
+          .from(tableName)
+          .select('*')
+          .range(offset, offset + this.options.batchSize! - 1)
+
+        if (fetchError) {
+          console.log(`❌ ${tableName}: Erreur de lecture - ${fetchError.message}`)
+          this.stats.errors++
+          break
+        }
+
+        if (!batch || batch.length === 0) break
+
+        // Anonymiser si nécessaire
+        const processedBatch = this.options.anonymize ? 
+          this.anonymizeData(tableName, batch) : batch
+
+        // Insérer dans la cible
+        if (!this.options.dryRun) {
+          const { error: insertError } = await this.targetClient
+            .from(tableName)
+            .insert(processedBatch)
+
+          if (insertError) {
+            console.log(`❌ ${tableName}: Erreur d'insertion - ${insertError.message}`)
+            this.stats.errors++
+            break
+          }
+        }
+
+        totalCloned += batch.length
+        offset += this.options.batchSize!
+        
+        const progress = Math.round((totalCloned / sourceCount) * 100)
+        process.stdout.write(`\r   📈 Progression: ${totalCloned}/${sourceCount} (${progress}%)`)
+      }
+
+      console.log(`\n✅ ${tableName}: ${totalCloned} enregistrements clonés`)
+      this.stats.tablesProcessed++
+      this.stats.recordsCloned += totalCloned
 
     } catch (error) {
-      console.log('\n⚠️ CLONAGE AUTOMATIQUE ÉCHOUÉ')
-      console.log('Erreur:', error)
-      console.log('\n💡 SOLUTIONS ALTERNATIVES:')
-      console.log('1. Utiliser le Supabase Dashboard (méthode manuelle)')
-      console.log('2. Configurer Docker pour Supabase CLI')
-      console.log('3. Utiliser pg_dump avec les mots de passe database')
+      console.log(`❌ ${tableName}: Erreur générale - ${error}`)
+      this.stats.errors++
+    }
+  }
+
+  private async clearTargetTable(tableName: string) {
+    try {
+      const { error } = await this.targetClient
+        .from(tableName)
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000') // Delete all
+
+      if (error && !error.message.includes('No rows found')) {
+        console.log(`⚠️ ${tableName}: Erreur de vidage - ${error.message}`)
+      }
+    } catch (error) {
+      console.log(`⚠️ ${tableName}: Erreur lors du vidage`)
+    }
+  }
+
+  private anonymizeData(tableName: string, data: any[]): any[] {
+    const sensitiveFields = SENSITIVE_TABLES[tableName]
+    if (!sensitiveFields) return data
+
+    return data.map((record, index) => {
+      const anonymized = { ...record }
+      
+      sensitiveFields.forEach(field => {
+        if (anonymized[field]) {
+          switch (field) {
+            case 'email':
+              anonymized[field] = `user${index + 1}@example.com`
+              break
+            case 'full_name':
+              anonymized[field] = `Utilisateur ${index + 1}`
+              break
+            case 'guest_name':
+              anonymized[field] = `Invité ${index + 1}`
+              break
+            case 'guest_email':
+              anonymized[field] = `guest${index + 1}@example.com`
+              break
+            case 'guest_phone':
+              anonymized[field] = `+33600000${String(index + 1).padStart(3, '0')}`
+              break
+            case 'password_hash':
+            case 'reset_token':
+              anonymized[field] = null
+              break
+            case 'content':
+            case 'message':
+              anonymized[field] = `Message anonymisé ${index + 1}`
+              break
+            default:
+              anonymized[field] = `[ANONYMISÉ]`
+          }
+        }
+      })
+      
+      return anonymized
+    })
+  }
+
+  private printSummary() {
+    const duration = Math.round((Date.now() - this.stats.startTime) / 1000)
+    
+    console.log('\n🎉 CLONAGE TERMINÉ')
+    console.log('==================')
+    console.log(`📊 Tables traitées: ${this.stats.tablesProcessed}`)
+    console.log(`📈 Enregistrements clonés: ${this.stats.recordsCloned}`)
+    console.log(`❌ Erreurs: ${this.stats.errors}`)
+    console.log(`⏱️ Durée: ${duration}s`)
+    
+    if (this.stats.errors === 0) {
+      console.log('✅ Clonage réussi sans erreur !')
+    } else {
+      console.log('⚠️ Clonage terminé avec des erreurs')
     }
   }
 }
 
+// Fonction principale
 async function main() {
-  const cloner = new CompleteDatabaseClone()
+  const args = process.argv.slice(2)
   
-  try {
-    await cloner.showCloneOptions()
-  } catch (error) {
-    console.error('❌ Erreur:', error)
+  if (args.length < 2) {
+    console.log('Usage: tsx complete-database-clone.ts <source> <target> [options]')
+    console.log('Exemples:')
+    console.log('  tsx complete-database-clone.ts prod test --anonymize')
+    console.log('  tsx complete-database-clone.ts prod dev --dry-run')
+    console.log('  tsx complete-database-clone.ts test dev --exclude profiles,messages')
+    return
   }
+
+  const [source, target] = args
+  const options: CloneOptions = {
+    sourceEnv: source as any,
+    targetEnv: target as any,
+    anonymize: args.includes('--anonymize'),
+    dryRun: args.includes('--dry-run')
+  }
+
+  // Traiter les exclusions
+  const excludeIndex = args.findIndex(arg => arg === '--exclude')
+  if (excludeIndex !== -1 && args[excludeIndex + 1]) {
+    options.excludeTables = args[excludeIndex + 1].split(',')
+  }
+
+  // Traiter les inclusions
+  const includeIndex = args.findIndex(arg => arg === '--include')
+  if (includeIndex !== -1 && args[includeIndex + 1]) {
+    options.includeTables = args[includeIndex + 1].split(',')
+  }
+
+  const cloner = new CompleteDatabaseClone(options)
+  await cloner.clone()
 }
 
-main().catch(console.error)
+// Exporter pour utilisation dans d'autres scripts
+export { CompleteDatabaseClone, ALL_TABLES, TABLE_DEPENDENCIES }
+
+// Exécuter si appelé directement
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch(console.error)
+}

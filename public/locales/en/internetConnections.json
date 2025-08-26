@@ -36,5 +36,18 @@
   "paginationPage": "Page {{current}} of {{total}}",
   "manageConnections": "Manage internet connections",
   "connectionDetails": "Connection details",
-  "providerInfo": "Provider information"
+  "providerInfo": "Provider information",
+  "createConnectionType": "Create Internet Connection Type",
+  "createConnectionTypeDescription": "Add a new internet connection type to the system",
+  "editConnectionType": "Edit Internet Connection Type",
+  "updateConnectionInfo": "Update the details of the internet connection type",
+  "createNewConnectionType": "Create new internet connection type",
+  "enterConnectionInfo": "Enter the connection information below",
+  "typePlaceholder": "e.g. Fiber, ADSL, Satellite...",
+  "speedPlaceholder": "e.g. 100 Mbps, 1 Gbps...",
+  "providerPlaceholder": "e.g. Verizon, AT&T, Comcast...",
+  "statusPlaceholder": "e.g. Active, Inactive, Maintenance...",
+  "costPlaceholder": "e.g. 29.99",
+  "create": "Create",
+  "saveChanges": "Save Changes"
 }

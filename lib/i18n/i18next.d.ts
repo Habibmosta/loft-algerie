@@ -5,6 +5,7 @@ declare module 'i18next' {
     defaultNS: 'common';
     resources: {
       common: typeof import('../../public/locales/fr/common.json');
+      lofts: typeof import('../../public/locales/fr/lofts.json');
       reservations: typeof import('../../public/locales/fr/reservations.json');
       auth: typeof import('../../public/locales/fr/auth.json');
       landing: typeof import('../../public/locales/fr/landing.json');

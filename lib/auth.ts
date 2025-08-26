@@ -68,13 +68,15 @@ export async function getSession(): Promise<AuthSession | null> {
 }
 
 export async function requireAuth(): Promise<AuthSession> {
-  console.log('requireAuth: Calling getSession()');
   const session = await getSession()
   if (!session) {
-    console.log('requireAuth: No session, redirecting to /login');
     redirect("/login")
   }
-  console.log('requireAuth: Session found, returning session');
+  return session
+}
+
+export async function requireAuthAPI(): Promise<AuthSession | null> {
+  const session = await getSession()
   return session
 }
 
@@ -86,6 +88,19 @@ export async function requireRole(allowedRoles: string[]): Promise<AuthSession> 
 
   if (!allowedRoles.includes(session.user.role)) {
     redirect("/unauthorized")
+  }
+
+  return session
+}
+
+export async function requireRoleAPI(allowedRoles: string[]): Promise<AuthSession | null> {
+  const session = await getSession()
+  if (!session) {
+    return null
+  }
+
+  if (!allowedRoles.includes(session.user.role)) {
+    return null
   }
 
   return session

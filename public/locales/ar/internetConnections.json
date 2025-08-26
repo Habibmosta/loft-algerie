@@ -36,5 +36,18 @@
   "paginationPage": "الصفحة {{current}} من {{total}}",
   "manageConnections": "إدارة اتصالات الإنترنت",
   "connectionDetails": "تفاصيل الاتصال",
-  "providerInfo": "معلومات المزود"
+  "providerInfo": "معلومات المزود",
+  "createConnectionType": "إنشاء نوع اتصال إنترنت",
+  "createConnectionTypeDescription": "إضافة نوع اتصال إنترنت جديد إلى النظام",
+  "editConnectionType": "تعديل نوع اتصال الإنترنت",
+  "updateConnectionInfo": "تحديث تفاصيل نوع اتصال الإنترنت",
+  "createNewConnectionType": "إنشاء نوع اتصال إنترنت جديد",
+  "enterConnectionInfo": "أدخل معلومات الاتصال أدناه",
+  "typePlaceholder": "مثال: ألياف بصرية، ADSL، قمر صناعي...",
+  "speedPlaceholder": "مثال: 100 ميجابت/ثانية، 1 جيجابت/ثانية...",
+  "providerPlaceholder": "مثال: اتصالات، موبايلي، STC...",
+  "statusPlaceholder": "مثال: نشط، غير نشط، صيانة...",
+  "costPlaceholder": "مثال: 29.99",
+  "create": "إنشاء",
+  "saveChanges": "حفظ التغييرات"
 }

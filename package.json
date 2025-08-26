@@ -84,13 +84,19 @@
     "validate:clone": "tsx scripts/validate-clone.ts",
     "validate:test": "tsx scripts/validate-clone.ts test",
     "validate:dev": "tsx scripts/validate-clone.ts dev",
+    "clone:all": "tsx scripts/complete-database-clone.ts",
+    "clone:all:prod-to-test": "tsx scripts/quick-complete-clone.ts prod-to-test",
+    "clone:all:prod-to-dev": "tsx scripts/quick-complete-clone.ts prod-to-dev",
+    "clone:all:test-to-dev": "tsx scripts/quick-complete-clone.ts test-to-dev",
+    "validate:all": "tsx scripts/validate-complete-clone.ts",
     "setup:new-env": "tsx scripts/setup-new-environment.ts",
     "setup:test": "tsx scripts/setup-new-environment.ts test",
     "setup:dev": "tsx scripts/setup-new-environment.ts dev",
     "guide:clone": "tsx scripts/guide-clonage-rapide.ts",
     "reports:install": "npm install jspdf jspdf-autotable html2canvas react-to-print @types/jspdf",
     "reports:test": "tsx scripts/test-pdf-generation.ts",
-    "fix:webpack": "tsx scripts/fix-webpack-errors.ts"
+    "fix:webpack": "tsx scripts/fix-webpack-errors.ts",
+    "test:dry-run": "tsx scripts/test-dry-run.ts"
   },
   "ts-node": {
     "esm": true

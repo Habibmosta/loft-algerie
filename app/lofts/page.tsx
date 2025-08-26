@@ -12,62 +12,70 @@ export default async function LoftsPage() {
   const supabase = await createClient()
 
   try {
+    // Requête simplifiée pour tester
     const { data: loftsData, error: loftsError } = await supabase
       .from("lofts")
-      .select("*, loft_owners(name), zone_areas!lofts_zone_area_id_fkey(name)")
+      .select("*")
       .order("created_at", { ascending: false })
 
-    const { data: ownersData, error: ownersError } = await supabase
-      .from("loft_owners")
-      .select("*")
-      .order("name")
-
-    const { data: zoneAreasData, error: zoneAreasError } = await supabase
-      .from("zone_areas")
-      .select("*")
-      .order("name")
-
     if (loftsError) {
-      console.error("Lofts data error (full object):", loftsError); // Log the full error object
-      throw new Error(`Error fetching lofts data: ${loftsError.message || JSON.stringify(loftsError)}`); // Include error message in thrown error
-    }
-    if (ownersError) {
-      console.error("Owners data error:", ownersError);
-      throw new Error("Error fetching owners data");
-    }
-    if (zoneAreasError) {
-      console.error("Zone Areas data error:", zoneAreasError);
-      throw new Error("Error fetching zone areas data");
+      console.error("Lofts data error:", loftsError);
+      return (
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-red-600">Erreur</h1>
+            <p className="text-muted-foreground">
+              Erreur lors de la récupération des lofts: {loftsError.message}
+            </p>
+          </div>
+        </div>
+      )
     }
 
-    // Ensure data is an array before mapping, even if it's null (which implies RLS or no data)
-    const lofts: LoftWithRelations[] = (loftsData || []).map((loft: any) => ({
-      ...loft,
-      owner_name: loft.loft_owners?.name || null, // Extract owner name
-      zone_area_name: loft.zone_areas?.name || null, // Extract zone_area name
-    }))
-
-    const owners: LoftOwner[] = ownersData || []
-    const zoneAreas: ZoneArea[] = zoneAreasData || []
+    const lofts = loftsData || []
 
     return (
-      <LoftsWrapper
-        lofts={lofts}
-        owners={owners}
-        zoneAreas={zoneAreas}
-        isAdmin={session.user.role === "admin"}
-        canManage={session.user.role === "admin" || session.user.role === "manager"}
-      />
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Lofts</h1>
+          <p className="text-muted-foreground">
+            {lofts.length} loft(s) trouvé(s)
+          </p>
+        </div>
+        
+        <div className="grid gap-4">
+          {lofts.map((loft) => (
+            <div key={loft.id} className="border rounded-lg p-4">
+              <h3 className="text-lg font-semibold">{loft.name}</h3>
+              <p className="text-sm text-gray-600">{loft.address}</p>
+              <p className="text-sm">Prix: {loft.price_per_month} DA</p>
+              <p className="text-sm">Statut: {loft.status}</p>
+              {loft.description && (
+                <p className="text-sm mt-2">{loft.description}</p>
+              )}
+              <a 
+                href={`/lofts/${loft.id}`}
+                className="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Voir détails
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
     )
   } catch (error) {
     console.error("Error fetching lofts page data:", error)
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t('lofts.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-red-600">Erreur système</h1>
           <p className="text-muted-foreground">
-            {t('lofts.couldNotLoadData')}
+            Une erreur inattendue s'est produite
           </p>
+          <pre className="text-xs bg-gray-100 p-2 rounded mt-2">
+            {error instanceof Error ? error.message : String(error)}
+          </pre>
         </div>
       </div>
     )

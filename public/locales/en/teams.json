@@ -38,5 +38,19 @@
   "createdAt": "Created At",
   "totalTeams": "Total Teams",
   "activeMembers": "Active Members", 
-  "tasksInProgress": "Tasks in Progress"
+  "tasksInProgress": "Tasks in Progress",
+  "loading": "Loading...",
+  "editTeam": "Edit Team",
+  "updateTeamInfo": "Update team information",
+  "teamNotFoundDescription": "Could not find team with ID {{id}}",
+  "teamDetails": "Team Details",
+  "enterTeamInfo": "Enter team information",
+  "teamName": "Team Name",
+  "createTeam": "Create Team",
+  "updateTeam": "Update Team",
+  "addNewTeam": "Add new team",
+  "goBack": "Go Back",
+  "membersCount": "active members",
+  "teamAge": "Team Age",
+  "daysActive": "days active"
 }

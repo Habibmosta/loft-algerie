@@ -148,5 +148,29 @@ export function useTranslation(namespaces?: string | string[]) {
     })
   }
   
-  return context
+  // Return a custom t function that handles namespaces properly
+  return {
+    ...context,
+    t: (key: string, options?: any) => {
+      // If key contains namespace separator, use it directly
+      if (key.includes(':')) {
+        return context.t(key, options)
+      }
+      
+      // If namespaces are specified, try each namespace
+      if (namespaces) {
+        const nsArray = Array.isArray(namespaces) ? namespaces : [namespaces]
+        for (const ns of nsArray) {
+          const translatedKey = `${ns}:${key}`
+          const result = context.t(translatedKey, { ...options, defaultValue: null })
+          if (result !== translatedKey && result !== null) {
+            return result
+          }
+        }
+      }
+      
+      // Fallback to default behavior
+      return context.t(key, options)
+    }
+  }
 }

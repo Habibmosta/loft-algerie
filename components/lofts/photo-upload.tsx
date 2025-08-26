@@ -1,160 +1,226 @@
-'use client'
+"use client";
 
-import { useState, useCallback } from 'react'
-import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'sonner'
-import Image from 'next/image'
+import { useState, useCallback, useEffect } from "react";
+import { Upload, X, Image as ImageIcon, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import Image from "next/image";
 
 interface PhotoUploadProps {
-  loftId?: string
-  existingPhotos?: LoftPhoto[]
-  onPhotosChange?: (photos: LoftPhoto[]) => void
-  maxPhotos?: number
+  loftId?: string;
+  existingPhotos?: LoftPhoto[];
+  onPhotosChange?: (photos: LoftPhoto[]) => void;
+  maxPhotos?: number;
 }
 
 interface LoftPhoto {
-  id?: string
-  url: string
-  name: string
-  size: number
-  isUploading?: boolean
+  id?: string;
+  url: string;
+  name: string;
+  size: number;
+  isUploading?: boolean;
 }
 
-export function PhotoUpload({ 
-  loftId, 
-  existingPhotos = [], 
-  onPhotosChange, 
-  maxPhotos = 10 
+export function PhotoUpload({
+  loftId,
+  existingPhotos = [],
+  onPhotosChange,
+  maxPhotos = 10,
 }: PhotoUploadProps) {
-  const { t } = useTranslation()
-  const [photos, setPhotos] = useState<LoftPhoto[]>(existingPhotos)
-  const [isDragging, setIsDragging] = useState(false)
+  const { t } = useTranslation("lofts");
+  const [photos, setPhotos] = useState<LoftPhoto[]>(existingPhotos);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const updatePhotos = useCallback((newPhotos: LoftPhoto[]) => {
-    setPhotos(newPhotos)
-    onPhotosChange?.(newPhotos)
-  }, [onPhotosChange])
+  // Sync photos state when existingPhotos prop changes
+  useEffect(() => {
+    setPhotos(existingPhotos);
+  }, [existingPhotos]);
 
-  const uploadPhoto = async (file: File): Promise<LoftPhoto> => {
-    const formData = new FormData()
-    formData.append('file', file)
-    if (loftId) {
-      formData.append('loftId', loftId)
-    }
+  const updatePhotos = useCallback(
+    (newPhotos: LoftPhoto[]) => {
+      setPhotos(newPhotos);
+      onPhotosChange?.(newPhotos);
+    },
+    [onPhotosChange]
+  );
 
-    const response = await fetch('/api/lofts/photos/upload', {
-      method: 'POST',
-      body: formData
-    })
-
-    if (!response.ok) {
-      throw new Error('Erreur lors de l\'upload')
-    }
-
-    return await response.json()
-  }
-
-  const handleFileSelect = async (files: FileList) => {
-    const validFiles = Array.from(files).filter(file => {
-      if (!file.type.startsWith('image/')) {
-        toast.error(t('lofts:photos.invalidFileType', { filename: file.name }))
-        return false
+  const uploadPhoto = useCallback(
+    async (file: File): Promise<LoftPhoto> => {
+      const formData = new FormData();
+      formData.append("file", file);
+      if (loftId) {
+        formData.append("loftId", loftId);
       }
-      if (file.size > 5 * 1024 * 1024) { // 5MB max
-        toast.error(t('lofts:photos.fileTooLarge', { filename: file.name }))
-        return false
-      }
-      return true
-    })
-
-    if (photos.length + validFiles.length > maxPhotos) {
-      toast.error(t('lofts:photos.maxPhotosReached', { max: maxPhotos }))
-      return
-    }
-
-    // Ajouter les photos en mode "uploading"
-    const uploadingPhotos: LoftPhoto[] = validFiles.map(file => ({
-      url: URL.createObjectURL(file),
-      name: file.name,
-      size: file.size,
-      isUploading: true
-    }))
-
-    const newPhotos = [...photos, ...uploadingPhotos]
-    updatePhotos(newPhotos)
-
-    // Upload chaque fichier
-    for (let i = 0; i < validFiles.length; i++) {
-      const file = validFiles[i]
-      const photoIndex = photos.length + i
 
       try {
-        const uploadedPhoto = await uploadPhoto(file)
-        
-        // Remplacer la photo "uploading" par la photo uploadée
-        const updatedPhotos = [...newPhotos]
-        updatedPhotos[photoIndex] = uploadedPhoto
-        updatePhotos(updatedPhotos)
-        
-        toast.success(t('lofts:photos.uploadSuccess', { filename: file.name }))
-      } catch (error) {
-        console.error('Erreur upload:', error)
-        toast.error(t('lofts:photos.uploadError', { filename: file.name }))
-        
-        // Supprimer la photo en erreur
-        const updatedPhotos = newPhotos.filter((_, index) => index !== photoIndex)
-        updatePhotos(updatedPhotos)
-      }
-    }
-  }
+        const response = await fetch("/api/lofts/photos/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
-    
-    const files = e.dataTransfer.files
-    if (files.length > 0) {
-      handleFileSelect(files)
-    }
-  }, [photos.length, maxPhotos])
+        if (!response.ok) {
+          let errorMessage = `Erreur HTTP ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch {
+            // Si on ne peut pas parser le JSON d'erreur, on garde le message par défaut
+          }
+          throw new Error(errorMessage);
+        }
+
+        let result: {
+          id?: string;
+          url: string;
+          name: string;
+          size: number;
+          path: string;
+        };
+        try {
+          result = await response.json();
+        } catch (parseError) {
+          throw new Error("Réponse serveur invalide");
+        }
+        
+        // Vérifier que la réponse contient les champs requis
+        if (!result.url || !result.name) {
+          throw new Error("Réponse serveur incomplète");
+        }
+        
+        return result;
+      } catch (error) {
+        // Si c'est une erreur réseau ou de fetch
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+          throw new Error("Erreur de connexion réseau");
+        }
+        
+        if (error instanceof Error) {
+          throw error;
+        }
+        
+        throw new Error("Erreur inconnue lors de l'upload");
+      }
+    },
+    [loftId]
+  );
+
+  const handleFileSelect = useCallback(
+    async (files: FileList) => {
+      const validFiles = Array.from(files).filter((file) => {
+        if (!file.type.startsWith("image/")) {
+          toast.error(t("photos.invalidFileType", { filename: file.name }));
+          return false;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          // 5MB max
+          toast.error(t("photos.fileTooLarge", { filename: file.name }));
+          return false;
+        }
+        return true;
+      });
+
+      if (photos.length + validFiles.length > maxPhotos) {
+        toast.error(t("photos.maxPhotosReached", { max: maxPhotos }));
+        return;
+      }
+
+      // Ajouter les photos en mode "uploading"
+      const uploadingPhotos: LoftPhoto[] = validFiles.map((file) => ({
+        url: URL.createObjectURL(file),
+        name: file.name,
+        size: file.size,
+        isUploading: true,
+      }));
+
+      const newPhotos = [...photos, ...uploadingPhotos];
+      updatePhotos(newPhotos);
+
+      // Upload chaque fichier
+      for (let i = 0; i < validFiles.length; i++) {
+        const file = validFiles[i];
+        const photoIndex = photos.length + i;
+
+        try {
+          const uploadedPhoto = await uploadPhoto(file);
+
+          // Remplacer la photo "uploading" par la photo uploadée
+          const updatedPhotos = [...newPhotos];
+          updatedPhotos[photoIndex] = uploadedPhoto;
+          updatePhotos(updatedPhotos);
+
+          toast.success(
+            t("photos.uploadSuccess", { filename: file.name }) ||
+              `Photo ${file.name} uploadée avec succès`
+          );
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error ? error.message : "Erreur inconnue";
+          toast.error(
+            t("photos.uploadError", {
+              filename: file.name,
+              error: errorMessage,
+            }) || `Erreur lors de l'upload de ${file.name}: ${errorMessage}`
+          );
+
+          // Supprimer la photo en erreur
+          const updatedPhotos = newPhotos.filter(
+            (_, index) => index !== photoIndex
+          );
+          updatePhotos(updatedPhotos);
+        }
+      }
+    },
+    [photos, maxPhotos, t, updatePhotos, uploadPhoto]
+  );
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFileSelect(files);
+      }
+    },
+    [handleFileSelect]
+  );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(true)
-  }, [])
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
 
   const handleDragLeave = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
-  }, [])
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
 
   const removePhoto = async (index: number) => {
-    const photo = photos[index]
-    
+    const photo = photos[index];
+
     if (photo.id && loftId) {
       try {
         const response = await fetch(`/api/lofts/photos/${photo.id}`, {
-          method: 'DELETE'
-        })
-        
+          method: "DELETE",
+        });
+
         if (!response.ok) {
-          throw new Error('Erreur lors de la suppression')
+          throw new Error("Erreur lors de la suppression");
         }
-        
-        toast.success(t('lofts:photos.deleteSuccess'))
+
+        toast.success(t("photos.deleteSuccess"));
       } catch (error) {
-        console.error('Erreur suppression:', error)
-        toast.error(t('lofts:photos.deleteError'))
-        return
+        toast.error(t("photos.deleteError"));
+        return;
       }
     }
 
-    const newPhotos = photos.filter((_, i) => i !== index)
-    updatePhotos(newPhotos)
-  }
+    const newPhotos = photos.filter((_, i) => i !== index);
+    updatePhotos(newPhotos);
+  };
 
   return (
     <div className="space-y-4">
@@ -162,9 +228,10 @@ export function PhotoUpload({
       <div
         className={`
           border-2 border-dashed rounded-lg p-8 text-center transition-colors
-          ${isDragging 
-            ? 'border-primary bg-primary/5' 
-            : 'border-muted-foreground/25 hover:border-primary/50'
+          ${
+            isDragging
+              ? "border-primary bg-primary/5"
+              : "border-muted-foreground/25 hover:border-primary/50"
           }
         `}
         onDrop={handleDrop}
@@ -175,16 +242,14 @@ export function PhotoUpload({
           <div className="p-4 bg-muted rounded-full">
             <Upload className="h-8 w-8 text-muted-foreground" />
           </div>
-          
+
           <div>
-            <h3 className="font-medium mb-2">
-              {t('lofts:photos.dragDropText')}
-            </h3>
+            <h3 className="font-medium mb-2">{t("photos.dragDropText")}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              {t('lofts:photos.supportedFormats')}
+              {t("photos.supportedFormats")}
             </p>
             <p className="text-xs text-muted-foreground">
-              {t('lofts:photos.photoCount', { count: photos.length, max: maxPhotos })}
+              {t("photos.photoCount", { count: photos.length, max: maxPhotos })}
             </p>
           </div>
 
@@ -192,19 +257,19 @@ export function PhotoUpload({
             type="button"
             variant="outline"
             onClick={() => {
-              const input = document.createElement('input')
-              input.type = 'file'
-              input.multiple = true
-              input.accept = 'image/*'
+              const input = document.createElement("input");
+              input.type = "file";
+              input.multiple = true;
+              input.accept = "image/*";
               input.onchange = (e) => {
-                const files = (e.target as HTMLInputElement).files
-                if (files) handleFileSelect(files)
-              }
-              input.click()
+                const files = (e.target as HTMLInputElement).files;
+                if (files) handleFileSelect(files);
+              };
+              input.click();
             }}
           >
             <ImageIcon className="h-4 w-4 mr-2" />
-            {t('lofts:photos.selectPhotos')}
+            {t("photos.selectPhotos")}
           </Button>
         </div>
       </div>
@@ -223,7 +288,7 @@ export function PhotoUpload({
                     className="object-cover"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   />
-                  
+
                   {/* Overlay avec actions */}
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     {photo.isUploading ? (
@@ -239,17 +304,17 @@ export function PhotoUpload({
                       </Button>
                     )}
                   </div>
-                  
+
                   {/* Indicateur d'upload */}
                   {photo.isUploading && (
                     <div className="absolute bottom-0 left-0 right-0 bg-primary/20 p-2">
                       <div className="text-xs text-white text-center">
-                        {t('lofts:photos.uploading')}
+                        {t("photos.uploading")}
                       </div>
                     </div>
                   )}
                 </div>
-                
+
                 <div className="p-2">
                   <p className="text-xs text-muted-foreground truncate">
                     {photo.name}
@@ -264,5 +329,5 @@ export function PhotoUpload({
         </div>
       )}
     </div>
-  )
+  );
 }

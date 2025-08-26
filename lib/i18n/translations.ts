@@ -167,6 +167,34 @@ export interface TranslationKeys {
       professional: string;
     };
   };
+  internetConnections: {
+    title: string;
+    subtitle: string;
+    createConnectionType: string;
+    createConnectionTypeDescription: string;
+    editConnectionType: string;
+    updateConnectionInfo: string;
+    addNewConnectionType: string;
+    createNewConnectionType: string;
+    connectionDetails: string;
+    enterConnectionInfo: string;
+    type: string;
+    typePlaceholder: string;
+    speed: string;
+    speedPlaceholder: string;
+    provider: string;
+    providerPlaceholder: string;
+    status: string;
+    statusPlaceholder: string;
+    cost: string;
+    costPlaceholder: string;
+    create: string;
+    saveChanges: string;
+    existingConnectionTypes: string;
+    noConnectionTypesFound: string;
+    addFirstConnection: string;
+    loadError: string;
+  };
 }
 
 export const defaultLanguage: Language = 'ar';

@@ -4,32 +4,39 @@ import { createClient } from '@/utils/supabase/server';
 import { InternetConnectionType } from '@/lib/types';
 
 export async function getInternetConnectionTypes(): Promise<{ data: InternetConnectionType[] | null, error: any }> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('internet_connection_types')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('internet_connection_types')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching internet connection types:', error);
-    return { data: null, error };
+    if (error) {
+      return { data: null, error: error.message || 'Failed to fetch internet connection types' };
+    }
+    return { data, error: null };
+  } catch (err) {
+    return { data: null, error: 'An unexpected error occurred while fetching internet connection types' };
   }
-  return { data, error: null };
 }
 
 export async function getInternetConnectionTypeById(id: string): Promise<{ data: InternetConnectionType | null, error: any }> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('internet_connection_types')
-    .select('*')
-    .eq('id', id)
-    .single();
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('internet_connection_types')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-  if (error) {
-    console.error('Error fetching internet connection type by id:', error);
-    return { data: null, error };
+    if (error) {
+      // Don't use console.error in server components as it can cause issues
+      return { data: null, error: error.message || 'Failed to fetch internet connection type' };
+    }
+    return { data, error: null };
+  } catch (err) {
+    return { data: null, error: 'An unexpected error occurred while fetching the internet connection type' };
   }
-  return { data, error: null };
 }
 
 export async function createInternetConnectionType(
@@ -39,49 +46,58 @@ export async function createInternetConnectionType(
   status?: string | null,
   cost?: number | null
 ): Promise<{ data: InternetConnectionType | null; error: any }> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('internet_connection_types')
-    .insert([{ type, speed, provider, status, cost }])
-    .select()
-    .single();
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('internet_connection_types')
+      .insert([{ type, speed, provider, status, cost }])
+      .select()
+      .single();
 
-  if (error) {
-    console.error('Error creating internet connection type:', error);
-    return { data: null, error };
+    if (error) {
+      return { data: null, error: error.message || 'Failed to create internet connection type' };
+    }
+    return { data, error: null };
+  } catch (err) {
+    return { data: null, error: 'An unexpected error occurred while creating the internet connection type' };
   }
-  return { data, error: null };
 }
 
 export async function updateInternetConnectionType(
   id: string,
   updates: Partial<Omit<InternetConnectionType, 'id'>>
 ): Promise<{ data: InternetConnectionType | null; error: any }> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('internet_connection_types')
-    .update(updates)
-    .eq('id', id)
-    .select()
-    .single();
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('internet_connection_types')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
 
-  if (error) {
-    console.error('Error updating internet connection type:', error);
-    return { data: null, error };
+    if (error) {
+      return { data: null, error: error.message || 'Failed to update internet connection type' };
+    }
+    return { data, error: null };
+  } catch (err) {
+    return { data: null, error: 'An unexpected error occurred while updating the internet connection type' };
   }
-  return { data, error: null };
 }
 
 export async function deleteInternetConnectionType(id: string): Promise<{ error: any }> {
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('internet_connection_types')
-    .delete()
-    .eq('id', id);
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from('internet_connection_types')
+      .delete()
+      .eq('id', id);
 
-  if (error) {
-    console.error('Error deleting internet connection type:', error);
-    return { error };
+    if (error) {
+      return { error: error.message || 'Failed to delete internet connection type' };
+    }
+    return { error: null };
+  } catch (err) {
+    return { error: 'An unexpected error occurred while deleting the internet connection type' };
   }
-  return { error: null };
 }

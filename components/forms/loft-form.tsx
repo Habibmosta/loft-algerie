@@ -56,12 +56,39 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
     prochaine_echeance_tv: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [existingPhotos, setExistingPhotos] = useState<any[]>([])
+  const [currentPhotos, setCurrentPhotos] = useState<any[]>([])
+
+  // Function to fetch existing photos
+  const fetchExistingPhotos = useCallback(async () => {
+    if (loft?.id) {
+      try {
+        const response = await fetch(`/api/lofts/${loft.id}/photos`)
+        
+        if (response.ok) {
+          const photos = await response.json()
+          
+          // Transform the API response to match the PhotoUpload component's expected format
+          const transformedPhotos = photos.map((photo: any) => ({
+            id: photo.id,
+            url: photo.url,
+            name: photo.file_name,
+            size: photo.file_size,
+          }))
+          setExistingPhotos(transformedPhotos)
+          setCurrentPhotos(transformedPhotos)
+        }
+      } catch (error) {
+        // Silently handle error
+      }
+    } else {
+      console.log('⚠️ No loft ID available for fetching photos')
+    }
+  }, [loft?.id])
 
   // Function to populate form data (extracted so we can reuse it)
   const populateFormData = useCallback(() => {
     if (loft && loft.id) {
-      console.log('✅ Populating form with loft data:', loft)
-      
       const formDataToSet = {
         name: loft.name || "",
         address: loft.address || "",
@@ -94,34 +121,17 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
         prochaine_echeance_tv: loft.prochaine_echeance_tv || "",
       }
       
-      console.log('🗂️ Setting form data:', formDataToSet)
       setFormData(formDataToSet)
     }
   }, [loft])
 
-  // Multiple useEffect hooks to catch different timing scenarios
+  // Single useEffect to handle loft data loading
   useEffect(() => {
-    console.log('🔄 useEffect [loft] - loft changed:', loft?.id)
-    populateFormData()
-  }, [loft, populateFormData])
-
-  useEffect(() => {
-    console.log('🔄 useEffect [loft.id] - loft ID changed:', loft?.id)
-    if (loft?.id) {
-      // Small delay to ensure all data is loaded
-      setTimeout(() => {
-        populateFormData()
-      }, 50)
-    }
-  }, [loft?.id, populateFormData])
-
-  // Also populate on component mount if loft data is already available
-  useEffect(() => {
-    console.log('🔄 useEffect mount - checking for existing loft data')
     if (loft?.id) {
       populateFormData()
+      fetchExistingPhotos()
     }
-  }, []) // Empty dependency array for mount only
+  }, [loft?.id, populateFormData, fetchExistingPhotos])
 
   const safeInternetConnectionTypes = Array.isArray(internetConnectionTypes) ? internetConnectionTypes : []
 
@@ -284,8 +294,13 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
             </p>
             <PhotoUpload 
               loftId={loft?.id}
+              existingPhotos={existingPhotos}
+              onPhotosChange={(photos) => {
+                setCurrentPhotos(photos)
+              }}
               maxPhotos={15}
             />
+
           </div>
 
           {/* Utility Information Section */}

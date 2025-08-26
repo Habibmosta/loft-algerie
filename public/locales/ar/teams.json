@@ -38,5 +38,19 @@
   "createdAt": "تم الإنشاء في",
   "totalTeams": "إجمالي الفرق",
   "activeMembers": "الأعضاء النشطون",
-  "tasksInProgress": "المهام الجارية"
+  "tasksInProgress": "المهام الجارية",
+  "loading": "جاري التحميل...",
+  "editTeam": "تعديل الفريق",
+  "updateTeamInfo": "تحديث معلومات الفريق",
+  "teamNotFoundDescription": "تعذر العثور على الفريق بالمعرف {{id}}",
+  "teamDetails": "تفاصيل الفريق",
+  "enterTeamInfo": "أدخل معلومات الفريق",
+  "teamName": "اسم الفريق",
+  "createTeam": "إنشاء فريق",
+  "updateTeam": "تحديث الفريق",
+  "addNewTeam": "إضافة فريق جديد",
+  "goBack": "العودة",
+  "membersCount": "أعضاء نشطون",
+  "teamAge": "عمر الفريق",
+  "daysActive": "أيام النشاط"
 }

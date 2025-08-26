@@ -47,9 +47,9 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
   })
 
   const statusTranslationKeys = {
-    available: "lofts.status.available",
-    occupied: "lofts.status.occupied",
-    maintenance: "lofts.status.maintenance",
+    available: "lofts:status.available",
+    occupied: "lofts:status.occupied",
+    maintenance: "lofts:status.maintenance",
   };
 
   return (

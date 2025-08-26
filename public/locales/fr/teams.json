@@ -38,5 +38,19 @@
   "createdAt": "Créé le",
   "totalTeams": "Total des équipes",
   "activeMembers": "Membres actifs",
-  "tasksInProgress": "Tâches en cours"
+  "tasksInProgress": "Tâches en cours",
+  "loading": "Chargement...",
+  "editTeam": "Modifier l'Équipe",
+  "updateTeamInfo": "Mettre à jour les informations de l'équipe",
+  "teamNotFoundDescription": "Impossible de trouver l'équipe avec l'ID {{id}}",
+  "teamDetails": "Détails de l'Équipe",
+  "enterTeamInfo": "Entrez les informations de l'équipe",
+  "teamName": "Nom de l'Équipe",
+  "createTeam": "Créer une Équipe",
+  "updateTeam": "Mettre à jour l'Équipe",
+  "addNewTeam": "Ajouter une nouvelle équipe",
+  "goBack": "Retour",
+  "membersCount": "membres actifs",
+  "teamAge": "Âge de l'équipe",
+  "daysActive": "jours d'activité"
 }

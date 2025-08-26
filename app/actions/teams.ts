@@ -16,8 +16,7 @@ export async function createTeam(formData: FormData) {
     .from("teams")
     .insert({
       name: data.name.toString().trim(),
-      // description: data.description?.toString().trim() || null, // description does not exist on this table
-      // created_by: session.user.id // created_by does not exist on this table
+      description: data.description?.toString().trim() || null,
     })
     .select()
     .single()
@@ -39,7 +38,7 @@ export async function updateTeam(id: string, formData: FormData) {
     .from("teams")
     .update({
       name: data.name.toString().trim(),
-      // description: data.description?.toString().trim() || null
+      description: data.description?.toString().trim() || null
     })
     .eq("id", id)
     .select()

@@ -18,11 +18,21 @@ interface TeamFormProps {
   action: (formData: FormData) => Promise<{ error?: string; team?: Team }>
 }
 
+function SubmitButton({ team }: { team?: Team }) {
+  const { t } = useTranslation('teams');
+  const { pending } = useFormStatus()
+  
+  return (
+    <Button type="submit" disabled={pending} className="flex-1">
+      {pending ? t('saving') : team ? t('updateTeam') : t('createTeam')}
+    </Button>
+  )
+}
+
 export function TeamForm({ team, action }: TeamFormProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('teams');
   const [error, setError] = useState("")
   const router = useRouter()
-  const { pending } = useFormStatus()
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -42,7 +52,13 @@ export function TeamForm({ team, action }: TeamFormProps) {
           duration: 3000,
         })
         setTimeout(() => {
-          router.push(`/teams/${result.team?.id}`)
+          if (team) {
+            // Si c'est une modification, revenir à la page précédente
+            router.back()
+          } else {
+            // Si c'est une création, aller vers la liste des équipes
+            router.push("/teams")
+          }
         }, 1000)
       } else {
         const teamName = formData.get("name") as string
@@ -52,7 +68,13 @@ export function TeamForm({ team, action }: TeamFormProps) {
           duration: 3000,
         })
         setTimeout(() => {
-          router.push("/teams")
+          if (team) {
+            // Si c'est une modification, revenir à la page précédente
+            router.back()
+          } else {
+            // Si c'est une création, aller vers la liste des équipes
+            router.push("/teams")
+          }
         }, 1000)
       }
     } catch (err) {
@@ -70,13 +92,13 @@ export function TeamForm({ team, action }: TeamFormProps) {
   return (
     <FormWrapper 
       maxWidth="2xl"
-      title={team ? t('teams.editTeam') : t('teams.createTeam')}
-      description={team ? t('teams.updateTeamInfo') : t('teams.addNewTeam')}
+      title={team ? t('editTeam') : t('createTeam')}
+      description={team ? t('updateTeamInfo') : t('addNewTeam')}
       icon="👥"
     >
       <FormSection 
-        title={t('teams.teamDetails')}
-        description={t('teams.enterTeamInfo')}
+        title={t('teamDetails')}
+        description={t('enterTeamInfo')}
         icon="🏢"
         colorScheme="blue"
       >
@@ -89,7 +111,7 @@ export function TeamForm({ team, action }: TeamFormProps) {
 
           <div className="grid grid-cols-1 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="name">{t('teams.teamName')} *</Label>
+              <Label htmlFor="name">{t('teamName')} *</Label>
               <Input 
                 id="name" 
                 name="name" 
@@ -100,7 +122,7 @@ export function TeamForm({ team, action }: TeamFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">{t('teams.description')}</Label>
+              <Label htmlFor="description">{t('description')}</Label>
               <Textarea 
                 id="description" 
                 name="description"
@@ -111,11 +133,9 @@ export function TeamForm({ team, action }: TeamFormProps) {
           </div>
 
           <div className="flex gap-4 pt-4">
-            <Button type="submit" disabled={pending} className="flex-1">
-              {pending ? t('teams.saving') : team ? t('teams.updateTeam') : t('teams.createTeam')}
-            </Button>
+            <SubmitButton team={team} />
             <Button type="button" variant="outline" onClick={() => router.back()}>
-              {t('teams.cancel')}
+              {t('cancel')}
             </Button>
           </div>
         </form>
