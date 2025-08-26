@@ -141,7 +141,7 @@ export default function InternetConnectionsPage() {
   };
 
   if (loading) {
-    return <div className="p-8">{t('common.loading')}</div>
+    return <div className="p-8">{t('common:loading')}</div>
   }
 
   if (error) {
@@ -152,7 +152,7 @@ export default function InternetConnectionsPage() {
             {t('loadError')}: {error}
           </div>
           <Button onClick={() => window.location.reload()}>
-            {t('common.refresh')}
+            {t('common:refresh')}
           </Button>
         </div>
       </div>
@@ -403,7 +403,7 @@ export default function InternetConnectionsPage() {
                       >
                         <Link href={`/settings/internet-connections/${connection.id}`}>
                           <Edit className="h-3 w-3 mr-1" />
-                          {t('common.edit')}
+                          {t('common:edit')}
                         </Link>
                       </Button>
                     </div>

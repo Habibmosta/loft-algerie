@@ -40,12 +40,12 @@ export default async function NewLoftPage() {
             zoneAreas={zoneAreas}
             internetConnectionTypes={internetConnectionTypes}
             translations={{
-              loftCreatedSuccess: t('lofts.loftCreatedSuccess'),
-              loftCreatedSuccessDescription: t('lofts.loftCreatedSuccessDescription'),
-              errorCreatingLoft: t('lofts.errorCreatingLoft'),
-              errorCreatingLoftDescription: t('lofts.errorCreatingLoftDescription'),
-              systemError: t('lofts.systemError'),
-              systemErrorDescription: t('lofts.systemErrorDescription'),
+              loftCreatedSuccess: t('lofts:loftCreatedSuccess'),
+              loftCreatedSuccessDescription: t('lofts:loftCreatedSuccessDescription'),
+              errorCreatingLoft: t('lofts:errorCreatingLoft'),
+              errorCreatingLoftDescription: t('lofts:errorCreatingLoftDescription'),
+              systemError: t('lofts:systemError'),
+              systemErrorDescription: t('lofts:systemErrorDescription'),
             }}
           />
         </div>

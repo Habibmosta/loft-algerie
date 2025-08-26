@@ -39,14 +39,14 @@ export function ReportExport({ onExport }: ReportExportProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Download className="h-5 w-5" />
-          {t('reports.exportReports')}
+          {t('reports:exportReports')}
         </CardTitle>
-        <CardDescription>{t('reports.downloadReports')}</CardDescription>
+        <CardDescription>{t('reports:downloadReports')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="format">{t('reports.format')}</Label>
+            <Label htmlFor="format">{t('reports:format')}</Label>
             <Select value={format} onValueChange={setFormat}>
               <SelectTrigger>
                 <SelectValue />
@@ -69,17 +69,17 @@ export function ReportExport({ onExport }: ReportExportProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="dateRange">{t('reports.dateRange')}</Label>
+            <Label htmlFor="dateRange">{t('reports:dateRange')}</Label>
             <Select value={dateRange} onValueChange={setDateRange}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="week">{t('reports.thisWeek')}</SelectItem>
-                <SelectItem value="month">{t('reports.thisMonth')}</SelectItem>
-                <SelectItem value="quarter">{t('reports.thisQuarter')}</SelectItem>
-                <SelectItem value="year">{t('reports.thisYear')}</SelectItem>
-                <SelectItem value="custom">{t('reports.customRange')}</SelectItem>
+                <SelectItem value="week">{t('reports:thisWeek')}</SelectItem>
+                <SelectItem value="month">{t('reports:thisMonth')}</SelectItem>
+                <SelectItem value="quarter">{t('reports:thisQuarter')}</SelectItem>
+                <SelectItem value="year">{t('reports:thisYear')}</SelectItem>
+                <SelectItem value="custom">{t('reports:customRange')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -88,18 +88,18 @@ export function ReportExport({ onExport }: ReportExportProps) {
         {dateRange === "custom" && (
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="startDate">{t('reports.startDate')}</Label>
+              <Label htmlFor="startDate">{t('reports:startDate')}</Label>
               <Input id="startDate" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="endDate">{t('reports.endDate')}</Label>
+              <Label htmlFor="endDate">{t('reports:endDate')}</Label>
               <Input id="endDate" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
             </div>
           </div>
         )}
 
         <Button onClick={handleExport} disabled={isExporting} className="w-full">
-          {isExporting ? t('reports.exporting') : `${t('reports.export')} ${format.toUpperCase()}`}
+          {isExporting ? t('reports:exporting') : `${t('reports:export')} ${format.toUpperCase()}`}
         </Button>
       </CardContent>
     </Card>

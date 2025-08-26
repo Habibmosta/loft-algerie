@@ -58,15 +58,15 @@ export function CategoryForm({
       if (category) {
         await updateCategory(category.id, data)
         toast({
-          title: "✅ " + t('common.success'),
-          description: t('settings.categories.categoryUpdated', { name: data.name }),
+          title: "✅ " + t('common:success'),
+          description: t('settings:categories.categoryUpdated', { name: data.name }),
           duration: 3000,
         })
       } else {
         await createCategory(data)
         toast({
-          title: "✅ " + t('common.success'),
-          description: t('settings.categories.categoryCreated', { name: data.name }),
+          title: "✅ " + t('common:success'),
+          description: t('settings:categories.categoryCreated', { name: data.name }),
           duration: 3000,
         })
       }
@@ -76,8 +76,8 @@ export function CategoryForm({
     } catch (error) {
       console.error('Error saving category:', error)
       toast({
-        title: "❌ " + t('common.error'),
-        description: t('settings.categories.saveError'),
+        title: "❌ " + t('common:error'),
+        description: t('settings:categories.saveError'),
         variant: "destructive",
         duration: 5000,
       })
@@ -90,16 +90,16 @@ export function CategoryForm({
         <Button variant="outline" size="sm" asChild>
           <Link href="/settings/categories">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            {t('common.back')}
+            {t('common:back')}
           </Link>
         </Button>
         <div>
           <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Tag className="h-8 w-8 text-primary" />
-            {category ? t('settings.categories.editCategory') : t('settings.categories.createCategory')}
+            {category ? t('settings:categories.editCategory') : t('settings:categories.createCategory')}
           </h1>
           <p className="text-muted-foreground">
-            {category ? t('settings.categories.updateCategoryInfo') : t('settings.categories.createNewCategory')}
+            {category ? t('settings:categories.updateCategoryInfo') : t('settings:categories.createNewCategory')}
           </p>
         </div>
       </div>
@@ -110,10 +110,10 @@ export function CategoryForm({
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Tag className="h-5 w-5" />
-                {t('settings.categories.categoryDetails')}
+                {t('settings:categories.categoryDetails')}
               </CardTitle>
               <CardDescription>
-                {t('settings.categories.enterCategoryInfo')}
+                {t('settings:categories.enterCategoryInfo')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -124,12 +124,12 @@ export function CategoryForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base font-medium">
-                        {t('settings.categories.categoryName')}
+                        {t('settings:categories.categoryName')}
                       </FormLabel>
                       <FormControl>
                         <Input 
                           {...field} 
-                          placeholder={t('settings.categories.namePlaceholder')}
+                          placeholder={t('settings:categories.namePlaceholder')}
                           className="h-11"
                         />
                       </FormControl>
@@ -144,12 +144,12 @@ export function CategoryForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base font-medium">
-                        {t('settings.categories.categoryType')}
+                        {t('settings:categories.categoryType')}
                       </FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-11">
-                            <SelectValue placeholder={t('settings.categories.selectType')} />
+                            <SelectValue placeholder={t('settings:categories.selectType')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -179,13 +179,13 @@ export function CategoryForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-base font-medium">
-                      {t('settings.categories.description')} ({t('optional', { ns: 'transactions' })})
+                      {t('settings:categories.description')} ({t('optional', { ns: 'transactions' })})
                     </FormLabel>
                     <FormControl>
                       <Textarea 
                         {...field} 
                         value={field.value || ""} 
-                        placeholder={t('settings.categories.descriptionPlaceholder')}
+                        placeholder={t('settings:categories.descriptionPlaceholder')}
                         className="min-h-[100px] resize-none"
                       />
                     </FormControl>
@@ -200,7 +200,7 @@ export function CategoryForm({
                   variant="outline" 
                   onClick={() => router.push("/settings/categories")}
                 >
-                  {t('common.cancel')}
+                  {t('common:cancel')}
                 </Button>
                 <Button 
                   type="submit" 
@@ -208,10 +208,10 @@ export function CategoryForm({
                   className="bg-primary hover:bg-primary/90"
                 >
                   {form.formState.isSubmitting
-                    ? t('common.saving')
+                    ? t('common:saving')
                     : category
-                    ? t('settings.categories.saveChanges')
-                    : t('settings.categories.createCategory')}
+                    ? t('settings:categories.saveChanges')
+                    : t('settings:categories.createCategory')}
                 </Button>
               </div>
             </CardContent>

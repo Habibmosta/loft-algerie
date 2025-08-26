@@ -53,14 +53,14 @@ export function InstallPrompt() {
       <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h3 className="font-semibold text-sm mb-1">{t('pwa.installTitle')}</h3>
+            <h3 className="font-semibold text-sm mb-1">{t('pwa:installTitle')}</h3>
             <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-              {t('pwa.installDescription')}
+              {t('pwa:installDescription')}
             </p>
             <div className="flex gap-2">
               <Button onClick={handleInstall} size="sm" className="flex-1">
                 <Download className="w-4 h-4 mr-1" />
-                {t('pwa.install')}
+                {t('pwa:install')}
               </Button>
               <Button onClick={handleDismiss} variant="outline" size="sm">
                 <X className="w-4 h-4" />

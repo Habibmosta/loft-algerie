@@ -17,18 +17,18 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
   const { t } = useTranslation('zoneAreas');
   
   const handleDelete = async (id: string) => {
-    if (confirm(t('zoneAreas.deleteConfirm'))) {
+    if (confirm(t('zoneAreas:deleteConfirm'))) {
       try {
         await deleteZoneArea(id);
         toast({
-          title: t('common.success'),
-          description: t('zoneAreas.deleteSuccess'),
+          title: t('common:success'),
+          description: t('zoneAreas:deleteSuccess'),
         });
         onRefresh(); // Call onRefresh after successful delete
       } catch (error) {
         toast({
-          title: t('common.error'),
-          description: t('zoneAreas.deleteError'),
+          title: t('common:error'),
+          description: t('zoneAreas:deleteError'),
           variant: "destructive",
         });
       }
@@ -38,7 +38,7 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
   const columns = [
     {
       key: 'name',
-      label: t('zoneAreas.name'),
+      label: t('zoneAreas:name'),
       render: (zoneArea: ZoneArea) => (
         <span className="font-medium">{zoneArea.name}</span>
       )
@@ -68,12 +68,12 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
 
   return (
     <div className="mt-8">
-      <h2 className="text-xl font-semibold mb-4">{t('zoneAreas.existingZoneAreas')}</h2>
+      <h2 className="text-xl font-semibold mb-4">{t('zoneAreas:existingZoneAreas')}</h2>
       <ResponsiveDataDisplay
         data={zoneAreas}
         columns={columns}
         actions={renderActions}
-        emptyMessage={t('zoneAreas.noZoneAreasYet')}
+        emptyMessage={t('zoneAreas:noZoneAreasYet')}
       />
     </div>
   );

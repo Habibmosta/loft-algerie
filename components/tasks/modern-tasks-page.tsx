@@ -182,7 +182,7 @@ export function ModernTasksPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('status.todo')}
+                  {t('status:todo')}
                 </CardTitle>
                 <div className="p-2 bg-gray-500 rounded-full">
                   <ListTodo className="h-4 w-4 text-white" />
@@ -203,7 +203,7 @@ export function ModernTasksPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-blue-700">
-                  {t('status.inProgress')}
+                  {t('status:inProgress')}
                 </CardTitle>
                 <div className="p-2 bg-blue-500 rounded-full">
                   <PlayCircle className="h-4 w-4 text-white" />
@@ -224,7 +224,7 @@ export function ModernTasksPage({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-green-700">
-                  {t('status.completed')}
+                  {t('status:completed')}
                 </CardTitle>
                 <div className="p-2 bg-green-500 rounded-full">
                   <CheckCircle2 className="h-4 w-4 text-white" />
@@ -362,19 +362,19 @@ export function ModernTasksPage({
                     <SelectItem value="todo">
                       <div className="flex items-center gap-2">
                         <ListTodo className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                        {t('status.todo')}
+                        {t('status:todo')}
                       </div>
                     </SelectItem>
                     <SelectItem value="in_progress">
                       <div className="flex items-center gap-2">
                         <PlayCircle className="h-4 w-4 text-blue-600" />
-                        {t('status.inProgress')}
+                        {t('status:inProgress')}
                       </div>
                     </SelectItem>
                     <SelectItem value="completed">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        {t('status.completed')}
+                        {t('status:completed')}
                       </div>
                     </SelectItem>
                   </SelectContent>

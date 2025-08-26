@@ -56,16 +56,16 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
   return (
     <FormWrapper 
       maxWidth="2xl"
-      title={task ? (session?.user?.role === 'member' ? t('tasks.form.updateTaskStatus') : t('tasks.form.editTask')) : t('tasks.form.addNewTask')}
+      title={task ? (session?.user?.role === 'member' ? t('tasks:form.updateTaskStatus') : t('tasks:form.editTask')) : t('tasks:form.addNewTask')}
       description={task ? 
-        (session?.user?.role === 'member' ? t('tasks.form.updateStatusDescription') : t('tasks.form.updateTaskInfo')) : 
-        t('tasks.form.createNewTask')
+        (session?.user?.role === 'member' ? t('tasks:form.updateStatusDescription') : t('tasks:form.updateTaskInfo')) : 
+        t('tasks:form.createNewTask')
       }
       icon="📋"
     >
       <FormSection 
-        title={t('tasks.taskDetails')}
-        description={session?.user?.role === 'member' ? t('tasks.memberCanOnlyUpdateStatus') : t('tasks.fillTaskInformation')}
+        title={t('tasks:taskDetails')}
+        description={session?.user?.role === 'member' ? t('tasks:memberCanOnlyUpdateStatus') : t('tasks:fillTaskInformation')}
         icon="✅"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -73,7 +73,7 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {(session?.user?.role === 'admin' || session?.user?.role === 'manager') && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="title">{t('tasks.taskTitle')}</Label>
+                <Label htmlFor="title">{t('tasks:taskTitle')}</Label>
                 <Input 
                   id="title" 
                   {...register('title')}
@@ -83,7 +83,7 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">{t('tasks.taskDescription')}</Label>
+                <Label htmlFor="description">{t('tasks:taskDescription')}</Label>
                 <Textarea 
                   id="description" 
                   {...register('description')}
@@ -98,12 +98,12 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {session?.user?.role === 'member' && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="title">{t('tasks.taskTitle')}</Label>
+                <Label htmlFor="title">{t('tasks:taskTitle')}</Label>
                 <Input id="title" value={task?.title || ''} disabled className="bg-muted" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">{t('tasks.taskDescription')}</Label>
+                <Label htmlFor="description">{t('tasks:taskDescription')}</Label>
                 <Textarea id="description" value={task?.description || ''} disabled className="bg-muted" />
               </div>
             </>
@@ -111,15 +111,15 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
 
           {/* Status field - editable for all roles */}
           <div className="space-y-2">
-            <Label htmlFor="status">{t('tasks.taskStatus')}</Label>
+            <Label htmlFor="status">{t('tasks:taskStatus')}</Label>
             <Select onValueChange={(value) => setValue('status', value as any)} defaultValue={task?.status}>
               <SelectTrigger className="bg-white">
-                <SelectValue placeholder={t('common.selectOption')} />
+                <SelectValue placeholder={t('common:selectOption')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="todo">{t('tasks.status.todo')}</SelectItem>
-                <SelectItem value="in_progress">{t('tasks.status.inProgress')}</SelectItem>
-                <SelectItem value="completed">{t('tasks.status.completed')}</SelectItem>
+                <SelectItem value="todo">{t('tasks:status.todo')}</SelectItem>
+                <SelectItem value="in_progress">{t('tasks:status.inProgress')}</SelectItem>
+                <SelectItem value="completed">{t('tasks:status.completed')}</SelectItem>
               </SelectContent>
             </Select>
             {(errors as any).status && <p className="text-sm text-red-500">{(errors as any).status.message}</p>}
@@ -129,7 +129,7 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {(session?.user?.role === 'admin' || session?.user?.role === 'manager') && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="due_date">{t('tasks.taskDueDate')}</Label>
+                <Label htmlFor="due_date">{t('tasks:taskDueDate')}</Label>
                 <Input 
                   id="due_date" 
                   type="date" 
@@ -140,13 +140,13 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="assigned_to">{t('tasks.assignTo')}</Label>
+                <Label htmlFor="assigned_to">{t('tasks:assignTo')}</Label>
                 <Select onValueChange={(value) => setValue('assigned_to', value === 'unassigned' ? null : value)} defaultValue={task?.assigned_to || 'unassigned'}>
                   <SelectTrigger className="bg-white">
-                    <SelectValue placeholder={t('common.selectOption')} />
+                    <SelectValue placeholder={t('common:selectOption')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="unassigned">{t('common.none')}</SelectItem>
+                    <SelectItem value="unassigned">{t('common:none')}</SelectItem>
                     {users.map((user) => (
                       <SelectItem key={user.id} value={user.id}>
                         {user.full_name} ({user.email})
@@ -163,20 +163,20 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {session?.user?.role === 'member' && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="due_date_readonly">{t('tasks.taskDueDate')}</Label>
+                <Label htmlFor="due_date_readonly">{t('tasks:taskDueDate')}</Label>
                 <Input 
                   id="due_date_readonly" 
-                  value={task?.due_date ? new Date(task.due_date).toLocaleDateString() : t('tasks.noDueDate')} 
+                  value={task?.due_date ? new Date(task.due_date).toLocaleDateString() : t('tasks:noDueDate')} 
                   disabled 
                   className="bg-muted" 
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="assigned_to_readonly">{t('tasks.assignedTo')}</Label>
+                <Label htmlFor="assigned_to_readonly">{t('tasks:assignedTo')}</Label>
                 <Input 
                   id="assigned_to_readonly" 
-                  value={task?.assigned_to ? users.find(u => u.id === task.assigned_to)?.full_name || 'Unknown User' : t('common.none')} 
+                  value={task?.assigned_to ? users.find(u => u.id === task.assigned_to)?.full_name || 'Unknown User' : t('common:none')} 
                   disabled 
                   className="bg-muted" 
                 />
@@ -186,12 +186,12 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
 
           <div className="flex gap-4 pt-4">
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? t('tasks.saving') : 
-               task ? (session?.user?.role === 'member' ? t('tasks.updateStatus') : t('tasks.updateTask')) : 
-               t('tasks.createTask')}
+              {isSubmitting ? t('tasks:saving') : 
+               task ? (session?.user?.role === 'member' ? t('tasks:updateStatus') : t('tasks:updateTask')) : 
+               t('tasks:createTask')}
             </Button>
             <Button type="button" variant="outline" onClick={() => router.push('/tasks')}>
-              {t('tasks.cancel')}
+              {t('tasks:cancel')}
             </Button>
           </div>
         </form>

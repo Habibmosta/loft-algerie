@@ -22,19 +22,19 @@ export default async function IntegrationsPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t('settings.integrations.title')}</h1>
-          <p className="text-muted-foreground">{t('settings.integrations.subtitle')}</p>
+          <h1 className="text-3xl font-bold tracking-tight">{t('settings:integrations.title')}</h1>
+          <p className="text-muted-foreground">{t('settings:integrations.subtitle')}</p>
         </div>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('settings.integrations.airbnbTitle')}</CardTitle>
-          <CardDescription>{t('settings.integrations.airbnbDescription')}</CardDescription>
+          <CardTitle>{t('settings:integrations.airbnbTitle')}</CardTitle>
+          <CardDescription>{t('settings:integrations.airbnbDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Button asChild>
-            <Link href="/api/auth/airbnb">{t('settings.integrations.connectToAirbnb')}</Link>
+            <Link href="/api/auth/airbnb">{t('settings:integrations.connectToAirbnb')}</Link>
           </Button>
         </CardContent>
       </Card>

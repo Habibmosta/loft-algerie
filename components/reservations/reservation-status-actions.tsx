@@ -116,7 +116,7 @@ export default function ReservationStatusActions({
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
             {getStatusIcon(reservation.status)}
-            {t('reservations.details.title')}
+            {t('reservations:details.title')}
           </span>
           <Badge className={getStatusColor(reservation.status)}>
             {t(`reservations.status.${reservation.status}`)}
@@ -127,22 +127,22 @@ export default function ReservationStatusActions({
         {/* Reservation Details */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h4 className="font-semibold">{t('reservations.details.guest')}</h4>
+            <h4 className="font-semibold">{t('reservations:details.guest')}</h4>
             <p>{reservation.guest_name}</p>
           </div>
           <div>
-            <h4 className="font-semibold">{t('reservations.details.dates')}</h4>
+            <h4 className="font-semibold">{t('reservations:details.dates')}</h4>
             <p>{reservation.check_in_date} - {reservation.check_out_date}</p>
           </div>
         </div>
         
         <div>
-          <h4 className="font-semibold">{t('reservations.details.loft')}</h4>
+          <h4 className="font-semibold">{t('reservations:details.loft')}</h4>
           <p>{reservation.lofts?.name}</p>
         </div>
         
         <div>
-          <h4 className="font-semibold">{t('reservations.details.total')}</h4>
+          <h4 className="font-semibold">{t('reservations:details.total')}</h4>
           <p className="text-lg font-bold">{reservation.total_amount} DZD</p>
         </div>
 

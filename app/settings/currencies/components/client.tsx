@@ -31,13 +31,13 @@ export const CurrencyClient = ({ data, onSetDefault, onDelete }: CurrencyClientP
         <div>
           <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <DollarSign className="h-8 w-8 text-primary" />
-            {t('nav.currencies')}
+            {t('nav:currencies')}
           </h1>
-          <p className="text-muted-foreground">{t('settings.currencies.subtitle')}</p>
+          <p className="text-muted-foreground">{t('settings:currencies.subtitle')}</p>
         </div>
         <Button onClick={() => router.push("/settings/currencies/new")} className="bg-primary hover:bg-primary/90">
           <Plus className="mr-2 h-4 w-4" />
-          {t('settings.currencies.addNew')}
+          {t('settings:currencies.addNew')}
         </Button>
       </div>
 
@@ -50,10 +50,10 @@ export const CurrencyClient = ({ data, onSetDefault, onDelete }: CurrencyClientP
               <div className="p-2 rounded-full bg-primary/10 animate-pulse">
                 <Star className="h-5 w-5" />
               </div>
-              {t('settings.currencies.defaultCurrency')}
+              {t('settings:currencies.defaultCurrency')}
             </CardTitle>
             <CardDescription className="text-primary/70">
-              {t('settings.currencies.defaultCurrencyDesc')}
+              {t('settings:currencies.defaultCurrencyDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent className="relative">
@@ -71,7 +71,7 @@ export const CurrencyClient = ({ data, onSetDefault, onDelete }: CurrencyClientP
               </div>
               <Badge variant="default" className="bg-gradient-to-r from-primary to-primary/80 text-white border-0 px-4 py-2">
                 <Star className="h-3 w-3 mr-1" />
-                {t('settings.currencies.default')}
+                {t('settings:currencies.default')}
               </Badge>
             </div>
           </CardContent>
@@ -83,10 +83,10 @@ export const CurrencyClient = ({ data, onSetDefault, onDelete }: CurrencyClientP
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Globe className="h-5 w-5" />
-            {t('settings.currencies.allCurrencies')}
+            {t('settings:currencies.allCurrencies')}
           </CardTitle>
           <CardDescription>
-            {t('settings.currencies.totalCurrencies', { count: data.length })}
+            {t('settings:currencies.totalCurrencies', { count: data.length })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -94,14 +94,14 @@ export const CurrencyClient = ({ data, onSetDefault, onDelete }: CurrencyClientP
             <div className="text-center py-12">
               <DollarSign className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground text-lg mb-2">
-                {t('settings.currencies.noCurrenciesFound')}
+                {t('settings:currencies.noCurrenciesFound')}
               </p>
               <p className="text-muted-foreground text-sm mb-4">
-                {t('settings.currencies.addFirstCurrency')}
+                {t('settings:currencies.addFirstCurrency')}
               </p>
               <Button onClick={() => router.push("/settings/currencies/new")}>
                 <Plus className="mr-2 h-4 w-4" />
-                {t('settings.currencies.addNew')}
+                {t('settings:currencies.addNew')}
               </Button>
             </div>
           ) : (

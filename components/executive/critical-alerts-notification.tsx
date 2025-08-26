@@ -112,10 +112,10 @@ export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsN
       if (error) throw error
 
       setAlerts(prev => prev.filter(alert => alert.id !== alertId))
-      toast.success(t('alerts.resolved'))
+      toast.success(t('alerts:resolved'))
     } catch (error) {
       console.error('Erreur lors de la résolution de l\'alerte:', error)
-      toast.error(t('alerts.resolveError'))
+      toast.error(t('alerts:resolveError'))
     }
   }
 
@@ -175,7 +175,7 @@ export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsN
                       className="h-6 px-2 text-xs"
                     >
                       <CheckCircle className="h-3 w-3 mr-1" />
-{t('alerts.resolve')}
+{t('alerts:resolve')}
                     </Button>
                   </div>
                 </div>

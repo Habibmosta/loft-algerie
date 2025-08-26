@@ -194,7 +194,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                     >
                       <Link href={`/owners/${owner.id}`} className="flex items-center justify-center gap-2">
                         <Eye className="h-4 w-4" />
-                        <span>{t('common.view')}</span>
+                        <span>{t('common:view')}</span>
                       </Link>
                     </Button>
                     
@@ -206,7 +206,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                     >
                       <Link href={`/owners/${owner.id}/edit`} className="flex items-center justify-center gap-2">
                         <Edit className="h-4 w-4" />
-                        <span>{t('common.edit')}</span>
+                        <span>{t('common:edit')}</span>
                       </Link>
                     </Button>
                     
@@ -225,7 +225,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                         className="w-full flex items-center justify-center gap-2 hover:bg-red-600"
                       >
                         <Trash2 className="h-4 w-4" />
-                        <span>{t('common.delete')}</span>
+                        <span>{t('common:delete')}</span>
                       </Button>
                     </form>
                   </div>

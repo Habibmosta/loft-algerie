@@ -19,28 +19,28 @@ export function StatsCards({ stats }: StatsCardsProps) {
   
   const cards = [
     {
-      title: t('dashboard.totalLofts'),
+      title: t('dashboard:totalLofts'),
       value: stats.totalLofts,
       icon: Building2,
-      description: `${stats.occupiedLofts} ${t('dashboard.occupiedLofts').toLowerCase()}`,
+      description: `${stats.occupiedLofts} ${t('dashboard:occupiedLofts').toLowerCase()}`,
     },
     {
-      title: t('dashboard.activeTasks'),
+      title: t('dashboard:activeTasks'),
       value: stats.activeTasks,
       icon: ClipboardList,
-      description: t('dashboard.inProgress'),
+      description: t('dashboard:inProgress'),
     },
     {
-      title: t('dashboard.monthlyRevenue'),
+      title: t('dashboard:monthlyRevenue'),
       value: `$${stats.monthlyRevenue.toLocaleString()}`,
       icon: DollarSign,
-      description: t('dashboard.thisMonth'),
+      description: t('dashboard:thisMonth'),
     },
     {
-      title: t('dashboard.teams'),
+      title: t('dashboard:teams'),
       value: stats.totalTeams,
       icon: Users,
-      description: t('dashboard.activeTeams'),
+      description: t('dashboard:activeTeams'),
     },
   ]
 

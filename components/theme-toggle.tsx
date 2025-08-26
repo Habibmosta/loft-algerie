@@ -38,21 +38,21 @@ export function ThemeToggle({ variant = 'ghost', size = 'icon', className = "" }
           className={`flex items-center gap-2 ${theme === 'light' ? 'bg-accent' : ''}`}
         >
           <Sun className="h-4 w-4" />
-          <span>{t('theme.light')}</span>
+          <span>{t('theme:light')}</span>
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => setTheme('dark')}
           className={`flex items-center gap-2 ${theme === 'dark' ? 'bg-accent' : ''}`}
         >
           <Moon className="h-4 w-4" />
-          <span>{t('theme.dark')}</span>
+          <span>{t('theme:dark')}</span>
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => setTheme('system')}
           className={`flex items-center gap-2 ${theme === 'system' ? 'bg-accent' : ''}`}
         >
           <Monitor className="h-4 w-4" />
-          <span>{t('theme.system')}</span>
+          <span>{t('theme:system')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -156,7 +156,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('transaction_type', value as any)} defaultValue={transaction?.transaction_type}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common.selectOption')} />
+                      <SelectValue placeholder={t('common:selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="income" className="flex items-center gap-2">
@@ -183,7 +183,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('status', value as any)} defaultValue={transaction?.status}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common.selectOption')} />
+                      <SelectValue placeholder={t('common:selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="pending">
@@ -314,7 +314,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('category', value)} defaultValue={transaction?.category || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common.selectOption')} />
+                      <SelectValue placeholder={t('common:selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {filteredCategories.map(category => (
@@ -333,7 +333,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('loft_id', value)} defaultValue={transaction?.loft_id || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common.selectOption')} />
+                      <SelectValue placeholder={t('common:selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {(lofts || []).map(loft => (
@@ -365,7 +365,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('currency_id', value)} defaultValue={transaction?.currency_id || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common.selectOption')} />
+                      <SelectValue placeholder={t('common:selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {currencies.map(currency => (
@@ -390,7 +390,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('payment_method_id', value)} defaultValue={transaction?.payment_method_id || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common.selectOption')} />
+                      <SelectValue placeholder={t('common:selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {(paymentMethods || []).map(method => (
@@ -416,7 +416,7 @@ return (
                   {isSubmitting ? (
                     <div className="flex items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      {t('common.saving')}
+                      {t('common:saving')}
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
@@ -431,7 +431,7 @@ return (
                   onClick={() => router.push('/transactions')}
                   className="border-2 border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 px-8 py-3 text-lg font-medium transition-all duration-200 dark:text-gray-200 dark:hover:text-white"
                 >
-                  {t('common.cancel')}
+                  {t('common:cancel')}
                 </Button>
               </div>
             </CardContent>

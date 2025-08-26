@@ -28,11 +28,11 @@ export function OwnersList({ owners }: OwnersListProps) {
               <div>
                 <CardTitle className="text-lg">{owner.name}</CardTitle>
                 <CardDescription>
-                  {t('owners.propertiesCount', { count: Number.parseInt(owner.loft_count) })} • ${Number.parseFloat(owner.total_monthly_value).toLocaleString()}/month
+                  {t('owners:propertiesCount', { count: Number.parseInt(owner.loft_count) })} • ${Number.parseFloat(owner.total_monthly_value).toLocaleString()}/month
                 </CardDescription>
               </div>
               <Badge className={getOwnershipColor(owner.ownership_type)}>
-                {owner.ownership_type === "company" ? t('owners.company') : t('owners.thirdParty')}
+                {owner.ownership_type === "company" ? t('owners:company') : t('owners:thirdParty')}
               </Badge>
             </div>
           </CardHeader>
@@ -59,18 +59,18 @@ export function OwnersList({ owners }: OwnersListProps) {
             </div>
             <div className="mt-4 flex gap-2">
               <Button variant="outline" size="sm" asChild>
-                <Link href={`/owners/${owner.id}`}>{t('common.view')}</Link>
+                <Link href={`/owners/${owner.id}`}>{t('common:view')}</Link>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <Link href={`/owners/${owner.id}/edit`}>{t('common.edit')}</Link>
+                <Link href={`/owners/${owner.id}/edit`}>{t('common:edit')}</Link>
               </Button>
               <form action={async () => {
-                if (confirm(t('owners.deleteOwnerConfirm'))) {
+                if (confirm(t('owners:deleteOwnerConfirm'))) {
                   await deleteOwner(owner.id)
                 }
               }}>
                 <Button variant="destructive" size="sm" type="submit">
-                  {t('common.delete')}
+                  {t('common:delete')}
                 </Button>
               </form>
             </div>

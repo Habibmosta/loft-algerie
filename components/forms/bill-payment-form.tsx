@@ -201,13 +201,13 @@ export function BillPaymentForm({
       }
 
       // Safe success message
-      const successMsg = t('bills.successMessage', { utility: getUtilityLabelSafe() })
+      const successMsg = t('bills:successMessage', { utility: getUtilityLabelSafe() })
       
       toast.success(successMsg)
       onSuccess()
     } catch (error) {
       console.error('Error recording bill payment:', error)
-      const errorMsg = t('bills.errorMessage')
+      const errorMsg = t('bills:errorMessage')
       toast.error(errorMsg)
     } finally {
       setIsSubmitting(false)
@@ -219,7 +219,7 @@ export function BillPaymentForm({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <DollarSign className="h-5 w-5" />
-          {t('bills.title')}
+          {t('bills:title')}
         </CardTitle>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -230,14 +230,14 @@ export function BillPaymentForm({
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Calendar className="h-4 w-4" />
-            {t('bills.due')}: {new Date(dueDate).toLocaleDateString()}
+            {t('bills:due')}: {new Date(dueDate).toLocaleDateString()}
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="amount">{t('bills.amount')}</Label>
+            <Label htmlFor="amount">{t('bills:amount')}</Label>
             <div className="flex gap-2">
               <Input
                 id="amount"
@@ -277,7 +277,7 @@ export function BillPaymentForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="date">{t('bills.paymentDate')}</Label>
+            <Label htmlFor="date">{t('bills:paymentDate')}</Label>
             <Input
               id="date"
               type="date"
@@ -289,13 +289,13 @@ export function BillPaymentForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="payment_method">{t('bills.paymentMethod')}</Label>
+            <Label htmlFor="payment_method">{t('bills:paymentMethod')}</Label>
             <Select 
               value={watch('payment_method_id') || ''} 
               onValueChange={(value) => setValue('payment_method_id', value)}
             >
               <SelectTrigger className="bg-white">
-                <SelectValue placeholder={t('bills.selectPaymentMethod')} />
+                <SelectValue placeholder={t('bills:selectPaymentMethod')} />
               </SelectTrigger>
               <SelectContent>
                 {paymentMethods.map((method) => (
@@ -308,10 +308,10 @@ export function BillPaymentForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">{t('bills.description')}</Label>
+            <Label htmlFor="description">{t('bills:description')}</Label>
             <Textarea
               id="description"
-              placeholder={t('bills.descriptionPlaceholder')}
+              placeholder={t('bills:descriptionPlaceholder')}
               {...register('description')} className="bg-white"
             />
           </div>
@@ -322,7 +322,7 @@ export function BillPaymentForm({
               disabled={isSubmitting}
               className="flex-1"
             >
-              {isSubmitting ? t('bills.recording') : t('bills.recordPayment')}
+              {isSubmitting ? t('bills:recording') : t('bills:recordPayment')}
             </Button>
             <Button
               type="button"
@@ -330,7 +330,7 @@ export function BillPaymentForm({
               onClick={onCancel}
               disabled={isSubmitting}
             >
-              {t('bills.cancel')}
+              {t('bills:cancel')}
             </Button>
           </div>
         </form>

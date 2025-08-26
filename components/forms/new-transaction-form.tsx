@@ -97,7 +97,7 @@ export function NewTransactionForm({ onSubmit }: {
                   defaultValue="income"
                 >
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
-                    <SelectValue placeholder={t('common.selectOption')} />
+                    <SelectValue placeholder={t('common:selectOption')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="income">
@@ -129,7 +129,7 @@ export function NewTransactionForm({ onSubmit }: {
                   defaultValue="completed"
                 >
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
-                    <SelectValue placeholder={t('common.selectOption')} />
+                    <SelectValue placeholder={t('common:selectOption')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="pending">

@@ -145,10 +145,10 @@ export function SimpleConversationPageClient({
             </Link>
           </Button>
           <div>
-            <h1 className="font-semibold">{t('conversations.conversation')}</h1>
+            <h1 className="font-semibold">{t('conversations:conversation')}</h1>
             <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground">
-                {messages.length} {t('conversations.messages')}
+                {messages.length} {t('conversations:messages')}
               </span>
             </div>
           </div>
@@ -161,8 +161,8 @@ export function SimpleConversationPageClient({
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 ? (
           <div className="text-center text-muted-foreground py-8">
-            <div className="text-lg mb-2">{t('conversations.noMessages')}</div>
-            <div className="text-sm">{t('conversations.startConversationDesc')}</div>
+            <div className="text-lg mb-2">{t('conversations:noMessages')}</div>
+            <div className="text-sm">{t('conversations:startConversationDesc')}</div>
           </div>
         ) : (
           messages.map((message, index) => (
@@ -204,7 +204,7 @@ export function SimpleConversationPageClient({
       <div className="border-t p-4 bg-background">
         <div className="flex gap-2">
           <Input
-            placeholder={t('conversations.typeMessage')}
+            placeholder={t('conversations:typeMessage')}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -220,7 +220,7 @@ export function SimpleConversationPageClient({
           </Button>
         </div>
         <div className="text-xs text-muted-foreground mt-2 text-center">
-          {t('conversations.sendInstructions')}
+          {t('conversations:sendInstructions')}
         </div>
       </div>
     </div>

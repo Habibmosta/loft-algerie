@@ -30,8 +30,8 @@ export function SimpleLoftForm() {
 
       if (result?.success) {
         toast({
-          title: t('common.success'),
-          description: t('lofts.loftCreatedSuccess', { name: formData.name }),
+          title: t('common:success'),
+          description: t('lofts:loftCreatedSuccess', { name: formData.name }),
           duration: 3000
         })
         setFormData({ name: "", address: "", price: "" }) // Reset form
@@ -40,8 +40,8 @@ export function SimpleLoftForm() {
         }, 1000)
       } else {
         toast({
-          title: t('common.error'),
-          description: t('lofts.loftCreateError'),
+          title: t('common:error'),
+          description: t('lofts:loftCreateError'),
           variant: "destructive",
           duration: 5000
         })
@@ -49,8 +49,8 @@ export function SimpleLoftForm() {
     } catch (error) {
       console.error('Error creating loft:', error)
       toast({
-        title: t('common.error'),
-        description: t('lofts.loftCreateError'),
+        title: t('common:error'),
+        description: t('lofts:loftCreateError'),
         variant: "destructive",
         duration: 5000
       })
@@ -62,7 +62,7 @@ export function SimpleLoftForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-6">
       <div className="space-y-2">
-        <Label htmlFor="name">{t('lofts.loftName')}</Label>
+        <Label htmlFor="name">{t('lofts:loftName')}</Label>
         <Input
           id="name"
           value={formData.name}
@@ -72,7 +72,7 @@ export function SimpleLoftForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="address">{t('lofts.loftAddress')}</Label>
+        <Label htmlFor="address">{t('lofts:loftAddress')}</Label>
         <Input
           id="address"
           value={formData.address}
@@ -82,7 +82,7 @@ export function SimpleLoftForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="price">{t('lofts.pricePerMonth')}</Label>
+        <Label htmlFor="price">{t('lofts:pricePerMonth')}</Label>
         <Input
           id="price"
           type="number"
@@ -93,7 +93,7 @@ export function SimpleLoftForm() {
       </div>
 
       <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? t('lofts.creating') : t('lofts.createLoft')}
+        {isSubmitting ? t('lofts:creating') : t('lofts:createLoft')}
       </Button>
     </form>
   )

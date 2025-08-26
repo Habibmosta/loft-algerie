@@ -35,7 +35,7 @@ export function BillPaymentModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t('paymentModal.title')}</DialogTitle>
+          <DialogTitle>{t('paymentModal:title')}</DialogTitle>
         </DialogHeader>
         <BillPaymentForm
           loftId={loftId}

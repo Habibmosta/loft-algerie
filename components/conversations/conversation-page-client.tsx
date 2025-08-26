@@ -108,7 +108,7 @@ export function ConversationPageClient({
             // Show notification for messages from others
             if (data.sender_id !== currentUserId) {
               const senderName = (data.sender as any)?.full_name || 'Someone'
-              toast.success(t('notifications.newMessageFrom').replace('{name}', senderName), {
+              toast.success(t('notifications:newMessageFrom').replace('{name}', senderName), {
                 description: data.content.length > 50 
                   ? data.content.substring(0, 50) + '...' 
                   : data.content

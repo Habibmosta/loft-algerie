@@ -84,8 +84,8 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
       return (
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-yellow-600">{t('loftNotFound')}</h1>
-            <p className="text-muted-foreground">{t('noLoftFoundForId')}: {awaitedParams.id}</p>
+            <h1 className="text-3xl font-bold tracking-tight text-yellow-600">{t('lofts:loftNotFound')}</h1>
+            <p className="text-muted-foreground">{t('lofts:noLoftFoundForId')}: {awaitedParams.id}</p>
           </div>
         </div>
       )
@@ -136,7 +136,7 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
               <Button asChild>
                 <Link href={`/lofts/${awaitedParams.id}/link-airbnb`}>
                   <ExternalLink className="h-4 w-4 mr-2" />
-                  {t('common.lofts.linkToAirbnb')}
+                  {t('common:lofts.linkToAirbnb')}
                 </Link>
               </Button>
             )}
@@ -162,7 +162,7 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
                       <div>
                         <p className="text-sm text-muted-foreground">{t('lofts:dailyRent')}</p>
                         <p className="text-2xl font-bold text-green-600">
-                          {loft.price_per_month} {t('currencies.da', { ns: 'common' })}
+                          {loft.price_per_month} {t('common:currencies.da')}
                         </p>
                       </div>
                     </div>
@@ -178,7 +178,7 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
 
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm text-muted-foreground">{t('owners.ownershipType', { ns: 'common' })}</p>
+                      <p className="text-sm text-muted-foreground">{t('common:owners.ownershipType')}</p>
                       <p className="font-medium capitalize">{t('lofts:additionalInfo.company')}</p>
                     </div>
                   </div>

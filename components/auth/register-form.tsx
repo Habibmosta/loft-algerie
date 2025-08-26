@@ -41,10 +41,10 @@ export function RegisterForm() {
         router.push("/dashboard")
         router.refresh()
       } else {
-        setError(result.error || t('auth.registrationFailed'))
+        setError(result.error || t('auth:registrationFailed'))
       }
     } catch (err) {
-      setError(t('auth.unexpectedError'))
+      setError(t('auth:unexpectedError'))
     } finally {
       setIsLoading(false)
     }
@@ -53,8 +53,8 @@ export function RegisterForm() {
   return (
     <FormWrapper 
       maxWidth="md"
-      title={t('auth.signUpTitle')}
-      description={t('auth.signUpDescription')}
+      title={t('auth:signUpTitle')}
+      description={t('auth:signUpDescription')}
       icon="👤"
     >
       <FormSection>
@@ -66,10 +66,10 @@ export function RegisterForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="full_name">{t('auth.fullName')}</Label>
+            <Label htmlFor="full_name">{t('auth:fullName')}</Label>
             <Input 
               id="full_name" 
-              placeholder={t('auth.enterFullName')} 
+              placeholder={t('auth:enterFullName')} 
               {...register("full_name")} 
               disabled={isLoading}
               className="bg-white"
@@ -78,11 +78,11 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">{t('auth.email')}</Label>
+            <Label htmlFor="email">{t('auth:email')}</Label>
             <Input 
               id="email" 
               type="email" 
-              placeholder={t('auth.enterEmail')} 
+              placeholder={t('auth:enterEmail')} 
               {...register("email")} 
               disabled={isLoading}
               className="bg-white"
@@ -91,12 +91,12 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">{t('auth.password')}</Label>
+            <Label htmlFor="password">{t('auth:password')}</Label>
             <div className="relative">
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder={t('auth.enterPassword')}
+                placeholder={t('auth:enterPassword')}
                 {...register("password")}
                 disabled={isLoading}
                 className="bg-white"
@@ -116,7 +116,7 @@ export function RegisterForm() {
           </div>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? t('auth.signingUp') : t('auth.signUp')}
+            {isLoading ? t('auth:signingUp') : t('auth:signUp')}
           </Button>
         </form>
       </FormSection>
@@ -124,9 +124,9 @@ export function RegisterForm() {
       <FormSection colorScheme="green">
         <div className="text-center">
           <p className="text-sm text-green-700">
-            {t('auth.haveAccount')}{" "}
+            {t('auth:haveAccount')}{" "}
             <Link href="/login" className="text-green-800 hover:underline font-medium">
-              {t('auth.signIn')}
+              {t('auth:signIn')}
             </Link>
           </p>
         </div>

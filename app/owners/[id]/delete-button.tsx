@@ -12,18 +12,18 @@ export function DeleteOwnerButton({ id }: { id: string }) {
   const { t } = useTranslation();
 
   const handleDelete = async () => {
-    if (confirm(t('owners.deleteConfirm'))) {
+    if (confirm(t('owners:deleteConfirm'))) {
       try {
         await deleteOwner(id)
         toast({
-          title: t('owners.deleteSuccessTitle'),
-          description: t('owners.deleteSuccessDescription'),
+          title: t('owners:deleteSuccessTitle'),
+          description: t('owners:deleteSuccessDescription'),
         })
         router.push("/owners")
       } catch (error) {
         toast({
-          title: t('common.error'),
-          description: error instanceof Error ? error.message : t('owners.deleteError'),
+          title: t('common:error'),
+          description: error instanceof Error ? error.message : t('owners:deleteError'),
           variant: "destructive"
         })
       }
@@ -36,7 +36,7 @@ export function DeleteOwnerButton({ id }: { id: string }) {
       size="sm"
       onClick={handleDelete}
     >
-      {t('owners.deleteOwner')}
+      {t('owners:deleteOwner')}
     </Button>
   )
 }

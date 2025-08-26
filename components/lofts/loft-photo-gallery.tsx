@@ -51,7 +51,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
       }
     } catch (error) {
       console.error('Erreur:', error)
-      toast.error(t('photos.loadError'))
+      toast.error(t('photos:loadError'))
     } finally {
       setLoading(false)
     }
@@ -71,7 +71,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
       document.body.removeChild(a)
       window.URL.revokeObjectURL(url)
       
-      toast.success(t('photos.photoDownloaded'))
+      toast.success(t('photos:photoDownloaded'))
     } catch (error) {
       console.error('Erreur téléchargement:', error)
       toast.error('Erreur lors du téléchargement')
@@ -111,9 +111,9 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
               <Eye className="h-8 w-8 text-muted-foreground" />
             </div>
             <div>
-              <h3 className="font-medium mb-2">{t('photos.noPhotos')}</h3>
+              <h3 className="font-medium mb-2">{t('photos:noPhotos')}</h3>
               <p className="text-sm text-muted-foreground">
-                {t('photos.noPhotosDescription')}
+                {t('photos:noPhotosDescription')}
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
             <div className="relative aspect-video">
               <Image
                 src={photos[0].url}
-                alt={`${loftName} - ${t('photos.mainPhoto')}`}
+                alt={`${loftName} - ${t('photos:mainPhoto')}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -154,7 +154,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl w-full p-0">
                         <VisuallyHidden>
-                          <DialogTitle>{t('photos.photoViewer')}</DialogTitle>
+                          <DialogTitle>{t('photos:photoViewer')}</DialogTitle>
                         </VisuallyHidden>
                         <PhotoViewer 
                           photos={photos}
@@ -207,7 +207,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
               </DialogTrigger>
               <DialogContent className="max-w-4xl w-full p-0">
                 <VisuallyHidden>
-                  <DialogTitle>{t('photos.photoGallery')}</DialogTitle>
+                  <DialogTitle>{t('photos:photoGallery')}</DialogTitle>
                 </VisuallyHidden>
                 <PhotoViewer 
                   photos={photos}
