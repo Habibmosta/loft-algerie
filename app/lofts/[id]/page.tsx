@@ -30,14 +30,14 @@ import {
 // Fonction pour traduire les descriptions des lofts
 const getTranslatedDescription = (originalDescription: string, loftName: string, t: any) => {
   const descriptionMap: Record<string, string> = {
-    'Profitez avec toute la famille dans cet appartement confortable, calme, avec une magnifique vue panoramique': 'descriptions.heavenLoft',
-    'Oubliez vos soucis dans ce logement spacieux et serein. Il offre une vue panoramique sur la forêt. Situé dans une résidence fermée et gardée avec un stationnement sécurisé.': 'descriptions.aidaLoft',
-    'Logement paisible offrant un séjour détente pour toute la famille. Il est situé en face la forêt de Bainem vue panoramique. La résidence est gardée et sécurisée. Le stationnement est disponible à l\'intérieure de la résidence.': 'descriptions.nadaLoft',
-    'Loft moderne avec vue sur la baie d\'Alger': 'descriptions.modernCenterAlger',
-    'Studio haut de gamme dans le quartier d\'Hydra': 'descriptions.studioHydraPremium',
-    'Loft adapté aux étudiants, proche de l\'université': 'descriptions.loftStudentBabEzzouar',
-    'Penthouse avec vue panoramique sur la mer': 'descriptions.penthouseOranSeaView',
-    'Loft spacieux pour famille, quartier calme': 'descriptions.familyLoftConstantine'
+    'Profitez avec toute la famille dans cet appartement confortable, calme, avec une magnifique vue panoramique': 'lofts:descriptions.heavenLoft',
+    'Oubliez vos soucis dans ce logement spacieux et serein. Il offre une vue panoramique sur la forêt. Situé dans une résidence fermée et gardée avec un stationnement sécurisé.': 'lofts:descriptions.aidaLoft',
+    'Logement paisible offrant un séjour détente pour toute la famille. Il est situé en face la forêt de Bainem vue panoramique. La résidence est gardée et sécurisée. Le stationnement est disponible à l\'intérieure de la résidence.': 'lofts:descriptions.nadaLoft',
+    'Loft moderne avec vue sur la baie d\'Alger': 'lofts:descriptions.modernCenterAlger',
+    'Studio haut de gamme dans le quartier d\'Hydra': 'lofts:descriptions.studioHydraPremium',
+    'Loft adapté aux étudiants, proche de l\'université': 'lofts:descriptions.loftStudentBabEzzouar',
+    'Penthouse avec vue panoramique sur la mer': 'lofts:descriptions.penthouseOranSeaView',
+    'Loft spacieux pour famille, quartier calme': 'lofts:descriptions.familyLoftConstantine'
   }
   
   const translationKey = descriptionMap[originalDescription]

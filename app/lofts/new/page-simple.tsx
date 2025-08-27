@@ -16,7 +16,7 @@ export default async function NewLoftPageSimple() {
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-          {t('lofts.createNewLoft')}
+          {t('createNewLoft', { ns: 'lofts' })}
         </h1>
         <p className="mt-3 text-gray-500">
           Simple test page
