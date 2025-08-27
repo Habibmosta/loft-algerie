@@ -13,23 +13,23 @@ export function SimpleLandingPage() {
   const features = [
     {
       icon: Building2,
-      title: t('landing.features.property.title'),
-      description: t('landing.features.property.description')
+      title: t('landing:features.property.title'),
+      description: t('landing:features.property.description')
     },
     {
       icon: DollarSign,
-      title: t('landing.features.financial.title'),
-      description: t('landing.features.financial.description')
+      title: t('landing:features.financial.title'),
+      description: t('landing:features.financial.description')
     },
     {
       icon: CheckSquare,
-      title: t('landing.features.tasks.title'),
-      description: t('landing.features.tasks.description')
+      title: t('landing:features.tasks.title'),
+      description: t('landing:features.tasks.description')
     },
     {
       icon: Bell,
-      title: t('landing.features.notifications.title'),
-      description: t('landing.features.notifications.description')
+      title: t('landing:features.notifications.title'),
+      description: t('landing:features.notifications.description')
     }
   ]
 
@@ -41,13 +41,13 @@ export function SimpleLandingPage() {
           <div className="flex items-center space-x-2">
             <Building2 className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('landing.title')}
+              {t('landing:title')}
             </span>
           </div>
           <div className="flex items-center space-x-4">
             <SimpleLanguageSelector showText />
             <Button asChild variant="outline">
-              <Link href="/login">{t('landing.signIn')}</Link>
+              <Link href="/login">{t('landing:signIn')}</Link>
             </Button>
           </div>
         </div>
@@ -57,23 +57,23 @@ export function SimpleLandingPage() {
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('landing.title')}
+            {t('landing:title')}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            {t('landing.subtitle')}
+            {t('landing:subtitle')}
           </p>
           <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-            {t('landing.description')}
+            {t('landing:description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3">
               <Link href="/register" className="flex items-center gap-2">
-                {t('landing.getStarted')}
+                {t('landing:getStarted')}
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8 py-3">
-              <Link href="/login">{t('landing.signIn')}</Link>
+              <Link href="/login">{t('landing:signIn')}</Link>
             </Button>
           </div>
         </div>

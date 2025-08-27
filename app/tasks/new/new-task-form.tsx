@@ -23,8 +23,8 @@ export default function NewTaskForm({ users }: NewTaskFormProps) {
     try {
       await createTask(data)
       toast({
-        title: `✅ ${t('common.success')}`,
-        description: `${t('tasks.title')} "${'title' in data ? data.title : 'Task'}" ${t('tasks.createSuccess')}`,
+        title: `✅ ${t('common:success')}`,
+        description: `${t('tasks:title')} "${'title' in data ? data.title : 'Task'}" ${t('tasks:createSuccess')}`,
         duration: 3000,
       })
       setTimeout(() => {
@@ -33,8 +33,8 @@ export default function NewTaskForm({ users }: NewTaskFormProps) {
     } catch (error) {
       console.error('Error creating task:', error)
       toast({
-        title: `❌ ${t('common.error')}`,
-        description: t('tasks.createError'),
+        title: `❌ ${t('common:error')}`,
+        description: t('tasks:createError'),
         variant: "destructive",
         duration: 5000,
       })

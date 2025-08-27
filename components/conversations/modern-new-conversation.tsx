@@ -139,9 +139,9 @@ export function ModernNewConversation({
           </Button>
         )}
         <div>
-          <h1 className="text-xl font-semibold">{t('conversations.newConversation')}</h1>
+          <h1 className="text-xl font-semibold">{t('conversations:newConversation')}</h1>
           <p className="text-sm text-muted-foreground">
-            {t('conversations.createDirectOrGroup')}
+            {t('conversations:createDirectOrGroup')}
           </p>
         </div>
       </div>
@@ -156,11 +156,11 @@ export function ModernNewConversation({
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="direct" className="flex items-center gap-2">
               <MessageSquare className="h-4 w-4" />
-              {t('conversations.directMessage')}
+              {t('conversations:directMessage')}
             </TabsTrigger>
             <TabsTrigger value="group" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              {t('conversations.group')}
+              {t('conversations:group')}
             </TabsTrigger>
           </TabsList>
 
@@ -173,10 +173,10 @@ export function ModernNewConversation({
           <TabsContent value="group" className="space-y-4">
             <div>
               <label className="text-sm font-medium mb-2 block">
-                {t('conversations.groupName')}
+                {t('conversations:groupName')}
               </label>
               <Input
-                placeholder={t('conversations.enterGroupName')}
+                placeholder={t('conversations:enterGroupName')}
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
                 className="w-full"
@@ -228,7 +228,7 @@ export function ModernNewConversation({
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={t('conversations.searchByNameOrEmail')}
+              placeholder={t('conversations:searchByNameOrEmail')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -240,7 +240,7 @@ export function ModernNewConversation({
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium">
-                  {isSearching ? t('conversations.searching') : t('conversations.searchResults')}
+                  {isSearching ? t('conversations:searching') : t('conversations:searchResults')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-0">

@@ -18,6 +18,8 @@ export function getOptions(lng = 'fr', ns = ['common', 'auth', 'landing', 'bills
     },
     interpolation: {
       escapeValue: false, // React already escapes values
-    }
+    },
+    keySeparator: ':',
+    nsSeparator: ':',
   }
 }

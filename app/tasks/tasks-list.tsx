@@ -59,13 +59,13 @@ export function TasksList({ tasks, users, isAdmin, userRole, currentUserId }: Ta
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div>
-          <Label htmlFor="status-filter">{t('tasks.filters.filterByStatus')}</Label>
+          <Label htmlFor="status-filter">{t('tasks:filters.filterByStatus')}</Label>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger id="status-filter">
-              <SelectValue placeholder={t('tasks.filters.allStatuses')} />
+              <SelectValue placeholder={t('tasks:filters.allStatuses')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('tasks.filters.allStatuses')}</SelectItem>
+              <SelectItem value="all">{t('tasks:filters.allStatuses')}</SelectItem>
               {TASK_STATUSES.map((status) => (
                 <SelectItem key={status} value={status} className="capitalize">
                   {t(taskStatusTranslationKeys[status])}
@@ -75,11 +75,11 @@ export function TasksList({ tasks, users, isAdmin, userRole, currentUserId }: Ta
           </Select>
         </div>
         <div>
-          <Label htmlFor="start-date">{t('tasks.filters.startDate')}</Label>
+          <Label htmlFor="start-date">{t('tasks:filters.startDate')}</Label>
           <DatePicker date={startDate} setDate={setStartDate} />
         </div>
         <div>
-          <Label htmlFor="end-date">{t('tasks.filters.endDate')}</Label>
+          <Label htmlFor="end-date">{t('tasks:filters.endDate')}</Label>
           <DatePicker date={endDate} setDate={setEndDate} />
         </div>
       </div>
@@ -102,17 +102,17 @@ export function TasksList({ tasks, users, isAdmin, userRole, currentUserId }: Ta
               <p className="text-sm text-muted-foreground">{task.description}</p>
               {task.assigned_to && (
                 <div className="mt-2 text-sm text-muted-foreground">
-                  {t('tasks.assignedTo')}: {users.find(user => user.id === task.assigned_to)?.full_name || t('tasks.status.unknown')}
+                  {t('tasks:assignedTo')}: {users.find(user => user.id === task.assigned_to)?.full_name || t('tasks:status.unknown')}
                 </div>
               )}
               <div className="mt-4 flex gap-2">
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/tasks/${task.id}`}>{t('tasks.viewTask')}</Link>
+                  <Link href={`/tasks/${task.id}`}>{t('tasks:viewTask')}</Link>
                 </Button>
                 {(isAdmin || (userRole === "manager") || (userRole === "member" && task.assigned_to === currentUserId)) && (
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/tasks/${task.id}/edit`}>
-                      {userRole === "member" ? t('tasks.updateStatus') : t('tasks.editTask')}
+                      {userRole === "member" ? t('tasks:updateStatus') : t('tasks:editTask')}
                     </Link>
                   </Button>
                 )}
@@ -122,7 +122,7 @@ export function TasksList({ tasks, users, isAdmin, userRole, currentUserId }: Ta
         ))}
         {filteredTasks.length === 0 && (
           <div className="col-span-full text-center text-muted-foreground">
-            {t('tasks.noTasks')}
+            {t('tasks:noTasks')}
           </div>
         )}
       </div>

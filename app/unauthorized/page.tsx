@@ -16,16 +16,16 @@ export default function UnauthorizedPage() {
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
             <Shield className="h-6 w-6 text-red-600" />
           </div>
-          <CardTitle className="text-2xl">{t('unauthorized.accessDenied')}</CardTitle>
+          <CardTitle className="text-2xl">{t('unauthorized:accessDenied')}</CardTitle>
           <CardDescription>
-            {t('unauthorized.noPermission')}
+            {t('unauthorized:noPermission')}
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center">
           <Button asChild>
             <Link href="/dashboard">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              {t('unauthorized.backToDashboard')}
+              {t('unauthorized:backToDashboard')}
             </Link>
           </Button>
         </CardContent>

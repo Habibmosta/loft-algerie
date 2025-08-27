@@ -47,9 +47,9 @@ export function DashboardWrapper({
     <div className="p-4 md:p-8">
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t('dashboard.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('dashboard:title')}</h1>
           <p className="text-muted-foreground">
-            {t('dashboard.subtitle')} - {t('dashboard.welcomeBack', { name: userName })}
+            {t('dashboard:subtitle')} - {t('dashboard:welcomeBack', { name: userName })}
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export function DashboardWrapper({
           <Alert>
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
-              {t('dashboard.someDataError')}: {errors.join(', ')}
+              {t('dashboard:someDataError')}: {errors.join(', ')}
             </AlertDescription>
           </Alert>
         )}
@@ -93,17 +93,17 @@ export function DashboardError({ userRole }: { userRole: string }) {
     <div className="p-4 md:p-8">
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t('dashboard.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('dashboard:title')}</h1>
           <p className="text-muted-foreground">
-            {userRole === 'member' ? t('dashboard.errorLoadingYour') : t('dashboard.errorLoadingData')}
+            {userRole === 'member' ? t('dashboard:errorLoadingYour') : t('dashboard:errorLoadingData')}
           </p>
         </div>
         <Alert>
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription>
             {userRole === 'member'
-              ? t('dashboard.unableToLoadTasks')
-              : t('dashboard.unableToLoadData')
+              ? t('dashboard:unableToLoadTasks')
+              : t('dashboard:unableToLoadData')
             }
           </AlertDescription>
         </Alert>

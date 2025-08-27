@@ -94,11 +94,11 @@ export default function ReportCharts({ loftRevenue, monthlyRevenue }: ReportChar
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
               <CardTitle className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {t('analytics.top5ProfitableLofts')}
+                {t('analytics:top5ProfitableLofts')}
               </CardTitle>
             </div>
             <CardDescription className="text-sm text-muted-foreground">
-              {t('analytics.mostValuableAssets')}
+              {t('analytics:mostValuableAssets')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -135,11 +135,11 @@ export default function ReportCharts({ loftRevenue, monthlyRevenue }: ReportChar
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500"></div>
               <CardTitle className="text-lg font-semibold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                {t('analytics.revenueExpensesByLoft')}
+                {t('analytics:revenueExpensesByLoft')}
               </CardTitle>
             </div>
             <CardDescription className="text-sm text-muted-foreground">
-              {t('analytics.detailedFinancialPerformance')}
+              {t('analytics:detailedFinancialPerformance')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -159,13 +159,13 @@ export default function ReportCharts({ loftRevenue, monthlyRevenue }: ReportChar
                 <Bar 
                   dataKey="revenue" 
                   fill="url(#revenueGradient)" 
-                  name={t('analytics.revenue')}
+                  name={t('analytics:revenue')}
                   radius={[4, 4, 0, 0]}
                 />
                 <Bar 
                   dataKey="expenses" 
                   fill="url(#expensesGradient)" 
-                  name={t('analytics.expenses')}
+                  name={t('analytics:expenses')}
                   radius={[4, 4, 0, 0]}
                 />
                 <defs>
@@ -190,11 +190,11 @@ export default function ReportCharts({ loftRevenue, monthlyRevenue }: ReportChar
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-gradient-to-r from-orange-500 to-pink-500"></div>
             <CardTitle className="text-xl font-semibold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
-              {t('analytics.monthlyFinancialTrend')}
+              {t('analytics:monthlyFinancialTrend')}
             </CardTitle>
           </div>
           <CardDescription className="text-sm text-muted-foreground">
-            {t('analytics.trackRevenueExpenses')}
+            {t('analytics:trackRevenueExpenses')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -210,7 +210,7 @@ export default function ReportCharts({ loftRevenue, monthlyRevenue }: ReportChar
                 dataKey="revenue" 
                 stroke="#10B981" 
                 strokeWidth={3}
-                name={t('analytics.revenue')} 
+                name={t('analytics:revenue')} 
                 activeDot={{ r: 6, fill: "#10B981", stroke: "#fff", strokeWidth: 2 }}
                 dot={{ fill: "#10B981", strokeWidth: 2, r: 4 }}
               />
@@ -219,7 +219,7 @@ export default function ReportCharts({ loftRevenue, monthlyRevenue }: ReportChar
                 dataKey="expenses" 
                 stroke="#EF4444" 
                 strokeWidth={3}
-                name={t('analytics.expenses')}
+                name={t('analytics:expenses')}
                 activeDot={{ r: 6, fill: "#EF4444", stroke: "#fff", strokeWidth: 2 }}
                 dot={{ fill: "#EF4444", strokeWidth: 2, r: 4 }}
               />

@@ -24,14 +24,14 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
         <div>
           <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Tag className="h-8 w-8 text-primary" />
-            {t('nav.categories')}
+            {t('nav:categories')}
           </h1>
-          <p className="text-muted-foreground">{t('settings.categories.subtitle')}</p>
+          <p className="text-muted-foreground">{t('settings:categories.subtitle')}</p>
         </div>
         <Button asChild className="bg-primary hover:bg-primary/90">
           <Link href="/settings/categories/new">
             <Plus className="mr-2 h-4 w-4" />
-            {t('settings.categories.addNew')}
+            {t('settings:categories.addNew')}
           </Link>
         </Button>
       </div>
@@ -43,10 +43,10 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
               <div className="p-2 rounded-full bg-green-100 dark:bg-green-900/30">
                 <TrendingUp className="h-5 w-5" />
               </div>
-              {t('settings.categories.incomeCategories')}
+              {t('settings:categories.incomeCategories')}
             </CardTitle>
             <CardDescription className="text-green-600/80 dark:text-green-400/80">
-              {t('settings.categories.manageCategoriesIncome')}
+              {t('settings:categories.manageCategoriesIncome')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -55,7 +55,7 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                 <div className="text-center py-8">
                   <TrendingUp className="h-12 w-12 text-green-300 mx-auto mb-3" />
                   <p className="text-muted-foreground text-sm">
-                    {t('settings.categories.noIncomeCategories')}
+                    {t('settings:categories.noIncomeCategories')}
                   </p>
                 </div>
               ) : (
@@ -76,7 +76,7 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                     </div>
                     <Button variant="ghost" size="sm" asChild className="opacity-0 group-hover:opacity-100 transition-opacity">
                       <Link href={`/settings/categories/edit/${category.id}`}>
-                        {t('common.edit')}
+                        {t('common:edit')}
                       </Link>
                     </Button>
                   </div>
@@ -92,10 +92,10 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
               <div className="p-2 rounded-full bg-red-100 dark:bg-red-900/30">
                 <TrendingDown className="h-5 w-5" />
               </div>
-              {t('settings.categories.expenseCategories')}
+              {t('settings:categories.expenseCategories')}
             </CardTitle>
             <CardDescription className="text-red-600/80 dark:text-red-400/80">
-              {t('settings.categories.manageCategoriesExpense')}
+              {t('settings:categories.manageCategoriesExpense')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -104,7 +104,7 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                 <div className="text-center py-8">
                   <TrendingDown className="h-12 w-12 text-red-300 mx-auto mb-3" />
                   <p className="text-muted-foreground text-sm">
-                    {t('settings.categories.noExpenseCategories')}
+                    {t('settings:categories.noExpenseCategories')}
                   </p>
                 </div>
               ) : (
@@ -125,7 +125,7 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                     </div>
                     <Button variant="ghost" size="sm" asChild className="opacity-0 group-hover:opacity-100 transition-opacity">
                       <Link href={`/settings/categories/edit/${category.id}`}>
-                        {t('common.edit')}
+                        {t('common:edit')}
                       </Link>
                     </Button>
                   </div>
@@ -138,9 +138,9 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('settings.categories.allCategories')}</CardTitle>
+          <CardTitle>{t('settings:categories.allCategories')}</CardTitle>
           <CardDescription>
-            {t('settings.categories.totalCategories', { count: categories.length })}
+            {t('settings:categories.totalCategories', { count: categories.length })}
           </CardDescription>
         </CardHeader>
         <CardContent>

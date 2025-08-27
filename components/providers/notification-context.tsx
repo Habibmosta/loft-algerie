@@ -90,7 +90,7 @@ export function NotificationProvider({ children, userId }: { children: React.Rea
             description: notification.message,
             duration: 6000,
             action: notification.link ? {
-              label: t('notifications.view'),
+              label: t('notifications:view'),
               onClick: () => {
                 window.location.href = notification.link
               }

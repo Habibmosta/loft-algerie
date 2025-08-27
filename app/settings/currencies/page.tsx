@@ -26,7 +26,7 @@ export default function CurrenciesPage() {
   }, [])
 
   if (loading) {
-    return <div className="p-8">{t('common.loading')}</div>
+    return <div className="p-8">{t('common:loading')}</div>
   }
 
   return (

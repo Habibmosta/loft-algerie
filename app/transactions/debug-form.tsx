@@ -54,7 +54,7 @@ export default function DebugForm() {
         </select>
       </div>
 
-      <Button onClick={handleSubmit}>{t('common.submit')}</Button>
+      <Button onClick={handleSubmit}>{t('common:submit')}</Button>
     </div>
   )
 }

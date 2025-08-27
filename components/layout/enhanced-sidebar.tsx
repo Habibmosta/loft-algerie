@@ -41,28 +41,28 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
   }, [playSound])
 
   const navigation = [
-    { name: t('nav.dashboard'), href: "/dashboard", icon: LayoutDashboard, roles: ["admin", "manager", "member"] },
-    { name: t('nav.conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
-    { name: t('nav.notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
-    { name: t('nav.lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
-    { name: t('nav.tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
-    { name: t('nav.teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
-    { name: t('nav.owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },
-    { name: t('nav.transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
-    { name: t('nav.reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
-    { name: t('nav.availability'), href: "/availability", icon: Search, roles: ["admin", "manager", "member"] },
+    { name: t('nav:dashboard'), href: "/dashboard", icon: LayoutDashboard, roles: ["admin", "manager", "member"] },
+    { name: t('nav:conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
+    { name: t('nav:notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
+    { name: t('nav:lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
+    { name: t('nav:tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
+    { name: t('nav:teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
+    { name: t('nav:owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },
+    { name: t('nav:transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
+    { name: t('nav:reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
+    { name: t('nav:availability'), href: "/availability", icon: Search, roles: ["admin", "manager", "member"] },
     { 
-      name: t('nav.settings'), 
+      name: t('nav:settings'), 
       href: "/settings", 
       icon: Settings, 
       roles: ["admin", "manager", "member"],
       subItems: [
-        { name: t('nav.categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
-        { name: t('nav.currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
-        { name: t('nav.zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
-        { name: t('nav.paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
-        { name: t('nav.internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
-        { name: t('nav.application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
+        { name: t('nav:categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
+        { name: t('nav:currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
+        { name: t('nav:zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
+        { name: t('nav:paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
+        { name: t('nav:internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
+        { name: t('nav:application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
       ]
     },
   ]
@@ -185,7 +185,7 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
           onClick={() => logout()}
         >
           <LogOut className="mr-2 h-4 w-4" />
-          {t('auth.signOut')}
+          {t('auth:signOut')}
         </Button>
       </div>
     </div>

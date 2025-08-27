@@ -50,10 +50,10 @@ export function ConversationsList({ conversations, currentUserId, onConversation
       const otherParticipant = conversation.participants.find(
         p => p.user_id !== currentUserId
       )
-      return otherParticipant?.user.full_name || otherParticipant?.user.email || t('conversations.unknownUser')
+      return otherParticipant?.user.full_name || otherParticipant?.user.email || t('conversations:unknownUser')
     }
     
-    return `${t('conversations.group')} (${conversation.participants.length} ${t('conversations.members')})`
+    return `${t('conversations:group')} (${conversation.participants.length} ${t('conversations:members')})`
   }
 
   const getConversationAvatar = (conversation: Conversation) => {
@@ -75,12 +75,12 @@ export function ConversationsList({ conversations, currentUserId, onConversation
 
   const getLastMessagePreview = (conversation: Conversation) => {
     if (!conversation.last_message) {
-      return t('conversations.noMessagesYet')
+      return t('conversations:noMessagesYet')
     }
     
     const message = conversation.last_message
     const isOwnMessage = message.sender_id === currentUserId
-    const senderName = isOwnMessage ? t('conversations.you') : message.sender?.full_name || t('conversations.someone')
+    const senderName = isOwnMessage ? t('conversations:you') : message.sender?.full_name || t('conversations:someone')
     
     let content = message.content
     if (content.length > 50) {
@@ -102,9 +102,9 @@ export function ConversationsList({ conversations, currentUserId, onConversation
     return (
       <div className="p-8 text-center">
         <Users className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-        <h3 className="font-semibold mb-2">{t('conversations.noConversationsYet')}</h3>
+        <h3 className="font-semibold mb-2">{t('conversations:noConversationsYet')}</h3>
         <p className="text-sm text-muted-foreground">
-          {t('conversations.startNewConversation')}
+          {t('conversations:startNewConversation')}
         </p>
       </div>
     )
@@ -114,7 +114,7 @@ export function ConversationsList({ conversations, currentUserId, onConversation
     <div className="flex flex-col h-full">
       <div className="p-4 border-b">
         <SearchInput
-          placeholder={t('conversations.searchConversations')}
+          placeholder={t('conversations:searchConversations')}
           value={searchTerm}
           onChange={setSearchTerm}
         />
@@ -124,7 +124,7 @@ export function ConversationsList({ conversations, currentUserId, onConversation
         {filteredConversations.length === 0 ? (
           <div className="p-8 text-center">
             <p className="text-sm text-muted-foreground">
-              {t('conversations.noConversationsMatch')}
+              {t('conversations:noConversationsMatch')}
             </p>
           </div>
         ) : (
@@ -183,7 +183,7 @@ export function ConversationsList({ conversations, currentUserId, onConversation
                         <div className="flex items-center gap-1 mt-1">
                           <Users className="h-3 w-3 text-muted-foreground" />
                           <span className="text-xs text-muted-foreground">
-                            {conversation.participants.length} {t('conversations.members')}
+                            {conversation.participants.length} {t('conversations:members')}
                           </span>
                         </div>
                       )}

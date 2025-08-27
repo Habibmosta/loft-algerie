@@ -61,7 +61,7 @@ export function DatePickerWithRange({
                 date.from.toLocaleDateString()
               )
             ) : (
-              <span>{placeholder || t('common.pickDateRange')}</span>
+              <span>{placeholder || t('common:pickDateRange')}</span>
             )}
           </Button>
         </PopoverTrigger>

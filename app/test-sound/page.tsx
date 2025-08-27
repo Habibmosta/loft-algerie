@@ -28,48 +28,48 @@ export default function TestSoundPage() {
 
   return (
     <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">{t('testSound.title')}</h1>
+      <h1 className="text-2xl font-bold mb-6">{t('testSound:title')}</h1>
       
       {!audioInitialized && (
         <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6">
-          <p className="font-bold">{t('testSound.clickAnywhere')}</p>
-          <p>{t('testSound.browserBlocksAudio')}</p>
+          <p className="font-bold">{t('testSound:clickAnywhere')}</p>
+          <p>{t('testSound:browserBlocksAudio')}</p>
         </div>
       )}
       
       <div className="space-y-4">
         <div className="p-4 border rounded-lg">
-          <h2 className="text-lg font-semibold mb-3">{t('testSound.testSoundTypes')}</h2>
+          <h2 className="text-lg font-semibold mb-3">{t('testSound:testSoundTypes')}</h2>
           <div className="grid grid-cols-2 gap-3">
             <Button
               onClick={() => handlePlaySound('success')}
               className="bg-green-500 hover:bg-green-600"
             >
-              {t('testSound.successSound')}
+              {t('testSound:successSound')}
             </Button>
             <Button
               onClick={() => handlePlaySound('info')}
               className="bg-blue-500 hover:bg-blue-600"
             >
-              {t('testSound.infoSound')}
+              {t('testSound:infoSound')}
             </Button>
             <Button
               onClick={() => handlePlaySound('warning')}
               className="bg-yellow-500 hover:bg-yellow-600 text-black"
             >
-              {t('testSound.warningSound')}
+              {t('testSound:warningSound')}
             </Button>
             <Button
               onClick={() => handlePlaySound('error')}
               className="bg-red-500 hover:bg-red-600"
             >
-              {t('testSound.errorSound')}
+              {t('testSound:errorSound')}
             </Button>
           </div>
         </div>
         
         <div className="p-4 border rounded-lg">
-          <h2 className="text-lg font-semibold mb-3">{t('testSound.testRealTimeNotifications')}</h2>
+          <h2 className="text-lg font-semibold mb-3">{t('testSound:testRealTimeNotifications')}</h2>
           <div className="space-y-3">
             <Button
               onClick={async () => {
@@ -79,13 +79,13 @@ export default function TestSoundPage() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                       type: 'success',
-                      title: t('testSound.taskCompletedTitle'),
-                      message: t('testSound.taskCompletedMessage')
+                      title: t('testSound:taskCompletedTitle'),
+                      message: t('testSound:taskCompletedMessage')
                     })
                   })
                   
                   if (!response.ok) {
-                    throw new Error(t('testSound.failedToSend'))
+                    throw new Error(t('testSound:failedToSend'))
                   }
                   
                   const data = await response.json()
@@ -96,7 +96,7 @@ export default function TestSoundPage() {
               }}
               className="w-full bg-green-500 hover:bg-green-600"
             >
-              {t('testSound.sendSuccessNotification')}
+              {t('testSound:sendSuccessNotification')}
             </Button>
             
             <Button
@@ -107,13 +107,13 @@ export default function TestSoundPage() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                       type: 'warning',
-                      title: t('testSound.taskOverdueTitle'),
-                      message: t('testSound.taskOverdueMessage')
+                      title: t('testSound:taskOverdueTitle'),
+                      message: t('testSound:taskOverdueMessage')
                     })
                   })
                   
                   if (!response.ok) {
-                    throw new Error(t('testSound.failedToSend'))
+                    throw new Error(t('testSound:failedToSend'))
                   }
                   
                   const data = await response.json()
@@ -124,7 +124,7 @@ export default function TestSoundPage() {
               }}
               className="w-full bg-yellow-500 hover:bg-yellow-600 text-black"
             >
-              {t('testSound.sendWarningNotification')}
+              {t('testSound:sendWarningNotification')}
             </Button>
             
             <Button
@@ -139,7 +139,7 @@ export default function TestSoundPage() {
                   })
                   
                   if (!response.ok) {
-                    throw new Error(t('testSound.failedToSendTask'))
+                    throw new Error(t('testSound:failedToSendTask'))
                   }
                   
                   const data = await response.json()
@@ -150,22 +150,22 @@ export default function TestSoundPage() {
               }}
               className="w-full bg-blue-500 hover:bg-blue-600"
             >
-              {t('testSound.testTaskNotification')}
+              {t('testSound:testTaskNotification')}
             </Button>
             
             <p className="text-sm text-gray-600 mt-2">
-              {t('testSound.notificationHint')}
+              {t('testSound:notificationHint')}
             </p>
           </div>
         </div>
         
         <div className="mt-8 text-sm text-gray-500">
-          <h3 className="font-medium">{t('testSound.troubleshooting')}</h3>
+          <h3 className="font-medium">{t('testSound:troubleshooting')}</h3>
           <ul className="list-disc pl-5 space-y-1 mt-2">
-            <li>{t('testSound.volumeUp')}</li>
-            <li>{t('testSound.checkConsole')}</li>
-            <li>{t('testSound.browserBlocksAudio')}</li>
-            <li>{t('testSound.tryDifferentBrowsers')}</li>
+            <li>{t('testSound:volumeUp')}</li>
+            <li>{t('testSound:checkConsole')}</li>
+            <li>{t('testSound:browserBlocksAudio')}</li>
+            <li>{t('testSound:tryDifferentBrowsers')}</li>
           </ul>
         </div>
       </div>

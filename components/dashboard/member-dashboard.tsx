@@ -77,8 +77,8 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
             <User className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('dashboard.welcomeBack', { name: userName })}</h1>
-            <p className="text-gray-600">{t('dashboard.pendingTasks', { todo: todoTasks.length, inProgress: inProgressTasks.length })}</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('dashboard:welcomeBack', { name: userName })}</h1>
+            <p className="text-gray-600">{t('dashboard:pendingTasks', { todo: todoTasks.length, inProgress: inProgressTasks.length })}</p>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{t('dashboard.toDo')}</p>
+                <p className="text-sm font-medium text-gray-600">{t('dashboard:toDo')}</p>
                 <p className="text-2xl font-bold text-gray-900">{todoTasks.length}</p>
               </div>
               <div className="bg-gray-100 p-2 rounded-full">
@@ -103,7 +103,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-600">{t('dashboard.inProgress')}</p>
+                <p className="text-sm font-medium text-blue-600">{t('dashboard:inProgress')}</p>
                 <p className="text-2xl font-bold text-blue-900">{inProgressTasks.length}</p>
               </div>
               <div className="bg-blue-100 p-2 rounded-full">
@@ -117,7 +117,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-green-600">{t('dashboard.completed')}</p>
+                <p className="text-sm font-medium text-green-600">{t('dashboard:completed')}</p>
                 <p className="text-2xl font-bold text-green-900">{completedTasks.length}</p>
               </div>
               <div className="bg-green-100 p-2 rounded-full">
@@ -131,7 +131,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-red-600">{t('dashboard.overdue')}</p>
+                <p className="text-sm font-medium text-red-600">{t('dashboard:overdue')}</p>
                 <p className="text-2xl font-bold text-red-900">{overdueTasks.length}</p>
               </div>
               <div className="bg-red-100 p-2 rounded-full">
@@ -148,15 +148,15 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-orange-500" />
-              {t('dashboard.urgentTasks')}
+              {t('dashboard:urgentTasks')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {overdueTasks.length === 0 && upcomingTasks.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
                 <CheckCircle className="h-12 w-12 mx-auto mb-3 text-green-500" />
-                <p>{t('dashboard.noUrgentTasks')}</p>
-                <p className="text-sm">{t('dashboard.allCaughtUp')}</p>
+                <p>{t('dashboard:noUrgentTasks')}</p>
+                <p className="text-sm">{t('dashboard:allCaughtUp')}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -176,7 +176,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
                             </Badge>
                           )}
                           <Badge variant="destructive" className="text-xs">
-                            {t('dashboard.overdue')}
+                            {t('dashboard:overdue')}
                           </Badge>
                         </div>
                       </div>
@@ -200,7 +200,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
                             </Badge>
                           )}
                           <Badge variant="secondary" className="text-xs">
-                            {t('dashboard.due')}: {new Date(task.due_date!).toLocaleDateString()}
+                            {t('dashboard:due')}: {new Date(task.due_date!).toLocaleDateString()}
                           </Badge>
                         </div>
                       </div>
@@ -217,15 +217,15 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="h-5 w-5 text-blue-500" />
-              {t('dashboard.myRecentTasks')}
+              {t('dashboard:myRecentTasks')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {userTasks.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
                 <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                <p>{t('dashboard.noTasksAssigned')}</p>
-                <p className="text-sm">{t('dashboard.noTasksYet')}</p>
+                <p>{t('dashboard:noTasksAssigned')}</p>
+                <p className="text-sm">{t('dashboard:noTasksYet')}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -261,7 +261,7 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
             {userTasks.length > 0 && (
               <div className="mt-4 text-center">
                 <Button variant="outline" asChild>
-                  <Link href="/tasks">{t('dashboard.viewAllMyTasks')}</Link>
+                  <Link href="/tasks">{t('dashboard:viewAllMyTasks')}</Link>
                 </Button>
               </div>
             )}
@@ -272,28 +272,28 @@ export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboa
       {/* Quick Actions */}
       <Card>
         <CardHeader>
-          <CardTitle>{t('dashboard.quickActions')}</CardTitle>
+          <CardTitle>{t('dashboard:quickActions')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Button variant="outline" asChild className="h-auto p-4">
               <Link href="/tasks" className="flex flex-col items-center gap-2">
                 <Calendar className="h-6 w-6" />
-                <span>{t('dashboard.viewMyTasks')}</span>
+                <span>{t('dashboard:viewMyTasks')}</span>
               </Link>
             </Button>
             
             <Button variant="outline" asChild className="h-auto p-4">
               <Link href="/profile" className="flex flex-col items-center gap-2">
                 <User className="h-6 w-6" />
-                <span>{t('dashboard.myProfile')}</span>
+                <span>{t('dashboard:myProfile')}</span>
               </Link>
             </Button>
             
             <Button variant="outline" asChild className="h-auto p-4">
               <Link href="/help" className="flex flex-col items-center gap-2">
                 <AlertTriangle className="h-6 w-6" />
-                <span>{t('dashboard.needHelp')}</span>
+                <span>{t('dashboard:needHelp')}</span>
               </Link>
             </Button>
           </div>

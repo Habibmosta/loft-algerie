@@ -62,10 +62,10 @@ export function SimpleLoginForm() {
             </div>
           </div>
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-            🔐 {t('auth.welcomeBack')}
+            🔐 {t('auth:welcomeBack')}
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            {t('auth.signInDescription')}
+            {t('auth:signInDescription')}
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export function SimpleLoginForm() {
         {/* Login Form */}
         <Card className="shadow-xl">
           <CardHeader>
-            <CardTitle className="text-center text-xl">{t('auth.signIn')}</CardTitle>
+            <CardTitle className="text-center text-xl">{t('auth:signIn')}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -88,11 +88,11 @@ export function SimpleLoginForm() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">{t('auth.email')}</Label>
+                <Label htmlFor="email">{t('auth:email')}</Label>
                 <Input 
                   id="email" 
                   type="email" 
-                  placeholder={t('auth.enterEmail')} 
+                  placeholder={t('auth:enterEmail')} 
                   {...register("email")} 
                   disabled={isLoading}
                   className="bg-white"
@@ -101,12 +101,12 @@ export function SimpleLoginForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">{t('auth.password')}</Label>
+                <Label htmlFor="password">{t('auth:password')}</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder={t('auth.enterPassword')}
+                    placeholder={t('auth:enterPassword')}
                     {...register("password")}
                     disabled={isLoading}
                     className="bg-white"
@@ -127,12 +127,12 @@ export function SimpleLoginForm() {
 
               <div className="flex items-center justify-between">
                 <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-                  {t('auth.forgotPassword')}
+                  {t('auth:forgotPassword')}
                 </Link>
               </div>
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? t('auth.signingIn') : t('auth.signIn')}
+                {isLoading ? t('auth:signingIn') : t('auth:signIn')}
               </Button>
             </form>
           </CardContent>
@@ -143,25 +143,25 @@ export function SimpleLoginForm() {
           <CardContent className="pt-6">
             <div className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
-                {t('auth.noAccount')}{" "}
+                {t('auth:noAccount')}{" "}
                 <Link href="/register" className="text-blue-600 hover:underline font-medium">
-                  {t('auth.signUp')}
+                  {t('auth:signUp')}
                 </Link>
               </p>
               
               <Separator className="my-4" />
               
               <div>
-                <p className="text-sm font-medium mb-3 text-blue-900">{t('auth.demoAccounts')}</p>
+                <p className="text-sm font-medium mb-3 text-blue-900">{t('auth:demoAccounts')}</p>
                 <div className="space-y-2 text-xs text-blue-700">
                   <p>
-                    <strong>{t('auth.admin')}:</strong> admin@loftmanager.com / password123
+                    <strong>{t('auth:admin')}:</strong> admin@loftmanager.com / password123
                   </p>
                   <p>
-                    <strong>{t('auth.manager')}:</strong> manager@loftmanager.com / password123
+                    <strong>{t('auth:manager')}:</strong> manager@loftmanager.com / password123
                   </p>
                   <p>
-                    <strong>{t('auth.member')}:</strong> member@loftmanager.com / password123
+                    <strong>{t('auth:member')}:</strong> member@loftmanager.com / password123
                   </p>
                 </div>
               </div>
