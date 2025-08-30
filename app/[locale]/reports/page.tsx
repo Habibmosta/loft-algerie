@@ -4,7 +4,11 @@ import { ReportGenerator } from '@/components/reports/report-generator'
 import { ReportsWrapper } from '@/components/reports/reports-wrapper'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { FileText, BarChart3, TrendingUp, Sparkles } from 'lucide-react'
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next'
+=======
+import { useTranslations } from 'next-intl'
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 // Mock data - replace with real data from your API
 const mockLoftRevenue = [

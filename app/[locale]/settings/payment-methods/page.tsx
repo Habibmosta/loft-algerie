@@ -7,7 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Plus, CreditCard, Banknote, Smartphone, Building2, Edit, Trash2, Settings, TrendingUp } from "lucide-react"
 import Link from "next/link"
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { useEffect, useState } from "react"
 import type { PaymentMethod } from "@/lib/types"
 

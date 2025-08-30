@@ -8,7 +8,11 @@ import { Separator } from "@/components/ui/separator"
 import { LoftBillManagement } from "@/components/loft/bill-management"
 import { LoftPhotoGallery } from "@/components/lofts/loft-photo-gallery"
 import Link from "next/link"
+<<<<<<< HEAD
 // Server-side translations removed for react-i18next compatibility
+=======
+import { getTranslations } from "next-intl/server"
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { cookies } from "next/headers"
 import type { LoftStatus } from "@/lib/types"
 import { 

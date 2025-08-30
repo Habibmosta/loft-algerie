@@ -83,10 +83,10 @@ export function AdvancedCharts({
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">{t('analytics.overview')}</TabsTrigger>
-          <TabsTrigger value="financial">{t('analytics.financial')}</TabsTrigger>
-          <TabsTrigger value="occupancy">{t('analytics.occupancy')}</TabsTrigger>
-          <TabsTrigger value="maintenance">{t('analytics.maintenance')}</TabsTrigger>
+          <TabsTrigger value="overview">{t('analytics:overview')}</TabsTrigger>
+          <TabsTrigger value="financial">{t('analytics:financial')}</TabsTrigger>
+          <TabsTrigger value="occupancy">{t('analytics:occupancy')}</TabsTrigger>
+          <TabsTrigger value="maintenance">{t('analytics:maintenance')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -206,8 +206,8 @@ export function AdvancedCharts({
         <TabsContent value="occupancy" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('analytics.occupancyRateTrends')}</CardTitle>
-              <CardDescription>{t('analytics.monthlyOccupancyRates')}</CardDescription>
+              <CardTitle>{t('analytics:occupancyRateTrends')}</CardTitle>
+              <CardDescription>{t('analytics:monthlyOccupancyRates')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>

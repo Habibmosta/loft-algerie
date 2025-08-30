@@ -273,12 +273,12 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
               )}
               <div className="mt-4 flex gap-2">
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/transactions/${transaction.id}`}>{t('common.view')}</Link>
+                  <Link href={`/transactions/${transaction.id}`}>{t('common:view')}</Link>
                 </Button>
                 {isAdmin && (
                   <>
                     <Button variant="outline" size="sm" asChild>
-                      <Link href={`/transactions/${transaction.id}/edit`}>{t('common.edit')}</Link>
+                      <Link href={`/transactions/${transaction.id}/edit`}>{t('common:edit')}</Link>
                     </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -294,7 +294,7 @@ export function TransactionsList({ transactions, categories, lofts, currencies, 
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
+                          <AlertDialogCancel>{t('common:cancel')}</AlertDialogCancel>
                           <AlertDialogAction onClick={() => handleDelete(transaction.id)}>
                             {t('continue', { ns: 'transactions' })}
                           </AlertDialogAction>

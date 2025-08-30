@@ -3,7 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 export function DeleteButton({ 
   id,

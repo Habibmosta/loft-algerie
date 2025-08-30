@@ -34,7 +34,7 @@ export function ZoneAreaForm({ zoneArea, onSuccess, onCancel }: ZoneAreaFormProp
   
   const FormSchema = z.object({
     name: z.string().min(2, {
-      message: t('zoneAreas.nameRequired'),
+      message: t('zoneAreas:nameRequired'),
     }),
   });
   
@@ -65,14 +65,14 @@ export function ZoneAreaForm({ zoneArea, onSuccess, onCancel }: ZoneAreaFormProp
 
     if (result?.error) {
       toast({
-        title: t('common.error'),
+        title: t('common:error'),
         description: result.error,
         variant: "destructive",
       });
     } else {
       toast({
-        title: t('common.success'),
-        description: zoneArea ? t('zoneAreas.updateSuccess') : t('zoneAreas.createSuccess'),
+        title: t('common:success'),
+        description: zoneArea ? t('zoneAreas:updateSuccess') : t('zoneAreas:createSuccess'),
       });
       form.reset();
       if (onSuccess) {
@@ -86,13 +86,13 @@ export function ZoneAreaForm({ zoneArea, onSuccess, onCancel }: ZoneAreaFormProp
   return (
     <FormWrapper 
       maxWidth="md"
-      title={zoneArea ? t('zoneAreas.editZoneArea') : t('zoneAreas.addNewZoneArea')}
-      description={zoneArea ? t('zoneAreas.updateZoneAreaInfo') : t('zoneAreas.createNewZoneArea')}
+      title={zoneArea ? t('zoneAreas:editZoneArea') : t('zoneAreas:addNewZoneArea')}
+      description={zoneArea ? t('zoneAreas:updateZoneAreaInfo') : t('zoneAreas:createNewZoneArea')}
       icon="🗺️"
     >
       <FormSection 
-        title={t('zoneAreas.zoneDetails')}
-        description={t('zoneAreas.enterZoneInfo')}
+        title={t('zoneAreas:zoneDetails')}
+        description={t('zoneAreas:enterZoneInfo')}
         icon="📍"
         colorScheme="green"
       >
@@ -103,16 +103,16 @@ export function ZoneAreaForm({ zoneArea, onSuccess, onCancel }: ZoneAreaFormProp
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('zoneAreas.zoneAreaName')} *</FormLabel>
+                  <FormLabel>{t('zoneAreas:zoneAreaName')} *</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('zoneAreas.namePlaceholder')} {...field} className="bg-white" />
+                    <Input placeholder={t('zoneAreas:namePlaceholder')} {...field} className="bg-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <Button type="submit" className="w-full">
-              {zoneArea ? t('zoneAreas.updateZoneArea') : t('zoneAreas.createZoneArea')}
+              {zoneArea ? t('zoneAreas:updateZoneArea') : t('zoneAreas:createZoneArea')}
             </Button>
           </form>
         </Form>

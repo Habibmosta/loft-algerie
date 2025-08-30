@@ -1,7 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next'
+=======
+import { useTranslations } from 'next-intl'
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { AvailabilityCalendar } from '@/components/availability/availability-calendar'
 import { FilterPanel } from '@/components/availability/filter-panel'
 import { LoftGrid } from '@/components/availability/loft-grid'

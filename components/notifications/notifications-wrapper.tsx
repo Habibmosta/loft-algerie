@@ -12,7 +12,7 @@ export function NotificationsWrapper({ notifications }: NotificationsWrapperProp
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold">{t('notifications.title')}</h1>
+      <h1 className="text-2xl font-bold">{t('notifications:title')}</h1>
       <NotificationsList notifications={notifications} />
     </div>
   )

@@ -38,8 +38,8 @@ export default function EditTaskForm({ initialTask, users }: EditTaskFormProps) 
     try {
       await updateTask(id, data)
       toast({
-        title: `✅ ${t('common.success')}`,
-        description: `${t('tasks.title')} "${'title' in data ? data.title : task?.title}" ${t('tasks.updateSuccess')}`,
+        title: `✅ ${t('common:success')}`,
+        description: `${t('tasks:title')} "${'title' in data ? data.title : task?.title}" ${t('tasks:updateSuccess')}`,
         duration: 3000,
       })
       setTimeout(() => {
@@ -48,8 +48,8 @@ export default function EditTaskForm({ initialTask, users }: EditTaskFormProps) 
     } catch (error) {
       console.error(error)
       toast({
-        title: `❌ ${t('common.error')}`,
-        description: t('tasks.updateError'),
+        title: `❌ ${t('common:error')}`,
+        description: t('tasks:updateError'),
         variant: "destructive",
         duration: 5000,
       })
@@ -58,7 +58,7 @@ export default function EditTaskForm({ initialTask, users }: EditTaskFormProps) 
     }
   }
 
-  if (!task) return <div>{t('common.loading')}</div>
+  if (!task) return <div>{t('common:loading')}</div>
 
   return <TaskForm task={task} users={users} onSubmit={handleUpdateTask} isSubmitting={isSubmitting} />
 }

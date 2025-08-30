@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation"
 import { LoftForm } from "@/components/forms/loft-form"
 import { updateLoft } from "@/app/actions/lofts"
 import { toast } from "sonner"
+<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
+=======
+import { useTranslations } from "next-intl"
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 export function EditLoftFormWrapper({ loft, owners, zoneAreas, internetConnectionTypes }: any) {
   const router = useRouter()

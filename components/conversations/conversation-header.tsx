@@ -142,7 +142,7 @@ export function ConversationHeader({ conversation, currentUserId }: Conversation
               <>
                 <DropdownMenuItem className="gap-2">
                   <Users className="h-4 w-4" />
-                  {t('notifications.viewMembers')}
+                  {t('notifications:viewMembers')}
                 </DropdownMenuItem>
                 {isCurrentUserAdmin && (
                   <DropdownMenuItem className="gap-2">

@@ -5,8 +5,9 @@
 @import '../styles/conversations.css';
 @import '../styles/whatsapp.css';
 
-@layer base {
-  :root {
+@layer base   {
+   
+  :root   {
     --background: 210 20% 95%; /* Light grey-blue */
     --foreground: 230 25% 10%; /* Dark text */
     --card: 210 20% 98%;
@@ -77,8 +78,9 @@
   }
 }
 
-@layer base {
-  * {
+@layer base   {
+   
+  *   {
     @apply border-border;
   }
   body {
@@ -90,15 +92,17 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
+@layer utilities   {
+   
+  .text-balance   {
     text-wrap: balance;
   }
 }
 
 /* Animations personnalisées pour les méthodes de paiement */
-@keyframes fadeInUp {
-  from {
+@keyframes fadeInUp   {
+   
+  from   {
     opacity: 0;
     transform: translateY(30px);
   }
@@ -108,8 +112,9 @@ body {
   }
 }
 
-@keyframes shimmer {
-  0% {
+@keyframes shimmer   {
+   
+  0%   {
     transform: translateX(-100%);
   }
   100% {

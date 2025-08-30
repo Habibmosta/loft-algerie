@@ -10,7 +10,11 @@ import { notFound, useParams, useRouter } from "next/navigation"
 import type { Task, AuthSession } from "@/lib/types"
 import { getSession } from "@/lib/auth"
 import { DeleteTaskButton } from './delete-button'
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 export default function TaskPage() {
   const params = useParams()

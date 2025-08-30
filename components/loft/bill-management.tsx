@@ -94,12 +94,12 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
   }
 
   const getBadgeText = (bill: BillInfo) => {
-    if (!bill.dueDate) return t('billManagement.notSet')
-    if (bill.isOverdue) return `${Math.abs(bill.daysUntilDue!)} ${t('billManagement.daysOverdue')}`
-    if (bill.daysUntilDue === 0) return t('billManagement.dueToday')
-    if (bill.daysUntilDue === 1) return t('billManagement.dueTomorrow')
-    if (bill.daysUntilDue! <= 7) return t('billManagement.dueInDays', { days: bill.daysUntilDue })
-    return `${t('billManagement.due')} ${new Date(bill.dueDate).toLocaleDateString()}`
+    if (!bill.dueDate) return t('billManagement:notSet')
+    if (bill.isOverdue) return `${Math.abs(bill.daysUntilDue!)} ${t('billManagement:daysOverdue')}`
+    if (bill.daysUntilDue === 0) return t('billManagement:dueToday')
+    if (bill.daysUntilDue === 1) return t('billManagement:dueTomorrow')
+    if (bill.daysUntilDue! <= 7) return t('billManagement:dueInDays', { days: bill.daysUntilDue })
+    return `${t('billManagement:due')} ${new Date(bill.dueDate).toLocaleDateString()}`
   }
 
   const getStatusIcon = (bill: BillInfo) => {
@@ -111,7 +111,7 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
 
   const handleMarkAsPaid = async () => {
     if (!paymentDialog.bill || !paymentAmount) {
-      toast.error(t('billManagement.pleaseEnterPaymentAmount'))
+      toast.error(t('billManagement:pleaseEnterPaymentAmount'))
       return
     }
 
@@ -125,7 +125,7 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
       )
 
       if (result.success) {
-        toast.success(t('billManagement.billMarkedAsPaid', { 
+        toast.success(t('billManagement:billMarkedAsPaid', { 
           billType: paymentDialog.bill.label
         }))
         setPaymentDialog({ open: false, bill: null })
@@ -134,11 +134,11 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
         // Refresh the page to show updated data
         window.location.reload()
       } else {
-        toast.error(result.message || t('billManagement.failedToMarkBillAsPaid'))
+        toast.error(result.message || t('billManagement:failedToMarkBillAsPaid'))
       }
     } catch (error) {
       console.error('Error marking bill as paid:', error)
-      toast.error(t('billManagement.failedToMarkBillAsPaid'))
+      toast.error(t('billManagement:failedToMarkBillAsPaid'))
     } finally {
       setLoading(false)
     }
@@ -154,7 +154,7 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <DollarSign className="h-5 w-5" />
-          {t('billManagement.title')}
+          {t('billManagement:title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -166,7 +166,7 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
                 <div>
                   <div className="font-medium">{bill.label}</div>
                   <div className="text-sm text-gray-600">
-                    {bill.frequency ? `${t('billManagement.frequency')}: ${bill.frequency}` : t('billManagement.noFrequencySet')}
+                    {bill.frequency ? `${t('billManagement:frequency')}: ${bill.frequency}` : t('billManagement:noFrequencySet')}
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
                     onClick={() => openPaymentDialog(bill)}
                     disabled={loading}
                   >
-                    {t('billManagement.markAsPaid')}
+                    {t('billManagement:markAsPaid')}
                   </Button>
                 )}
               </div>
@@ -198,8 +198,8 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
         {bills.every(bill => !bill.dueDate) && (
           <div className="text-center py-8 text-gray-500">
             <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-            <p>{t('billManagement.noBillDueDatesSet')}</p>
-            <p className="text-sm">{t('billManagement.editLoftToAddBillInfo')}</p>
+            <p>{t('billManagement:noBillDueDatesSet')}</p>
+            <p className="text-sm">{t('billManagement:editLoftToAddBillInfo')}</p>
           </div>
         )}
       </CardContent>
@@ -209,19 +209,19 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {t('billManagement.markBillAsPaid', { 
+              {t('billManagement:markBillAsPaid', { 
                 billType: paymentDialog.bill?.label
               })}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="amount">{t('billManagement.paymentAmount')}</Label>
+              <Label htmlFor="amount">{t('billManagement:paymentAmount')}</Label>
               <Input
                 id="amount"
                 type="number"
                 step="0.01"
-                placeholder={t('billManagement.enterPaymentAmount')}
+                placeholder={t('billManagement:enterPaymentAmount')}
                 value={paymentAmount}
                 onChange={(e) => setPaymentAmount(e.target.value)}
               />
@@ -230,11 +230,11 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
             {paymentDialog.bill?.dueDate && (
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="text-sm text-blue-800">
-                  <strong>{t('billManagement.currentDueDate')}:</strong> {new Date(paymentDialog.bill.dueDate).toLocaleDateString()}
+                  <strong>{t('billManagement:currentDueDate')}:</strong> {new Date(paymentDialog.bill.dueDate).toLocaleDateString()}
                 </p>
                 {paymentDialog.bill.frequency && (
                   <p className="text-sm text-blue-600 mt-1">
-                    {t('billManagement.nextDueDateAutoCalculated', { 
+                    {t('billManagement:nextDueDateAutoCalculated', { 
                       frequency: paymentDialog.bill.frequency
                     })}
                   </p>
@@ -247,13 +247,13 @@ export function LoftBillManagement({ loftId, loftData }: LoftBillManagementProps
                 variant="outline"
                 onClick={() => setPaymentDialog({ open: false, bill: null })}
               >
-                {t('billManagement.cancel')}
+                {t('billManagement:cancel')}
               </Button>
               <Button
                 onClick={handleMarkAsPaid}
                 disabled={loading || !paymentAmount}
               >
-                {loading ? t('billManagement.processing') : t('billManagement.markAsPaid')}
+                {loading ? t('billManagement:processing') : t('billManagement:markAsPaid')}
               </Button>
             </div>
           </div>

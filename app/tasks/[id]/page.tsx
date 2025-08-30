@@ -58,7 +58,7 @@ export default function TaskPage() {
   }
 
   if (loading) {
-    return <div>{t('common.loading')}</div>
+    return <div>{t('common:loading')}</div>
   }
 
   if (!task || !session) {
@@ -83,7 +83,7 @@ export default function TaskPage() {
             <div>
               <CardTitle className="text-2xl">{task.title}</CardTitle>
               <CardDescription>
-                {task.due_date ? t('tasks.dueDateFormat', { date: new Date(task.due_date).toLocaleDateString() }) : t('tasks.noDueDate')}
+                {task.due_date ? t('tasks:dueDateFormat', { date: new Date(task.due_date).toLocaleDateString() }) : t('tasks:noDueDate')}
               </CardDescription>
             </div>
             <Badge className={getStatusColor(task.status)}>
@@ -99,11 +99,11 @@ export default function TaskPage() {
             )}
             <Button asChild variant="outline">
               <Link href={`/tasks/${task.id}/edit`}>
-                {session.user.role === "member" ? t('tasks.updateStatus') : t('tasks.editTask')}
+                {session.user.role === "member" ? t('tasks:updateStatus') : t('tasks:editTask')}
               </Link>
             </Button>
             <Button asChild>
-              <Link href="/tasks">{t('common.back')}</Link>
+              <Link href="/tasks">{t('common:back')}</Link>
             </Button>
           </div>
         </CardContent>

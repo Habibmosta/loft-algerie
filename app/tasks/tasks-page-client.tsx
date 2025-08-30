@@ -21,16 +21,16 @@ export function TasksPageClient({ tasks, users, userRole, currentUserId }: Tasks
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t('tasks.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('tasks:title')}</h1>
           <p className="text-muted-foreground">
-            {userRole === "member" ? t('tasks.yourTasks') : t('tasks.subtitle')}
+            {userRole === "member" ? t('tasks:yourTasks') : t('tasks:subtitle')}
           </p>
         </div>
         {(userRole === "admin" || userRole === "manager") && (
           <Button asChild>
             <Link href="/tasks/new">
               <Plus className="mr-2 h-4 w-4" />
-              {t('tasks.addTask')}
+              {t('tasks:addTask')}
             </Link>
           </Button>
         )}

@@ -149,9 +149,9 @@ export default function ReservationFormHybrid({
             <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
               <Calendar className="h-6 w-6" />
             </div>
-            {t('form.title')}
+            {t('form:title')}
             <Badge variant="secondary" className="bg-white/20 text-white border-white/30 ml-auto">
-              {t('form.badge')}
+              {t('form:badge')}
             </Badge>
           </CardTitle>
         </CardHeader>
@@ -168,7 +168,7 @@ export default function ReservationFormHybrid({
               <Alert variant="destructive" className="border-red-200 bg-red-50/80 backdrop-blur-sm">
                 <AlertCircle className="h-5 w-5" />
                 <AlertDescription className="text-red-800">
-                  <div className="font-medium mb-1">{t('form.errorCreatingReservation')}</div>
+                  <div className="font-medium mb-1">{t('form:errorCreatingReservation')}</div>
                   {state.error}
                   {state.details && (
                     <ul className="mt-3 space-y-1">
@@ -189,8 +189,8 @@ export default function ReservationFormHybrid({
               <Alert className="border-green-200 bg-green-50/80 backdrop-blur-sm">
                 <CheckCircle className="h-5 w-5 text-green-600" />
                 <AlertDescription className="text-green-800">
-                  <div className="font-medium">{t('form.reservationSuccess')}</div>
-                  <div className="text-sm mt-1">{t('form.confirmationMessage')}</div>
+                  <div className="font-medium">{t('form:reservationSuccess')}</div>
+                  <div className="text-sm mt-1">{t('form:confirmationMessage')}</div>
                 </AlertDescription>
               </Alert>
             )}
@@ -201,14 +201,14 @@ export default function ReservationFormHybrid({
                 <div className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg">
                   <Building2 className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">{t('form.propertyAndGuestDetails')}</h3>
+                <h3 className="text-xl font-semibold text-gray-900">{t('form:propertyAndGuestDetails')}</h3>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <Label htmlFor="loft_select" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Building2 className="h-4 w-4 text-purple-600" />
-                    {t('form.loft')}
+                    {t('form:loft')}
                   </Label>
                   <Select
                     value={selectedLoft}
@@ -216,7 +216,7 @@ export default function ReservationFormHybrid({
                     disabled={!!loftId}
                   >
                     <SelectTrigger className="h-12 border-gray-300 focus:border-purple-500 focus:ring-purple-500">
-                      <SelectValue placeholder={t('form.selectLoft')} />
+                      <SelectValue placeholder={t('form:selectLoft')} />
                     </SelectTrigger>
                     <SelectContent>
                       {lofts.map((loft) => (
@@ -236,7 +236,7 @@ export default function ReservationFormHybrid({
                 <div className="space-y-3">
                   <Label htmlFor="guest_count_select" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Users className="h-4 w-4 text-blue-600" />
-                    {t('form.guestCount')}
+                    {t('form:guestCount')}
                   </Label>
                   <Select
                     value={guestCount.toString()}
@@ -250,7 +250,7 @@ export default function ReservationFormHybrid({
                         <SelectItem key={count} value={count.toString()} className="py-2">
                           <div className="flex items-center gap-2">
                             <Users className="h-4 w-4 text-blue-600" />
-                            {count} {count === 1 ? t('form.guest') : t('form.guests')}
+                            {count} {count === 1 ? t('form:guest') : t('form:guests')}
                           </div>
                         </SelectItem>
                       ))}
@@ -266,14 +266,14 @@ export default function ReservationFormHybrid({
                 <div className="p-2 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg">
                   <Calendar className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">{t('form.stayDates')}</h3>
+                <h3 className="text-xl font-semibold text-gray-900">{t('form:stayDates')}</h3>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <Label htmlFor="check_in" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-green-600" />
-                    {t('form.checkIn')}
+                    {t('form:checkIn')}
                   </Label>
                   <Input
                     type="date"
@@ -287,7 +287,7 @@ export default function ReservationFormHybrid({
                 <div className="space-y-3">
                   <Label htmlFor="check_out" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-emerald-600" />
-                    {t('form.checkOut')}
+                    {t('form:checkOut')}
                   </Label>
                   <Input
                     type="date"
@@ -305,7 +305,7 @@ export default function ReservationFormHybrid({
               <Alert>
                 <Loader2 className="h-4 w-4 animate-spin" />
                 <AlertDescription>
-                  {t('form.checkingAvailability')}
+                  {t('form:checkingAvailability')}
                 </AlertDescription>
               </Alert>
             )}
@@ -314,7 +314,7 @@ export default function ReservationFormHybrid({
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  {t('form.notAvailable')}
+                  {t('form:notAvailable')}
                 </AlertDescription>
               </Alert>
             )}
@@ -328,7 +328,7 @@ export default function ReservationFormHybrid({
                         <CheckCircle className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-green-800">{t('form.available')}</h4>
+                        <h4 className="font-semibold text-green-800">{t('form:available')}</h4>
                         <p className="text-sm text-green-600">Perfect! Your selected dates are available for booking.</p>
                       </div>
                     </div>
@@ -337,24 +337,24 @@ export default function ReservationFormHybrid({
                       <h5 className="font-medium text-gray-900 mb-3">Pricing Breakdown</h5>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between items-center py-1">
-                          <span className="text-gray-600">{t('form.basePrice')} ({nights} nights)</span>
+                          <span className="text-gray-600">{t('form:basePrice')} ({nights} nights)</span>
                           <span className="font-medium">{availabilityData.pricing.base_price} DZD</span>
                         </div>
                         <div className="flex justify-between items-center py-1">
-                          <span className="text-gray-600">{t('form.cleaningFee')}</span>
+                          <span className="text-gray-600">{t('form:cleaningFee')}</span>
                           <span className="font-medium">{availabilityData.pricing.cleaning_fee} DZD</span>
                         </div>
                         <div className="flex justify-between items-center py-1">
-                          <span className="text-gray-600">{t('form.serviceFee')}</span>
+                          <span className="text-gray-600">{t('form:serviceFee')}</span>
                           <span className="font-medium">{availabilityData.pricing.service_fee} DZD</span>
                         </div>
                         <div className="flex justify-between items-center py-1">
-                          <span className="text-gray-600">{t('form.taxes')}</span>
+                          <span className="text-gray-600">{t('form:taxes')}</span>
                           <span className="font-medium">{availabilityData.pricing.taxes} DZD</span>
                         </div>
                         <hr className="my-3" />
                         <div className="flex justify-between items-center py-2 bg-green-100 rounded-lg px-3">
-                          <span className="font-semibold text-green-800">{t('form.total')}</span>
+                          <span className="font-semibold text-green-800">{t('form:total')}</span>
                           <span className="text-xl font-bold text-green-800">{availabilityData.pricing.total_amount} DZD</span>
                         </div>
                       </div>
@@ -370,14 +370,14 @@ export default function ReservationFormHybrid({
                 <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg">
                   <Users className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">{t('form.guestInfo')}</h3>
+                <h3 className="text-xl font-semibold text-gray-900">{t('form:guestInfo')}</h3>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <Label htmlFor="guest_name" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Users className="h-4 w-4 text-blue-600" />
-                    {t('form.guestName')}
+                    {t('form:guestName')}
                   </Label>
                   <Input 
                     name="guest_name" 
@@ -390,7 +390,7 @@ export default function ReservationFormHybrid({
                 <div className="space-y-3">
                   <Label htmlFor="guest_email" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Users className="h-4 w-4 text-indigo-600" />
-                    {t('form.guestEmail')}
+                    {t('form:guestEmail')}
                   </Label>
                   <Input 
                     type="email" 
@@ -404,7 +404,7 @@ export default function ReservationFormHybrid({
                 <div className="space-y-3">
                   <Label htmlFor="guest_phone" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Users className="h-4 w-4 text-green-600" />
-                    {t('form.guestPhone')}
+                    {t('form:guestPhone')}
                   </Label>
                   <Input 
                     name="guest_phone" 
@@ -417,7 +417,7 @@ export default function ReservationFormHybrid({
                 <div className="space-y-3">
                   <Label htmlFor="guest_nationality" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <Users className="h-4 w-4 text-purple-600" />
-                    {t('form.guestNationality')}
+                    {t('form:guestNationality')}
                   </Label>
                   <Input 
                     name="guest_nationality" 
@@ -431,11 +431,11 @@ export default function ReservationFormHybrid({
               <div className="space-y-3">
                 <Label htmlFor="special_requests" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                   <Star className="h-4 w-4 text-yellow-600" />
-                  {t('form.specialRequests')}
+                  {t('form:specialRequests')}
                 </Label>
                 <Textarea
                   name="special_requests"
-                  placeholder={t('form.specialRequestsPlaceholder')}
+                  placeholder={t('form:specialRequestsPlaceholder')}
                   rows={4}
                   className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 resize-none"
                 />
@@ -451,7 +451,7 @@ export default function ReservationFormHybrid({
                 disabled={isPending}
                 className="px-6"
               >
-                {t('common.cancel')}
+                {t('common:cancel')}
               </Button>
               <Button
                 type="submit"
@@ -461,12 +461,12 @@ export default function ReservationFormHybrid({
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t('form.creating')}
+                    {t('form:creating')}
                   </>
                 ) : (
                   <>
                     <CreditCard className="mr-2 h-4 w-4" />
-                    {t('form.createReservation')}
+                    {t('form:createReservation')}
                   </>
                 )}
               </Button>

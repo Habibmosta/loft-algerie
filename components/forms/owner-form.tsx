@@ -89,13 +89,13 @@ export function OwnerForm({ owner, action }: OwnerFormProps) {
   return (
     <FormWrapper 
       maxWidth="2xl"
-      title={owner ? t('owners.editOwner') : t('owners.addOwner')}
-      description={owner ? t('owners.updateOwnerInfo') : t('owners.createNewOwner')}
+      title={owner ? t('owners:editOwner') : t('owners:addOwner')}
+      description={owner ? t('owners:updateOwnerInfo') : t('owners:createNewOwner')}
       icon="👤"
     >
       <FormSection 
-        title={t('owners.ownerDetails')}
-        description={t('owners.enterOwnerInfo')}
+        title={t('owners:ownerDetails')}
+        description={t('owners:enterOwnerInfo')}
         icon="🏠"
         colorScheme="default"
       >
@@ -108,54 +108,54 @@ export function OwnerForm({ owner, action }: OwnerFormProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="name">{t('owners.name')} *</Label>
+              <Label htmlFor="name">{t('owners:name')} *</Label>
               <Input id="name" {...register("name")} className="bg-white" />
               {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ownership_type">{t('owners.ownershipType')} *</Label>
+              <Label htmlFor="ownership_type">{t('owners:ownershipType')} *</Label>
               <Select
                 onValueChange={(value) => setValue("ownership_type", value as any)}
                 defaultValue={owner?.ownership_type || "third_party"}
                 {...register("ownership_type")}
               >
                 <SelectTrigger className="bg-white">
-                  <SelectValue placeholder={t('owners.selectType')} />
+                  <SelectValue placeholder={t('owners:selectType')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="company">{t('owners.companyOwned')}</SelectItem>
-                  <SelectItem value="third_party">{t('owners.thirdParty')}</SelectItem>
+                  <SelectItem value="company">{t('owners:companyOwned')}</SelectItem>
+                  <SelectItem value="third_party">{t('owners:thirdParty')}</SelectItem>
                 </SelectContent>
               </Select>
               {errors.ownership_type && <p className="text-sm text-red-500">{errors.ownership_type.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">{t('owners.email')}</Label>
+              <Label htmlFor="email">{t('owners:email')}</Label>
               <Input id="email" type="email" {...register("email")} className="bg-white" />
               {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">{t('owners.phone')}</Label>
+              <Label htmlFor="phone">{t('owners:phone')}</Label>
               <Input id="phone" {...register("phone")} className="bg-white" />
               {errors.phone && <p className="text-sm text-red-500">{errors.phone.message}</p>}
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address">{t('owners.address')}</Label>
+            <Label htmlFor="address">{t('owners:address')}</Label>
             <Textarea id="address" {...register("address")} className="bg-white" />
             {errors.address && <p className="text-sm text-red-500">{errors.address.message}</p>}
           </div>
 
           <div className="flex gap-4 pt-4">
             <Button type="submit" disabled={isLoading} className="flex-1">
-              {isLoading ? t('owners.saving') : owner ? t('owners.updateOwner') : t('owners.createOwner')}
+              {isLoading ? t('owners:saving') : owner ? t('owners:updateOwner') : t('owners:createOwner')}
             </Button>
             <Button type="button" variant="outline" onClick={() => router.back()}>
-              {t('owners.cancel')}
+              {t('owners:cancel')}
             </Button>
           </div>
         </form>

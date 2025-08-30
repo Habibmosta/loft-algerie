@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { deleteOwner } from "@/app/actions/owners"
 import { useToast } from "@/components/ui/use-toast"
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 export function DeleteOwnerButton({ id }: { id: string }) {
   const router = useRouter()

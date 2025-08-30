@@ -97,12 +97,12 @@ export function RealtimeProvider({ children, userId }: RealtimeProviderProps) {
                     setUnreadMessagesCount(prev => prev + 1)
                     
                     // Show toast notification
-                    toast.success(t('notifications.newMessageFrom').replace('{name}', senderName), {
+                    toast.success(t('notifications:newMessageFrom').replace('{name}', senderName), {
                       description: newMessage.content.length > 50 
                         ? newMessage.content.substring(0, 50) + '...' 
                         : newMessage.content,
                       action: {
-                        label: t('notifications.view'),
+                        label: t('notifications:view'),
                         onClick: () => {
                           window.location.href = `/conversations/${newMessage.conversation_id}`
                         }
@@ -111,7 +111,7 @@ export function RealtimeProvider({ children, userId }: RealtimeProviderProps) {
 
                     // Browser notification
                     if ('Notification' in window && Notification.permission === 'granted') {
-                      new Notification(t('notifications.newMessageFrom').replace('{name}', senderName), {
+                      new Notification(t('notifications:newMessageFrom').replace('{name}', senderName), {
                         body: newMessage.content,
                         icon: '/favicon.ico',
                         tag: newMessage.conversation_id
@@ -160,7 +160,7 @@ export function RealtimeProvider({ children, userId }: RealtimeProviderProps) {
           toast.success(newNotification.title, {
             description: newNotification.message,
             action: newNotification.link ? {
-              label: t('notifications.view'),
+              label: t('notifications:view'),
               onClick: () => {
                 window.location.href = newNotification.link
               }

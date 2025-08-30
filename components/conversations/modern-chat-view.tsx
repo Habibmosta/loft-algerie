@@ -268,7 +268,7 @@ export function ModernChatView({
           <div className="flex-1 relative">
             <Input
               ref={inputRef}
-              placeholder={t('conversations.typeMessage')}
+              placeholder={t('conversations:typeMessage')}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={handleKeyPress}

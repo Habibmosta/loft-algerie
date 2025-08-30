@@ -44,10 +44,10 @@ export function ForgotPasswordForm() {
       if (result.success) {
         setSuccess(true)
       } else {
-        setError(result.error || t('auth.failedToSendResetEmail'))
+        setError(result.error || t('auth:failedToSendResetEmail'))
       }
     } catch (err) {
-      setError(t('auth.unexpectedError'))
+      setError(t('auth:unexpectedError'))
     } finally {
       setIsLoading(false)
     }
@@ -57,17 +57,17 @@ export function ForgotPasswordForm() {
     return (
       <FormWrapper 
         maxWidth="md"
-        title={t('auth.checkYourEmail')}
-        description={t('auth.passwordResetEmailSentDescription')}
+        title={t('auth:checkYourEmail')}
+        description={t('auth:passwordResetEmailSentDescription')}
         icon="📧"
       >
         <FormSection colorScheme="green">
           <div className="text-center">
             <p className="text-green-700 mb-4">
-              {t('auth.passwordResetEmailSentSuccess')}
+              {t('auth:passwordResetEmailSentSuccess')}
             </p>
             <Link href="/login" className="text-green-800 hover:underline font-medium">
-              {t('auth.backToLogin')}
+              {t('auth:backToLogin')}
             </Link>
           </div>
         </FormSection>
@@ -78,8 +78,8 @@ export function ForgotPasswordForm() {
   return (
     <FormWrapper 
       maxWidth="md"
-      title={t('auth.forgotPasswordTitle')}
-      description={t('auth.forgotPasswordDescription')}
+      title={t('auth:forgotPasswordTitle')}
+      description={t('auth:forgotPasswordDescription')}
       icon="🔑"
     >
       <FormSection>
@@ -91,11 +91,11 @@ export function ForgotPasswordForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email">{t('auth.email')}</Label>
+            <Label htmlFor="email">{t('auth:email')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder={t('auth.enterEmail')}
+              placeholder={t('auth:enterEmail')}
               {...register("email")}
               disabled={isLoading}
               className="bg-white"
@@ -104,7 +104,7 @@ export function ForgotPasswordForm() {
           </div>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? t('auth.sending') : t('auth.sendResetLink')}
+            {isLoading ? t('auth:sending') : t('auth:sendResetLink')}
           </Button>
         </form>
       </FormSection>
@@ -112,7 +112,7 @@ export function ForgotPasswordForm() {
       <FormSection colorScheme="blue">
         <div className="text-center">
           <Link href="/login" className="text-blue-800 hover:underline font-medium">
-            {t('auth.backToLogin')}
+            {t('auth:backToLogin')}
           </Link>
         </div>
       </FormSection>

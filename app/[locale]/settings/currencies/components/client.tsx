@@ -10,7 +10,11 @@ import { Plus, DollarSign, Star, Globe } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { getColumns } from "../columns"
 import { Currency } from "@/lib/types"
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 interface CurrencyClientProps {
   data: Currency[]

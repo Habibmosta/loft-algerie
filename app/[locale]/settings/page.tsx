@@ -7,7 +7,11 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { User, Shield, Bell, Database } from "lucide-react"
 import Link from "next/link"
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { useEffect, useState } from "react"
 import { getSession } from "@/lib/auth"
 import type { AuthSession } from "@/lib/types"

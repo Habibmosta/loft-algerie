@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env node
 
 const fs = require('fs');
@@ -163,3 +164,86 @@ console.log('\n🚀 Prochaines étapes:');
 console.log('1. Tester localement: npm run dev');
 console.log('2. Vérifier les traductions: node verify-lofts-component.cjs');
 console.log('3. Redéployer sur Vercel: vercel --prod');
+=======
+const fs = require('fs');
+const path = require('path');
+
+console.log('🔧 Correction de la configuration i18next...');
+
+// Vérifier les fichiers de configuration i18n
+const configFiles = [
+  'lib/i18n/index.ts',
+  'lib/i18n/settings.ts',
+  'lib/i18n/context.tsx'
+];
+
+configFiles.forEach(file => {
+  if (fs.existsSync(file)) {
+    console.log(`✅ ${file} existe`);
+  } else {
+    console.log(`❌ ${file} manquant`);
+  }
+});
+
+// Créer une configuration i18n simplifiée
+const simplifiedConfig = `import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import HttpBackend from 'i18next-http-backend'
+
+// Configuration simplifiée pour éviter les erreurs
+const SUPPORTED_LANGUAGES = ['fr', 'ar', 'en'];
+const BASIC_NAMESPACES = ['common', 'auth', 'settings', 'nav', 'dashboard'];
+
+let initialized = false;
+
+export function initializeI18n(options = {}) {
+  if (initialized) {
+    return Promise.resolve(i18n);
+  }
+  
+  initialized = true;
+  
+  return i18n
+    .use(HttpBackend)
+    .use(initReactI18next)
+    .init({
+      lng: 'fr',
+      fallbackLng: 'fr',
+      debug: false, // Désactiver le debug pour réduire les logs
+      
+      ns: BASIC_NAMESPACES,
+      defaultNS: 'common',
+      
+      backend: {
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
+        crossDomain: false,
+      },
+      
+      react: {
+        useSuspense: false, // Désactiver suspense pour éviter les erreurs
+        bindI18n: 'languageChanged',
+      },
+      
+      // Gérer les clés manquantes silencieusement
+      saveMissing: false,
+      missingKeyHandler: () => null,
+      
+      ...options
+    });
+}
+
+export { SUPPORTED_LANGUAGES, BASIC_NAMESPACES };
+export default i18n;
+`;
+
+// Sauvegarder la configuration simplifiée
+fs.writeFileSync('lib/i18n/simple-config.ts', simplifiedConfig);
+console.log('✅ Configuration i18n simplifiée créée');
+
+console.log('🎉 Configuration i18n corrigée !');
+console.log('');
+console.log('📋 Prochaines étapes :');
+console.log('1. Redémarrez le serveur de développement');
+console.log('2. Si les erreurs persistent, utilisez la config simplifiée');
+console.log('3. Vérifiez les imports dans vos composants');
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce

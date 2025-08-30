@@ -161,7 +161,7 @@ export function TransactionReferenceAmounts() {
             <DialogTrigger asChild>
               <Button size="sm">
                 <Plus className="h-4 w-4 mr-2" />
-                {t('common.add')}
+                {t('common:add')}
               </Button>
             </DialogTrigger>
             <DialogContent>
@@ -250,10 +250,10 @@ export function TransactionReferenceAmounts() {
               <div className="text-sm text-blue-800">
                 <p className="font-medium">{t('howItWorks', { ns: 'transactions' })}</p>
                 <ul className="mt-2 space-y-1 list-disc list-inside">
-                  <li>{t('howItWorksSteps.step1', { ns: 'transactions' })}</li>
-                  <li>{t('howItWorksSteps.step2', { ns: 'transactions' })}</li>
-                  <li>{t('howItWorksSteps.step3', { ns: 'transactions' })}</li>
-                  <li>{t('howItWorksSteps.step4', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps:step1', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps:step2', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps:step3', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps:step4', { ns: 'transactions' })}</li>
                 </ul>
               </div>
             </div>
@@ -310,7 +310,7 @@ function ReferenceCard({ reference, onUpdate }: ReferenceCardProps) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t('common.edit')} {getCategoryLabel(reference.category)}</DialogTitle>
+              <DialogTitle>{t('common:edit')} {getCategoryLabel(reference.category)}</DialogTitle>
             </DialogHeader>
             <EditReferenceForm 
               reference={reference} 
@@ -364,7 +364,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
       </div>
       <Button onClick={handleSave} className="w-full">
         <Save className="h-4 w-4 mr-2" />
-        {t('common.save')}
+        {t('common:save')}
       </Button>
     </div>
   )

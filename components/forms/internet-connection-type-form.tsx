@@ -86,13 +86,13 @@ export function InternetConnectionTypeForm({
   return (
     <FormWrapper 
       maxWidth="lg"
-      title={initialData ? t('internetConnections.editConnectionType') : t('internetConnections.addNewConnectionType')}
-      description={initialData ? t('internetConnections.updateConnectionInfo') : t('internetConnections.createNewConnectionType')}
+      title={initialData ? t('internetConnections:editConnectionType') : t('internetConnections:addNewConnectionType')}
+      description={initialData ? t('internetConnections:updateConnectionInfo') : t('internetConnections:createNewConnectionType')}
       icon="🌐"
     >
       <FormSection 
-        title={t('internetConnections.connectionDetails')}
-        description={t('internetConnections.enterConnectionInfo')}
+        title={t('internetConnections:connectionDetails')}
+        description={t('internetConnections:enterConnectionInfo')}
         icon="📡"
         colorScheme="purple"
       >
@@ -104,9 +104,9 @@ export function InternetConnectionTypeForm({
                 name="type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('internetConnections.type')} *</FormLabel>
+                    <FormLabel>{t('internetConnections:type')} *</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('internetConnections.typePlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
+                      <Input placeholder={t('internetConnections:typePlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,9 +117,9 @@ export function InternetConnectionTypeForm({
                 name="speed"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('internetConnections.speed')}</FormLabel>
+                    <FormLabel>{t('internetConnections:speed')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('internetConnections.speedPlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
+                      <Input placeholder={t('internetConnections:speedPlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -130,9 +130,9 @@ export function InternetConnectionTypeForm({
                 name="provider"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('internetConnections.provider')}</FormLabel>
+                    <FormLabel>{t('internetConnections:provider')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('internetConnections.providerPlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
+                      <Input placeholder={t('internetConnections:providerPlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -143,9 +143,9 @@ export function InternetConnectionTypeForm({
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('internetConnections.status')}</FormLabel>
+                    <FormLabel>{t('internetConnections:status')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('internetConnections.statusPlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
+                      <Input placeholder={t('internetConnections:statusPlaceholder')} {...field} value={field.value ?? ""} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -156,11 +156,11 @@ export function InternetConnectionTypeForm({
                 name="cost"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('internetConnections.cost')}</FormLabel>
+                    <FormLabel>{t('internetConnections:cost')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number" 
-                        placeholder={t('internetConnections.costPlaceholder')} 
+                        placeholder={t('internetConnections:costPlaceholder')} 
                         {...field} 
                         value={field.value?.toString() ?? ''} 
                         className="bg-white" 
@@ -172,7 +172,7 @@ export function InternetConnectionTypeForm({
               />
             </div>
             <Button type="submit" className="w-full">
-              {initialData ? t('internetConnections.saveChanges') : t('internetConnections.create')}
+              {initialData ? t('internetConnections:saveChanges') : t('internetConnections:create')}
             </Button>
           </form>
         </Form>

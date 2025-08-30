@@ -2,7 +2,11 @@ import { getOwners } from "@/app/actions/owners"
 import { getZoneAreas } from "@/app/actions/zone-areas"
 import { getInternetConnectionTypes } from "@/app/actions/internet-connections"
 import { NewLoftFormWrapper } from '@/components/lofts/new-loft-form'
+<<<<<<< HEAD
 // Server-side translations removed for react-i18next compatibility
+=======
+import { getTranslations } from "next-intl/server"
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { cookies } from "next/headers"
 
 export default async function NewLoftPage() {

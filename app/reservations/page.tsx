@@ -51,7 +51,7 @@ export default function ReservationsPage() {
   // Mock data for professional demo
   const stats = [
     {
-      title: t('analytics.totalReservations'),
+      title: t('analytics:totalReservations'),
       value: '247',
       change: '+12%',
       trend: 'up',
@@ -59,7 +59,7 @@ export default function ReservationsPage() {
       color: 'bg-blue-500'
     },
     {
-      title: t('analytics.monthlyRevenue'),
+      title: t('analytics:monthlyRevenue'),
       value: '€18,420',
       change: '+8.2%',
       trend: 'up',
@@ -67,7 +67,7 @@ export default function ReservationsPage() {
       color: 'bg-green-500'
     },
     {
-      title: t('analytics.occupancyRate'),
+      title: t('analytics:occupancyRate'),
       value: '87%',
       change: '+5.1%',
       trend: 'up',
@@ -75,7 +75,7 @@ export default function ReservationsPage() {
       color: 'bg-purple-500'
     },
     {
-      title: t('analytics.guestSatisfaction'),
+      title: t('analytics:guestSatisfaction'),
       value: '4.8',
       change: '+0.3',
       trend: 'up',
@@ -153,21 +153,21 @@ export default function ReservationsPage() {
                 className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white rounded-lg transition-all duration-200"
               >
                 <Calendar className="h-4 w-4" />
-                {t('tabs.calendar')}
+                {t('tabs:calendar')}
               </TabsTrigger>
               <TabsTrigger 
                 value="list" 
                 className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white rounded-lg transition-all duration-200"
               >
                 <List className="h-4 w-4" />
-                {t('tabs.list')}
+                {t('tabs:list')}
               </TabsTrigger>
               <TabsTrigger 
                 value="analytics" 
                 className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white rounded-lg transition-all duration-200"
               >
                 <BarChart3 className="h-4 w-4" />
-                {t('tabs.analytics')}
+                {t('tabs:analytics')}
               </TabsTrigger>
             </TabsList>
           </div>
@@ -180,7 +180,7 @@ export default function ReservationsPage() {
                   <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
                     <CardTitle className="flex items-center gap-3">
                       <Calendar className="h-5 w-5" />
-                      {t('calendar.title')}
+                      {t('calendar:title')}
                       <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                         {t('live')}
                       </Badge>
@@ -234,9 +234,9 @@ export default function ReservationsPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {[
-                      { action: t('activities.newReservation'), guest: 'Sarah Johnson', time: t('activities.minAgo'), status: 'confirmed' },
-                      { action: t('activities.checkinCompleted'), guest: 'Mike Chen', time: t('activities.hourAgo'), status: 'completed' },
-                      { action: t('activities.bookingCancelled'), guest: 'Emma Wilson', time: t('activities.hoursAgo'), status: 'cancelled' }
+                      { action: t('activities:newReservation'), guest: 'Sarah Johnson', time: t('activities:minAgo'), status: 'confirmed' },
+                      { action: t('activities:checkinCompleted'), guest: 'Mike Chen', time: t('activities:hourAgo'), status: 'completed' },
+                      { action: t('activities:bookingCancelled'), guest: 'Emma Wilson', time: t('activities:hoursAgo'), status: 'cancelled' }
                     ].map((activity, index) => (
                       <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/80 hover:bg-gray-100/80 transition-colors">
                         <div className={`p-1.5 rounded-full ${
@@ -263,7 +263,7 @@ export default function ReservationsPage() {
               <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
                 <CardTitle className="flex items-center gap-3">
                   <MapPin className="h-5 w-5" />
-                  {t('availability.management')}
+                  {t('availability:management')}
                   <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                     {t('pro')}
                   </Badge>
@@ -283,7 +283,7 @@ export default function ReservationsPage() {
               <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
                 <CardTitle className="flex items-center gap-3">
                   <List className="h-5 w-5" />
-                  {t('list.title')}
+                  {t('list:title')}
                   <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                     {t('comingSoon')}
                   </Badge>
@@ -294,14 +294,14 @@ export default function ReservationsPage() {
                   <div className="mx-auto w-24 h-24 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full flex items-center justify-center">
                     <List className="h-12 w-12 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">{t('list.advancedTitle')}</h3>
+                  <h3 className="text-xl font-semibold text-gray-900">{t('list:advancedTitle')}</h3>
                   <p className="text-gray-600 max-w-md mx-auto">
-                    {t('list.advancedDescription')}
+                    {t('list:advancedDescription')}
                   </p>
                   <div className="flex justify-center gap-2 pt-4">
-                    <Badge variant="outline" className="border-emerald-200 text-emerald-700">{t('list.advancedFilters')}</Badge>
-                    <Badge variant="outline" className="border-teal-200 text-teal-700">{t('list.bulkActions')}</Badge>
-                    <Badge variant="outline" className="border-blue-200 text-blue-700">{t('list.exportOptions')}</Badge>
+                    <Badge variant="outline" className="border-emerald-200 text-emerald-700">{t('list:advancedFilters')}</Badge>
+                    <Badge variant="outline" className="border-teal-200 text-teal-700">{t('list:bulkActions')}</Badge>
+                    <Badge variant="outline" className="border-blue-200 text-blue-700">{t('list:exportOptions')}</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -312,10 +312,10 @@ export default function ReservationsPage() {
             {/* Enhanced Analytics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: t('analytics.totalReservations'), value: '247', change: '+12%', icon: Calendar, color: 'from-blue-600 to-indigo-600' },
-                { title: t('analytics.totalRevenue'), value: '€18,420', change: '+8.2%', icon: TrendingUp, color: 'from-green-600 to-emerald-600' },
-                { title: t('analytics.occupancyRate'), value: '87%', change: '+5.1%', icon: Building2, color: 'from-purple-600 to-pink-600' },
-                { title: t('analytics.averageStay'), value: '3.2', change: '+0.4', icon: Clock, color: 'from-orange-600 to-red-600' }
+                { title: t('analytics:totalReservations'), value: '247', change: '+12%', icon: Calendar, color: 'from-blue-600 to-indigo-600' },
+                { title: t('analytics:totalRevenue'), value: '€18,420', change: '+8.2%', icon: TrendingUp, color: 'from-green-600 to-emerald-600' },
+                { title: t('analytics:occupancyRate'), value: '87%', change: '+5.1%', icon: Building2, color: 'from-purple-600 to-pink-600' },
+                { title: t('analytics:averageStay'), value: '3.2', change: '+0.4', icon: Clock, color: 'from-orange-600 to-red-600' }
               ].map((metric, index) => (
                 <Card key={index} className="border-0 shadow-lg bg-white/90 backdrop-blur-sm overflow-hidden group hover:shadow-xl transition-all duration-300">
                   <CardContent className="p-6">
@@ -330,7 +330,7 @@ export default function ReservationsPage() {
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-gray-600">{metric.title}</p>
                       <p className="text-3xl font-bold text-gray-900">{metric.value}</p>
-                      <p className="text-xs text-gray-500">{t('analytics.vsLastMonth')}</p>
+                      <p className="text-xs text-gray-500">{t('analytics:vsLastMonth')}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -344,7 +344,7 @@ export default function ReservationsPage() {
                 <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <TrendingUp className="h-5 w-5" />
-                    {t('analytics.revenueAnalytics')}
+                    {t('analytics:revenueAnalytics')}
                     <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                       {t('proTag')}
                     </Badge>
@@ -355,13 +355,13 @@ export default function ReservationsPage() {
                     <div className="mx-auto w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
                       <TrendingUp className="h-10 w-10 text-blue-600" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">{t('analytics.advancedRevenueTracking')}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('analytics:advancedRevenueTracking')}</h3>
                     <p className="text-gray-600">
-                      {t('analytics.advancedRevenueDescription')}
+                      {t('analytics:advancedRevenueDescription')}
                     </p>
                     <div className="flex justify-center gap-2 pt-2">
-                      <Badge variant="outline" className="border-blue-200 text-blue-700">{t('analytics.forecasting')}</Badge>
-                      <Badge variant="outline" className="border-indigo-200 text-indigo-700">{t('analytics.trends')}</Badge>
+                      <Badge variant="outline" className="border-blue-200 text-blue-700">{t('analytics:forecasting')}</Badge>
+                      <Badge variant="outline" className="border-indigo-200 text-indigo-700">{t('analytics:trends')}</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -372,7 +372,7 @@ export default function ReservationsPage() {
                 <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <Building2 className="h-5 w-5" />
-                    {t('analytics.occupancyInsights')}
+                    {t('analytics:occupancyInsights')}
                     <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                       {t('aiTag')}
                     </Badge>
@@ -383,13 +383,13 @@ export default function ReservationsPage() {
                     <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center">
                       <Building2 className="h-10 w-10 text-purple-600" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">{t('analytics.smartOccupancyAnalysis')}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('analytics:smartOccupancyAnalysis')}</h3>
                     <p className="text-gray-600">
-                      {t('analytics.smartOccupancyDescription')}
+                      {t('analytics:smartOccupancyDescription')}
                     </p>
                     <div className="flex justify-center gap-2 pt-2">
-                      <Badge variant="outline" className="border-purple-200 text-purple-700">{t('analytics.aiInsights')}</Badge>
-                      <Badge variant="outline" className="border-pink-200 text-pink-700">{t('analytics.optimization')}</Badge>
+                      <Badge variant="outline" className="border-purple-200 text-purple-700">{t('analytics:aiInsights')}</Badge>
+                      <Badge variant="outline" className="border-pink-200 text-pink-700">{t('analytics:optimization')}</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -401,7 +401,7 @@ export default function ReservationsPage() {
               <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
                 <CardTitle className="flex items-center gap-3">
                   <BarChart3 className="h-5 w-5" />
-                  {t('analytics.title')}
+                  {t('analytics:title')}
                   <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                     {t('enterpriseTag')}
                   </Badge>
@@ -413,27 +413,27 @@ export default function ReservationsPage() {
                     <BarChart3 className="h-16 w-16 text-emerald-600" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-gray-900">{t('analytics.enterpriseSuite')}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900">{t('analytics:enterpriseSuite')}</h3>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                      {t('analytics.enterpriseDescription')}
+                      {t('analytics:enterpriseDescription')}
                     </p>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-emerald-600">24/7</div>
-                      <div className="text-sm text-gray-600">{t('analytics.realTimeMonitoring')}</div>
+                      <div className="text-sm text-gray-600">{t('analytics:realTimeMonitoring')}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-blue-600">50+</div>
-                      <div className="text-sm text-gray-600">{t('analytics.keyMetrics')}</div>
+                      <div className="text-sm text-gray-600">{t('analytics:keyMetrics')}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-purple-600">AI</div>
-                      <div className="text-sm text-gray-600">{t('analytics.poweredInsights')}</div>
+                      <div className="text-sm text-gray-600">{t('analytics:poweredInsights')}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-orange-600">∞</div>
-                      <div className="text-sm text-gray-600">{t('analytics.customReports')}</div>
+                      <div className="text-sm text-gray-600">{t('analytics:customReports')}</div>
                     </div>
                   </div>
                 </div>
@@ -450,7 +450,7 @@ export default function ReservationsPage() {
                 <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg">
                   <Plus className="h-5 w-5 text-white" />
                 </div>
-                {t('form.title')}
+                {t('form:title')}
               </DialogTitle>
             </DialogHeader>
             <ReservationFormHybrid
@@ -470,7 +470,7 @@ export default function ReservationsPage() {
                 <div className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg">
                   <Calendar className="h-5 w-5 text-white" />
                 </div>
-                {t('details.title')}
+                {t('details:title')}
               </DialogTitle>
             </DialogHeader>
             {selectedReservation && (
@@ -480,7 +480,7 @@ export default function ReservationsPage() {
                     <CardContent className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
                         <Users className="h-4 w-4 text-blue-600" />
-                        {t('details.guest')}
+                        {t('details:guest')}
                       </h4>
                       <p className="font-medium">{selectedReservation.guest_name}</p>
                       <p className="text-sm text-gray-600">{selectedReservation.guest_email}</p>
@@ -491,7 +491,7 @@ export default function ReservationsPage() {
                     <CardContent className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
                         <Calendar className="h-4 w-4 text-green-600" />
-                        {t('details.dates')}
+                        {t('details:dates')}
                       </h4>
                       <p className="font-medium">{selectedReservation.check_in_date} - {selectedReservation.check_out_date}</p>
                       <p className="text-sm text-gray-600">
@@ -506,7 +506,7 @@ export default function ReservationsPage() {
                     <CardContent className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
                         <Building2 className="h-4 w-4 text-purple-600" />
-                        {t('details.loft')}
+                        {t('details:loft')}
                       </h4>
                       <p className="font-medium">{selectedReservation.lofts?.name}</p>
                     </CardContent>
@@ -516,7 +516,7 @@ export default function ReservationsPage() {
                     <CardContent className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
                         <TrendingUp className="h-4 w-4 text-emerald-600" />
-                        {t('details.total')}
+                        {t('details:total')}
                       </h4>
                       <p className="text-2xl font-bold text-emerald-600">{selectedReservation.total_amount} DZD</p>
                     </CardContent>
@@ -528,7 +528,7 @@ export default function ReservationsPage() {
                     <CardContent className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
                         <Star className="h-4 w-4 text-yellow-600" />
-                        {t('details.specialRequests')}
+                        {t('details:specialRequests')}
                       </h4>
                       <p className="text-gray-700">{selectedReservation.special_requests}</p>
                     </CardContent>

@@ -6,7 +6,11 @@ import { TaskFormData, TaskStatusUpdateData } from '@/lib/validations'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from '@/components/ui/use-toast'
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+import { useTranslations } from 'next-intl';
+>>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import type { User } from '@/lib/types'
 
 interface NewTaskFormProps {

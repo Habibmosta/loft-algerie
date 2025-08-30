@@ -24,10 +24,10 @@ export function CategoriesList({ categories, onDelete }: CategoriesListProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t('common.name')}</TableHead>
-          <TableHead>{t('settings.categories.description')}</TableHead>
+          <TableHead>{t('common:name')}</TableHead>
+          <TableHead>{t('settings:categories.description')}</TableHead>
           <TableHead>{t('type', { ns: 'transactions' })}</TableHead>
-          <TableHead className="text-center">{t('common.actions')}</TableHead>
+          <TableHead className="text-center">{t('common:actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -48,19 +48,19 @@ export function CategoriesList({ categories, onDelete }: CategoriesListProps) {
               <div className="flex justify-center gap-2">
                 <Button variant="outline" size="sm" asChild>
                   <Link href={`/settings/categories/edit/${category.id}`}>
-                    {t('common.edit')}
+                    {t('common:edit')}
                   </Link>
                 </Button>
                 <Button
                   variant="destructive"
                   size="sm"
                   onClick={async () => {
-                    if (confirm(t('settings.categories.deleteConfirm'))) {
+                    if (confirm(t('settings:categories.deleteConfirm'))) {
                       await onDelete(category.id);
                     }
                   }}
                 >
-                  {t('common.delete')}
+                  {t('common:delete')}
                 </Button>
               </div>
             </TableCell>
