@@ -1,25 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-console.log('🔧 Correction de la configuration i18next...');
-
-// Vérifier les fichiers de configuration i18n
-const configFiles = [
-  'lib/i18n/index.ts',
-  'lib/i18n/settings.ts',
-  'lib/i18n/context.tsx'
-];
-
-configFiles.forEach(file => {
-  if (fs.existsSync(file)) {
-    console.log(`✅ ${file} existe`);
-  } else {
-    console.log(`❌ ${file} manquant`);
-  }
-});
-
-// Créer une configuration i18n simplifiée
-const simplifiedConfig = `import i18n from 'i18next'
+import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import HttpBackend from 'i18next-http-backend'
 
@@ -67,15 +46,3 @@ export function initializeI18n(options = {}) {
 
 export { SUPPORTED_LANGUAGES, BASIC_NAMESPACES };
 export default i18n;
-`;
-
-// Sauvegarder la configuration simplifiée
-fs.writeFileSync('lib/i18n/simple-config.ts', simplifiedConfig);
-console.log('✅ Configuration i18n simplifiée créée');
-
-console.log('🎉 Configuration i18n corrigée !');
-console.log('');
-console.log('📋 Prochaines étapes :');
-console.log('1. Redémarrez le serveur de développement');
-console.log('2. Si les erreurs persistent, utilisez la config simplifiée');
-console.log('3. Vérifiez les imports dans vos composants');

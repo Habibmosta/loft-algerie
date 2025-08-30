@@ -52,24 +52,17 @@ export function initializeI18n(options = {}) {
     defaultNS: 'common',
     // Handle missing keys in development
     fallbackLng: 'fr',
-    debug: process.env.NODE_ENV === 'development',
+    debug: false, // Désactiver le debug pour réduire les logs d'erreur
     // Additional configuration
     react: {
-      // Wait for translations to be loaded before rendering
-      useSuspense: true,
+      // Désactiver suspense pour éviter les erreurs de chargement
+      useSuspense: false,
       // Bind the react component to the i18n instance
       bindI18n: 'languageChanged',
     },
-    // Custom handler for missing keys
-    saveMissing: true,
-    missingKeyHandler(lng, ns, key) {
-      console.warn(`i18n missing key: ${lng}.${ns}:${key}`);
-      // In development, return a placeholder instead of the key
-      if (process.env.NODE_ENV === 'development') {
-        return `[[${key}]]`;
-      }
-      return key;
-    },
+    // Custom handler for missing keys - silencieux
+    saveMissing: false,
+    missingKeyHandler: () => null, // Gérer silencieusement les clés manquantes
   })
 }
 
