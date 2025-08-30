@@ -27,7 +27,7 @@ interface LoftGridProps {
 }
 
 export function LoftGrid({ data, filters, isLoading }: LoftGridProps) {
-  const { t } = useTranslation(['availability', 'common'])
+  const { t, i18n } = useTranslation(['availability', 'common'])
   const [selectedLoft, setSelectedLoft] = useState<any>(null)
 
   const getStatusColor = (status: string) => {
@@ -86,6 +86,26 @@ export function LoftGrid({ data, filters, isLoading }: LoftGridProps) {
       default:
         return amenity
     }
+  }
+
+  const translateText = (text: string) => {
+    // Direct mapping for the problematic "availability:unknown"
+    if (text === 'availability:unknown') {
+      const currentLang = i18n.language || 'fr'
+      return currentLang === 'ar' ? 'غير معروف' : currentLang === 'en' ? 'Unknown' : 'Inconnu'
+    }
+    
+    // Handle other availability keys normally
+    if (text.startsWith('availability:')) {
+      const key = text.replace('availability:', '')
+      return t(key)
+    }
+    
+    // Handle test data
+    if (text === 'Propriétaire Test') return t('testOwner')
+    if (text === 'Centre-ville Alger') return t('algerCenterRegion')
+    
+    return text
   }
 
   const filteredData = data.filter(loft => {
@@ -159,7 +179,7 @@ export function LoftGrid({ data, filters, isLoading }: LoftGridProps) {
                   <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
                     <div className="flex items-center gap-1">
                       <MapPin className="h-4 w-4" />
-                      {loft.region}
+                      {translateText(loft.region)}
                     </div>
                     <div className="flex items-center gap-1">
                       <Users className="h-4 w-4" />
@@ -171,7 +191,7 @@ export function LoftGrid({ data, filters, isLoading }: LoftGridProps) {
                 {/* Owner */}
                 <div className="text-sm">
                   <span className="text-muted-foreground">{t('availability:owner')}: </span>
-                  <span className="font-medium">{loft.owner}</span>
+                  <span className="font-medium">{translateText(loft.owner)}</span>
                 </div>
 
                 {/* Amenities */}
@@ -223,11 +243,11 @@ export function LoftGrid({ data, filters, isLoading }: LoftGridProps) {
                               <div className="space-y-1 text-sm">
                                 <div className="flex justify-between">
                                   <span>{t('availability:region')}:</span>
-                                  <span>{selectedLoft.region}</span>
+                                  <span>{translateText(selectedLoft.region)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                   <span>{t('availability:owner')}:</span>
-                                  <span>{selectedLoft.owner}</span>
+                                  <span>{translateText(selectedLoft.owner)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                   <span>{t('availability:capacity')}:</span>

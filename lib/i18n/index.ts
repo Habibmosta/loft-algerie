@@ -7,7 +7,7 @@ import { getOptions } from './settings'
 // Define supported languages and namespaces
 export const SUPPORTED_LANGUAGES = ['en', 'fr', 'ar'] as const;
 export type Language = typeof SUPPORTED_LANGUAGES[number];
-export const NAMESPACES = ['common', 'auth', 'landing', 'bills', 'lofts', 'owners', 'teams', 'reservations', 'transactions', 'analytics', 'conversations', 'dashboard', 'executive', 'internetConnections', 'nav', 'notifications', 'paymentMethods', 'reports', 'settings', 'tasks', 'test', 'testSound', 'testTranslations', 'theme', 'unauthorized', 'zoneAreas'] as const;
+export const NAMESPACES = ['common', 'auth', 'landing', 'bills', 'lofts', 'owners', 'teams', 'reservations', 'transactions', 'analytics', 'conversations', 'dashboard', 'executive', 'internetConnections', 'nav', 'notifications', 'paymentMethods', 'reports', 'settings', 'tasks', 'test', 'testSound', 'testTranslations', 'theme', 'unauthorized', 'zoneAreas', 'availability'] as const;
 export type Namespace = typeof NAMESPACES[number];
 
 let initialized = false;

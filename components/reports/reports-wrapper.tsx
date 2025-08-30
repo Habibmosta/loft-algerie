@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslation } from "react-i18next"
 import ReportChartsWrapper from '@/app/reports/report-charts-wrapper'
 
 interface LoftRevenue {
@@ -16,20 +16,20 @@ interface ReportsWrapperProps {
 }
 
 export function ReportsWrapper({ loftRevenue, monthlyRevenue }: ReportsWrapperProps) {
-  const { t } = useTranslation(["common", "analytics"]);
+  const { t } = useTranslation("reports");
 
   return (
     <div className="space-y-8">
       <div className="text-center space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium">
           <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-          {t('analytics.realTimeDataBadge')}
+          {t('realTimeDataBadge')}
         </div>
         <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          {t('analytics.title')}
+          {t('title')}
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          {t('analytics.subtitle')}
+          {t('subtitle')}
         </p>
       </div>
 

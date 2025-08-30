@@ -1,59 +1,28 @@
 {
-  "title": "الإعدادات",
-  "subtitle": "إدارة إعدادات التطبيق والتفضيلات",
   "categories": {
-    "subtitle": "إدارة فئات المعاملات",
+    "subtitle": "إدارة فئات الإيرادات والمصروفات",
     "addNew": "إضافة فئة جديدة",
-    "editCategory": "تعديل الفئة",
-    "createCategory": "إنشاء فئة",
-    "updateCategoryInfo": "تحديث معلومات الفئة",
-    "createNewCategory": "إنشاء فئة معاملات جديدة",
-    "categoryDetails": "تفاصيل الفئة",
-    "enterCategoryInfo": "أدخل معلومات الفئة أدناه",
-    "categoryName": "اسم الفئة",
-    "categoryType": "نوع الفئة",
-    "description": "الوصف",
-    "namePlaceholder": "أدخل اسم الفئة",
-    "descriptionPlaceholder": "أدخل وصف الفئة (اختياري)",
-    "selectType": "اختر نوع الفئة",
-    "saveChanges": "حفظ التغييرات",
-    "categoryCreated": "تم إنشاء الفئة '{name}' بنجاح",
-    "categoryUpdated": "تم تحديث الفئة '{name}' بنجاح",
-    "saveError": "فشل في حفظ الفئة - يرجى المحاولة مرة أخرى",
-    "incomeCategories": "فئات الدخل",
+    "incomeCategories": "فئات الإيرادات",
+    "manageCategoriesIncome": "إدارة فئات الإيرادات",
     "expenseCategories": "فئات المصروفات",
-    "manageCategoriesIncome": "فئات معاملات الدخل",
-    "manageCategoriesExpense": "فئات معاملات المصروفات",
-    "noIncomeCategories": "لا توجد فئات دخل",
-    "noExpenseCategories": "لا توجد فئات مصروفات",
+    "manageCategoriesExpense": "إدارة فئات المصروفات",
     "allCategories": "جميع الفئات",
-    "totalCategories": "المجموع: {count} فئة",
-    "deleteConfirm": "هل أنت متأكد من أنك تريد حذف هذه الفئة؟"
+    "totalCategories": "{{count}} فئة",
+    "totalCategories_plural": "{{count}} فئة",
+    "description": "الوصف",
+    "noIncomeCategories": "لا توجد فئات إيرادات حتى الآن",
+    "noExpenseCategories": "لا توجد فئات مصروفات حتى الآن",
+    "deleteConfirm": "هل أنت متأكد من حذف هذه الفئة؟"
   },
   "currencies": {
-    "subtitle": "إدارة العملات للمعاملات",
+    "subtitle": "إدارة العملات وأسعار الصرف",
     "addNew": "إضافة عملة جديدة",
     "defaultCurrency": "العملة الافتراضية",
-    "defaultCurrencyDesc": "هذه العملة تُستخدم كافتراضية لجميع المعاملات",
+    "defaultCurrencyDesc": "العملة الرئيسية المستخدمة في العمليات الحسابية",
     "default": "افتراضي",
     "allCurrencies": "جميع العملات",
-    "totalCurrencies": "المجموع: {count} عملة",
-    "noCurrenciesFound": "لا توجد عملات",
-    "addFirstCurrency": "أضف عملتك الأولى للبدء",
-    "setAsDefault": "تعيين كافتراضي"
+    "totalCurrencies": "{{count}} عملة",
+    "totalCurrencies_plural": "{{count}} عملة"
   },
-  "paymentMethods": {
-    "subtitle": "إدارة طرق الدفع",
-    "addPaymentMethod": "إضافة طريقة دفع",
-    "existingMethods": "طرق الدفع الموجودة",
-    "totalMethods": "المجموع: {count} طريقة دفع",
-    "noMethodsFound": "لا توجد طرق دفع",
-    "addFirstMethod": "أضف طريقة الدفع الأولى للبدء",
-    "additionalDetails": "تفاصيل إضافية متاحة",
-    "createdOn": "تم الإنشاء في"
-  },
-  "zones": {
-    "title": "المناطق",
-    "subtitle": "إدارة المناطق الجغرافية"
-  }
+  "type": "النوع"
 }

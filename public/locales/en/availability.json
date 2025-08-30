@@ -1,11 +1,11 @@
 {
   "title": "Availability Check",
   "subtitle": "Check real-time availability and book instantly",
-  "featuresText": "Real-time Search • Advanced Filters • Direct Booking",
+  "featuresText": "Real-time search • Advanced filters • Direct booking",
   
   "filters": "Filters",
   "filtersDescription": "Refine your search with our advanced filters",
-  "resetFilters": "Reset Filters",
+  "resetFilters": "Reset filters",
   "activeFilters": "{{count}} active filter(s)",
   
   "dateRange": "Date Range",
@@ -31,7 +31,7 @@
   "allLofts": "All Lofts",
   
   "availabilityOverview": "Availability Overview",
-  "availabilityDescription": "View real-time availability of your lofts",
+  "availabilityDescription": "View your lofts' availability in real-time",
   "calendarView": "Calendar View",
   "gridView": "Grid View",
   
@@ -70,6 +70,9 @@
   "loftDetailsDescription": "Detailed information and booking options",
   
   "showingResults": "Showing {{count}} result(s) out of {{total}}",
-  "noLoftsFound": "No Lofts Found",
-  "noLoftsFoundDescription": "No lofts match your search criteria. Try adjusting your filters."
+  "noLoftsFound": "No lofts found",
+  "noLoftsFoundDescription": "No lofts match your search criteria. Try modifying your filters.",
+  
+  "testOwner": "Test Owner",
+  "algerCenterRegion": "Algiers Center"
 }

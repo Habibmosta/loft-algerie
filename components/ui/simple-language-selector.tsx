@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslation } from "react-i18next"
 import {
   DropdownMenu,
   DropdownMenuContent,

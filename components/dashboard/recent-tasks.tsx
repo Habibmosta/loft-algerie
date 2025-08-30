@@ -17,7 +17,7 @@ interface RecentTasksProps {
 }
 
 export function RecentTasks({ tasks }: RecentTasksProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['dashboard']);
   
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -35,8 +35,8 @@ export function RecentTasks({ tasks }: RecentTasksProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('dashboard.recentTasks')}</CardTitle>
-        <CardDescription>{t('dashboard.latestTaskUpdates')}</CardDescription>
+        <CardTitle>{t('dashboard:recentTasks')}</CardTitle>
+        <CardDescription>{t('dashboard:latestTaskUpdates')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -48,13 +48,13 @@ export function RecentTasks({ tasks }: RecentTasksProps) {
                   {task.loft?.name} • {task.assigned_user?.full_name}
                 </p>
                 {task.due_date && (
-                  <p className="text-xs text-muted-foreground">{t('dashboard.due')}: {format(new Date(task.due_date), "d MMM yyyy")}</p>
+                  <p className="text-xs text-muted-foreground">{t('dashboard:due')}: {format(new Date(task.due_date), "d MMM yyyy")}</p>
                 )}
               </div>
               <Badge className={getStatusColor(task.status)}>
-                {task.status === 'todo' ? t('dashboard.toDo') : 
-                 task.status === 'in_progress' ? t('dashboard.inProgress') : 
-                 task.status === 'completed' ? t('dashboard.completed') : task.status}
+                {task.status === 'todo' ? t('dashboard:tasks.status.todo') : 
+                 task.status === 'in_progress' ? t('dashboard:tasks.status.inProgress') : 
+                 task.status === 'completed' ? t('dashboard:tasks.status.completed') : task.status}
               </Badge>
             </div>
           ))}

@@ -117,7 +117,7 @@ const UTILITY_CONFIG = {
 // Utiliser directement le système de traduction existant
 
 export function ModernDashboard() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['dashboard']);
   
   // Utiliser directement le système de traduction existant
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
@@ -145,6 +145,7 @@ export function ModernDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [selectedBill, setSelectedBill] = useState<BillAlert | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [defaultCurrency, setDefaultCurrency] = useState<{symbol: string, code: string}>({symbol: 'DA', code: 'DZD'});
   const supabase = createClient();
 
   useEffect(() => {
@@ -154,6 +155,17 @@ export function ModernDashboard() {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
+
+      // Fetch default currency
+      const { data: currencyData } = await supabase
+        .from('currencies')
+        .select('symbol, code')
+        .eq('is_default', true)
+        .single();
+      
+      if (currencyData) {
+        setDefaultCurrency(currencyData);
+      }
 
       // Fetch bills data
       const [upcomingRes, overdueRes] = await Promise.all([
@@ -369,7 +381,7 @@ export function ModernDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-sm font-medium">{t("dashboard:monthlyRevenue")}</p>
-                <p className="text-3xl font-bold">${stats.monthlyRevenue.toLocaleString()}</p>
+                <p className="text-3xl font-bold">{stats.monthlyRevenue.toLocaleString()} {defaultCurrency.symbol}</p>
                 <div className="flex items-center text-green-100 text-xs mt-1">
                   <ArrowUpRight className="h-3 w-3 mr-1" />
                   +12% {t("dashboard:thisMonth")}
@@ -728,7 +740,7 @@ export function ModernDashboard() {
                     </p>
                     {task.due_date && (
                       <p className="text-xs text-muted-foreground">
-                        {t("dashboard:bills.due")}: {format(new Date(task.due_date), "d MMM yyyy")}
+                        {t("dashboard:due")}: {format(new Date(task.due_date), "d MMM yyyy")}
                       </p>
                     )}
                   </div>

@@ -1,0 +1,26 @@
+@echo off
+echo Configuration des variables d'environnement Vercel...
+
+vercel env add DATABASE_URL production
+echo postgresql://postgres.mhngbluefyucoesgcjoy:Canada!2025Mosta@db.mhngbluefyucoesgcjoy.supabase.co:5432/postgres
+
+vercel env add NEXT_PUBLIC_SUPABASE_URL production
+echo https://mhngbluefyucoesgcjoy.supabase.co
+
+vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
+echo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1obmdibHVlZnl1Y29lc2djam95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxMzE3MjIsImV4cCI6MjA2MTcwNzcyMn0.buEObYOAzS8eCKZ6tti0gER1Xh1pjmEAMbDJVnX5WDU
+
+vercel env add SUPABASE_SERVICE_ROLE_KEY production
+echo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1obmdibHVlZnl1Y29lc2djam95Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjEzMTcyMiwiZXhwIjoyMDYxNzA3NzIyfQ.GWP_COePfH8YlwuEX7zRc55U5p4XSlCJE5hJehGIurw
+
+vercel env add AUTH_SECRET production
+echo YynMrpTTHR0fhowhLL+iUUgC6bWAiBi/tOccLgVA7O0=
+
+vercel env add NEXT_PUBLIC_APP_URL production
+echo https://loft-algerie-gjzqjhi20-nextjsreact1s-projects.vercel.app
+
+echo Configuration terminée !
+echo Redéploiement en cours...
+vercel --prod
+
+pause

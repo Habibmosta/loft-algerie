@@ -1,6 +1,6 @@
-/* Animations pour les composants Settings */
+/* Animations personnalisées pour les pages de paramètres */
 
-@keyframes fadeInUp {
+@keyframes slideInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -11,18 +11,7 @@
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
+@keyframes fadeInScale {
   from {
     opacity: 0;
     transform: scale(0.95);
@@ -30,15 +19,6 @@
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
   }
 }
 
@@ -51,24 +31,25 @@
   }
 }
 
-/* Classes d'animation */
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary), 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(var(--primary), 0);
+  }
 }
 
-.animate-slide-in-left {
-  animation: slideInLeft 0.5s ease-out forwards;
+/* Classes utilitaires pour les animations */
+.animate-slide-up {
+  animation: slideInUp 0.6s ease-out forwards;
 }
 
-.animate-scale-in {
-  animation: scaleIn 0.4s ease-out forwards;
+.animate-fade-scale {
+  animation: fadeInScale 0.5s ease-out forwards;
 }
 
-.animate-pulse-slow {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.shimmer {
+.animate-shimmer {
   background: linear-gradient(
     90deg,
     transparent,
@@ -79,7 +60,11 @@
   animation: shimmer 2s infinite;
 }
 
-/* Effets hover personnalisés */
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Effets de hover améliorés */
 .hover-lift {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -89,101 +74,81 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.hover-glow {
-  transition: all 0.3s ease;
+/* Gradients personnalisés */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
 }
 
-.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(var(--primary), 0.3);
+.gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
-/* Animations de chargement */
-.loading-skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+.gradient-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
 
-.dark .loading-skeleton {
-  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
-  background-size: 200% 100%;
+.gradient-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
 }
 
-/* Transitions fluides */
-.smooth-transition {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Effets de focus améliorés */
-.focus-ring {
-  transition: all 0.2s ease;
-}
-
-.focus-ring:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
-  border-color: rgb(var(--primary));
-}
-
-/* Animations staggered pour les listes */
-.stagger-animation > * {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
-.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
-.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
-.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
-.stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
-.stagger-animation > *:nth-child(6) { animation-delay: 0.6s; }
-
-/* Effets de gradient animés */
-.gradient-animation {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Micro-interactions */
-.micro-bounce {
-  transition: transform 0.1s ease;
-}
-
-.micro-bounce:active {
-  transform: scale(0.98);
-}
-
-/* Indicateurs de statut animés */
-.status-indicator {
+/* Effets de bordure animés */
+.border-gradient {
   position: relative;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.5)) border-box;
+  border: 2px solid transparent;
 }
 
-.status-indicator::before {
+.border-gradient-hover:hover {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8)) border-box;
+}
+
+/* Styles pour les cartes premium */
+.card-premium {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-premium::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  animation: pulse 2s infinite;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
 }
 
-.status-active::before {
-  background-color: rgba(34, 197, 94, 0.2);
+.card-premium:hover::before {
+  left: 100%;
 }
 
-.status-inactive::before {
-  background-color: rgba(239, 68, 68, 0.2);
+/* Responsive design amélioré */
+@media (max-width: 768px) {
+  .animate-slide-up {
+    animation-duration: 0.4s;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
 }
 
-.status-maintenance::before {
-  background-color: rgba(245, 158, 11, 0.2);
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+  }
 }

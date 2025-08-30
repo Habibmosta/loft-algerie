@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { ChevronLeft, ChevronRight, Calendar, Eye, BookOpen, Phone } from 'lucide-react'
 import { format, addDays, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay } from 'date-fns'
-import { fr } from 'date-fns/locale'
+import { fr, ar } from 'date-fns/locale'
 
 interface AvailabilityCalendarProps {
   data: any[]
@@ -17,7 +17,31 @@ interface AvailabilityCalendarProps {
 }
 
 export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityCalendarProps) {
-  const { t } = useTranslation(['availability', 'common'])
+  const { t, language } = useTranslation(['availability', 'common'])
+  
+  // Get the appropriate locale for date formatting
+  const getDateLocale = () => {
+    switch (language) {
+      case 'ar':
+        return ar
+      case 'fr':
+        return fr
+      default:
+        return fr
+    }
+  }
+
+  // Get weekday names based on current language
+  const getWeekdayNames = () => {
+    const locale = getDateLocale()
+    const baseDate = new Date(2024, 0, 1) // Monday, January 1, 2024
+    const weekdays = []
+    for (let i = 0; i < 7; i++) {
+      const date = addDays(baseDate, i)
+      weekdays.push(format(date, 'EEE', { locale }))
+    }
+    return weekdays
+  }
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedLoft, setSelectedLoft] = useState<string | null>(null)
 
@@ -90,7 +114,7 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <h3 className="text-lg font-semibold">
-            {format(currentMonth, 'MMMM yyyy', { locale: fr })}
+            {format(currentMonth, 'MMMM yyyy', { locale: getDateLocale() })}
           </h3>
           <div className="flex items-center gap-2">
             <Button
@@ -159,9 +183,9 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
                 <div>
                   <CardTitle className="text-lg">{loft.name}</CardTitle>
                   <CardDescription className="flex items-center gap-4 mt-1">
-                    <span>{loft.region}</span>
+                    <span>{loft.region === 'availability:unknown' ? (language === 'ar' ? 'غير معروف' : language === 'en' ? 'Unknown' : 'Inconnu') : loft.region}</span>
                     <span>•</span>
-                    <span>{loft.owner}</span>
+                    <span>{loft.owner === 'availability:unknown' ? (language === 'ar' ? 'غير معروف' : language === 'en' ? 'Unknown' : 'Inconnu') : loft.owner}</span>
                     <span>•</span>
                     <span>{loft.pricePerNight.toLocaleString()} DA/nuit</span>
                   </CardDescription>
@@ -180,7 +204,7 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
             <CardContent>
               <div className="grid grid-cols-7 gap-1">
                 {/* Day headers */}
-                {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day) => (
+                {getWeekdayNames().map((day) => (
                   <div key={day} className="p-2 text-center text-sm font-medium text-muted-foreground">
                     {day}
                   </div>
@@ -218,7 +242,7 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
                         </TooltipTrigger>
                         <TooltipContent>
                           <div className="space-y-1">
-                            <p className="font-medium">{format(day, 'dd MMMM yyyy', { locale: fr })}</p>
+                            <p className="font-medium">{format(day, 'dd MMMM yyyy', { locale: getDateLocale() })}</p>
                             <p className="text-sm">{getStatusText(dayStatus)}</p>
                             <p className="text-sm">{loft.pricePerNight.toLocaleString()} DA</p>
                           </div>

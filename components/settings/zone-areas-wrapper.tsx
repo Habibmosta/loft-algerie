@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslation } from "react-i18next"
 import ZoneAreasClientWrapper from "@/app/settings/zone-areas/zone-areas-client-wrapper"
 import type { ZoneArea } from "@/app/actions/zone-areas"
 

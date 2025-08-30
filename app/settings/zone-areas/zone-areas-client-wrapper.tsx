@@ -72,44 +72,59 @@ export default function ZoneAreasClientWrapper({ initialZoneAreas, translations:
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
-              <MapPin className="h-8 w-8 text-primary" />
-            </div>
-            {tStrings.pageTitle}
-          </h1>
-          <p className="text-muted-foreground text-lg">{tStrings.subtitle}</p>
+    <div className="space-y-8 animate-in fade-in-0 duration-700">
+      {/* Header avec design premium */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 border border-primary/20">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-50"></div>
+        <div className="absolute top-4 right-4 opacity-10">
+          <MapPin className="h-32 w-32 text-primary" />
         </div>
-        {!showForm && (
-          <Button
-            onClick={() => setShowForm(true)}
-            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            {tStrings.addNew}
-          </Button>
-        )}
+        <div className="relative flex justify-between items-center">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 shadow-lg">
+                <MapPin className="h-8 w-8 text-primary" />
+              </div>
+              {tStrings.pageTitle}
+            </h1>
+            <p className="text-muted-foreground text-lg max-w-2xl">{tStrings.subtitle}</p>
+            <div className="flex items-center gap-4 pt-2">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary">
+                <MapPin className="h-4 w-4" />
+                <span className="text-sm font-medium">{zoneAreas.length} zones configurées</span>
+              </div>
+            </div>
+          </div>
+          {!showForm && (
+            <Button
+              onClick={() => setShowForm(true)}
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 px-6 py-3 h-auto"
+            >
+              <Plus className="mr-2 h-5 w-5" />
+              {tStrings.addNew}
+            </Button>
+          )}
+        </div>
       </div>
 
+      {/* Formulaire avec animation et design amélioré */}
       {showForm && (
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-900/50">
-          <CardHeader className="bg-gradient-to-r from-primary/5 to-transparent">
-            <CardTitle className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-primary/10">
-                {editingZoneArea ? <Edit className="h-5 w-5 text-primary" /> : <Plus className="h-5 w-5 text-primary" />}
+        <Card className="border-0 shadow-2xl bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/20 dark:from-gray-800 dark:via-blue-900/10 dark:to-indigo-900/5 overflow-hidden animate-in slide-in-from-top-4 duration-500">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-50"></div>
+          <CardHeader className="bg-gradient-to-r from-primary/8 via-primary/5 to-transparent border-b border-primary/10 relative">
+            <CardTitle className="flex items-center gap-4 text-xl">
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 shadow-lg">
+                {editingZoneArea ? <Edit className="h-6 w-6 text-primary" /> : <Plus className="h-6 w-6 text-primary" />}
               </div>
               {editingZoneArea ? tStrings.updateZoneArea : tStrings.createZoneArea}
             </CardTitle>
-            <CardDescription className="text-base">
+            <CardDescription className="text-base text-muted-foreground">
               {editingZoneArea
                 ? tStrings.updateZoneAreaInfo
                 : tStrings.createNewZoneArea}
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-6">
+          <CardContent className="p-8 relative">
             <ZoneAreaForm
               zoneArea={editingZoneArea}
               onSuccess={handleFormSuccess}
@@ -119,37 +134,44 @@ export default function ZoneAreasClientWrapper({ initialZoneAreas, translations:
         </Card>
       )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <MapPin className="h-5 w-5" />
+      {/* Liste des zones avec design moderne */}
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-900/50 overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-primary/5 via-primary/3 to-transparent border-b border-primary/10">
+          <CardTitle className="flex items-center gap-3 text-xl">
+            <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10">
+              <MapPin className="h-5 w-5 text-primary" />
+            </div>
             {tStrings.existingZoneAreas}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-base">
             {tStrings.totalZoneAreas.replace('{count}', zoneAreas.length.toString())}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           {zoneAreas.length === 0 ? (
-            <div className="text-center py-12">
-              <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground text-lg mb-2">
+            <div className="text-center py-16 px-8">
+              <div className="p-6 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 w-fit mx-auto mb-6">
+                <MapPin className="h-16 w-16 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 {tStrings.noZoneAreasFound}
-              </p>
-              <p className="text-muted-foreground text-sm mb-4">
+              </h3>
+              <p className="text-muted-foreground text-base mb-6 max-w-md mx-auto">
                 {tStrings.addFirstZoneArea}
               </p>
-              <Button onClick={() => setShowForm(true)}>
-                <Plus className="mr-2 h-4 w-4" />
+              <Button onClick={() => setShowForm(true)} className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Plus className="mr-2 h-5 w-5" />
                 {tStrings.addNew}
               </Button>
             </div>
           ) : (
-            <ZoneAreaList
-              zoneAreas={zoneAreas}
-              onEdit={handleEdit}
-              onRefresh={handleFormSuccess}
-            />
+            <div className="overflow-hidden">
+              <ZoneAreaList
+                zoneAreas={zoneAreas}
+                onEdit={handleEdit}
+                onRefresh={handleFormSuccess}
+              />
+            </div>
           )}
         </CardContent>
       </Card>
