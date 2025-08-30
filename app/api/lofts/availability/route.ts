@@ -50,8 +50,8 @@ export async function GET() {
     const transformedLofts = (loftsData || []).map(loft => ({
       id: loft.id,
       name: loft.name,
-      region: zonesMap.get(loft.zone_area_id) || 'Unknown',
-      owner: ownersMap.get(loft.owner_id) || 'Unknown',
+      region: zonesMap.get(loft.zone_area_id) || 'availability:unknown',
+      owner: ownersMap.get(loft.owner_id) || 'availability:unknown',
       pricePerNight: Math.round((loft.price_per_month || 0) / 30), // Estimate daily rate
       capacity: 4, // Default capacity - you might want to add this field to your lofts table
       status: loft.status,
@@ -72,7 +72,7 @@ export async function GET() {
 
     // Prepare filter options from real data
     const regions = [
-      { value: 'all', label: 'All Regions' },
+      { value: 'all', label: 'availability:allRegions' }, // Use translation key
       ...(zoneAreasData || []).map(zone => ({
         value: zone.id,
         label: zone.name
@@ -80,7 +80,7 @@ export async function GET() {
     ]
 
     const owners = [
-      { value: 'all', label: 'All Owners' },
+      { value: 'all', label: 'availability:allOwners' }, // Use translation key
       ...(ownersData || []).map(owner => ({
         value: owner.id,
         label: owner.name

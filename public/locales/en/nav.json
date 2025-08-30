@@ -18,7 +18,10 @@
   "internetConnections": "Internet Connections",
   "application": "Application",
   "paymentMethodsNav": "Payment Methods",
+  "signOut": "Sign Out",
   "toggleTheme": "Toggle theme",
   "executive": "Executive",
-  "loftManager": "Loft Manager"
+  "loftManager": "Loft Manager",
+  "admin": "Admin",
+  "configure": "Configure"
 }

@@ -29,8 +29,11 @@ interface FilterPanelProps {
 export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions }: FilterPanelProps) {
   const { t } = useTranslation(['availability', 'common'])
 
-  // Use real data from database
-  const regions = filterOptions.regions.length > 0 ? filterOptions.regions : [
+  // Use real data from database and translate labels
+  const regions = filterOptions.regions.length > 0 ? filterOptions.regions.map(region => ({
+    ...region,
+    label: region.label.startsWith('availability:') ? t(region.label) : region.label
+  })) : [
     { value: 'all', label: t('availability:allRegions') }
   ]
 

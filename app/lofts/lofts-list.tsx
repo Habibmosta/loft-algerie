@@ -39,7 +39,7 @@ const getTranslatedDescription = (originalDescription: string, loftName: string,
 }
 
 export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps) {
-  const { t } = useTranslation(["common", "lofts"])
+  const { t, i18n } = useTranslation(["common", "lofts"])
   const [statusFilter, setStatusFilter] = React.useState<string>("all")
   const [ownerFilter, setOwnerFilter] = React.useState<string>("all")
   const [zoneAreaFilter, setZoneAreaFilter] = React.useState<string>("all")
@@ -196,7 +196,7 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
                       <Users className="w-4 h-4 mr-2" />
                       {t('lofts:owner')}
                     </span>
-                    <span className="font-medium text-gray-800">{loft.owner_name || t('lofts:unknown')}</span>
+                    <span className="font-medium text-gray-800">{loft.owner_name || (i18n.language === 'ar' ? 'غير معروف' : i18n.language === 'en' ? 'Unknown' : 'Inconnu')}</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -204,7 +204,7 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
                       <MapPin className="w-4 h-4 mr-2" />
                       {t('lofts:zoneArea')}
                     </span>
-                    <span className="font-medium text-gray-800">{loft.zone_area_name || "N/A"}</span>
+                    <span className="font-medium text-gray-800">{loft.zone_area_name || (i18n.language === 'ar' ? 'غير معروف' : i18n.language === 'en' ? 'Unknown' : 'Inconnu')}</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">

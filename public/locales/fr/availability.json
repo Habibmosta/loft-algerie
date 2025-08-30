@@ -71,5 +71,8 @@
   
   "showingResults": "Affichage de {{count}} résultat(s) sur {{total}}",
   "noLoftsFound": "Aucun loft trouvé",
-  "noLoftsFoundDescription": "Aucun loft ne correspond à vos critères de recherche. Essayez de modifier vos filtres."
+  "noLoftsFoundDescription": "Aucun loft ne correspond à vos critères de recherche. Essayez de modifier vos filtres.",
+  
+  "testOwner": "Propriétaire Test",
+  "algerCenterRegion": "Centre-ville Alger"
 }

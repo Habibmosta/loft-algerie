@@ -117,7 +117,7 @@ const UTILITY_CONFIG = {
 // Utiliser directement le système de traduction existant
 
 export function ModernDashboard() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['dashboard']);
   
   // Utiliser directement le système de traduction existant
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
@@ -728,7 +728,7 @@ export function ModernDashboard() {
                     </p>
                     {task.due_date && (
                       <p className="text-xs text-muted-foreground">
-                        {t("dashboard:bills.due")}: {format(new Date(task.due_date), "d MMM yyyy")}
+                        {t("dashboard:due")}: {format(new Date(task.due_date), "d MMM yyyy")}
                       </p>
                     )}
                   </div>

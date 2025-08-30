@@ -18,6 +18,9 @@
   "ownersSelected": "تم اختيار {{count}} مالك",
   "clearAll": "مسح الكل",
   "selectAll": "اختيار الكل",
+  "loadingOwners": "جاري تحميل المالكين...",
+  "errorLoadingOwners": "خطأ في تحميل المالكين",
+  "noOwnersFound": "لم يتم العثور على مالكين",
   "guests": "الضيوف",
   "priceRange": "نطاق السعر",
   "minPrice": "الحد الأدنى للسعر",
@@ -68,5 +71,8 @@
   
   "showingResults": "عرض {{count}} نتيجة من أصل {{total}}",
   "noLoftsFound": "لم يتم العثور على شقق",
-  "noLoftsFoundDescription": "لا توجد شقق تطابق معايير البحث الخاصة بك. حاول تعديل المرشحات."
+  "noLoftsFoundDescription": "لا توجد شقق تطابق معايير البحث الخاصة بك. حاول تعديل المرشحات.",
+  
+  "testOwner": "مالك تجريبي",
+  "algerCenterRegion": "وسط الجزائر"
 }
