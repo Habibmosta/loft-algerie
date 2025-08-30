@@ -72,6 +72,11 @@
       "refreshError": "خطأ في تحديث المناطق"
     }
   },
+  "analytics": {
+    "realTimeDataBadge": "الوقت الحقيقي",
+    "title": "التحليلات",
+    "subtitle": "تحليلات في الوقت الحقيقي لنشاطك"
+  },
   "transactions": {
     "income": "إيراد",
     "expense": "مصروف"

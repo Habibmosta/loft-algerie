@@ -72,6 +72,11 @@
       "refreshError": "Error refreshing zones"
     }
   },
+  "analytics": {
+    "realTimeDataBadge": "Real-time",
+    "title": "Analytics",
+    "subtitle": "Real-time analytics of your activity"
+  },
   "transactions": {
     "income": "Income",
     "expense": "Expense"

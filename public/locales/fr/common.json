@@ -72,6 +72,11 @@
       "refreshError": "Erreur lors du rafraîchissement des zones"
     }
   },
+  "analytics": {
+    "realTimeDataBadge": "Temps réel",
+    "title": "Analytiques",
+    "subtitle": "Analytiques en temps réel de votre activité"
+  },
   "transactions": {
     "income": "Revenu",
     "expense": "Dépense"
