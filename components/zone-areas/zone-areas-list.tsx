@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Trash2, Pencil } from "lucide-react";
 import { deleteZoneArea, ZoneArea } from "@/app/actions/zone-areas";
@@ -14,21 +14,22 @@ interface ZoneAreaListProps {
 }
 
 export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps) {
-  const { t } = useTranslation('zoneAreas');
+  const t = useTranslations('zoneAreas.zoneAreas'); // Utiliser le bon chemin vers les traductions
+  const tCommon = useTranslations('zoneAreas.common'); // Pour les messages communs
   
   const handleDelete = async (id: string) => {
-    if (confirm(t('zoneAreas:deleteConfirm'))) {
+    if (confirm(t('deleteConfirm'))) {
       try {
         await deleteZoneArea(id);
         toast({
-          title: t('common:success'),
-          description: t('zoneAreas:deleteSuccess'),
+          title: tCommon('success'),
+          description: t('deleteSuccess'),
         });
-        onRefresh(); // Call onRefresh after successful delete
+        onRefresh();
       } catch (error) {
         toast({
-          title: t('common:error'),
-          description: t('zoneAreas:deleteError'),
+          title: tCommon('error'),
+          description: t('deleteError'),
           variant: "destructive",
         });
       }
@@ -38,7 +39,7 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
   const columns = [
     {
       key: 'name',
-      label: t('zoneAreas:name'),
+      label: t('name') || "Name", // Fallback en cas d'erreur
       render: (zoneArea: ZoneArea) => (
         <span className="font-medium">{zoneArea.name}</span>
       )
@@ -52,6 +53,7 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
         size="icon"
         onClick={() => onEdit(zoneArea)}
         className="h-8 w-8"
+        title={t('updateZoneArea')}
       >
         <Pencil className="h-4 w-4" />
       </Button>
@@ -60,6 +62,7 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
         size="icon"
         onClick={() => handleDelete(zoneArea.id)}
         className="h-8 w-8 text-red-600 hover:text-red-700"
+        title={t('deleteConfirm')}
       >
         <Trash2 className="h-4 w-4" />
       </Button>
@@ -68,12 +71,13 @@ export function ZoneAreaList({ zoneAreas, onEdit, onRefresh }: ZoneAreaListProps
 
   return (
     <div className="mt-8">
-      <h2 className="text-xl font-semibold mb-4">{t('zoneAreas:existingZoneAreas')}</h2>
+      <h2 className="text-xl font-semibold mb-4">{t('existingZoneAreas')}</h2>
       <ResponsiveDataDisplay
         data={zoneAreas}
         columns={columns}
         actions={renderActions}
-        emptyMessage={t('zoneAreas:noZoneAreasYet')}
+        actionsLabel={t('actions')}
+        emptyMessage={t('noZoneAreasYet')}
       />
     </div>
   );

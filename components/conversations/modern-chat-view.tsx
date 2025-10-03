@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ModernMessagesList } from './modern-messages-list'
 import { TypingIndicator } from './typing-indicator'
 import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { createClient } from '@/utils/supabase/client'
 import { SimpleMessage } from '@/lib/services/conversations-simple'
@@ -26,7 +26,7 @@ export function ModernChatView({
   onBack,
   showBackButton = false
 }: ModernChatViewProps) {
-  const { t } = useTranslation()
+  const t = useTranslations('conversations')
   const [messages, setMessages] = useState<SimpleMessage[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [isSending, setIsSending] = useState(false)
@@ -49,14 +49,14 @@ export function ModernChatView({
         }
       } catch (error) {
         console.error('Error loading messages:', error)
-        toast.error('Erreur lors du chargement des messages')
+        toast.error(t('errorLoadingMessages'))
       } finally {
         setIsLoading(false)
       }
     }
 
     loadMessages()
-  }, [conversationId])
+  }, [conversationId, t])
 
   // Configuration Supabase Realtime
   useEffect(() => {
@@ -149,12 +149,12 @@ export function ModernChatView({
         // Le message sera ajouté via Realtime
       } else {
         const error = await response.json()
-        toast.error(error.message || 'Erreur lors de l\'envoi')
+        toast.error(error.message || t('errorSending'))
         setNewMessage(messageContent)
       }
     } catch (error) {
       console.error('Error sending message:', error)
-      toast.error('Erreur lors de l\'envoi du message')
+      toast.error(t('errorSendingMessage'))
       setNewMessage(messageContent)
     } finally {
       setIsSending(false)
@@ -169,7 +169,7 @@ export function ModernChatView({
   }
 
   const getConversationName = () => {
-    if (!conversationInfo) return 'Conversation'
+    if (!conversationInfo) return t('conversation')
     
     if (conversationInfo.name) return conversationInfo.name
     
@@ -177,10 +177,10 @@ export function ModernChatView({
       const otherParticipant = conversationInfo.participants?.find(
         (p: any) => p.user_id !== currentUserId
       )
-      return otherParticipant?.user?.full_name || 'Utilisateur'
+      return otherParticipant?.user?.full_name || t('user')
     }
     
-    return `Groupe ${conversationInfo.id.slice(0, 8)}`
+    return `${t('group')} ${conversationInfo.id.slice(0, 8)}`
   }
 
   const getConversationAvatar = () => {
@@ -225,7 +225,7 @@ export function ModernChatView({
         <div className="flex-1 min-w-0">
           <h2 className="font-semibold truncate">{getConversationName()}</h2>
           <p className="text-xs text-muted-foreground">
-            {conversationInfo?.type === 'direct' ? 'En ligne' : `${conversationInfo?.participants?.length || 0} participants`}
+            {conversationInfo?.type === 'direct' ? t('online') : `${conversationInfo?.participants?.length || 0} ${t('participants')}`}
           </p>
         </div>
         
@@ -268,7 +268,7 @@ export function ModernChatView({
           <div className="flex-1 relative">
             <Input
               ref={inputRef}
-              placeholder={t('conversations:typeMessage')}
+              placeholder={t('typeMessage')}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={handleKeyPress}

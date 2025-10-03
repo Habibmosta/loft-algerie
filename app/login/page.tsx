@@ -1,5 +1,5 @@
-import { LoginPageClient } from "@/components/auth/login-page-client"
+import { LoginPageClientSimple } from '@/components/auth/login-page-client-simple';
 
 export default function LoginPage() {
-  return <LoginPageClient />
+  return <LoginPageClientSimple />;
 }

@@ -17,7 +17,7 @@ import { Eye, Download, Calendar, TrendingUp, TrendingDown, DollarSign } from 'l
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { useReports, type ReportFilters } from '@/hooks/use-reports'
-import { useTranslation } from '@/lib/i18n/context'
+import { useTranslations } from 'next-intl'
 import type { Transaction, Loft, Owner } from '@/lib/pdf-generator'
 
 interface ReportPreviewProps {
@@ -29,7 +29,7 @@ interface ReportPreviewProps {
 
 export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: ReportPreviewProps) {
   const { fetchLofts, fetchOwners, fetchTransactions, isLoading } = useReports()
-  const { t } = useTranslation(['reports', 'common'])
+  const t = useTranslations('reports')
   
   const [data, setData] = useState<{
     loft?: Loft
@@ -106,7 +106,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
         <CardContent className="p-6">
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            <span className="ml-2">{t('reports:loadingPreview')}</span>
+            <span className="ml-2">{t('loadingPreview')}</span>
           </div>
         </CardContent>
       </Card>
@@ -119,7 +119,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
         <CardContent className="p-6">
           <div className="text-center text-muted-foreground">
             <Eye className="w-12 h-12 mx-auto mb-4 opacity-50" />
-            <p>{t('reports:selectForPreview', { type: type === 'loft' ? 'loft' : t('common:owner') })}</p>
+            <p>{t('selectForPreview', { type: type === 'loft' ? 'loft' : tCommon('owner') })}</p>
           </div>
         </CardContent>
       </Card>
@@ -135,17 +135,17 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Eye className="w-5 h-5" />
-                {t('reports:previewTitle')}
+                {t('previewTitle')}
               </CardTitle>
               <CardDescription>
-                {type === 'loft' && data.loft && t('reports:loftReportFor', { name: data.loft.name })}
-                {type === 'owner' && data.owner && t('reports:ownerReportFor', { name: data.owner.name })}
-                {type === 'global' && t('reports:globalReportTitle')}
+                {type === 'loft' && data.loft && t('loftReportFor', { name: data.loft.name })}
+                {type === 'owner' && data.owner && t('ownerReportFor', { name: data.owner.name })}
+                {type === 'global' && t('globalReportTitle')}
               </CardDescription>
             </div>
             <Button onClick={onGeneratePDF} className="gap-2">
               <Download className="w-4 h-4" />
-              {t('reports:generatePdf')}
+              {t('generatePdf')}
             </Button>
           </div>
         </CardHeader>
@@ -166,25 +166,25 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
       {type === 'loft' && data.loft && (
         <Card>
           <CardHeader>
-            <CardTitle>{t('reports:loftInformation')}</CardTitle>
+            <CardTitle>{t('loftInformation')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:name')}</p>
+                <p className="text-sm text-muted-foreground">{t('name')}</p>
                 <p className="font-medium">{data.loft.name}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:owner')}</p>
+                <p className="text-sm text-muted-foreground">{t('owner')}</p>
                 <p className="font-medium">{data.loft.owner_name}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:address')}</p>
+                <p className="text-sm text-muted-foreground">{t('address')}</p>
                 <p className="font-medium">{data.loft.address}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:monthlyRent')}</p>
-                <p className="font-medium">{data.loft.price_per_month.toLocaleString()} DA</p>
+                <p className="text-sm text-muted-foreground">{t('pricePerNight')}</p>
+                <p className="font-medium">{data.loft.price_per_night.toLocaleString()} DA</p>
               </div>
             </div>
           </CardContent>
@@ -194,24 +194,24 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
       {type === 'owner' && data.owner && (
         <Card>
           <CardHeader>
-            <CardTitle>{t('reports:ownerInformation')}</CardTitle>
+            <CardTitle>{t('ownerInformation')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:name')}</p>
+                <p className="text-sm text-muted-foreground">{t('name')}</p>
                 <p className="font-medium">{data.owner.name}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:email')}</p>
-                <p className="font-medium">{data.owner.email || t('reports:notProvided')}</p>
+                <p className="text-sm text-muted-foreground">{t('email')}</p>
+                <p className="font-medium">{data.owner.email || t('notProvided')}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:phone')}</p>
-                <p className="font-medium">{data.owner.phone || t('reports:notProvided')}</p>
+                <p className="text-sm text-muted-foreground">{t('phone')}</p>
+                <p className="font-medium">{data.owner.phone || t('notProvided')}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:numberOfLofts')}</p>
+                <p className="text-sm text-muted-foreground">{t('numberOfLofts')}</p>
                 <p className="font-medium">{data.owner.lofts_count}</p>
               </div>
             </div>
@@ -222,14 +222,14 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
       {/* Résumé financier */}
       <Card>
         <CardHeader>
-          <CardTitle>{t('reports:financialSummary')}</CardTitle>
+          <CardTitle>{t('financialSummary')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center space-x-3 p-4 bg-green-50 rounded-lg">
               <TrendingUp className="w-8 h-8 text-green-500" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:totalRevenue')}</p>
+                <p className="text-sm text-muted-foreground">{t('totalRevenue')}</p>
                 <p className="text-xl font-bold text-green-600">
                   {data.summary.totalIncome.toLocaleString()} DA
                 </p>
@@ -239,7 +239,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
             <div className="flex items-center space-x-3 p-4 bg-red-50 rounded-lg">
               <TrendingDown className="w-8 h-8 text-red-500" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:totalExpenses')}</p>
+                <p className="text-sm text-muted-foreground">{t('totalExpenses')}</p>
                 <p className="text-xl font-bold text-red-600">
                   {data.summary.totalExpenses.toLocaleString()} DA
                 </p>
@@ -249,7 +249,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
             <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
               <DollarSign className="w-8 h-8 text-blue-500" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('reports:netResult')}</p>
+                <p className="text-sm text-muted-foreground">{t('netResult')}</p>
                 <p className={`text-xl font-bold ${data.summary.netResult >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {data.summary.netResult.toLocaleString()} DA
                 </p>
@@ -264,17 +264,17 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
         <Card>
           <CardHeader>
             <CardTitle>
-              {type === 'owner' ? t('reports:ownerLofts') : t('reports:allLofts')}
+              {type === 'owner' ? t('ownerLofts') : t('allLofts')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t('reports:name')}</TableHead>
-                  <TableHead>{t('reports:owner')}</TableHead>
-                  <TableHead>{t('reports:address')}</TableHead>
-                  <TableHead className="text-right">{t('reports:monthlyRent')}</TableHead>
+                  <TableHead>{t('name')}</TableHead>
+                  <TableHead>{t('owner')}</TableHead>
+                  <TableHead>{t('address')}</TableHead>
+                  <TableHead className="text-right">{t('pricePerNight')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -284,7 +284,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
                     <TableCell>{loft.owner_name}</TableCell>
                     <TableCell>{loft.address}</TableCell>
                     <TableCell className="text-right">
-                      {loft.price_per_month.toLocaleString()} DA
+                      {loft.price_per_night.toLocaleString()} DA
                     </TableCell>
                   </TableRow>
                 ))}
@@ -298,11 +298,11 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
       {data.transactions.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>{t('reports:transactionPreview')}</CardTitle>
+            <CardTitle>{t('transactionPreview')}</CardTitle>
             <CardDescription>
               {data.transactions.length > 10 
-                ? t('reports:showingFirst', { count: 10, total: data.transactions.length })
-                : t('reports:totalTransactions', { 
+                ? t('showingFirst', { count: 10, total: data.transactions.length })
+                : t('totalTransactions', { 
                     count: data.transactions.length, 
                     plural: data.transactions.length > 1 ? 's' : '' 
                   })
@@ -313,11 +313,11 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t('reports:date')}</TableHead>
-                  <TableHead>{t('reports:description')}</TableHead>
-                  <TableHead>{t('reports:category')}</TableHead>
-                  <TableHead>{t('reports:type')}</TableHead>
-                  <TableHead className="text-right">{t('reports:amount')}</TableHead>
+                  <TableHead>{t('date')}</TableHead>
+                  <TableHead>{t('description')}</TableHead>
+                  <TableHead>{t('category')}</TableHead>
+                  <TableHead>{t('type')}</TableHead>
+                  <TableHead className="text-right">{t('amount')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -332,7 +332,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
                     </TableCell>
                     <TableCell>
                       <Badge variant={transaction.transaction_type === 'income' ? 'default' : 'secondary'}>
-                        {transaction.transaction_type === 'income' ? t('reports:revenue') : t('reports:expenses')}
+                        {transaction.transaction_type === 'income' ? t('revenue') : t('expenses')}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right font-medium">
@@ -345,7 +345,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
             
             {data.transactions.length > 10 && (
               <div className="mt-4 text-center text-sm text-muted-foreground">
-                {t('reports:andOthers', { count: data.transactions.length - 10 })}
+                {t('andOthers', { count: data.transactions.length - 10 })}
               </div>
             )}
           </CardContent>
@@ -356,7 +356,7 @@ export function ReportPreview({ type, filters, selectedId, onGeneratePDF }: Repo
         <Card>
           <CardContent className="p-6">
             <div className="text-center text-muted-foreground">
-              <p>{t('reports:noTransactionsFound')}</p>
+              <p>{t('noTransactionsFound')}</p>
             </div>
           </CardContent>
         </Card>

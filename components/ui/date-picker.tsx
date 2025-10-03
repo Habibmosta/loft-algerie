@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
 import * as React from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,7 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ date, setDate, placeholder }: DatePickerProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('common')
   
   return (
     <Popover>
@@ -34,7 +34,7 @@ export function DatePicker({ date, setDate, placeholder }: DatePickerProps) {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>{placeholder || t('common:pickDate')}</span>}
+          {date ? format(date, "PPP") : <span>{placeholder || t('pickDate')}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

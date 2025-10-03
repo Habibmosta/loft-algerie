@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import { 
   CheckCircle, 
   XCircle, 
@@ -51,7 +51,7 @@ export default function ReservationStatusActions({
   reservation,
   onUpdate,
 }: ReservationStatusActionsProps) {
-  const { t } = useTranslation('reservations');
+  const t = useTranslations('reservations');
   const [isPending, startTransition] = useTransition();
   const [cancelState, cancelAction] = useActionState(cancelReservation, null);
 
@@ -116,7 +116,7 @@ export default function ReservationStatusActions({
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
             {getStatusIcon(reservation.status)}
-            {t('reservations:details.title')}
+            {t('reservations.details.title')}
           </span>
           <Badge className={getStatusColor(reservation.status)}>
             {t(`reservations.status.${reservation.status}`)}
@@ -127,22 +127,22 @@ export default function ReservationStatusActions({
         {/* Reservation Details */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h4 className="font-semibold">{t('reservations:details.guest')}</h4>
+            <h4 className="font-semibold">{t('reservations.details.guest')}</h4>
             <p>{reservation.guest_name}</p>
           </div>
           <div>
-            <h4 className="font-semibold">{t('reservations:details.dates')}</h4>
+            <h4 className="font-semibold">{t('reservations.details.dates')}</h4>
             <p>{reservation.check_in_date} - {reservation.check_out_date}</p>
           </div>
         </div>
         
         <div>
-          <h4 className="font-semibold">{t('reservations:details.loft')}</h4>
+          <h4 className="font-semibold">{t('reservations.details.loft')}</h4>
           <p>{reservation.lofts?.name}</p>
         </div>
         
         <div>
-          <h4 className="font-semibold">{t('reservations:details.total')}</h4>
+          <h4 className="font-semibold">{t('reservations.details.total')}</h4>
           <p className="text-lg font-bold">{reservation.total_amount} DZD</p>
         </div>
 
@@ -160,21 +160,21 @@ export default function ReservationStatusActions({
                 ) : (
                   <CheckCircle className="h-4 w-4" />
                 )}
-                Confirm Reservation
+                {t('actions.confirm')}
               </Button>
               
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="destructive" className="flex items-center gap-2">
                     <XCircle className="h-4 w-4" />
-                    Cancel Reservation
+                    {t('actions.cancel')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Cancel Reservation</DialogTitle>
+                    <DialogTitle>{t('actions.cancelTitle')}</DialogTitle>
                     <DialogDescription>
-                      Please provide a reason for cancelling this reservation.
+                      {t('actions.cancelDescription')}
                     </DialogDescription>
                   </DialogHeader>
                   
@@ -187,10 +187,10 @@ export default function ReservationStatusActions({
                   
                   <form action={handleCancelSubmit} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="cancellation_reason">Cancellation Reason</Label>
+                      <Label htmlFor="cancellation_reason">{t('actions.cancellationReason')}</Label>
                       <Textarea
                         name="cancellation_reason"
-                        placeholder="Please explain why this reservation is being cancelled..."
+                        placeholder={t('actions.cancellationPlaceholder')}
                         required
                         rows={3}
                       />
@@ -208,7 +208,7 @@ export default function ReservationStatusActions({
                         ) : (
                           <XCircle className="h-4 w-4" />
                         )}
-                        Cancel Reservation
+                        {t('actions.confirmCancel')}
                       </Button>
                     </div>
                   </form>
@@ -229,7 +229,7 @@ export default function ReservationStatusActions({
               ) : (
                 <Calendar className="h-4 w-4" />
               )}
-              Mark as Completed
+              {t('actions.markCompleted')}
             </Button>
           )}
         </div>
@@ -239,7 +239,7 @@ export default function ReservationStatusActions({
           <Alert>
             <CheckCircle className="h-4 w-4" />
             <AlertDescription>
-              Reservation cancelled successfully.
+              {t('actions.cancelSuccess')}
             </AlertDescription>
           </Alert>
         )}

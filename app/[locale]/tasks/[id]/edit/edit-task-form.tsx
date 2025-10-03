@@ -5,11 +5,7 @@ import { getTask, updateTask } from '@/app/actions/tasks'
 import { TaskFormData, TaskStatusUpdateData } from '@/lib/validations'
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-<<<<<<< HEAD
-import { useTranslation } from 'react-i18next';
-=======
 import { useTranslations } from 'next-intl';
->>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { toast } from '@/components/ui/use-toast'
 import type { Task, User } from '@/lib/types'
 

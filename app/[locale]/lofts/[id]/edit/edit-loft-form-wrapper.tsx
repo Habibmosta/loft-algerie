@@ -4,37 +4,34 @@ import { useRouter } from "next/navigation"
 import { LoftForm } from "@/components/forms/loft-form"
 import { updateLoft } from "@/app/actions/lofts"
 import { toast } from "sonner"
-<<<<<<< HEAD
-import { useTranslation } from "react-i18next"
-=======
 import { useTranslations } from "next-intl"
->>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 
 export function EditLoftFormWrapper({ loft, owners, zoneAreas, internetConnectionTypes }: any) {
   const router = useRouter()
-  const t = useTranslations();
+  const tLofts = useTranslations('lofts');
+  const tCommon = useTranslations('common');
 
   const handleSubmit = async (data: any) => {
     try {
       const result = await updateLoft(loft.id, data)
       if (result?.success) {
-        toast.success(t('lofts.loftUpdated'), {
-          description: t('lofts.loftUpdatedDescription'),
+        toast.success(tLofts('loftUpdated'), {
+          description: tLofts('loftUpdatedDescription'),
           duration: 4000,
         })
         setTimeout(() => {
           router.push("/lofts")
         }, 1500)
       } else {
-        toast.error(t('common.error'), {
-          description: t('lofts.updateError'),
+        toast.error(tCommon('error'), {
+          description: tLofts('updateError'),
           duration: 5000,
         })
       }
     } catch (error) {
       console.error('Error updating loft:', error)
-      toast.error(t('common.systemError'), {
-        description: t('lofts.systemErrorDescription'),
+      toast.error(tCommon('systemError'), {
+        description: tLofts('systemErrorDescription'),
         duration: 6000,
       })
     }

@@ -20,6 +20,22 @@ export async function getCurrencies(): Promise<Currency[]> {
   return currencies
 }
 
+export async function getCurrency(id: string): Promise<Currency> {
+  const supabase = await createClient() // Create client here
+  const { data: currency, error } = await supabase
+    .from("currencies")
+    .select("*")
+    .eq("id", id)
+    .single()
+
+  if (error) {
+    console.error("Error getting currency:", error)
+    throw error
+  }
+
+  return currency
+}
+
 export async function setDefaultCurrency(id: string) {
   const supabase = await createClient() // Create client here
   const { error: error1 } = await supabase

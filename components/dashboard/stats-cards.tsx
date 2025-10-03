@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Building2, ClipboardList, DollarSign, Users } from "lucide-react"
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslations } from "next-intl"
 
 interface StatsCardsProps {
   stats: {
@@ -11,36 +11,37 @@ interface StatsCardsProps {
     activeTasks: number
     monthlyRevenue: number
     totalTeams: number
-  }
+  },
+  defaultCurrencySymbol: string // New prop
 }
 
-export function StatsCards({ stats }: StatsCardsProps) {
-  const { t } = useTranslation();
+export function StatsCards({ stats, defaultCurrencySymbol }: StatsCardsProps) { // Destructure new prop
+  const t = useTranslations('dashboard');
   
   const cards = [
     {
-      title: t('dashboard:totalLofts'),
+      title: t('totalLofts'),
       value: stats.totalLofts,
       icon: Building2,
-      description: `${stats.occupiedLofts} ${t('dashboard:occupiedLofts').toLowerCase()}`,
+      description: `${stats.occupiedLofts} ${t('occupiedLofts').toLowerCase()}`,
     },
     {
-      title: t('dashboard:activeTasks'),
+      title: t('activeTasks'),
       value: stats.activeTasks,
       icon: ClipboardList,
-      description: t('dashboard:inProgress'),
+      description: t('inProgress'),
     },
     {
-      title: t('dashboard:monthlyRevenue'),
-      value: `$${stats.monthlyRevenue.toLocaleString()}`,
+      title: t('monthlyRevenue'),
+      value: `${defaultCurrencySymbol}${stats.monthlyRevenue.toLocaleString()}`, // Use new prop
       icon: DollarSign,
-      description: t('dashboard:thisMonth'),
+      description: t('thisMonth'),
     },
     {
-      title: t('dashboard:teams'),
+      title: t('teams'),
       value: stats.totalTeams,
       icon: Users,
-      description: t('dashboard:activeTeams'),
+      description: t('activeTeams'),
     },
   ]
 

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -35,7 +35,8 @@ export function PaymentMethodForm({ paymentMethod, action }: PaymentMethodFormPr
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
-  const { t } = useTranslation(['paymentMethods', 'common'])
+  const t = useTranslations('paymentMethods')
+  const tCommon = useTranslations('common')
 
   const {
     register,
@@ -139,7 +140,7 @@ export function PaymentMethodForm({ paymentMethod, action }: PaymentMethodFormPr
                       id="name" 
                       {...register("name")} 
                       className="h-12 bg-white dark:bg-gray-800 border-slate-300 dark:border-gray-600 rounded-xl text-base focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                      placeholder={`${t('name', { ns: 'common' })}...`}
+                      placeholder={`${tCommon('name')}...`}
                     />
                     {errors.name && (
                       <p className="text-sm text-red-500 flex items-center gap-2">
@@ -155,7 +156,7 @@ export function PaymentMethodForm({ paymentMethod, action }: PaymentMethodFormPr
                     </Label>
                     <Select onValueChange={(value) => setValue("type", value)}>
                       <SelectTrigger className="h-12 bg-white dark:bg-gray-800 border-slate-300 dark:border-gray-600 rounded-xl text-base">
-                        <SelectValue placeholder={t('selectOption', { ns: 'common' })} />
+                        <SelectValue placeholder={tCommon('selectOption')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="card">{t('creditCard')}</SelectItem>

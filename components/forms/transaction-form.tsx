@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import type { Currency, Transaction } from '@/lib/types'
 import { Transaction as TransactionFormData } from '@/lib/validations'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { 
   DollarSign, 
   Calendar, 
@@ -60,7 +60,8 @@ interface TransactionFormProps {
 
 export function TransactionForm({ transaction, categories, lofts, currencies, paymentMethods, onSubmit, isSubmitting = false }: TransactionFormProps) {
   const router = useRouter()
-  const { t } = useTranslation();
+  const t = useTranslations("transactions");
+  const tCommon = useTranslations("common");
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<TransactionFormData>({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
@@ -131,10 +132,10 @@ return (
             <DollarSign className="h-8 w-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            {transaction ? t('editTransaction', { ns: 'transactions' }) : t('addNewTransaction', { ns: 'transactions' })}
+            {transaction ? t('editTransaction') : t('addNewTransaction')}
           </h1>
           <p className="text-gray-600 dark:text-gray-300 text-lg">
-            {transaction ? t('updateTransactionInfo', { ns: 'transactions' }) : t('createNewTransaction', { ns: 'transactions' })}
+            {transaction ? t('updateTransactionInfo') : t('createNewTransaction')}
           </p>
         </div>
 
@@ -144,7 +145,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl text-gray-900 dark:text-white">
                 {getTypeIcon(transactionType)}
-                {t('transactionType', { ns: 'transactions' })}
+                {t('transactionType')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -152,23 +153,23 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="transaction_type" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                     <Tag className="h-4 w-4" />
-                    {t('type', { ns: 'transactions' })}
+                    {t('type')}
                   </Label>
                   <Select onValueChange={(value) => setValue('transaction_type', value as any)} defaultValue={transaction?.transaction_type}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common:selectOption')} />
+                      <SelectValue placeholder={tCommon('selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="income" className="flex items-center gap-2">
                         <div className="flex items-center gap-2">
                           <TrendingUp className="h-4 w-4 text-green-600" />
-                          {t('income', { ns: 'transactions' })}
+                          {t('income')}
                         </div>
                       </SelectItem>
                       <SelectItem value="expense" className="flex items-center gap-2">
                         <div className="flex items-center gap-2">
                           <TrendingDown className="h-4 w-4 text-red-600" />
-                          {t('expense', { ns: 'transactions' })}
+                          {t('expense')}
                         </div>
                       </SelectItem>
                     </SelectContent>
@@ -179,29 +180,29 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="status" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                     {getStatusIcon(status)}
-                    {t('status', { ns: 'transactions' })}
+                    {t('status')}
                   </Label>
                   <Select onValueChange={(value) => setValue('status', value as any)} defaultValue={transaction?.status}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common:selectOption')} />
+                      <SelectValue placeholder={tCommon('selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="pending">
                         <div className="flex items-center gap-2">
                           <Clock className="h-4 w-4 text-yellow-600" />
-                          {t('pending', { ns: 'transactions' })}
+                          {t('pending')}
                         </div>
                       </SelectItem>
                       <SelectItem value="completed">
                         <div className="flex items-center gap-2">
                           <CheckCircle className="h-4 w-4 text-green-600" />
-                          {t('completed', { ns: 'transactions' })}
+                          {t('completed')}
                         </div>
                       </SelectItem>
                       <SelectItem value="failed">
                         <div className="flex items-center gap-2">
                           <XCircle className="h-4 w-4 text-red-600" />
-                          {t('failed', { ns: 'transactions' })}
+                          {t('failed')}
                         </div>
                       </SelectItem>
                     </SelectContent>
@@ -217,7 +218,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl text-gray-900 dark:text-white">
                 <DollarSign className="h-5 w-5" />
-                {t('amountAndDate', { ns: 'transactions' })}
+                {t('amountAndDate')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -225,7 +226,7 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="amount" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                     <Coins className="h-4 w-4" />
-                    {t('amount', { ns: 'transactions' })}
+                    {t('amount')}
                   </Label>
                   <div className="relative">
                     <Input 
@@ -234,7 +235,7 @@ return (
                       step="0.01" 
                       {...register('amount', { valueAsNumber: true })}
                       className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 focus:border-blue-500 dark:focus:border-blue-400 transition-colors pl-8 dark:border-slate-600 dark:text-white"
-                      placeholder="0.00"
+                      placeholder={t('amountPlaceholder')}
                     />
                     <DollarSign className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-300" />
                   </div>
@@ -244,11 +245,11 @@ return (
                   {amount !== null && amount !== undefined && amount > 0 && (
                     <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg p-3 space-y-2">
                       <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
-                        {t('selectedCurrency', { ns: 'transactions' })}: {currencies.find(c => c.id === currencyId)?.symbol || ''}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)}
+                        {t('selectedCurrency')}: {currencies.find(c => c.id === currencyId)?.symbol || ''}{new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)}
                       </p>
                       {convertedAmount !== null && (
                         <p className="text-sm text-blue-700 dark:text-blue-300">
-                          {t('equivalent', { ns: 'transactions' })} {currencies.find(c => c.is_default)?.symbol || 'Default'}: {new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(convertedAmount)}
+                          {t('equivalent')} {currencies.find(c => c.is_default)?.symbol || 'Default'}: {new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(convertedAmount)}
                         </p>
                       )}
                     </div>
@@ -258,12 +259,13 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="date" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                     <Calendar className="h-4 w-4" />
-                    {t('date', { ns: 'transactions' })}
+                    {t('date')}
                   </Label>
                   <Input 
                     id="date" 
                     type="date" 
                     {...register('date')}
+                    placeholder="jj/mm/aaaa"
                     className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 focus:border-blue-500 dark:focus:border-blue-400 transition-colors dark:border-slate-600 dark:text-white"
                   />
                   {errors.date && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="h-3 w-3" />{errors.date.message}</p>}
@@ -277,20 +279,20 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl text-gray-900 dark:text-white">
                 <FileText className="h-5 w-5" />
-                {t('description', { ns: 'transactions' })}
+                {t('description')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
                 <Label htmlFor="description" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                   <FileText className="h-4 w-4" />
-                  {t('transactionDescription', { ns: 'transactions' })}
+                  {t('transactionDescription')}
                 </Label>
                 <Textarea 
                   id="description" 
                   {...register('description')}
                   className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 focus:border-blue-500 dark:focus:border-blue-400 transition-colors min-h-[100px] resize-none dark:border-slate-600 dark:text-white dark:placeholder-gray-400"
-                  placeholder={t('descriptionPlaceholder', { ns: 'transactions' })}
+                  placeholder={t('descriptionPlaceholder')}
                 />
                 {errors.description && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="h-3 w-3" />{errors.description.message}</p>}
               </div>
@@ -302,7 +304,7 @@ return (
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-xl text-gray-900 dark:text-white">
                 <Tag className="h-5 w-5" />
-                {t('categoriesAndProperties', { ns: 'transactions' })}
+                {t('categoriesAndProperties')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -310,11 +312,11 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="category" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                     <Tag className="h-4 w-4" />
-                    {t('category', { ns: 'transactions' })}
+                    {t('category')}
                   </Label>
                   <Select onValueChange={(value) => setValue('category', value)} defaultValue={transaction?.category || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common:selectOption')} />
+                      <SelectValue placeholder={tCommon('selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {filteredCategories.map(category => (
@@ -328,12 +330,12 @@ return (
                 <div className="space-y-2">
                   <Label htmlFor="loft" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
                     <Building className="h-4 w-4" />
-                    {t('loft', { ns: 'transactions' })} 
-                    <Badge variant="secondary" className="text-xs">{t('optional', { ns: 'transactions' })}</Badge>
+                    {t('loft')} 
+                    <Badge variant="secondary" className="text-xs">{t('optional')}</Badge>
                   </Label>
                   <Select onValueChange={(value) => setValue('loft_id', value)} defaultValue={transaction?.loft_id || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common:selectOption')} />
+                      <SelectValue placeholder={tCommon('selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {(lofts || []).map(loft => (
@@ -365,7 +367,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('currency_id', value)} defaultValue={transaction?.currency_id || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common:selectOption')} />
+                      <SelectValue placeholder={tCommon('selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {currencies.map(currency => (
@@ -390,7 +392,7 @@ return (
                   </Label>
                   <Select onValueChange={(value) => setValue('payment_method_id', value)} defaultValue={transaction?.payment_method_id || ''}>
                     <SelectTrigger className="bg-white dark:bg-slate-700 border-2 hover:border-blue-300 dark:hover:border-blue-400 transition-colors dark:border-slate-600 dark:text-white">
-                      <SelectValue placeholder={t('common:selectOption')} />
+                      <SelectValue placeholder={tCommon('selectOption')} />
                     </SelectTrigger>
                     <SelectContent>
                       {(paymentMethods || []).map(method => (
@@ -416,7 +418,7 @@ return (
                   {isSubmitting ? (
                     <div className="flex items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      {t('common:saving')}
+                      {tCommon('saving')}
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
@@ -431,7 +433,7 @@ return (
                   onClick={() => router.push('/transactions')}
                   className="border-2 border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 px-8 py-3 text-lg font-medium transition-all duration-200 dark:text-gray-200 dark:hover:text-white"
                 >
-                  {t('common:cancel')}
+                  {tCommon('cancel')}
                 </Button>
               </div>
             </CardContent>

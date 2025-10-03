@@ -1,6 +1,7 @@
 "use client"
 
-import { useTranslation } from "react-i18next"
+import { useLocale } from "next-intl"
+import { useRouter, usePathname } from "next/navigation"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,9 +23,18 @@ interface SimpleLanguageSelectorProps {
 }
 
 export function SimpleLanguageSelector({ showText = false }: SimpleLanguageSelectorProps) {
-  const { language, changeLanguage } = useTranslation()
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
   
-  const currentLanguage = languages.find(lang => lang.code === language)
+  const currentLanguage = languages.find(lang => lang.code === locale)
+
+  const changeLanguage = (newLocale: string) => {
+    // Remove current locale from pathname and add new one
+    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '')
+    const newPath = `/${newLocale}${pathWithoutLocale}`
+    router.push(newPath)
+  }
 
   return (
     <DropdownMenu>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useTranslations } from "next-intl"
 
 interface DebugLoftFormProps {
   loft?: any
@@ -20,11 +21,12 @@ export function DebugLoftForm({
   internetConnectionTypes = [],
   onSubmit 
 }: DebugLoftFormProps) {
+  const t = useTranslations("lofts")
   const [debugInfo, setDebugInfo] = useState<string>("")
   const [formData, setFormData] = useState({
     name: "",
     address: "",
-    price_per_month: ""
+    price_per_night: ""
   })
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export function DebugLoftForm({
       setFormData({
         name: loft.name || "",
         address: loft.address || "",
-        price_per_month: loft.price_per_month?.toString() || ""
+        price_per_night: loft.price_per_night?.toString() || ""
       })
     }
   }, [loft, owners, zoneAreas, internetConnectionTypes])
@@ -77,7 +79,7 @@ export function DebugLoftForm({
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
-              placeholder="Nom du loft..."
+              placeholder={t('namePlaceholder')}
             />
           </div>
 
@@ -87,18 +89,18 @@ export function DebugLoftForm({
               id="address"
               value={formData.address}
               onChange={(e) => setFormData({...formData, address: e.target.value})}
-              placeholder="Adresse..."
+              placeholder={t('addressPlaceholder')}
             />
           </div>
 
           <div>
-            <Label htmlFor="price">Prix par mois</Label>
+            <Label htmlFor="price">Prix par nuit</Label>
             <Input
               id="price"
               type="number"
-              value={formData.price_per_month}
-              onChange={(e) => setFormData({...formData, price_per_month: e.target.value})}
-              placeholder="Prix..."
+              value={formData.price_per_night}
+              onChange={(e) => setFormData({...formData, price_per_night: e.target.value})}
+              placeholder={t('pricePlaceholder')}
             />
           </div>
 

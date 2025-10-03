@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { DatePickerWithRange } from "@/components/ui/date-range-picker"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { DateRange } from "react-day-picker"
 import Link from "next/link"
 import { 
@@ -83,8 +83,8 @@ export function ModernTransactionsPage({
   currencies,
   paymentMethods
 }: ModernTransactionsPageProps) {
-  const { t } = useTranslation("transactions")
-  const { t: tCommon } = useTranslation("common")
+  const t = useTranslations("transactions")
+  const tCommon = useTranslations("common")
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions)
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined)
   const [searchTerm, setSearchTerm] = useState("")

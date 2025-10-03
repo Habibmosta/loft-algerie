@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslation } from '@/lib/i18n/context'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, XCircle, AlertCircle, Home, TrendingUp, Clock } from 'lucide-react'
@@ -11,7 +11,7 @@ interface QuickStatsProps {
 }
 
 export function QuickStats({ data, isLoading }: QuickStatsProps) {
-  const { t } = useTranslation(['availability', 'common'])
+  const t = useTranslations('availability')
 
   // Calculate stats from data
   const stats = {
@@ -45,7 +45,7 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <p className="text-sm font-medium text-blue-700 dark:text-blue-300">
-                {t('availability:totalLofts')}
+                {t('totalLofts')}
               </p>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                 {stats.totalLofts}
@@ -64,7 +64,7 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <p className="text-sm font-medium text-green-700 dark:text-green-300">
-                {t('availability:availableLofts')}
+                {t('availableLofts')}
               </p>
               <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                 {stats.availableLofts}
@@ -83,7 +83,7 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <p className="text-sm font-medium text-red-700 dark:text-red-300">
-                {t('availability:occupiedLofts')}
+                {t('occupiedLofts')}
               </p>
               <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                 {stats.occupiedLofts}
@@ -102,7 +102,7 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <p className="text-sm font-medium text-orange-700 dark:text-orange-300">
-                {t('availability:maintenanceLofts')}
+                {t('maintenanceLofts')}
               </p>
               <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                 {stats.maintenanceLofts}
@@ -121,7 +121,7 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <p className="text-sm font-medium text-purple-700 dark:text-purple-300">
-                {t('availability:averagePrice')}
+                {t('averagePrice')}
               </p>
               <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                 {stats.averagePrice.toLocaleString()} DA
@@ -140,7 +140,7 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <p className="text-sm font-medium text-teal-700 dark:text-teal-300">
-                {t('availability:occupancyRate')}
+                {t('occupancyRate')}
               </p>
               <div className="flex items-center gap-2">
                 <p className="text-2xl font-bold text-teal-600 dark:text-teal-400">
@@ -150,9 +150,9 @@ export function QuickStats({ data, isLoading }: QuickStatsProps) {
                   variant={stats.occupancyRate > 70 ? "default" : stats.occupancyRate > 40 ? "secondary" : "destructive"}
                   className="text-xs"
                 >
-                  {stats.occupancyRate > 70 ? t('availability:high') : 
-                   stats.occupancyRate > 40 ? t('availability:medium') : 
-                   t('availability:low')}
+                  {stats.occupancyRate > 70 ? t('high') : 
+                   stats.occupancyRate > 40 ? t('medium') : 
+                   t('low')}
                 </Badge>
               </div>
             </div>

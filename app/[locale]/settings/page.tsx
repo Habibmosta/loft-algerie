@@ -5,16 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { User, Shield, Bell, Database } from "lucide-react"
+import { User, Shield, Bell, Database, Key } from "lucide-react"
 import Link from "next/link"
-<<<<<<< HEAD
-import { useTranslation } from 'react-i18next';
-=======
 import { useTranslations } from 'next-intl';
->>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { useEffect, useState } from "react"
 import { getSession } from "@/lib/auth"
 import type { AuthSession } from "@/lib/types"
+import { RoleBasedAccess } from "@/components/auth/role-based-access"
 
 export default function SettingsPage() {
   const t = useTranslations();
@@ -22,18 +19,17 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Debug logging for missing application route
+    console.log('🔍 DEBUG: Current pathname:', window.location.pathname)
+    console.log('🔍 DEBUG: Available settings routes should be checked')
+    console.log('🔍 DEBUG: Looking for /settings/application route - NOT FOUND in directory structure')
+
     async function fetchSession() {
       try {
         const sessionData = await getSession()
-        if (!sessionData || (sessionData.user.role !== 'admin' && sessionData.user.role !== 'manager')) {
-          // Redirect to unauthorized or handle access control
-          window.location.href = '/unauthorized'
-          return
-        }
         setSession(sessionData)
       } catch (error) {
         console.error('Failed to fetch session:', error)
-        window.location.href = '/login'
       } finally {
         setLoading(false)
       }
@@ -46,7 +42,11 @@ export default function SettingsPage() {
   }
 
   if (!session) {
-    return null
+    return (
+      <div className="p-8">
+        <div className="text-lg">Please log in to access settings.</div>
+      </div>
+    )
   }
 
   const userRoleTranslationKeys = {
@@ -144,59 +144,101 @@ export default function SettingsPage() {
                 {t('settings.enable')}
               </Button>
             </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium">{t('settings.financialReports')}</p>
-                <p className="text-sm text-muted-foreground">{t('settings.financialReportsDesc')}</p>
+            <RoleBasedAccess 
+              userRole={session.user.role}
+              allowedRoles={['admin', 'manager', 'executive']}
+              showFallback={false}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">{t('settings.financialReports')}</p>
+                  <p className="text-sm text-muted-foreground">{t('settings.financialReportsDesc')}</p>
+                </div>
+                <Button variant="outline" size="sm">
+                  {t('settings.enable')}
+                </Button>
               </div>
-              <Button variant="outline" size="sm">
-                {t('settings.enable')}
-              </Button>
-            </div>
+            </RoleBasedAccess>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Database className="h-5 w-5" />
-              {t('settings.dataPrivacy')}
-            </CardTitle>
-            <CardDescription>{t('settings.manageDataPrivacy')}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <p className="font-medium">{t('settings.dataExport')}</p>
-              <p className="text-sm text-muted-foreground">{t('settings.dataExportDesc')}</p>
-              <Button variant="outline" size="sm">
-                {t('settings.exportData')}
+        <RoleBasedAccess 
+          userRole={session.user.role}
+          allowedRoles={['admin', 'manager']}
+          showFallback={false}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Database className="h-5 w-5" />
+                {t('settings.dataPrivacy')}
+              </CardTitle>
+              <CardDescription>{t('settings.manageDataPrivacy')}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <p className="font-medium">{t('settings.dataExport')}</p>
+                <p className="text-sm text-muted-foreground">{t('settings.dataExportDesc')}</p>
+                <Button variant="outline" size="sm">
+                  {t('settings.exportData')}
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <p className="font-medium">{t('settings.accountDeletion')}</p>
+                <p className="text-sm text-muted-foreground">{t('settings.accountDeletionDesc')}</p>
+                <Button variant="destructive" size="sm">
+                  {t('settings.deleteAccount')}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </RoleBasedAccess>
+        
+        <RoleBasedAccess 
+          userRole={session.user.role}
+          allowedRoles={['admin', 'manager']}
+          showFallback={false}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Database className="h-5 w-5" />
+                {t('settings.paymentMethods')}
+              </CardTitle>
+              <CardDescription>{t('settings.managePaymentMethods')}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/settings/payment-methods">
+                  {t('settings.managePaymentMethodsBtn')}
+                </Link>
               </Button>
-            </div>
-            <div className="space-y-2">
-              <p className="font-medium">{t('settings.accountDeletion')}</p>
-              <p className="text-sm text-muted-foreground">{t('settings.accountDeletionDesc')}</p>
-              <Button variant="destructive" size="sm">
-                {t('settings.deleteAccount')}
+            </CardContent>
+          </Card>
+        </RoleBasedAccess>
+
+        <RoleBasedAccess 
+          userRole={session.user.role}
+          allowedRoles={['admin']}
+          showFallback={false}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Key className="h-5 w-5" />
+                Gestion des mots de passe
+              </CardTitle>
+              <CardDescription>Changer les mots de passe des autres utilisateurs (admin uniquement)</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/settings/user-passwords">
+                  Gérer les mots de passe
+                </Link>
               </Button>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Database className="h-5 w-5" />
-              {t('settings.paymentMethods')}
-            </CardTitle>
-            <CardDescription>{t('settings.managePaymentMethods')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/settings/payment-methods">
-                {t('settings.managePaymentMethodsBtn')}
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </RoleBasedAccess>
       </div>
     </div>
   )

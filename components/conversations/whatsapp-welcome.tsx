@@ -2,11 +2,11 @@
 
 import { MessageSquare, Users, Shield, Zap, Lock, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 export function WhatsAppWelcome() {
-  const { t } = useTranslation('conversations')
+  const t = useTranslations('conversations')
 
   return (
     <div className="flex-1 flex items-center justify-center p-8 bg-[#f0f2f5] dark:bg-[#202c33]">

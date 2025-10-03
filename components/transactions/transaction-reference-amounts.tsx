@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -24,7 +24,7 @@ interface TransactionReference {
 }
 
 export function TransactionReferenceAmounts() {
-  const { t } = useTranslation();
+  const t = useTranslations('transactions')
   const [references, setReferences] = useState<TransactionReference[]>([])
   const [loading, setLoading] = useState(true)
   const [editDialog, setEditDialog] = useState<{ open: boolean; reference: TransactionReference | null }>({ open: false, reference: null })
@@ -47,7 +47,7 @@ export function TransactionReferenceAmounts() {
       setReferences(data || [])
     } catch (error) {
       console.error('Error fetching transaction references:', error)
-      toast.error(t('loadingError', { ns: 'transactions' }))
+      toast.error(t('loadingError'))
     } finally {
       setLoading(false)
     }
@@ -66,18 +66,18 @@ export function TransactionReferenceAmounts() {
         throw error
       }
       
-      toast.success(t('updateSuccess', { ns: 'transactions' }))
+      toast.success(t('updateSuccess'))
       fetchReferences()
       setEditDialog({ open: false, reference: null })
     } catch (error) {
       console.error('Error updating reference:', error)
-      toast.error(t('updateError', { ns: 'transactions' }))
+      toast.error(t('updateError'))
     }
   }
 
   const addNewReference = async () => {
     if (!newReference.category || !newReference.amount || !newReference.type) {
-      toast.error(t('fillAllFields', { ns: 'transactions' }))
+      toast.error(t('fillAllFields'))
       return
     }
 
@@ -92,7 +92,7 @@ export function TransactionReferenceAmounts() {
       setNewReference({ category: '', type: 'expense', amount: '', description: '' })
     } catch (error) {
       console.error('Error adding reference:', error)
-      toast.error(t('addError', { ns: 'transactions' }))
+      toast.error(t('addError'))
     }
   }
 
@@ -123,7 +123,7 @@ export function TransactionReferenceAmounts() {
   }
 
   const getCategoryLabel = (category: string) => {
-    return t(`transactions.categories.${category}`) || category
+    return t(`categories.${category}`) || category
   }
 
   const expenseReferences = references.filter(ref => ref.transaction_type === 'expense')
@@ -135,7 +135,7 @@ export function TransactionReferenceAmounts() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" />
-            {t('referenceAmountsTitle', { ns: 'transactions' })}
+            {t('referenceAmountsTitle')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -153,66 +153,67 @@ export function TransactionReferenceAmounts() {
     <div className="space-y-6">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <div />
           <CardTitle className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" />
-            {t('referenceAmountsTitle', { ns: 'transactions' })}
+            {t('referenceAmountsTitle')}
           </CardTitle>
           <Dialog>
             <DialogTrigger asChild>
               <Button size="sm">
                 <Plus className="h-4 w-4 mr-2" />
-                {t('common:add')}
+                {t('add')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{t('addNewCategory', { ns: 'transactions' })}</DialogTitle>
+                <DialogTitle>{t('addNewCategory')}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="new-category">{t('categoryLabel', { ns: 'transactions' })}</Label>
+                  <Label htmlFor="new-category">{t('categoryLabel')}</Label>
                   <Input
                     id="new-category"
-                    placeholder={t('categoryPlaceholder', { ns: 'transactions' })}
+                    placeholder={t('categoryPlaceholder')}
                     value={newReference.category}
                     onChange={(e) => setNewReference({...newReference, category: e.target.value})}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="new-type">{t('transactionType', { ns: 'transactions' })}</Label>
+                  <Label htmlFor="new-type">{t('transactionType')}</Label>
                   <Select onValueChange={(value) => setNewReference({...newReference, type: value})} value={newReference.type}>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('selectType', { ns: 'transactions' })} />
+                      <SelectValue placeholder={t('selectType')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="expense">{t('expense', { ns: 'transactions' })}</SelectItem>
-                      <SelectItem value="income">{t('income', { ns: 'transactions' })}</SelectItem>
+                      <SelectItem value="expense">{t('expense')}</SelectItem>
+                      <SelectItem value="income">{t('income')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="new-amount">{t('referenceAmountDZD', { ns: 'transactions' })}</Label>
+                  <Label htmlFor="new-amount">{t('referenceAmountDZD')}</Label>
                   <Input
                     id="new-amount"
                     type="number"
                     step="0.01"
-                    placeholder="5000.00"
+                    placeholder={t('amountPlaceholder')}
                     value={newReference.amount}
                     onChange={(e) => setNewReference({...newReference, amount: e.target.value})}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="new-description">{t('description', { ns: 'transactions' })}</Label>
+                  <Label htmlFor="new-description">{t('description')}</Label>
                   <Textarea
                     id="new-description"
-                    placeholder={t('description', { ns: 'transactions' })}
+                    placeholder={t('description')}
                     value={newReference.description}
                     onChange={(e) => setNewReference({...newReference, description: e.target.value})}
                   />
                 </div>
                 <Button onClick={addNewReference} className="w-full">
                   <Save className="h-4 w-4 mr-2" />
-                  {t('addCategory', { ns: 'transactions' })}
+                  {t('addCategory')}
                 </Button>
               </div>
             </DialogContent>
@@ -223,11 +224,11 @@ export function TransactionReferenceAmounts() {
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="expenses" className="flex items-center gap-2">
                 <TrendingDown className="h-4 w-4" />
-                {t('expenses', { ns: 'transactions' })} ({expenseReferences.length})
+                {t('expenses')} ({expenseReferences.length})
               </TabsTrigger>
               <TabsTrigger value="income" className="flex items-center gap-2">
                 <TrendingUp className="h-4 w-4" />
-                {t('income', { ns: 'transactions' })} ({incomeReferences.length})
+                {t('income')} ({incomeReferences.length})
               </TabsTrigger>
             </TabsList>
             
@@ -248,12 +249,12 @@ export function TransactionReferenceAmounts() {
             <div className="flex items-start gap-2">
               <AlertTriangle className="h-5 w-5 text-blue-600 mt-0.5" />
               <div className="text-sm text-blue-800">
-                <p className="font-medium">{t('howItWorks', { ns: 'transactions' })}</p>
+                <p className="font-medium">{t('howItWorks')}</p>
                 <ul className="mt-2 space-y-1 list-disc list-inside">
-                  <li>{t('howItWorksSteps:step1', { ns: 'transactions' })}</li>
-                  <li>{t('howItWorksSteps:step2', { ns: 'transactions' })}</li>
-                  <li>{t('howItWorksSteps:step3', { ns: 'transactions' })}</li>
-                  <li>{t('howItWorksSteps:step4', { ns: 'transactions' })}</li>
+                  <li>{t('howItWorksSteps.step1')}</li>
+                  <li>{t('howItWorksSteps.step2')}</li>
+                  <li>{t('howItWorksSteps.step3')}</li>
+                  <li>{t('howItWorksSteps.step4')}</li>
                 </ul>
               </div>
             </div>
@@ -270,7 +271,7 @@ interface ReferenceCardProps {
 }
 
 function ReferenceCard({ reference, onUpdate }: ReferenceCardProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('transactions')
   
   const getCategoryIcon = (category: string) => {
     const icons: Record<string, string> = {
@@ -284,7 +285,7 @@ function ReferenceCard({ reference, onUpdate }: ReferenceCardProps) {
   }
 
   const getCategoryLabel = (category: string) => {
-    return t(`transactions.categories.${category}`) || category
+    return t(`categories.${category}`) || category
   }
 
   return (
@@ -310,7 +311,7 @@ function ReferenceCard({ reference, onUpdate }: ReferenceCardProps) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t('common:edit')} {getCategoryLabel(reference.category)}</DialogTitle>
+              <DialogTitle>{t('edit')} {getCategoryLabel(reference.category)}</DialogTitle>
             </DialogHeader>
             <EditReferenceForm 
               reference={reference} 
@@ -329,13 +330,13 @@ interface EditReferenceFormProps {
 }
 
 function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('transactions')
   const [amount, setAmount] = useState(reference.reference_amount.toString())
   const [description, setDescription] = useState(reference.description)
 
   const handleSave = () => {
     if (!amount) {
-      toast.error(t('enterAmount', { ns: 'transactions' }))
+      toast.error(t('enterAmount'))
       return
     }
     
@@ -345,7 +346,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
   return (
     <div className="space-y-4">
       <div>
-        <Label htmlFor="edit-amount">{t('referenceAmountDZD', { ns: 'transactions' })}</Label>
+        <Label htmlFor="edit-amount">{t('referenceAmountDZD')}</Label>
         <Input
           id="edit-amount"
           type="number"
@@ -355,7 +356,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
         />
       </div>
       <div>
-        <Label htmlFor="edit-description">{t('description', { ns: 'transactions' })}</Label>
+        <Label htmlFor="edit-description">{t('description')}</Label>
         <Textarea
           id="edit-description"
           value={description}
@@ -364,7 +365,7 @@ function EditReferenceForm({ reference, onSave }: EditReferenceFormProps) {
       </div>
       <Button onClick={handleSave} className="w-full">
         <Save className="h-4 w-4 mr-2" />
-        {t('common:save')}
+        {t('save')}
       </Button>
     </div>
   )

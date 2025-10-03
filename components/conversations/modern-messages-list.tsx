@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { format, isToday, isYesterday, isSameDay } from 'date-fns'
 import { fr } from 'date-fns/locale'
+import { useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -31,6 +32,7 @@ interface MessageBubbleProps {
 
 function MessageBubble({ message, isOwn, showAvatar, showTimestamp, isLastInGroup }: MessageBubbleProps) {
   const [showMenu, setShowMenu] = useState(false)
+  const t = useTranslations('common')
 
   const formatMessageTime = (timestamp: string) => {
     const date = new Date(timestamp)
@@ -122,15 +124,15 @@ function MessageBubble({ message, isOwn, showAvatar, showTimestamp, isLastInGrou
                   Répondre
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-xs">
-                  Transférer
+                  {t('transfer')}
                 </DropdownMenuItem>
                 {isOwn && (
                   <>
                     <DropdownMenuItem className="text-xs">
-                      Modifier
+                      {t('edit')}
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-xs text-destructive">
-                      Supprimer
+                      {t('delete')}
                     </DropdownMenuItem>
                   </>
                 )}

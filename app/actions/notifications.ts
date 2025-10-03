@@ -6,62 +6,50 @@ import { Database, Notification } from '@/lib/types';
 
 export async function createNotification(
   userId: string,
-  title: string,
-  message: string,
+  title_key: string,
+  message_key: string,
   type: 'info' | 'warning' | 'error' | 'success' = 'info',
   link?: string,
-  sender_id?: string,
+  sender_id?: string | null,
+  title_payload?: Record<string, any>,
+  message_payload?: Record<string, any>,
   supabaseClient?: SupabaseClient<Database>
 ) {
+  // Always use service role for creating notifications to bypass RLS
   const supabase = supabaseClient || await createClient(true);
+  
+  console.log('Creating notification with service role:', {
+    userId,
+    title_key,
+    type,
+    sender_id
+  });
   
   // Check if the notifications table has the 'type' column
   // If not, use basic structure for backward compatibility
-  try {
-    const { data, error } = await supabase
-      .from('notifications')
-      .insert({ 
-        user_id: userId, 
-        title, 
-        message, 
-        type,
-        link, 
-        sender_id,
-        is_read: false,
-        created_at: new Date().toISOString()
-      })
-      .select();
+  const { data, error } = await supabase
+    .from('notifications')
+    .insert({
+      user_id: userId,
+      title_key,
+      message_key,
+      type,
+      link,
+      sender_id,
+      title_payload,
+      message_payload,
+      is_read: false,
+      created_at: new Date().toISOString()
+    })
+    .select();
 
-    if (error) {
-      throw error;
-    }
-    return data;
-  } catch (error: any) {
-    // If the 'type' column doesn't exist, fall back to basic structure
-    if (error.code === 'PGRST204' || error.message?.includes("'type' column")) {
-      console.log('Type column not found, using basic notification structure');
-      const { data, error: fallbackError } = await supabase
-        .from('notifications')
-        .insert({ 
-          user_id: userId, 
-          title, 
-          message, 
-          link,
-          is_read: false,
-          created_at: new Date().toISOString()
-        })
-        .select();
-
-      if (fallbackError) {
-        console.error('Error creating notification (fallback):', fallbackError);
-        throw fallbackError;
-      }
-      return data;
-    }
-    
+  if (error) {
     console.error('Error creating notification:', error);
     throw error;
   }
+  
+  console.log('Notification created successfully:', data);
+  return data;
 }
 
 export async function getUnreadNotificationsCount(
@@ -126,7 +114,7 @@ export async function markNotificationAsReadAndNotifySender(
   
   const { data: notification, error: fetchError } = await supabase
     .from('notifications')
-    .select('*')
+    .select('id, title_key, message_key, title_payload, message_payload, is_read, created_at, user_id, link, sender_id, type')
     .eq('id', notificationId)
     .single();
 
@@ -146,7 +134,7 @@ export async function markNotificationAsReadAndNotifySender(
     throw updateError;
   }
 
-  if (notification.sender_id && notification.title !== "Notification Read") {
+  if (notification.sender_id && notification.title_key !== "Notification Read") {
     const { data: user, error: userError } = await supabase
       .from('profiles')
       .select('full_name')
@@ -172,11 +160,13 @@ export async function markNotificationAsReadAndNotifySender(
 
     await createNotification(
       notification.sender_id,
-      "Notification Read",
-      `Your notification for task "${taskTitle}" has been read by ${user?.full_name || 'a user'}.`,
+      "Notification Read", // This is the title_key, which is fine
+      "notificationReadMessage", // New message_key for translation
       'info',
       undefined,
       notification.user_id,
+      undefined, // title_payload
+      { taskTitle: taskTitle, userName: user?.full_name || 'unknownUser' }, // message_payload
       supabase
     );
   }

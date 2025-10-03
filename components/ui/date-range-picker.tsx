@@ -3,7 +3,8 @@
 import * as React from 'react'
 import { CalendarIcon } from 'lucide-react'
 import { DateRange } from 'react-day-picker'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
+
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -26,7 +27,7 @@ export function DatePickerWithRange({
   className,
   placeholder
 }: DatePickerWithRangeProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('common')
   const [date, setDate] = React.useState<DateRange | undefined>(value)
 
   React.useEffect(() => {
@@ -61,7 +62,7 @@ export function DatePickerWithRange({
                 date.from.toLocaleDateString()
               )
             ) : (
-              <span>{placeholder || t('common:pickDateRange')}</span>
+              <span>{placeholder || t('pickDateRange')}</span>
             )}
           </Button>
         </PopoverTrigger>

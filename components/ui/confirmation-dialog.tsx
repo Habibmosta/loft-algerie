@@ -4,7 +4,7 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertTriangle, X } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 
 interface ConfirmationDialogProps {
   isOpen: boolean
@@ -24,11 +24,13 @@ export function ConfirmationDialog({
   onConfirm,
   title,
   description,
-  confirmLabel = "Confirmer",
-  cancelLabel = "Annuler",
+  confirmLabel,
+  cancelLabel,
   variant = 'danger',
   icon
 }: ConfirmationDialogProps) {
+  const t = useTranslations('common')
+  
   if (!isOpen) return null
 
   const handleConfirm = () => {
@@ -107,13 +109,13 @@ export function ConfirmationDialog({
               onClick={onClose}
               className="px-6 hover:bg-gray-50 dark:hover:bg-gray-800"
             >
-              {cancelLabel}
+              {cancelLabel || t('cancel')}
             </Button>
             <Button
               onClick={handleConfirm}
               className={`px-6 ${styles.confirmButton} shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105`}
             >
-              {confirmLabel}
+              {confirmLabel || t('confirm')}
             </Button>
           </div>
         </CardContent>

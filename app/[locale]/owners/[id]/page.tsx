@@ -4,9 +4,13 @@ import Link from "next/link"
 import { createClient } from "@/utils/supabase/server"
 import { format } from "date-fns"
 import { DeleteOwnerButton } from './delete-button'
+import { getTranslations } from 'next-intl/server'
 
-export default async function OwnerViewPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function OwnerViewPage({ params }: { params: Promise<{ id: string, locale: string }> }) {
+  const { id, locale } = await params;
+  const t = await getTranslations('owners');
+  const tCommon = await getTranslations('common');
+  
   const supabase = await createClient()
   const { data: owner, error } = await supabase
     .from("loft_owners")
@@ -18,8 +22,8 @@ export default async function OwnerViewPage({ params }: { params: Promise<{ id: 
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Propriétaire non trouvé</h1>
-          <p className="text-muted-foreground">Le propriétaire avec l'ID {id} n'existe pas.</p>
+          <h1 className="text-3xl font-bold tracking-tight">{t('notFoundTitle')}</h1>
+          <p className="text-muted-foreground">{t('notFoundDescription', { id })}</p>
         </div>
       </div>
     )
@@ -30,37 +34,37 @@ export default async function OwnerViewPage({ params }: { params: Promise<{ id: 
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">{owner.name}</h1>
-          <p className="text-muted-foreground">Détails du propriétaire</p>
+          <p className="text-muted-foreground">{t('ownerDetails')}</p>
         </div>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Informations du propriétaire</CardTitle>
+          <CardTitle>{t('ownerInformation')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground">Type de propriété</h3>
-            <p>{owner.ownership_type === "company" ? "Propriété de l'entreprise" : "Tiers"}</p>
+            <h3 className="text-sm font-medium text-muted-foreground">{t('ownershipType')}</h3>
+            <p>{owner.ownership_type === "company" ? t('companyOwned') : t('thirdParty')}</p>
           </div>
           
           {owner.email && (
             <div>
-              <h3 className="text-sm font-medium text-muted-foreground">Email</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">{t('email')}</h3>
               <p>{owner.email}</p>
             </div>
           )}
 
           {owner.phone && (
             <div>
-              <h3 className="text-sm font-medium text-muted-foreground">Téléphone</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">{t('phone')}</h3>
               <p>{owner.phone}</p>
             </div>
           )}
 
           {owner.address && (
             <div>
-              <h3 className="text-sm font-medium text-muted-foreground">Adresse</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">{t('address')}</h3>
               <p>{owner.address}</p>
             </div>
           )}
@@ -68,7 +72,7 @@ export default async function OwnerViewPage({ params }: { params: Promise<{ id: 
           <div className="flex gap-2 pt-4">
             <DeleteOwnerButton id={owner.id} />
             <Button variant="outline" asChild>
-              <Link href={`/owners/${owner.id}/edit`}>Modifier</Link>
+              <Link href={`/${locale}/owners/${owner.id}/edit`}>{tCommon('edit')}</Link>
             </Button>
           </div>
         </CardContent>

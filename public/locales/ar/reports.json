@@ -102,25 +102,5 @@
   "thisMonth": "هذا الشهر",
   "thisQuarter": "هذا الربع",
   "thisWeek": "هذا الأسبوع",
-  "thisYear": "هذه السنة",
-  "months": {
-    "jan": "يناير",
-    "feb": "فبراير",
-    "mar": "مارس",
-    "apr": "أبريل",
-    "may": "مايو",
-    "jun": "يونيو",
-    "jul": "يوليو",
-    "aug": "أغسطس",
-    "sep": "سبتمبر",
-    "oct": "أكتوبر",
-    "nov": "نوفمبر",
-    "dec": "ديسمبر"
-  },
-  "top5ProfitableLofts": "أفضل 5 شقق ربحية",
-  "mostValuableAssets": "الأصول الأكثر قيمة",
-  "revenueExpensesByLoft": "الإيرادات والمصروفات حسب الشقة",
-  "detailedFinancialPerformance": "الأداء المالي المفصل",
-  "monthlyFinancialTrend": "الاتجاه المالي الشهري",
-  "trackRevenueExpenses": "تتبع الإيرادات والمصروفات بمرور الوقت."
+  "thisYear": "هذه السنة"
 }

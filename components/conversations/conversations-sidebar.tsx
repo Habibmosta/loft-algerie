@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { formatDistanceToNow, isToday, isYesterday, format } from 'date-fns'
 import { fr } from 'date-fns/locale'
@@ -25,7 +25,7 @@ export function ConversationsSidebar({
   selectedConversationId,
   onSelectConversation
 }: ConversationsSidebarProps) {
-  const { t } = useTranslation()
+  const t = useTranslations('conversations')
   const [searchQuery, setSearchQuery] = useState('')
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
 
@@ -44,186 +44,113 @@ export function ConversationsSidebar({
 
   useEffect(() => {
     fetchUnreadCounts()
-    const interval = setInterval(fetchUnreadCounts, 3000)
+    // Actualiser toutes les 30 secondes
+    const interval = setInterval(fetchUnreadCounts, 30000)
     return () => clearInterval(interval)
   }, [])
 
-  const formatLastMessageTime = (timestamp: string) => {
-    const date = new Date(timestamp)
-    
-    if (isToday(date)) {
-      return format(date, 'HH:mm')
-    } else if (isYesterday(date)) {
-      return 'Hier'
+  // Filtrer les conversations selon la recherche
+  const filteredConversations = conversations.filter(conversation =>
+    conversation.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    conversation.participants?.some((p: any) => 
+      p.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  )
+
+  const formatMessageTime = (date: string) => {
+    const messageDate = new Date(date)
+    if (isToday(messageDate)) {
+      return format(messageDate, 'HH:mm')
+    } else if (isYesterday(messageDate)) {
+      return t('yesterday')
     } else {
-      return format(date, 'dd/MM', { locale: fr })
+      return format(messageDate, 'dd/MM')
     }
   }
-
-  const getConversationName = (conversation: any) => {
-    if (conversation.name) return conversation.name
-    
-    if (conversation.type === 'direct') {
-      // Pour les conversations directes, afficher le nom de l'autre participant
-      const otherParticipant = conversation.participants?.find(
-        (p: any) => p.user_id !== currentUserId
-      )
-      let name = otherParticipant?.user?.full_name || 'Conversation'
-      
-      // Corriger les noms génériques
-      if (name === 'member1') name = 'Membre 1'
-      if (name === 'Team Member') name = 'Membre'
-      
-      return name
-    }
-    
-    return `Groupe ${conversation.id.slice(0, 8)}`
-  }
-
-  const getConversationAvatar = (conversation: any) => {
-    if (conversation.type === 'direct') {
-      const otherParticipant = conversation.participants?.find(
-        (p: any) => p.user_id !== currentUserId
-      )
-      return otherParticipant?.user?.avatar_url
-    }
-    return null
-  }
-
-  const getConversationInitials = (conversation: any) => {
-    const name = getConversationName(conversation)
-    return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2)
-  }
-
-  const filteredConversations = conversations.filter(conv => {
-    const name = getConversationName(conv).toLowerCase()
-    return name.includes(searchQuery.toLowerCase())
-  })
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="w-80 bg-white border-r flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b border-border">
+      <div className="p-4 border-b">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold">Conversations</h1>
-          <div className="flex items-center gap-2">
-            <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
-              <MoreVertical className="h-4 w-4" />
+          <h2 className="text-xl font-semibold">{t('conversations')}</h2>
+          <Link href="/conversations/new">
+            <Button size="sm">
+              <Plus className="h-4 w-4" />
             </Button>
-            <Button size="sm" asChild>
-              <Link href="/conversations/new">
-                <Plus className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
+          </Link>
         </div>
         
-        {/* Filtres */}
-        <div className="flex gap-2 mb-4">
-          <Button variant="default" size="sm" className="text-xs">
-            Toutes
-          </Button>
-          <Button variant="outline" size="sm" className="text-xs">
-            Non lues
-          </Button>
-          <Button variant="outline" size="sm" className="text-xs">
-            Groupes
-          </Button>
-        </div>
-        
-        {/* Barre de recherche */}
+        {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
-            placeholder="Rechercher des conversations"
+            placeholder={t('searchConversations')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-muted/50 border-0"
+            className="pl-10"
           />
         </div>
       </div>
 
-      {/* Liste des conversations */}
+      {/* Conversations List */}
       <div className="flex-1 overflow-y-auto">
         {filteredConversations.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
-            <h3 className="font-medium mb-2">Aucune conversation</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Commencez une nouvelle conversation avec votre équipe
-            </p>
-            <Button size="sm" asChild>
-              <Link href="/conversations/new">
-                Nouvelle conversation
-              </Link>
-            </Button>
+          <div className="p-4 text-center text-muted-foreground">
+            <MessageSquare className="h-12 w-12 mx-auto mb-2 opacity-50" />
+            <p>{searchQuery ? t('noConversationsFound') : t('noConversations')}</p>
           </div>
         ) : (
-          <div className="divide-y divide-border">
-            {filteredConversations.map((conversation) => {
-              const isSelected = conversation.id === selectedConversationId
-              const unreadCount = unreadCounts[conversation.id] || 0
-              const hasUnread = unreadCount > 0
-
-              return (
-                <div
-                  key={conversation.id}
-                  onClick={() => onSelectConversation(conversation.id)}
-                  className={cn(
-                    "conversation-item flex items-center gap-3 p-4 cursor-pointer transition-colors hover:bg-muted/50",
-                    isSelected && "bg-muted"
-                  )}
-                >
-                  {/* Avatar */}
-                  <div className="relative">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src={getConversationAvatar(conversation)} />
-                      <AvatarFallback className="bg-primary/10 text-primary font-medium">
-                        {getConversationInitials(conversation)}
-                      </AvatarFallback>
-                    </Avatar>
-                    {/* Indicateur en ligne (pour plus tard) */}
-                    {conversation.type === 'direct' && (
-                      <div className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 border-2 border-background rounded-full" />
-                    )}
-                  </div>
-
-                  {/* Contenu de la conversation */}
+          filteredConversations.map((conversation) => {
+            const unreadCount = unreadCounts[conversation.id] || 0
+            const isSelected = conversation.id === selectedConversationId
+            
+            return (
+              <div
+                key={conversation.id}
+                onClick={() => onSelectConversation(conversation.id)}
+                className={cn(
+                  "p-4 border-b cursor-pointer hover:bg-gray-50 transition-colors",
+                  isSelected && "bg-blue-50 border-r-2 border-r-blue-500"
+                )}
+              >
+                <div className="flex items-start gap-3">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={conversation.avatar} />
+                    <AvatarFallback>
+                      {conversation.title?.charAt(0) || 'C'}
+                    </AvatarFallback>
+                  </Avatar>
+                  
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className={cn(
-                        "font-medium truncate",
-                        hasUnread && "font-semibold"
-                      )}>
-                        {getConversationName(conversation)}
+                      <h3 className="font-medium truncate">
+                        {conversation.title || t('untitledConversation')}
                       </h3>
-                      <span className="text-xs text-muted-foreground flex-shrink-0">
-                        {formatLastMessageTime(conversation.updated_at)}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {conversation.last_message_at && (
+                          <span className="text-xs text-muted-foreground">
+                            {formatMessageTime(conversation.last_message_at)}
+                          </span>
+                        )}
+                        {unreadCount > 0 && (
+                          <Badge variant="destructive" className="h-5 min-w-5 text-xs">
+                            {unreadCount > 99 ? '99+' : unreadCount}
+                          </Badge>
+                        )}
+                      </div>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <p className={cn(
-                        "text-sm text-muted-foreground truncate",
-                        hasUnread && "text-foreground font-medium"
-                      )}>
-                        {conversation.last_message?.content || 'Aucun message'}
+                    {conversation.last_message && (
+                      <p className="text-sm text-muted-foreground truncate">
+                        {conversation.last_message}
                       </p>
-                      
-                      {hasUnread && (
-                        <Badge 
-                          variant="default" 
-                          className="notification-badge ml-2 h-5 min-w-[20px] flex items-center justify-center px-1.5 bg-primary text-primary-foreground text-xs font-bold rounded-full"
-                        >
-                          {unreadCount > 99 ? '99+' : unreadCount}
-                        </Badge>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </div>
-              )
-            })}
-          </div>
+              </div>
+            )
+          })
         )}
       </div>
     </div>

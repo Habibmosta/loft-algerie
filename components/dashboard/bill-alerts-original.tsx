@@ -24,13 +24,13 @@ interface BillAlert {
 const getUtilityLabel = (utilityType: string, t: any) => {
   switch (utilityType) {
     case "eau":
-      return t("bills:utilities.eau");
+      return t("utilities.eau");
     case "energie":
-      return t("bills:utilities.energie");
+      return t("utilities.energie");
     case "telephone":
-      return t("bills:utilities.telephone");
+      return t("utilities.telephone");
     case "internet":
-      return t("bills:utilities.internet");
+      return t("utilities.internet");
     default:
       return utilityType;
   }
@@ -87,7 +87,7 @@ const TRANSLATIONS = {
 };
 
 export function BillAlerts() {
-  const { t, i18n } = useTranslation(["common", "bills", "dashboard"]);
+  const t = useTranslations('dashboard')
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
   const [overdueBills, setOverdueBills] = useState<BillAlert[]>([]);
   const [loading, setLoading] = useState(true);

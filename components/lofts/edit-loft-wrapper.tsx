@@ -1,7 +1,7 @@
 "use client"
 
-import { useTranslation } from "@/lib/i18n/context"
-import { EditLoftClientPage } from "@/app/lofts/[id]/edit/edit-loft-client-page"
+import { useTranslations } from "next-intl"
+import { EditLoftPageClient } from "@/app/[locale]/lofts/[id]/edit/edit-loft-page-client"
 
 interface EditLoftWrapperProps {
   loft: any
@@ -16,17 +16,18 @@ export function EditLoftWrapper({
   zoneAreas, 
   internetConnectionTypes 
 }: EditLoftWrapperProps) {
-  const { t } = useTranslation(["common", "lofts"]);
+  const tLofts = useTranslations('lofts');
+  const tCommon = useTranslations('common');
 
   const translations = {
-    editLoft: t('lofts:editLoft'),
-    updatePropertyDetails: t('lofts:updatePropertyDetails'),
-    loftUpdated: t('lofts:loftUpdated'),
-    error: t('common:error'),
+    editLoft: tLofts('editLoft'),
+    updatePropertyDetails: tLofts('updatePropertyDetails'),
+    loftUpdated: tLofts('loftUpdated'),
+    error: tCommon('error'),
   };
 
   return (
-    <EditLoftClientPage
+    <EditLoftPageClient
       loft={loft}
       owners={owners}
       zoneAreas={zoneAreas}

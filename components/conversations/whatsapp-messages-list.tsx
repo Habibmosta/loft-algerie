@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { format, isToday, isYesterday, isSameDay } from 'date-fns'
 import { fr } from 'date-fns/locale'
+import { useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -168,7 +169,7 @@ function MessageBubble({ message, isOwn, showAvatar, showTimestamp, isLastInGrou
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-xs text-destructive">
                           <Trash2 className="h-3 w-3 mr-2" />
-                          Supprimer
+                          {t('delete')}
                         </DropdownMenuItem>
                       </>
                     )}
@@ -206,6 +207,7 @@ function DateSeparator({ date }: { date: string }) {
 }
 
 export function WhatsAppMessagesList({ messages, currentUserId, conversationId }: WhatsAppMessagesListProps) {
+  const t = useTranslations('conversations')
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true)

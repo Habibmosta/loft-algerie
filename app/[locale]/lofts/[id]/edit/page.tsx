@@ -16,6 +16,7 @@ export default async function EditLoftPage({ params }: { params: Promise<{ id: s
     .single()
 
   if (error || !loft) {
+    console.error('Error fetching loft:', error)
     notFound()
   }
 

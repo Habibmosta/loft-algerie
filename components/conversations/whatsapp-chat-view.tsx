@@ -1,24 +1,21 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { ArrowLeft, Phone, Video, MoreVertical, Send, Smile, Paperclip, Mic, Search, Users } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { ArrowLeft, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { WhatsAppMessagesList } from './whatsapp-messages-list'
-import { TypingIndicator } from './typing-indicator'
-import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'sonner'
-import { createClient } from '@/utils/supabase/client'
-import { SimpleMessage } from '@/lib/services/conversations-simple'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { useTranslations } from 'next-intl'
+import { useNotificationSound } from '@/hooks/use-notification-sound'
+
+interface Message {
+  id: string
+  conversation_id: string
+  sender_id: string
+  content: string
+  created_at: string
+  sender_name?: string
+}
 
 interface WhatsAppChatViewProps {
   conversationId: string
@@ -33,322 +30,246 @@ export function WhatsAppChatView({
   onBack,
   showBackButton = false
 }: WhatsAppChatViewProps) {
-  const { t } = useTranslation()
-  const [messages, setMessages] = useState<SimpleMessage[]>([])
+  const t = useTranslations('conversations')
   const [newMessage, setNewMessage] = useState('')
-  const [isSending, setIsSending] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [conversationInfo, setConversationInfo] = useState<any>(null)
-  const [isTyping, setIsTyping] = useState(false)
-  const [typingUsers, setTypingUsers] = useState<string[]>([])
-  const [isRecording, setIsRecording] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [loading, setLoading] = useState(true)
+  const [sending, setSending] = useState(false)
+  const [audioEnabled, setAudioEnabled] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const lastMessageCountRef = useRef(0)
+  const { playNotificationSound } = useNotificationSound()
 
-  // Charger les messages initiaux
-  useEffect(() => {
-    const loadMessages = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch(`/api/conversations/${conversationId}/messages`)
-        if (response.ok) {
-          const data = await response.json()
-          setMessages(data.messages || [])
-          setConversationInfo(data.conversation)
-        }
-      } catch (error) {
-        console.error('Error loading messages:', error)
-        toast.error('Erreur lors du chargement des messages')
-      } finally {
-        setIsLoading(false)
-      }
+  // Activer l'audio après la première interaction utilisateur
+  const enableAudio = useCallback(() => {
+    if (!audioEnabled) {
+      setAudioEnabled(true)
+      console.log('Audio notifications enabled')
     }
+  }, [audioEnabled])
 
+  // Charger les messages au montage du composant
+  useEffect(() => {
     loadMessages()
-  }, [conversationId])
-
-  // Configuration Supabase Realtime
-  useEffect(() => {
-    const supabase = createClient()
+    startPolling()
+    markConversationAsRead() // Marquer comme lu quand on ouvre la conversation
     
-    // Marquer comme lu
-    const markAsRead = async () => {
-      try {
-        await fetch(`/api/conversations/${conversationId}/mark-read`, {
-          method: 'POST'
-        })
-      } catch (error) {
-        console.error('Error marking as read:', error)
-      }
-    }
-
-    markAsRead()
-
-    // Écouter les nouveaux messages
-    const channel = supabase
-      .channel(`conversation:${conversationId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'messages',
-          filter: `conversation_id=eq.${conversationId}`,
-        },
-        (payload) => {
-          const newMessage = payload.new as SimpleMessage
-          setMessages(prev => [...prev, newMessage])
-          markAsRead()
-        }
-      )
-      .subscribe()
-
     return () => {
-      supabase.removeChannel(channel)
+      stopPolling()
     }
   }, [conversationId])
 
-  // Gestion de la frappe (typing indicator)
-  useEffect(() => {
-    let typingTimeout: NodeJS.Timeout
-
-    const handleTyping = () => {
-      if (!isTyping) {
-        setIsTyping(true)
-        // Envoyer l'événement de frappe (à implémenter)
-      }
-
-      clearTimeout(typingTimeout)
-      typingTimeout = setTimeout(() => {
-        setIsTyping(false)
-        // Arrêter l'événement de frappe (à implémenter)
-      }, 1000)
-    }
-
-    const input = inputRef.current
-    if (input) {
-      input.addEventListener('input', handleTyping)
-      return () => {
-        input.removeEventListener('input', handleTyping)
-        clearTimeout(typingTimeout)
-      }
-    }
-  }, [isTyping])
-
-  const sendMessage = async () => {
-    if (!newMessage.trim() || isSending) return
-
-    const messageContent = newMessage.trim()
-    setNewMessage('')
-    setIsSending(true)
-
+  // Marquer la conversation comme lue
+  const markConversationAsRead = async () => {
     try {
-      const response = await fetch(`/api/conversations/${conversationId}/messages`, {
+      await fetch('/api/conversations/mark-read', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: messageContent
+          conversation_id: conversationId,
+        }),
+      })
+      console.log('Conversation marked as read')
+    } catch (error) {
+      console.error('Error marking conversation as read:', error)
+    }
+  }
+
+  // Faire défiler vers le bas quand de nouveaux messages arrivent
+  useEffect(() => {
+    scrollToBottom()
+    
+    // Jouer le son si de nouveaux messages sont arrivés (pas au premier chargement)
+    if (messages.length > lastMessageCountRef.current && lastMessageCountRef.current > 0) {
+      const newMessages = messages.slice(lastMessageCountRef.current)
+      const hasNewMessagesFromOthers = newMessages.some(msg => msg.sender_id !== currentUserId)
+      
+      if (hasNewMessagesFromOthers && audioEnabled) {
+        console.log('Playing notification sound for new messages')
+        playNotificationSound()
+        // Marquer comme lu après avoir reçu de nouveaux messages
+        markConversationAsRead()
+      }
+    }
+    
+    lastMessageCountRef.current = messages.length
+  }, [messages, currentUserId, playNotificationSound])
+
+  const startPolling = useCallback(() => {
+    // Vérifier les nouveaux messages toutes les 2 secondes
+    pollingIntervalRef.current = setInterval(() => {
+      loadMessages(true) // true = polling mode (silencieux)
+    }, 2000)
+  }, [])
+
+  const stopPolling = useCallback(() => {
+    if (pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current)
+      pollingIntervalRef.current = null
+    }
+  }, [])
+
+  const loadMessages = async (isPolling = false) => {
+    try {
+      if (!isPolling) {
+        setLoading(true)
+      }
+      
+      const response = await fetch(`/api/conversations/${conversationId}/messages`)
+      if (response.ok) {
+        const data = await response.json()
+        const newMessages = data.messages || []
+        
+        // Mettre à jour les messages seulement s'il y a des changements
+        setMessages(prevMessages => {
+          if (JSON.stringify(prevMessages) !== JSON.stringify(newMessages)) {
+            return newMessages
+          }
+          return prevMessages
         })
+      }
+    } catch (error) {
+      console.error('Error loading messages:', error)
+    } finally {
+      if (!isPolling) {
+        setLoading(false)
+      }
+    }
+  }
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const handleSendMessage = async () => {
+    if (!newMessage.trim() || sending) return
+    
+    // Activer l'audio lors de la première interaction
+    enableAudio()
+    
+    const messageContent = newMessage.trim()
+    setNewMessage('') // Vider le champ immédiatement pour une meilleure UX
+    
+    try {
+      setSending(true)
+      const response = await fetch('/api/conversations/send-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          conversationId,
+          content: messageContent,
+        }),
       })
 
       if (response.ok) {
-        const sentMessage = await response.json()
-        // Le message sera ajouté via Realtime
+        const data = await response.json()
+        if (data.success && data.message) {
+          // Ajouter le nouveau message à la liste immédiatement
+          setMessages(prev => {
+            // Éviter les doublons
+            const messageExists = prev.some(msg => msg.id === data.message.id)
+            if (messageExists) {
+              return prev
+            }
+            return [...prev, data.message]
+          })
+        }
       } else {
-        const error = await response.json()
-        toast.error(error.message || 'Erreur lors de l\'envoi')
+        console.error('Failed to send message')
+        // Remettre le message dans le champ en cas d'erreur
         setNewMessage(messageContent)
       }
     } catch (error) {
       console.error('Error sending message:', error)
-      toast.error('Erreur lors de l\'envoi du message')
+      // Remettre le message dans le champ en cas d'erreur
       setNewMessage(messageContent)
     } finally {
-      setIsSending(false)
+      setSending(false)
     }
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      sendMessage()
-    }
-  }
-
-  const getConversationName = () => {
-    if (!conversationInfo) return 'Conversation'
-    
-    if (conversationInfo.name) return conversationInfo.name
-    
-    if (conversationInfo.type === 'direct') {
-      const otherParticipant = conversationInfo.participants?.find(
-        (p: any) => p.user_id !== currentUserId
-      )
-      return otherParticipant?.user?.full_name || 'Utilisateur'
-    }
-    
-    return `Groupe ${conversationInfo.id.slice(0, 8)}`
-  }
-
-  const getConversationAvatar = () => {
-    if (!conversationInfo || conversationInfo.type !== 'direct') return null
-    
-    const otherParticipant = conversationInfo.participants?.find(
-      (p: any) => p.user_id !== currentUserId
-    )
-    return otherParticipant?.user?.avatar_url
-  }
-
-  const getConversationInitials = () => {
-    const name = getConversationName()
-    return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2)
-  }
-
-  const getStatusText = () => {
-    if (conversationInfo?.type === 'direct') {
-      return 'en ligne' // À remplacer par le vrai statut
-    } else {
-      const participantCount = conversationInfo?.participants?.length || 0
-      return `${participantCount} participant${participantCount > 1 ? 's' : ''}`
-    }
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-full bg-[#efeae2] dark:bg-[#0b141a]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00a884]"></div>
-      </div>
-    )
   }
 
   return (
-    <div className="flex flex-col h-full bg-[#efeae2] dark:bg-[#0b141a]">
-      {/* Header de la conversation */}
-      <div className="flex items-center gap-3 p-4 bg-[#f0f2f5] dark:bg-[#202c33] border-b border-[#e9edef] dark:border-[#313d45]">
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center gap-3 p-4 border-b bg-white">
         {showBackButton && (
-          <Button variant="ghost" size="sm" onClick={onBack} className="h-8 w-8 p-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
+          <Button variant="ghost" size="sm" onClick={onBack}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
         )}
-        
         <Avatar className="h-10 w-10">
-          <AvatarImage src={getConversationAvatar()} />
-          <AvatarFallback className={cn(
-            "font-medium text-white",
-            conversationInfo?.type === 'group' ? "bg-[#667781]" : "bg-[#00a884]"
-          )}>
-            {conversationInfo?.type === 'group' ? (
-              <Users className="h-5 w-5" />
-            ) : (
-              getConversationInitials()
-            )}
-          </AvatarFallback>
+          <AvatarFallback>U</AvatarFallback>
         </Avatar>
-        
-        <div className="flex-1 min-w-0 cursor-pointer" onClick={() => {/* Ouvrir profil/info groupe */}}>
-          <h2 className="font-medium truncate text-[#111b21] dark:text-[#e9edef]">{getConversationName()}</h2>
-          <p className="text-xs text-[#667781] dark:text-[#8696a0]">
-            {typingUsers.length > 0 ? (
-              <span className="text-[#00a884]">en train d'écrire...</span>
-            ) : (
-              getStatusText()
-            )}
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
-            <Search className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
-            <Phone className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
-            <Video className="h-4 w-4" />
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Infos du contact</DropdownMenuItem>
-              <DropdownMenuItem>Sélectionner messages</DropdownMenuItem>
-              <DropdownMenuItem>Fermer conversation</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Supprimer conversation</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <div className="flex-1">
+          <h3 className="font-medium">Conversation</h3>
+          <p className="text-sm text-gray-500">Online</p>
         </div>
       </div>
 
-      {/* Zone des messages */}
-      <div className="flex-1 overflow-hidden">
-        <WhatsAppMessagesList
-          messages={messages}
-          currentUserId={currentUserId}
-          conversationId={conversationId}
-        />
-      </div>
-
-      {/* Indicateur de frappe */}
-      {typingUsers.length > 0 && (
-        <div className="px-4 py-2 bg-[#efeae2] dark:bg-[#0b141a]">
-          <TypingIndicator users={typingUsers} />
-        </div>
-      )}
-
-      {/* Zone de saisie */}
-      <div className="p-4 bg-[#f0f2f5] dark:bg-[#202c33] border-t border-[#e9edef] dark:border-[#313d45]">
-        <div className="flex items-end gap-2">
-          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 flex-shrink-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
-            <Smile className="h-5 w-5" />
-          </Button>
-          
-          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 flex-shrink-0 text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]">
-            <Paperclip className="h-5 w-5" />
-          </Button>
-          
-          <div className="flex-1 relative">
-            <Input
-              ref={inputRef}
-              placeholder="Tapez un message"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              disabled={isSending}
-              className="bg-white dark:bg-[#2a3942] border-[#e9edef] dark:border-[#313d45] text-[#111b21] dark:text-[#e9edef] placeholder:text-[#667781] dark:placeholder:text-[#8696a0] focus:border-[#00a884] dark:focus:border-[#00a884] rounded-lg pr-12"
-            />
+      {/* Messages */}
+      <div className="flex-1 p-4 overflow-y-auto">
+        {loading ? (
+          <div className="text-center text-gray-500 mt-8">
+            Chargement des messages...
           </div>
-          
-          {newMessage.trim() ? (
-            <Button 
-              onClick={sendMessage} 
-              disabled={isSending}
-              size="sm"
-              className="h-10 w-10 p-0 rounded-full bg-[#00a884] hover:bg-[#00a884]/90 text-white"
-            >
+        ) : messages.length === 0 ? (
+          <div className="text-center text-gray-500 mt-8">
+            {t('noMessages')}
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {messages.map((message) => (
+              <div 
+                key={message.id} 
+                className={`flex ${message.sender_id === currentUserId ? 'justify-end' : 'justify-start'}`}
+              >
+                <div className={`rounded-lg p-3 max-w-xs ${
+                  message.sender_id === currentUserId 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-gray-100 text-gray-900'
+                }`}>
+                  <div className="text-sm">{message.content}</div>
+                  <div className={`text-xs mt-1 ${
+                    message.sender_id === currentUserId 
+                      ? 'text-blue-100' 
+                      : 'text-gray-500'
+                  }`}>
+                    {new Date(message.created_at).toLocaleTimeString([], { 
+                      hour: '2-digit', 
+                      minute: '2-digit' 
+                    })}
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+        )}
+      </div>
+
+      {/* Input */}
+      <div className="p-4 border-t bg-white">
+        <div className="flex gap-2">
+          <Input
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder={sending ? "Envoi en cours..." : t('typeMessage')}
+            onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
+            onFocus={enableAudio} // Activer l'audio quand l'utilisateur clique dans le champ
+            disabled={sending}
+          />
+          <Button onClick={handleSendMessage} disabled={sending || !newMessage.trim()}>
+            {sending ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+            ) : (
               <Send className="h-4 w-4" />
-            </Button>
-          ) : (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className={cn(
-                "h-10 w-10 p-0 flex-shrink-0 rounded-full transition-colors",
-                isRecording 
-                  ? "bg-red-500 text-white hover:bg-red-600" 
-                  : "text-[#54656f] dark:text-[#8696a0] hover:bg-[#f5f6f6] dark:hover:bg-[#2a3942]"
-              )}
-              onMouseDown={() => setIsRecording(true)}
-              onMouseUp={() => setIsRecording(false)}
-              onMouseLeave={() => setIsRecording(false)}
-            >
-              <Mic className="h-5 w-5" />
-            </Button>
-          )}
+            )}
+          </Button>
         </div>
       </div>
     </div>

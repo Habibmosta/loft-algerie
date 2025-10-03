@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,6 +29,7 @@ export function BudgetCategoriesManager() {
   const [loading, setLoading] = useState(true)
   const [editingCategory, setEditingCategory] = useState<BudgetCategory | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const t = useTranslations('admin')
   const [formData, setFormData] = useState({
     category_name: '',
     reference_amount: '',
@@ -180,12 +182,12 @@ export function BudgetCategoriesManager() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                {editingCategory ? 'Modifier la Catégorie' : 'Nouvelle Catégorie'}
+                {editingCategory ? t('editCategory') : t('newCategory')}
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="category_name">Nom de la Catégorie</Label>
+                <Label htmlFor="category_name">{t('categoryName')}</Label>
                 <Input
                   id="category_name"
                   value={formData.category_name}
@@ -226,10 +228,10 @@ export function BudgetCategoriesManager() {
               </div>
               <div className="flex justify-end gap-2">
                 <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                  Annuler
+                  {t('cancel')}
                 </Button>
                 <Button onClick={handleSave}>
-                  {editingCategory ? 'Mettre à jour' : 'Créer'}
+                  {editingCategory ? t('update') : t('create')}
                 </Button>
               </div>
             </div>

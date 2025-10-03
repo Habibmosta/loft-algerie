@@ -10,7 +10,8 @@ import {
 import { Check } from "lucide-react"
 import { FlagIcon } from "@/components/ui/flag-icon"
 import { useState, useEffect } from "react"
-// import { useRouter } from "next/navigation" // Plus nécessaire
+import { useRouter, usePathname } from "next/navigation"
+import { useLocale } from "next-intl"
 
 const languages = [
   { code: 'fr', name: 'Français', flagCode: 'FR' as const },
@@ -23,35 +24,32 @@ interface LanguageSelectorProps {
 }
 
 export function LanguageSelector({ showText = false }: LanguageSelectorProps) {
-  const [currentLang, setCurrentLang] = useState('fr');
-  const [mounted, setMounted] = useState(false);
+  const router = useRouter()
+  const pathname = usePathname()
+  const currentLocale = useLocale()
+  const [mounted, setMounted] = useState(false)
 
-  // Récupérer la langue actuelle depuis les cookies après le montage
   useEffect(() => {
-    const getCurrentLanguage = () => {
-      const cookies = document.cookie.split(';');
-      const langCookie = cookies.find(cookie => cookie.trim().startsWith('language='));
-      if (langCookie) {
-        return langCookie.split('=')[1];
-      }
-      return 'fr'; // défaut
-    };
-
-    setCurrentLang(getCurrentLanguage());
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   const handleLanguageChange = (langCode: string) => {
-    // Sauvegarder la langue dans les cookies
-    document.cookie = `language=${langCode}; path=/; max-age=31536000; SameSite=Lax`;
+    // Set locale cookie for persistence
+    document.cookie = `NEXT_LOCALE=${langCode}; path=/; max-age=31536000; SameSite=Lax`
     
-    // Recharger la page pour appliquer la nouvelle langue
-    window.location.reload();
+    // Get current path without locale
+    const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/'
+    
+    // Navigate to new locale with force refresh
+    const newUrl = `/${langCode}${pathWithoutLocale}`
+    
+    // Use window.location for immediate navigation
+    window.location.href = newUrl
   }
 
-  const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0] // Par défaut français
+  const currentLanguage = languages.find(lang => lang.code === currentLocale) || languages[0]
 
-  // Afficher le drapeau français par défaut pendant le chargement
+  // Show default during hydration
   if (!mounted) {
     return (
       <Button 
@@ -63,7 +61,7 @@ export function LanguageSelector({ showText = false }: LanguageSelectorProps) {
         <FlagIcon country="FR" className="w-5 h-4" />
         {showText && <span className="text-sm font-medium">Français</span>}
       </Button>
-    );
+    )
   }
 
   return (
@@ -89,6 +87,9 @@ export function LanguageSelector({ showText = false }: LanguageSelectorProps) {
               <FlagIcon country={lang.flagCode} className="w-5 h-4" />
               <span>{lang.name}</span>
             </div>
+            {lang.code === currentLocale && (
+              <Check className="h-4 w-4 text-green-600" />
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

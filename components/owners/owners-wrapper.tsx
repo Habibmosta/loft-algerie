@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslations } from "next-intl"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -19,19 +19,7 @@ interface OwnersWrapperProps {
 }
 
 export function OwnersWrapper({ owners }: OwnersWrapperProps) {
-  const { t, ready } = useTranslation(["common", "owners"])
-
-  // Attendre que les traductions soient prêtes
-  if (!ready) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement des traductions...</p>
-        </div>
-      </div>
-    )
-  }
+  const t = useTranslations("owners")
 
   const getOwnershipColor = (type: string) => {
     return type === "company" 
@@ -49,10 +37,10 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="space-y-2">
           <h1 className="text-4xl font-bold text-gray-900">
-            {t('title', { ns: 'owners' })}
+            {t('title')}
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl">
-            {t('subtitle', { ns: 'owners' })}
+            {t('subtitle')}
           </p>
         </div>
         
@@ -62,7 +50,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
         >
           <Link href="/owners/new" className="flex items-center gap-2 px-6 py-3">
             <Plus className="h-5 w-5" />
-            <span className="font-medium">{t('addOwner', { ns: 'owners' })}</span>
+            <span className="font-medium">{t('addOwner')}</span>
           </Link>
         </Button>
       </div>
@@ -73,7 +61,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{t('totalOwners', { ns: 'owners' })}</p>
+                <p className="text-sm font-medium text-gray-600">{t('totalOwners')}</p>
                 <p className="text-3xl font-bold text-gray-900">{owners.length}</p>
               </div>
               <Users className="h-8 w-8 text-blue-500" />
@@ -85,7 +73,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{t('totalProperties', { ns: 'owners' })}</p>
+                <p className="text-sm font-medium text-gray-600">{t('totalProperties')}</p>
                 <p className="text-3xl font-bold text-gray-900">
                   {owners.reduce((total, owner) => total + parseInt(owner.loft_count), 0)}
                 </p>
@@ -99,7 +87,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{t('totalMonthlyValue', { ns: 'owners' })}</p>
+                <p className="text-sm font-medium text-gray-600">{t('totalMonthlyValue')}</p>
                 <p className="text-3xl font-bold text-gray-900">
                   {owners.reduce((total, owner) => total + parseFloat(owner.total_monthly_value), 0).toLocaleString()} DZD
                 </p>
@@ -116,15 +104,15 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
           <CardContent>
             <Users className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              {t('noOwnersFound', { ns: 'owners' })}
+              {t('noOwnersFound')}
             </h3>
             <p className="text-gray-600 mb-6">
-              {t('noOwnersDescription', { ns: 'owners' })}
+              {t('noOwnersDescription')}
             </p>
             <Button asChild>
               <Link href="/owners/new">
                 <Plus className="mr-2 h-4 w-4" />
-                {t('addFirstOwner', { ns: 'owners' })}
+                {t('addFirstOwner')}
               </Link>
             </Button>
           </CardContent>
@@ -144,7 +132,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                         {owner.name}
                       </CardTitle>
                       <CardDescription className="text-sm text-gray-600">
-                        {t('propertiesCount', { ns: 'owners', count: parseInt(owner.loft_count) })} • 
+                        {t('propertiesCount', { count: parseInt(owner.loft_count) })} • 
                         <span className="font-medium text-green-600 ml-1">
                           {parseFloat(owner.total_monthly_value).toLocaleString()} DZD/mois
                         </span>
@@ -152,8 +140,8 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                     </div>
                     <Badge className={getOwnershipColor(owner.ownership_type)}>
                       {owner.ownership_type === "company" 
-                        ? t('company', { ns: 'owners' }) 
-                        : t('thirdParty', { ns: 'owners' })
+                        ? t('company') 
+                        : t('thirdParty')
                       }
                     </Badge>
                   </div>
@@ -194,7 +182,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                     >
                       <Link href={`/owners/${owner.id}`} className="flex items-center justify-center gap-2">
                         <Eye className="h-4 w-4" />
-                        <span>{t('common:view')}</span>
+                        <span>{t('view')}</span>
                       </Link>
                     </Button>
                     
@@ -206,13 +194,13 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                     >
                       <Link href={`/owners/${owner.id}/edit`} className="flex items-center justify-center gap-2">
                         <Edit className="h-4 w-4" />
-                        <span>{t('common:edit')}</span>
+                        <span>{t('edit')}</span>
                       </Link>
                     </Button>
                     
                     <form 
                       action={async () => {
-                        if (confirm(t('deleteOwnerConfirm', { ns: 'owners' }))) {
+                        if (confirm(t('deleteOwnerConfirm'))) {
                           await deleteOwner(owner.id)
                         }
                       }}
@@ -225,7 +213,7 @@ export function OwnersWrapper({ owners }: OwnersWrapperProps) {
                         className="w-full flex items-center justify-center gap-2 hover:bg-red-600"
                       >
                         <Trash2 className="h-4 w-4" />
-                        <span>{t('common:delete')}</span>
+                        <span>{t('delete')}</span>
                       </Button>
                     </form>
                   </div>

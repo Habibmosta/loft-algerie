@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Link from "next/link"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { 
   Plus, 
   DollarSign, 
@@ -64,8 +64,8 @@ export function SimpleTransactionsPage({
   currencies,
   paymentMethods
 }: SimpleTransactionsPageProps) {
-  const { t } = useTranslation("transactions")
-  const { t: tCommon } = useTranslation("common")
+  const t = useTranslations("transactions")
+  const tCommon = useTranslations("common")
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions)
   const [searchTerm, setSearchTerm] = useState("")
   const [typeFilter, setTypeFilter] = useState<string>("all")
@@ -343,7 +343,7 @@ export function SimpleTransactionsPage({
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    placeholder={t('startDate')}
+                    placeholder="jj/mm/aaaa"
                     className="flex-1 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors"
                   />
                   <span className="text-gray-500 text-sm font-medium">{t('to')}</span>
@@ -351,7 +351,7 @@ export function SimpleTransactionsPage({
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    placeholder={t('endDate')}
+                    placeholder="jj/mm/aaaa"
                     className="flex-1 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors"
                   />
                 </div>

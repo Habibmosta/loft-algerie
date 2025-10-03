@@ -1,10 +1,10 @@
 "use client"
 
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { CreditCard } from "lucide-react"
 
 export function EditPaymentMethodHeader() {
-  const { t } = useTranslation(['paymentMethods'])
+  const t = useTranslations('paymentMethods')
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 p-8 text-white shadow-2xl">

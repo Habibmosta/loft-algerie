@@ -1,7 +1,7 @@
 "use client"
 
-import { useTranslation } from "react-i18next"
-import ReportChartsWrapper from '@/app/reports/report-charts-wrapper'
+import { useTranslations } from "next-intl"
+import ReportChartsWrapper from '@/components/reports/report-charts-wrapper'
 
 interface LoftRevenue {
   name: string
@@ -16,7 +16,7 @@ interface ReportsWrapperProps {
 }
 
 export function ReportsWrapper({ loftRevenue, monthlyRevenue }: ReportsWrapperProps) {
-  const { t } = useTranslation("reports");
+  const t = useTranslations("analytics");
 
   return (
     <div className="space-y-8">

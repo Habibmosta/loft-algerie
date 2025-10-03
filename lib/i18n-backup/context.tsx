@@ -139,7 +139,7 @@ export function useTranslation(namespaces?: string | string[]) {
     const nsArray = Array.isArray(namespaces) ? namespaces : [namespaces]
     nsArray.forEach(ns => {
       // Check if the namespace is already loaded
-      if (!context.i18n.hasResourceBundle(context.'fr', ns)) {
+      if (!context.i18n.hasResourceBundle(context.language, ns)) {
         // Try to load the namespace
         context.i18n.loadNamespaces(ns).catch(err => {
           console.error('Failed to load namespace:', ns, err)

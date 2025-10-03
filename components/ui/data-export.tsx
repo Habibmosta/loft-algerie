@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Download, FileText, FileSpreadsheet, Calendar } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { DateRange } from 'react-day-picker'
 import { Button } from '@/components/ui/button'
 import {
@@ -91,6 +92,7 @@ const formatOptions = [
 ]
 
 export function DataExport({ onExport, availableTypes = ['lofts', 'transactions', 'tasks', 'reports'], className }: DataExportProps) {
+  const t = useTranslations('common')
   const [isOpen, setIsOpen] = useState(false)
   const [isExporting, setIsExporting] = useState(false)
   const [config, setConfig] = useState<Partial<ExportConfig>>({

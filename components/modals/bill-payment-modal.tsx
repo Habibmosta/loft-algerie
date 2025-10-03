@@ -3,7 +3,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { BillPaymentForm } from '@/components/forms/bill-payment-form'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface BillPaymentModalProps {
   isOpen: boolean
@@ -24,7 +24,7 @@ export function BillPaymentModal({
   dueDate,
   onSuccess
 }: BillPaymentModalProps) {
-  const { t } = useTranslation('bills');
+  const t = useTranslations('bills');
 
   const handleSuccess = () => {
     onSuccess()
@@ -35,7 +35,7 @@ export function BillPaymentModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t('paymentModal:title')}</DialogTitle>
+          <DialogTitle>{t('paymentModal.title')}</DialogTitle>
         </DialogHeader>
         <BillPaymentForm
           loftId={loftId}

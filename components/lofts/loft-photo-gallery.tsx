@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import Image from 'next/image'
 import { toast } from 'sonner'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface LoftPhoto {
   id: string
@@ -29,7 +29,8 @@ interface LoftPhotoGalleryProps {
 }
 
 export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
-  const { t } = useTranslation('lofts')
+  const t = useTranslations('lofts')
+  const tCommon = useTranslations('common')
   const [photos, setPhotos] = useState<LoftPhoto[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
@@ -51,7 +52,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
       }
     } catch (error) {
       console.error('Erreur:', error)
-      toast.error(t('photos:loadError'))
+      toast.error(t('photos.loadError'))
     } finally {
       setLoading(false)
     }
@@ -71,7 +72,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
       document.body.removeChild(a)
       window.URL.revokeObjectURL(url)
       
-      toast.success(t('photos:photoDownloaded'))
+      toast.success(t('photos.photoDownloaded'))
     } catch (error) {
       console.error('Erreur téléchargement:', error)
       toast.error('Erreur lors du téléchargement')
@@ -111,9 +112,9 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
               <Eye className="h-8 w-8 text-muted-foreground" />
             </div>
             <div>
-              <h3 className="font-medium mb-2">{t('photos:noPhotos')}</h3>
+              <h3 className="font-medium mb-2">{t('photos.noPhotos')}</h3>
               <p className="text-sm text-muted-foreground">
-                {t('photos:noPhotosDescription')}
+                {t('photos.noPhotosDescription')}
               </p>
             </div>
           </div>
@@ -131,7 +132,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
             <div className="relative aspect-video">
               <Image
                 src={photos[0].url}
-                alt={`${loftName} - ${t('photos:mainPhoto')}`}
+                alt={`${loftName} - ${t('photos.mainPhoto')}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -143,18 +144,18 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
                 <div className="absolute bottom-4 right-4 flex gap-2">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button 
-                          size="sm" 
+                        <Button
+                          size="sm"
                           variant="secondary"
                           onClick={() => setSelectedPhoto(0)}
                         >
                           <Eye className="h-4 w-4 mr-2" />
-                          Voir
+                          {tCommon('view')}
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl w-full p-0">
                         <VisuallyHidden>
-                          <DialogTitle>{t('photos:photoViewer')}</DialogTitle>
+                          <DialogTitle>{t('photos.photoViewer')}</DialogTitle>
                         </VisuallyHidden>
                         <PhotoViewer 
                           photos={photos}
@@ -207,7 +208,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
               </DialogTrigger>
               <DialogContent className="max-w-4xl w-full p-0">
                 <VisuallyHidden>
-                  <DialogTitle>{t('photos:photoGallery')}</DialogTitle>
+                  <DialogTitle>{t('photos.photoGallery')}</DialogTitle>
                 </VisuallyHidden>
                 <PhotoViewer 
                   photos={photos}
@@ -226,7 +227,7 @@ export function LoftPhotoGallery({ loftId, loftName }: LoftPhotoGalleryProps) {
 
       {/* Compteur de photos */}
       <div className="text-center text-sm text-muted-foreground">
-        {photos.length} photo{photos.length > 1 ? 's' : ''} disponible{photos.length > 1 ? 's' : ''}
+        {t('photos.photosAvailable', { count: photos.length })}
       </div>
     </div>
   )

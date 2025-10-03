@@ -2,11 +2,11 @@
 
 import { MessageSquare, Users, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 export function ConversationWelcome() {
-  const { t } = useTranslation()
+  const t = useTranslations('conversations')
 
   return (
     <div className="flex-1 flex items-center justify-center p-8">
@@ -23,11 +23,10 @@ export function ConversationWelcome() {
 
         {/* Titre et description */}
         <h2 className="text-2xl font-bold mb-3">
-          Messagerie Loft Algérie
+          {t('messagingTitle')}
         </h2>
         <p className="text-muted-foreground mb-8 leading-relaxed">
-          Communiquez facilement avec votre équipe de gestion immobilière. 
-          Sélectionnez une conversation existante ou créez-en une nouvelle pour commencer.
+          {t('welcomeDescription')}
         </p>
 
         {/* Fonctionnalités */}
@@ -37,8 +36,8 @@ export function ConversationWelcome() {
               <MessageSquare className="w-4 h-4 text-blue-600" />
             </div>
             <div className="text-left">
-              <h4 className="font-medium text-sm">Messages en temps réel</h4>
-              <p className="text-xs text-muted-foreground">Communication instantanée sécurisée</p>
+              <h4 className="font-medium text-sm">{t('realtimeMessages')}</h4>
+              <p className="text-xs text-muted-foreground">{t('secureInstantCommunication')}</p>
             </div>
           </div>
           
@@ -47,8 +46,8 @@ export function ConversationWelcome() {
               <Users className="w-4 h-4 text-green-600" />
             </div>
             <div className="text-left">
-              <h4 className="font-medium text-sm">Conversations d'équipe</h4>
-              <p className="text-xs text-muted-foreground">Coordination entre gestionnaires</p>
+              <h4 className="font-medium text-sm">{t('teamConversations')}</h4>
+              <p className="text-xs text-muted-foreground">{t('managerCoordination')}</p>
             </div>
           </div>
           
@@ -57,8 +56,8 @@ export function ConversationWelcome() {
               <Zap className="w-4 h-4 text-purple-600" />
             </div>
             <div className="text-left">
-              <h4 className="font-medium text-sm">Synchronisation multi-appareils</h4>
-              <p className="text-xs text-muted-foreground">Accédez partout à vos messages</p>
+              <h4 className="font-medium text-sm">{t('multiDeviceSync')}</h4>
+              <p className="text-xs text-muted-foreground">{t('accessEverywhere')}</p>
             </div>
           </div>
         </div>
@@ -68,12 +67,12 @@ export function ConversationWelcome() {
           <Button asChild className="w-full">
             <Link href="/conversations/new">
               <MessageSquare className="w-4 h-4 mr-2" />
-              Nouvelle conversation
+              {t('newConversation')}
             </Link>
           </Button>
           
           <p className="text-xs text-muted-foreground">
-            Ou sélectionnez une conversation existante dans la liste
+            {t('selectExistingConversation')}
           </p>
         </div>
       </div>

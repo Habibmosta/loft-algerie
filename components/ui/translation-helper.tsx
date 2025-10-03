@@ -1,133 +1,134 @@
 "use client"
 
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 interface TranslationHelperProps {
   children: (t: (key: string, options?: any) => string) => React.ReactNode
+  namespace?: string
   fallback?: (key: string) => string
   debug?: boolean
 }
 
 export function TranslationHelper({ 
   children, 
+  namespace = 'common',
   fallback,
   debug = process.env.NODE_ENV === 'development'
 }: TranslationHelperProps) {
-  const { t, ready } = useTranslation()
+  const t = useTranslations(namespace)
 
   const enhancedT = (key: string, options?: any): string => {
-    if (!ready) {
+    try {
+      const translation = t(key, options)
+      return translation
+    } catch (error) {
+      // En mode debug, afficher les clés manquantes
+      if (debug) {
+        console.warn(`Missing translation key: ${namespace}.${key}`)
+      }
       return fallback ? fallback(key) : key
     }
-
-    const translation = t(key, options)
-    
-    // En mode debug, afficher les clés manquantes
-    if (debug && translation === key) {
-      console.warn(`Missing translation key: ${key}`)
-    }
-
-    return translation as string
   }
 
   return <>{children(enhancedT)}</>
 }
 
 // Hook personnalisé pour les traductions avec fallback
-export function useEnhancedTranslation() {
-  const { t, i18n, ready } = useTranslation()
-  const { language } = i18n
+export function useEnhancedTranslation(namespace: string = 'common') {
+  const t = useTranslations(namespace)
 
   const enhancedT = React.useCallback((key: string, options?: any): string => {
-    if (!ready) {
-      return key
-    }
-
-    const translation = t(key, options)
-    
-    // Fallback pour les clés manquantes
-    if (translation === key) {
+    try {
+      const translation = t(key, options)
+      return translation
+    } catch (error) {
+      // Fallback pour les clés manquantes
       const fallbacks: Record<string, string> = {
-        'dashboard.title': 'Dashboard',
-        'dashboard.subtitle': 'Overview of your loft management system',
-        'dashboard.welcomeBack': 'Welcome back',
-        'common.loading': 'Loading...',
-        'common.error': 'Error',
-        'common.success': 'Success',
-        'common.cancel': 'Cancel',
-        'common.save': 'Save',
-        'common.edit': 'Edit',
-        'common.delete': 'Delete',
-        'common.view': 'View',
-        'common.add': 'Add',
-        'common.back': 'Back',
-        'common.next': 'Next',
-        'common.previous': 'Previous',
-        'common.yes': 'Yes',
-        'common.no': 'No',
-        'common.name': 'Name',
-        'common.description': 'Description',
-        'common.date': 'Date',
-        'common.time': 'Time',
-        'common.status': 'Status',
-        'common.type': 'Type',
-        'common.amount': 'Amount',
-        'common.currency': 'Currency',
-        'common.category': 'Category',
-        'common.paymentMethod': 'Payment Method',
-        'common.loft': 'Loft',
-        'common.owner': 'Owner',
-        'common.guest': 'Guest',
-        'common.task': 'Task',
-        'common.team': 'Team',
-        'common.conversation': 'Conversation',
-        'common.message': 'Message',
-        'common.notification': 'Notification',
-        'common.report': 'Report',
-        'common.setting': 'Setting',
-        'common.analytics': 'Analytics',
-        'common.reservation': 'Reservation',
-        'common.transaction': 'Transaction',
-        'common.bill': 'Bill',
-        'common.utility': 'Utility',
-        'common.zoneArea': 'Zone Area',
-        'common.internetConnection': 'Internet Connection'
+        'title': 'Dashboard',
+        'subtitle': 'Overview of your loft management system',
+        'welcomeBack': 'Welcome back',
+        'loading': 'Loading...',
+        'error': 'Error',
+        'success': 'Success',
+        'cancel': 'Cancel',
+        'save': 'Save',
+        'edit': 'Edit',
+        'delete': 'Delete',
+        'view': 'View',
+        'add': 'Add',
+        'back': 'Back',
+        'next': 'Next',
+        'previous': 'Previous',
+        'yes': 'Yes',
+        'no': 'No',
+        'name': 'Name',
+        'description': 'Description',
+        'date': 'Date',
+        'time': 'Time',
+        'status': 'Status',
+        'type': 'Type',
+        'amount': 'Amount',
+        'currency': 'Currency',
+        'category': 'Category',
+        'paymentMethod': 'Payment Method',
+        'loft': 'Loft',
+        'owner': 'Owner',
+        'guest': 'Guest',
+        'task': 'Task',
+        'team': 'Team',
+        'conversation': 'Conversation',
+        'message': 'Message',
+        'notification': 'Notification',
+        'report': 'Report',
+        'setting': 'Setting',
+        'analytics': 'Analytics',
+        'reservation': 'Reservation',
+        'transaction': 'Transaction',
+        'bill': 'Bill',
+        'utility': 'Utility',
+        'zoneArea': 'Zone Area',
+        'internetConnection': 'Internet Connection'
       }
       
       return fallbacks[key] || key
     }
-
-    return translation as string
-  }, [t, ready])
+  }, [t])
 
   return {
-    t: enhancedT,
-    ready,
-    language
+    t: enhancedT
   }
 }
 
 // Composant pour afficher les traductions avec fallback visuel
 export function TranslatedText({ 
-  key, 
+  translationKey, 
+  namespace = 'common',
   fallback, 
   className = "",
   ...props 
 }: { 
-  key: string
+  translationKey: string
+  namespace?: string
   fallback?: string
   className?: string
 } & React.HTMLAttributes<HTMLSpanElement>) {
-  const { t, ready } = useTranslation()
+  const t = useTranslations(namespace)
   
-  const text = ready ? t(key) : (fallback || key)
-  const isFallback = !ready || t(key) === key
+  let text: string
+  let isFallback = false
+  
+  try {
+    text = t(translationKey)
+  } catch (error) {
+    text = fallback || translationKey
+    isFallback = true
+  }
   
   return (
     <span 
       className={`${className} ${isFallback ? 'text-orange-500' : ''}`}
-      title={isFallback ? `Missing translation: ${key}` : undefined}
+      title={isFallback ? `Missing translation: ${namespace}.${translationKey}` : undefined}
       {...props}
     >
       {text}
@@ -136,26 +137,25 @@ export function TranslatedText({
 }
 
 // Hook pour détecter les clés de traduction manquantes
-export function useTranslationDebug() {
-  const { t, ready } = useTranslation()
+export function useTranslationDebug(namespace: string = 'common') {
+  const t = useTranslations(namespace)
   const [missingKeys, setMissingKeys] = React.useState<string[]>([])
 
   const debugT = React.useCallback((key: string, options?: any): string => {
-    if (!ready) return key
-
-    const translation = t(key, options)
-    
-    if (translation === key) {
+    try {
+      const translation = t(key, options)
+      return translation
+    } catch (error) {
       setMissingKeys(prev => {
-        if (!prev.includes(key)) {
-          return [...prev, key]
+        const fullKey = `${namespace}.${key}`
+        if (!prev.includes(fullKey)) {
+          return [...prev, fullKey]
         }
         return prev
       })
+      return key
     }
-
-    return translation as string
-  }, [t, ready])
+  }, [t, namespace])
 
   return {
     t: debugT,
@@ -163,4 +163,3 @@ export function useTranslationDebug() {
     clearMissingKeys: () => setMissingKeys([])
   }
 }
-

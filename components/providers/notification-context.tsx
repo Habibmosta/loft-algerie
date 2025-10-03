@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { toast } from 'sonner'
 import { useNotificationSound } from '@/lib/hooks/use-notification-sound'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface NotificationContextType {
   unreadCount: number
@@ -25,10 +25,20 @@ export function useNotifications() {
 export function NotificationProvider({ children, userId }: { children: React.ReactNode, userId: string }) {
   const [unreadCount, setUnreadCount] = useState(0)
   const { playNotificationSound } = useNotificationSound()
-  const { t } = useTranslation('notifications');
+  
+  // Safe translation hook with error handling
+  let t: any;
+  try {
+    t = useTranslations('notifications');
+  } catch (error) {
+    t = (key: string) => key; // Fallback
+  }
+  
   const supabase = createClient()
-
+  
   const refreshNotifications = async () => {
+    if (!userId) return;
+    
     try {
       const { count, error } = await supabase
         .from('notifications')
@@ -46,6 +56,7 @@ export function NotificationProvider({ children, userId }: { children: React.Rea
   }
 
   const markAllAsRead = async () => {
+    if (!userId) return;
     try {
       await supabase
         .from('notifications')
@@ -60,6 +71,8 @@ export function NotificationProvider({ children, userId }: { children: React.Rea
   }
 
   useEffect(() => {
+    if (!userId) return;
+    
     // Initial fetch
     refreshNotifications()
 
@@ -90,7 +103,7 @@ export function NotificationProvider({ children, userId }: { children: React.Rea
             description: notification.message,
             duration: 6000,
             action: notification.link ? {
-              label: t('notifications:view'),
+              label: t('view'),
               onClick: () => {
                 window.location.href = notification.link
               }
@@ -127,6 +140,15 @@ export function NotificationProvider({ children, userId }: { children: React.Rea
       subscription.unsubscribe()
     }
   }, [userId, supabase, playNotificationSound])
+
+  // Return default context if no userId
+  if (!userId) {
+    return (
+      <NotificationContext.Provider value={{ unreadCount: 0, refreshNotifications: async () => {}, markAllAsRead: async () => {} }}>
+        {children}
+      </NotificationContext.Provider>
+    )
+  }
 
   return (
     <NotificationContext.Provider value={{ unreadCount, refreshNotifications, markAllAsRead }}>

@@ -6,11 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Plus, Wifi, Signal, Globe, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-<<<<<<< HEAD
-import { useTranslation } from 'react-i18next';
-=======
 import { useTranslations } from 'next-intl';
->>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { InternetConnectionType } from "@/lib/types";
@@ -49,7 +45,8 @@ const getConnectionColor = (status: string) => {
 }
 
 export default function InternetConnectionsPage() {
-  const t = useTranslations();
+  const t = useTranslations('internetConnections');
+  const tCommon = useTranslations('common');
   const [internetConnectionTypes, setInternetConnectionTypes] = useState<InternetConnectionType[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -145,7 +142,7 @@ export default function InternetConnectionsPage() {
   };
 
   if (loading) {
-    return <div className="p-8">{t('common.loading')}</div>
+    return <div className="p-8">{tCommon('loading')}</div>
   }
 
   if (error) {
@@ -156,7 +153,7 @@ export default function InternetConnectionsPage() {
             {t('loadError')}: {error}
           </div>
           <Button onClick={() => window.location.reload()}>
-            {t('common.refresh')}
+            {tCommon('refresh')}
           </Button>
         </div>
       </div>
@@ -407,7 +404,7 @@ export default function InternetConnectionsPage() {
                       >
                         <Link href={`/settings/internet-connections/${connection.id}`}>
                           <Edit className="h-3 w-3 mr-1" />
-                          {t('common.edit')}
+                          {tCommon('edit')}
                         </Link>
                       </Button>
                     </div>

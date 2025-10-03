@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslations, useLocale } from 'next-intl'
 import Link from 'next/link'
 import { formatDistanceToNow, isToday, isYesterday, format } from 'date-fns'
 import { enUS, fr, ar } from 'date-fns/locale'
@@ -32,7 +32,8 @@ export function WhatsAppSidebar({
   selectedConversationId,
   onSelectConversation
 }: WhatsAppSidebarProps) {
-  const { t, i18n } = useTranslation('conversations')
+  const t = useTranslations('conversations')
+  const locale = useLocale()
   const [searchQuery, setSearchQuery] = useState('')
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
   const [filter, setFilter] = useState<'all' | 'unread' | 'groups'>('all')
@@ -69,7 +70,7 @@ export function WhatsAppSidebar({
         fr: fr,
         ar: ar,
       };
-      return format(date, 'dd/MM', { locale: locales[i18n.language] || enUS })
+      return format(date, 'dd/MM', { locale: locales[locale] || enUS })
     }
   }
 
@@ -83,7 +84,7 @@ export function WhatsAppSidebar({
       let name = otherParticipant?.user?.full_name || t('conversation')
       
       // Corriger les noms génériques
-      if (name === 'member1') name = 'Membre 1'
+      if (name === 'member1') name = t('conversations.member1')
       if (name === 'Team Member') name = 'Membre'
       
       return name
@@ -340,7 +341,7 @@ export function WhatsAppSidebar({
                         hasUnread && "text-[#111b21] dark:text-[#e9edef] font-medium"
                       )}>
                         {
-                          conversation.last_message?.content === 'Aucun message' && i18n.language === 'en'
+                          conversation.last_message?.content === 'Aucun message' && locale === 'en'
                             ? t('noMessage')
                             : conversation.last_message?.content || t('noMessage')
                         }

@@ -9,7 +9,7 @@ import { Send, ArrowLeft, AlertTriangle } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { SimpleMessage } from '@/lib/services/conversations-simple'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/utils/supabase/client'
 
 interface SimpleConversationPageClientProps {
@@ -23,7 +23,7 @@ export function SimpleConversationPageClient({
   initialMessages, 
   currentUserId 
 }: SimpleConversationPageClientProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('conversations')
   const [messages, setMessages] = useState<SimpleMessage[]>(initialMessages)
   const [newMessage, setNewMessage] = useState('')
   const [isSending, setIsSending] = useState(false)
@@ -37,91 +37,42 @@ export function SimpleConversationPageClient({
     scrollToBottom()
   }, [messages])
 
-
-  // Fonction pour marquer la conversation comme lue
-  const markAsRead = async () => {
-    try {
-      await fetch(`/api/conversations/${conversationId}/mark-read`, {
-        method: 'POST'
-      })
-    } catch (error) {
-      console.error('Error marking conversation as read:', error)
-    }
-  }
-
-  useEffect(() => {
-    const supabase = createClient()
-    markAsRead()
-
-    const channel = supabase
-      .channel(`conversation:${conversationId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'messages',
-          filter: `conversation_id=eq.${conversationId}`,
-        },
-        (payload) => {
-          // You might need to fetch the sender's name separately
-          // or adjust the backend to include it.
-          // For now, we'll add the message directly.
-          setMessages((prevMessages) => [...prevMessages, payload.new as SimpleMessage])
-        }
-      )
-      .subscribe()
-
-    return () => {
-      supabase.removeChannel(channel)
-    }
-  }, [conversationId])
-
-  // Marquer comme lu quand de nouveaux messages arrivent (pour les messages qu'on voit)
-  useEffect(() => {
-    if (messages.length > 0) {
-      markAsRead()
-    }
-  }, [messages.length])
-
-
-  const sendMessage = async () => {
+  const handleSendMessage = async () => {
     if (!newMessage.trim() || isSending) return
 
-    const messageContent = newMessage.trim()
-    setNewMessage('')
     setIsSending(true)
+    const supabase = createClient()
 
     try {
-      const response = await fetch(`/api/conversations/${conversationId}/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: messageContent
+      const { data, error } = await supabase
+        .from('messages')
+        .insert({
+          conversation_id: conversationId,
+          sender_id: currentUserId,
+          content: newMessage.trim(),
+          message_type: 'text'
         })
-      })
+        .select()
+        .single()
 
-      if (response.ok) {
-        const sentMessage = await response.json()
-        setMessages(prev => [...prev, {
-          id: sentMessage.id,
-          conversation_id: sentMessage.conversation_id,
-          sender_id: sentMessage.sender_id,
-          content: sentMessage.content,
-          created_at: sentMessage.created_at,
-          sender_name: sentMessage.sender?.full_name || 'You'
-        }])
-      } else {
-        const error = await response.json()
-        toast.error(error.message || 'Failed to send message')
-        setNewMessage(messageContent) // Restore message
+      if (error) throw error
+
+      const newMsg: SimpleMessage = {
+        id: data.id,
+        conversation_id: conversationId,
+        sender_id: currentUserId,
+        content: newMessage.trim(),
+        message_type: 'text',
+        created_at: data.created_at,
+        sender_name: 'Vous'
       }
+
+      setMessages(prev => [...prev, newMsg])
+      setNewMessage('')
+      toast.success(t('messageSent'))
     } catch (error) {
       console.error('Error sending message:', error)
-      toast.error('Failed to send message')
-      setNewMessage(messageContent) // Restore message
+      toast.error(t('errorSendingMessage'))
     } finally {
       setIsSending(false)
     }
@@ -130,68 +81,44 @@ export function SimpleConversationPageClient({
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      sendMessage()
+      handleSendMessage()
     }
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] flex-col">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
-      <div className="border-b p-4 flex items-center justify-between bg-background">
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/conversations">
-              <ArrowLeft className="h-4 w-4" />
-            </Link>
+      <div className="bg-white border-b px-4 py-3 flex items-center gap-3">
+        <Link href="/conversations">
+          <Button variant="ghost" size="sm">
+            <ArrowLeft className="h-4 w-4" />
           </Button>
-          <div>
-            <h1 className="font-semibold">{t('conversations:conversation')}</h1>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">
-                {messages.length} {t('conversations:messages')}
-              </span>
-            </div>
-          </div>
+        </Link>
+        <div>
+          <h1 className="font-semibold">{t('conversation')}</h1>
+          <p className="text-sm text-muted-foreground">ID: {conversationId}</p>
         </div>
-        
-
       </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 ? (
-          <div className="text-center text-muted-foreground py-8">
-            <div className="text-lg mb-2">{t('conversations:noMessages')}</div>
-            <div className="text-sm">{t('conversations:startConversationDesc')}</div>
+          <div className="text-center py-8">
+            <AlertTriangle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">{t('noMessages')}</p>
           </div>
         ) : (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <div
-              key={message.id || `message-${conversationId}-${index}-${message.created_at}-${message.sender_id}`}
+              key={message.id}
               className={`flex ${message.sender_id === currentUserId ? 'justify-end' : 'justify-start'}`}
             >
-              <Card className={`max-w-[70%] ${
-                message.sender_id === currentUserId 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted'
-              }`}>
+              <Card className={`max-w-xs ${message.sender_id === currentUserId ? 'bg-blue-500 text-white' : 'bg-white'}`}>
                 <CardContent className="p-3">
-                  {message.sender_id !== currentUserId && (
-                    <div className="text-xs font-medium mb-1 opacity-70">
-                      {message.sender_name}
-                    </div>
-                  )}
-                  <div className="text-sm whitespace-pre-wrap">
-                    {message.content}
-                  </div>
-                  <div className={`text-xs mt-1 opacity-70 ${
-                    message.sender_id === currentUserId ? 'text-right' : 'text-left'
-                  }`}>
-                    {new Date(message.created_at).toLocaleTimeString([], { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    })}
-                  </div>
+                  <p className="text-sm">{message.content}</p>
+                  <p className={`text-xs mt-1 ${message.sender_id === currentUserId ? 'text-blue-100' : 'text-muted-foreground'}`}>
+                    {new Date(message.created_at).toLocaleTimeString()}
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -200,27 +127,19 @@ export function SimpleConversationPageClient({
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Message Input */}
-      <div className="border-t p-4 bg-background">
+      {/* Input */}
+      <div className="bg-white border-t p-4">
         <div className="flex gap-2">
           <Input
-            placeholder={t('conversations:typeMessage')}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyPress={handleKeyPress}
+            placeholder={t('typeMessage')}
             disabled={isSending}
-            className="flex-1"
           />
-          <Button 
-            onClick={sendMessage} 
-            disabled={!newMessage.trim() || isSending}
-            size="icon"
-          >
+          <Button onClick={handleSendMessage} disabled={isSending || !newMessage.trim()}>
             <Send className="h-4 w-4" />
           </Button>
-        </div>
-        <div className="text-xs text-muted-foreground mt-2 text-center">
-          {t('conversations:sendInstructions')}
         </div>
       </div>
     </div>

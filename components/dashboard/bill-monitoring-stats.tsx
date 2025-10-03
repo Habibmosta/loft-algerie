@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { AlertTriangle, Calendar, Clock, CheckCircle, TrendingUp, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import { useTranslation } from '@/lib/i18n/context'
+import { createClient } from '@/utils/supabase/client'
 
 interface BillStats {
   upcomingBills: number
@@ -16,7 +17,7 @@ interface BillStats {
 }
 
 export function BillMonitoringStats() {
-  const { t } = useTranslation();
+  const t = useTranslations("dashboard");
   const [stats, setStats] = useState<BillStats>({
     upcomingBills: 0,
     overdueBills: 0,
@@ -36,7 +37,21 @@ export function BillMonitoringStats() {
   const fetchStats = async () => {
     try {
       setLoading(true)
+      const supabase = createClient()
+      
+      // Check if user is authenticated before making API call
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        console.log('User not authenticated, skipping bill stats fetch')
+        setLoading(false)
+        return
+      }
+      
       const response = await fetch('/api/bill-monitoring/stats')
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+      
       const result = await response.json()
       
       if (result.success) {
@@ -47,7 +62,10 @@ export function BillMonitoringStats() {
       }
     } catch (error) {
       console.error('Error fetching bill stats:', error)
-      toast.error('Failed to load bill monitoring statistics')
+      // Only show toast error if it's not an authentication issue
+      if (!error.message.includes('NEXT_REDIRECT')) {
+        toast.error('Failed to load bill monitoring statistics')
+      }
     } finally {
       setLoading(false)
     }
@@ -89,7 +107,7 @@ export function BillMonitoringStats() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5" />
-{t('dashboard:billMonitoring')}
+{t('dashboard.billMonitoring')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -110,12 +128,12 @@ export function BillMonitoringStats() {
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="flex items-center gap-2">
           <TrendingUp className="h-5 w-5" />
-{t('dashboard:billMonitoring')}
+{t('dashboard.billMonitoring')}
         </CardTitle>
         <div className="flex items-center gap-2">
           {lastUpdated && (
             <span className="text-xs text-gray-500">
-{t('dashboard:updated')} {lastUpdated.toLocaleTimeString()}
+{t('dashboard.updated')} {lastUpdated.toLocaleTimeString()}
             </span>
           )}
           <Button
@@ -135,8 +153,8 @@ export function BillMonitoringStats() {
             <div className="flex items-center gap-2">
               {getStatusIcon(stats.overdueBills, 'overdue')}
               <div>
-                <p className="text-sm font-medium">{t('dashboard:overdue')}</p>
-                <p className="text-xs text-gray-600">{t('dashboard:billsPastDue')}</p>
+                <p className="text-sm font-medium">{t('dashboard.overdue')}</p>
+                <p className="text-xs text-gray-600">{t('dashboard.billsPastDue')}</p>
               </div>
             </div>
             <div className={`text-2xl font-bold ${getStatusColor(stats.overdueBills, 'overdue')}`}>
@@ -149,8 +167,8 @@ export function BillMonitoringStats() {
             <div className="flex items-center gap-2">
               {getStatusIcon(stats.dueToday, 'due_today')}
               <div>
-                <p className="text-sm font-medium">{t('dashboard:dueToday')}</p>
-                <p className="text-xs text-gray-600">{t('dashboard:billsDueNow')}</p>
+                <p className="text-sm font-medium">{t('dashboard.dueToday')}</p>
+                <p className="text-xs text-gray-600">{t('dashboard.billsDueNow')}</p>
               </div>
             </div>
             <div className={`text-2xl font-bold ${getStatusColor(stats.dueToday, 'due_today')}`}>
@@ -163,8 +181,8 @@ export function BillMonitoringStats() {
             <div className="flex items-center gap-2">
               {getStatusIcon(stats.upcomingBills, 'upcoming')}
               <div>
-                <p className="text-sm font-medium">{t('dashboard:upcoming')}</p>
-                <p className="text-xs text-gray-600">{t('dashboard:next30Days')}</p>
+                <p className="text-sm font-medium">{t('dashboard.upcoming')}</p>
+                <p className="text-xs text-gray-600">{t('dashboard.next30Days')}</p>
               </div>
             </div>
             <div className={`text-2xl font-bold ${getStatusColor(stats.upcomingBills, 'upcoming')}`}>
@@ -177,8 +195,8 @@ export function BillMonitoringStats() {
             <div className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-green-500" />
               <div>
-                <p className="text-sm font-medium">{t('dashboard:active')}</p>
-                <p className="text-xs text-gray-600">{t('dashboard:loftsWithBills')}</p>
+                <p className="text-sm font-medium">{t('dashboard.active')}</p>
+                <p className="text-xs text-gray-600">{t('dashboard.loftsWithBills')}</p>
               </div>
             </div>
             <div className="text-2xl font-bold text-green-600">
@@ -190,19 +208,19 @@ export function BillMonitoringStats() {
         {/* Status Summary */}
         <div className="mt-4 pt-4 border-t">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">{t('dashboard:systemStatus')}</span>
+            <span className="text-sm text-gray-600">{t('dashboard.systemStatus')}</span>
             <div className="flex items-center gap-2">
               {stats.overdueBills === 0 && stats.dueToday === 0 ? (
                 <Badge variant="default" className="bg-green-100 text-green-800">
-{t('dashboard:allBillsCurrent')}
+{t('dashboard.allBillsCurrent')}
                 </Badge>
               ) : stats.overdueBills > 0 ? (
                 <Badge variant="destructive">
-{t('dashboard:actionRequired')}
+{t('dashboard.actionRequired')}
                 </Badge>
               ) : (
                 <Badge variant="secondary">
-{t('dashboard:attentionNeeded')}
+{t('dashboard.attentionNeeded')}
                 </Badge>
               )}
             </div>

@@ -60,6 +60,7 @@ interface ResponsiveDataDisplayProps<T> {
     className?: string
   }[]
   actions?: (item: T) => ReactNode
+  actionsLabel?: string
   className?: string
   emptyMessage?: string
 }
@@ -68,6 +69,7 @@ export function ResponsiveDataDisplay<T extends Record<string, any>>({
   data,
   columns,
   actions,
+  actionsLabel = "Actions",
   className,
   emptyMessage = "No data available"
 }: ResponsiveDataDisplayProps<T>) {
@@ -99,7 +101,7 @@ export function ResponsiveDataDisplay<T extends Record<string, any>>({
               ))}
               {actions && (
                 <th className="text-right p-3 font-medium text-gray-900 dark:text-gray-100">
-                  Actions
+                  {actionsLabel}
                 </th>
               )}
             </tr>

@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { FormWrapper, FormSection } from "@/components/ui/form-wrapper"
 import { toast } from "@/components/ui/use-toast"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import type { Team } from "@/lib/types"
 
 interface TeamFormProps {
@@ -19,7 +19,7 @@ interface TeamFormProps {
 }
 
 function SubmitButton({ team }: { team?: Team }) {
-  const { t } = useTranslation('teams');
+  const t = useTranslations('teams');
   const { pending } = useFormStatus()
   
   return (
@@ -30,7 +30,7 @@ function SubmitButton({ team }: { team?: Team }) {
 }
 
 export function TeamForm({ team, action }: TeamFormProps) {
-  const { t } = useTranslation('teams');
+  const t = useTranslations('teams');
   const [error, setError] = useState("")
   const router = useRouter()
 

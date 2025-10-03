@@ -1,19 +1,20 @@
-import { requireRole } from "@/lib/auth"
-import { getTasks } from "@/app/actions/tasks"
-import { getUsers } from "@/app/actions/users"
-import { ModernTasksPage } from "@/components/tasks/modern-tasks-page"
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
-export default async function TasksPage() {
-  const session = await requireRole(["admin", "manager", "member"])
-  const tasks = await getTasks()
-  const users = await getUsers()
-
-  return (
-    <ModernTasksPage 
-      tasks={tasks}
-      users={users}
-      userRole={session.user.role}
-      currentUserId={session.user.id}
-    />
-  )
+export default async function TasksRedirectPage() {
+  // Get the Accept-Language header to determine preferred locale
+  const headersList = await headers()
+  const acceptLanguage = headersList.get('accept-language') || ''
+  
+  // Simple locale detection based on Accept-Language header
+  let locale = 'fr' // default
+  
+  if (acceptLanguage.includes('en')) {
+    locale = 'en'
+  } else if (acceptLanguage.includes('ar')) {
+    locale = 'ar'
+  }
+  
+  // Redirect to the localized tasks page
+  redirect(`/${locale}/tasks`)
 }

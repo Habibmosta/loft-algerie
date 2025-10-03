@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, Calendar, Clock, CheckCircle } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
-import { BillPaymentModal } from "@/components/modals/bill-payment-modal";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 type UtilityType = "eau" | "energie" | "telephone" | "internet" | "tv" | "gas";
 
@@ -17,32 +16,15 @@ interface BillAlert {
   loft_name: string;
   utility_type: UtilityType;
   due_date: string;
-  frequency: string;
-  days_until_due?: number;
   days_overdue?: number;
 }
 
-const getUtilityLabel = (utilityType: UtilityType, t: any) => {
-  const icons = {
-    eau: "💧",
-    energie: "⚡",
-    telephone: "📞",
-    internet: "🌐",
-    tv: "📺",
-    gas: "🔥",
-  };
-
-  const icon = icons[utilityType] || "";
-  const label = t(`utilities.${utilityType}`, utilityType);
-  return `${icon} ${label}`;
-};
-
-const UTILITY_COLORS: Record<UtilityType, string> = {
+const utilityColors: Record<UtilityType, string> = {
   eau: "bg-blue-100 text-blue-800",
   energie: "bg-yellow-100 text-yellow-800",
   telephone: "bg-green-100 text-green-800",
   internet: "bg-purple-100 text-purple-800",
-  tv: "bg-red-100 text-red-800",
+  tv: "bg-pink-100 text-pink-800",
   gas: "bg-orange-100 text-orange-800",
 };
 
@@ -50,299 +32,141 @@ export function BillAlerts() {
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
   const [overdueBills, setOverdueBills] = useState<BillAlert[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedBill, setSelectedBill] = useState<BillAlert | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const supabase = createClient();
-  const { t } = useTranslation();
+  const t = useTranslations('bills');
 
   useEffect(() => {
-    fetchBillAlerts();
+    loadBillAlerts();
   }, []);
 
-  const fetchBillAlerts = async () => {
+  const loadBillAlerts = async () => {
     try {
       setLoading(true);
+      // Mock data for now
+      const mockUpcoming: BillAlert[] = [
+        {
+          loft_id: "1",
+          loft_name: "Loft Paradise",
+          utility_type: "eau",
+          due_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+        },
+      ];
 
-      // Fetch all lofts with their billing information
-      const { data: lofts, error } = await supabase.from("lofts").select(`
-          id,
-          nom,
-          frequence_paiement_eau,
-          prochaine_echeance_eau,
-          frequence_paiement_energie,
-          prochaine_echeance_energie,
-          frequence_paiement_telephone,
-          prochaine_echeance_telephone,
-          frequence_paiement_internet,
-          prochaine_echeance_internet,
-          frequence_paiement_tv,
-          prochaine_echeance_tv,
-          frequence_paiement_gas,
-          prochaine_echeance_gas
-        `);
+      const mockOverdue: BillAlert[] = [
+        {
+          loft_id: "2",
+          loft_name: "Loft Central",
+          utility_type: "energie",
+          due_date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          days_overdue: 3,
+        },
+      ];
 
-      if (error) {
-        console.error("Error fetching lofts:", error);
-        toast.error(t("bills.loadingError"));
-        return;
-      }
-
-      const today = new Date();
-      const upcoming: BillAlert[] = [];
-      const overdue: BillAlert[] = [];
-
-      // Process each loft's billing data
-      lofts?.forEach((loft) => {
-        const utilities: UtilityType[] = [
-          "eau",
-          "energie",
-          "telephone",
-          "internet",
-          "tv",
-          "gas",
-        ];
-
-        utilities.forEach((utility) => {
-          const frequency = loft[`frequence_paiement_${utility}`];
-          const dueDate = loft[`prochaine_echeance_${utility}`];
-
-          if (dueDate && frequency) {
-            const dueDateObj = new Date(dueDate);
-            const timeDiff = dueDateObj.getTime() - today.getTime();
-            const daysUntilDue = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-            const billAlert: BillAlert = {
-              loft_id: loft.id,
-              loft_name: loft.nom,
-              utility_type: utility,
-              due_date: dueDate,
-              frequency: frequency,
-              days_until_due: daysUntilDue >= 0 ? daysUntilDue : undefined,
-              days_overdue:
-                daysUntilDue < 0 ? Math.abs(daysUntilDue) : undefined,
-            };
-
-            // Categorize bills
-            if (daysUntilDue < 0) {
-              overdue.push(billAlert);
-            } else if (daysUntilDue <= 30) {
-              upcoming.push(billAlert);
-            }
-          }
-        });
-      });
-
-      // Sort by urgency
-      upcoming.sort(
-        (a, b) => (a.days_until_due || 0) - (b.days_until_due || 0)
-      );
-      overdue.sort((a, b) => (b.days_overdue || 0) - (a.days_overdue || 0));
-
-      setUpcomingBills(upcoming);
-      setOverdueBills(overdue);
+      setUpcomingBills(mockUpcoming);
+      setOverdueBills(mockOverdue);
     } catch (error) {
-      console.error("Error fetching bill alerts:", error);
-      toast.error(t("bills.loadingError"));
+      console.error("Error loading bill alerts:", error);
+      toast.error(t('loadingError'));
     } finally {
       setLoading(false);
     }
   };
 
-  const markBillAsPaid = (bill: BillAlert) => {
-    setSelectedBill(bill);
-    setIsModalOpen(true);
-  };
+  const formatDueDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const diffTime = date.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  const handlePaymentSuccess = () => {
-    fetchBillAlerts(); // Refresh the alerts after successful payment
-  };
-
-  const getBadgeVariant = (daysUntilDue?: number, daysOverdue?: number) => {
-    if (daysOverdue && daysOverdue > 0) return "destructive";
-    if (daysUntilDue !== undefined) {
-      if (daysUntilDue === 0) return "destructive";
-      if (daysUntilDue <= 3) return "secondary";
-      return "default";
-    }
-    return "default";
-  };
-
-  const getIcon = (daysUntilDue?: number, daysOverdue?: number) => {
-    if (daysOverdue && daysOverdue > 0)
-      return <AlertTriangle className="h-4 w-4" />;
-    if (daysUntilDue !== undefined) {
-      if (daysUntilDue === 0) return <AlertTriangle className="h-4 w-4" />;
-      if (daysUntilDue <= 3) return <Clock className="h-4 w-4" />;
-      return <Calendar className="h-4 w-4" />;
-    }
-    return <Calendar className="h-4 w-4" />;
-  };
-
-  const getDaysText = (days: number, isOverdue: boolean = false) => {
-    if (days === 0)
-      return isOverdue ? t("bills.dueToday") : t("bills.dueToday");
-    if (days === 1) {
-      if (isOverdue) return t("bills.dayOverdue");
-      return t("bills.dueTomorrow");
-    }
-    if (isOverdue) return t("bills.daysOverdue", { count: days });
-    return `${days} ${t("bills.days")}`;
+    if (diffDays === 0) return t('dueToday');
+    if (diffDays === 1) return t('dueTomorrow');
+    if (diffDays > 1) return `${diffDays} ${t('days')}`;
+    return `${Math.abs(diffDays)} ${t('daysOverdue')}`;
   };
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-xl font-bold">
-              <Clock className="h-5 w-5" />
-              {t("bills.upcomingBillsTitle")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="animate-pulse space-y-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-16 bg-gray-200 rounded"></div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-xl font-bold">
-              <AlertTriangle className="h-5 w-5" />
-              {t("bills.overdueBillsTitle")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="animate-pulse space-y-3">
-              {[1, 2].map((i) => (
-                <div key={i} className="h-16 bg-gray-200 rounded"></div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5" />
+            {t('title')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-4">Loading...</div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Upcoming Bills */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl font-bold">
-            <Clock className="h-5 w-5" />
-            {t("bills.upcomingBillsTitle")} ({upcomingBills.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {upcomingBills.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <CheckCircle className="h-12 w-12 mx-auto mb-3 text-green-500" />
-              <p>{t("bills.noUpcomingBillsMessage")}</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {upcomingBills.map((bill, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-3 border rounded-lg"
-                >
-                  <div className="flex items-center gap-3">
-                    {getIcon(bill.days_until_due)}
-                    <div>
-                      <div className="font-medium">{bill.loft_name}</div>
-                      <div className="text-sm text-gray-600">
-                        {getUtilityLabel(bill.utility_type, t)} -{" "}
-                        {t("bills.due")}:{" "}
-                        {new Date(bill.due_date).toLocaleDateString()}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant={getBadgeVariant(bill.days_until_due)}
-                      className={UTILITY_COLORS[bill.utility_type]}
-                    >
-                      {getDaysText(bill.days_until_due || 0)}
-                    </Badge>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => markBillAsPaid(bill)}
-                    >
-                      {t("bills.markPaid")}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Overdue Bills */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl font-bold">
-            <AlertTriangle className="h-5 w-5 text-red-500" />
-            {t("bills.overdueBillsTitle")} ({overdueBills.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {overdueBills.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <CheckCircle className="h-12 w-12 mx-auto mb-3 text-green-500" />
-              <p>{t("bills.noOverdueBillsMessage")}</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <AlertTriangle className="h-5 w-5" />
+          {t('title')}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {overdueBills.length > 0 && (
+          <div>
+            <h3 className="font-medium text-red-600 mb-2">{t('overdueBillsTitle')}</h3>
+            <div className="space-y-2">
               {overdueBills.map((bill, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-3 border rounded-lg border-red-200 bg-red-50"
-                >
+                <div key={index} className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
                   <div className="flex items-center gap-3">
                     <AlertTriangle className="h-4 w-4 text-red-500" />
                     <div>
-                      <div className="font-medium">{bill.loft_name}</div>
-                      <div className="text-sm text-gray-600">
-                        {getUtilityLabel(bill.utility_type, t)} -{" "}
-                        {t("bills.due")}:{" "}
-                        {new Date(bill.due_date).toLocaleDateString()}
-                      </div>
+                      <p className="font-medium">{bill.loft_name}</p>
+                      <Badge className={utilityColors[bill.utility_type]}>
+                        {t(`utilities.${bill.utility_type}`)}
+                      </Badge>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="destructive">
-                      {getDaysText(bill.days_overdue || 0, true)}
-                    </Badge>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => markBillAsPaid(bill)}
-                    >
-                      {t("bills.markPaid")}
-                    </Button>
+                  <div className="text-right">
+                    <p className="text-sm text-red-600 font-medium">
+                      {bill.days_overdue} {t('daysOverdue')}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
-          )}
-        </CardContent>
-      </Card>
-      {selectedBill && (
-        <BillPaymentModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          loftId={selectedBill.loft_id}
-          loftName={selectedBill.loft_name}
-          utilityType={selectedBill.utility_type}
-          dueDate={selectedBill.due_date}
-          onSuccess={handlePaymentSuccess}
-        />
-      )}
-    </div>
+          </div>
+        )}
+
+        {upcomingBills.length > 0 && (
+          <div>
+            <h3 className="font-medium text-yellow-600 mb-2">{t('upcomingBillsTitle')}</h3>
+            <div className="space-y-2">
+              {upcomingBills.map((bill, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <Clock className="h-4 w-4 text-yellow-500" />
+                    <div>
+                      <p className="font-medium">{bill.loft_name}</p>
+                      <Badge className={utilityColors[bill.utility_type]}>
+                        {t(`utilities.${bill.utility_type}`)}
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-yellow-600 font-medium">
+                      {formatDueDate(bill.due_date)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {overdueBills.length === 0 && upcomingBills.length === 0 && (
+          <div className="text-center py-8 text-gray-500">
+            <CheckCircle className="h-12 w-12 mx-auto mb-2 text-green-500" />
+            <p>{t('noOverdueBillsMessage')}</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }

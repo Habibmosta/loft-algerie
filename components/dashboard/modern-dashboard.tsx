@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Currency } from "../../types/currency";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,7 +34,9 @@ import { BillPaymentModal } from "@/components/modals/bill-payment-modal";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from "@/components/ui/chart";
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { format } from "date-fns";
-import { useTranslation } from "@/lib/i18n/context";
+import { fr, ar, enUS } from "date-fns/locale";
+import { useTranslations, useLocale } from "next-intl";
+import { formatCurrencyAuto } from "@/utils/currency-formatter";
 
 type UtilityType = "eau" | "energie" | "telephone" | "internet" | "tv" | "gas";
 
@@ -114,12 +117,33 @@ const UTILITY_CONFIG = {
   }
 };
 
-// Utiliser directement le système de traduction existant
-
 export function ModernDashboard() {
-  const { t } = useTranslation(['dashboard']);
+  // Multiple translation hooks for different namespaces
+  const t = useTranslations('dashboard');
+  const tTasks = useTranslations('tasks');
+  const tBills = useTranslations('bills');
+  const locale = useLocale();
+
+  // Helper function to get date-fns locale
+  const getDateFnsLocale = () => {
+    switch (locale) {
+      case 'ar': return ar;
+      case 'fr': return fr;
+      case 'en': return enUS;
+      default: return fr;
+    }
+  };
+
+  // Helper function to get browser locale
+  const getBrowserLocale = () => {
+    switch (locale) {
+      case 'ar': return 'ar-DZ';
+      case 'fr': return 'fr-FR';
+      case 'en': return 'en-US';
+      default: return 'fr-FR';
+    }
+  };
   
-  // Utiliser directement le système de traduction existant
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
   const [overdueBills, setOverdueBills] = useState<BillAlert[]>([]);
   const [stats, setStats] = useState<DashboardStats>({
@@ -145,8 +169,13 @@ export function ModernDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [selectedBill, setSelectedBill] = useState<BillAlert | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [defaultCurrency, setDefaultCurrency] = useState<{symbol: string, code: string}>({symbol: 'DA', code: 'DZD'});
+  const [defaultCurrencySymbol, setDefaultCurrencySymbol] = useState<string>('$'); // New state for currency symbol
   const supabase = createClient();
+
+  // Currency formatting function (uses global utility)
+  const formatCurrency = (amount: number) => {
+    return formatCurrencyAuto(amount, 'DZD', window.location.pathname)
+  }
 
   useEffect(() => {
     fetchDashboardData();
@@ -155,17 +184,6 @@ export function ModernDashboard() {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-
-      // Fetch default currency
-      const { data: currencyData } = await supabase
-        .from('currencies')
-        .select('symbol, code')
-        .eq('is_default', true)
-        .single();
-      
-      if (currencyData) {
-        setDefaultCurrency(currencyData);
-      }
 
       // Fetch bills data
       const [upcomingRes, overdueRes] = await Promise.all([
@@ -176,12 +194,32 @@ export function ModernDashboard() {
       if (!upcomingRes.error) setUpcomingBills(upcomingRes.data || []);
       if (!overdueRes.error) setOverdueBills(overdueRes.data || []);
 
-      // Fetch bill monitoring stats
+      // Fetch default currency symbol
+      const { data: defaultCurrencyData, error: currencyError } = await supabase
+        .from('currencies')
+        .select('symbol')
+        .eq('is_default', true)
+        .single();
+
+      if (!currencyError && defaultCurrencyData) {
+        setDefaultCurrencySymbol(defaultCurrencyData.symbol);
+      } else {
+        console.error('Error fetching default currency:', currencyError);
+        // Fallback to '$' if fetching fails
+        setDefaultCurrencySymbol('$');
+      }
+
+      // Fetch bill monitoring stats (only if user is authenticated)
       try {
-        const billStatsResponse = await fetch('/api/bill-monitoring/stats');
-        const billStatsResult = await billStatsResponse.json();
-        if (billStatsResult.success) {
-          setBillMonitoringStats(billStatsResult.data);
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const billStatsResponse = await fetch('/api/bill-monitoring/stats');
+          if (billStatsResponse.ok) {
+            const billStatsResult = await billStatsResponse.json();
+            if (billStatsResult.success) {
+              setBillMonitoringStats(billStatsResult.data);
+            }
+          }
         }
       } catch (error) {
         console.error('Error fetching bill monitoring stats:', error);
@@ -258,13 +296,12 @@ export function ModernDashboard() {
   };
 
   const getDaysText = (days: number, isOverdue: boolean = false) => {
-    if (days === 0) return t("dashboard:today");
-    if (days === 1) return isOverdue ? t("dashboard:dayOverdue") : t("dashboard:tomorrow");
-    return isOverdue ? t("dashboard:daysOverdue", { count: days }) : `${days} ${t("dashboard:days")}`;
+    if (days === 0) return t("today");
+    if (days === 1) return isOverdue ? t("dayOverdue") : t("tomorrow");
+    return isOverdue ? t("daysOverdue", { count: days }) : `${days} ${t("days")}`;
   };
 
   const getUtilityLabel = (utilityType: UtilityType) => {
-    const utilityKey = `bills:utilities.${utilityType}`;
     const fallbacks = {
       eau: "💧 Water",
       energie: "⚡ Energy",
@@ -275,8 +312,8 @@ export function ModernDashboard() {
     };
     
     try {
-      const translation = t(utilityKey);
-      if (translation !== utilityKey) {
+      const translation = tBills(`utilities.${utilityType}`);
+      if (translation && translation !== `utilities.${utilityType}`) {
         // Add emoji prefix based on type
         const emoji = utilityType === 'eau' ? '💧 ' : 
                      utilityType === 'energie' ? '⚡ ' :
@@ -288,6 +325,7 @@ export function ModernDashboard() {
       }
     } catch (e) {
       // Fallback to English
+      console.warn(`Translation missing for bills.utilities.${utilityType}`);
     }
     
     return fallbacks[utilityType] || utilityType;
@@ -352,10 +390,10 @@ export function ModernDashboard() {
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          {t("dashboard:title")}
+          {t("title")}
         </h1>
         <p className="text-lg text-muted-foreground">
-          {t("dashboard:subtitle")}
+          {t("subtitle")}
         </p>
       </div>
 
@@ -365,10 +403,10 @@ export function ModernDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-100 text-sm font-medium">{t("dashboard:totalLofts")}</p>
+                <p className="text-blue-100 text-sm font-medium">{t("totalLofts")}</p>
                 <p className="text-3xl font-bold">{stats.totalLofts}</p>
                 <p className="text-blue-100 text-xs mt-1">
-                  {stats.occupiedLofts} {t("dashboard:occupiedLofts")}
+                  {stats.occupiedLofts} {t("occupiedLofts")}
                 </p>
               </div>
               <Building2 className="h-8 w-8 text-blue-200" />
@@ -380,11 +418,11 @@ export function ModernDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100 text-sm font-medium">{t("dashboard:monthlyRevenue")}</p>
-                <p className="text-3xl font-bold">{stats.monthlyRevenue.toLocaleString()} {defaultCurrency.symbol}</p>
+                <p className="text-green-100 text-sm font-medium">{t("monthlyRevenue")}</p>
+                <p className="text-3xl font-bold">{formatCurrency(stats.monthlyRevenue)}</p>
                 <div className="flex items-center text-green-100 text-xs mt-1">
                   <ArrowUpRight className="h-3 w-3 mr-1" />
-                  +12% {t("dashboard:thisMonth")}
+                  +12% {t("thisMonth")}
                 </div>
               </div>
               <DollarSign className="h-8 w-8 text-green-200" />
@@ -396,10 +434,10 @@ export function ModernDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-medium">{t("dashboard:activeTasks")}</p>
+                <p className="text-purple-100 text-sm font-medium">{t("activeTasks")}</p>
                 <p className="text-3xl font-bold">{stats.activeTasks}</p>
                 <p className="text-purple-100 text-xs mt-1">
-                  8 {t("dashboard:inProgress")}
+                  8 {t("inProgress")}
                 </p>
               </div>
               <Users className="h-8 w-8 text-purple-200" />
@@ -411,10 +449,10 @@ export function ModernDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-orange-100 text-sm font-medium">{t("dashboard:bills.title")}</p>
+                <p className="text-orange-100 text-sm font-medium">{t("bills.title")}</p>
                 <p className="text-3xl font-bold">{stats.upcomingBills + stats.overdueBills}</p>
                 <p className="text-orange-100 text-xs mt-1">
-                  {stats.overdueBills} {t("dashboard:overdue")}
+                  {stats.overdueBills} {t("overdue")}
                 </p>
               </div>
               <AlertTriangle className="h-8 w-8 text-orange-200" />
@@ -428,12 +466,12 @@ export function ModernDashboard() {
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="flex items-center gap-2 text-xl font-bold">
             <TrendingUp className="h-6 w-6 text-indigo-600" />
-            {t("dashboard:billMonitoring")}
+            {t("billMonitoring")}
           </CardTitle>
           <div className="flex items-center gap-2">
             {lastUpdated && (
               <span className="text-xs text-gray-500">
-                {t("dashboard:updated")} {lastUpdated.toLocaleTimeString()}
+                {t("updated")} {lastUpdated.toLocaleTimeString()}
               </span>
             )}
             <Button
@@ -453,8 +491,8 @@ export function ModernDashboard() {
               <div className="flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-red-500" />
                 <div>
-                  <p className="text-sm font-medium">{t("dashboard:overdue")}</p>
-                  <p className="text-xs text-gray-600">{t("dashboard:billsPastDue")}</p>
+                  <p className="text-sm font-medium">{t("overdue")}</p>
+                  <p className="text-xs text-gray-600">{t("billsPastDue")}</p>
                 </div>
               </div>
               <div className="text-2xl font-bold text-red-600">
@@ -467,8 +505,8 @@ export function ModernDashboard() {
               <div className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-orange-500" />
                 <div>
-                  <p className="text-sm font-medium">{t("dashboard:dueToday")}</p>
-                  <p className="text-xs text-gray-600">{t("dashboard:billsDueNow")}</p>
+                  <p className="text-sm font-medium">{t("dueToday")}</p>
+                  <p className="text-xs text-gray-600">{t("billsDueNow")}</p>
                 </div>
               </div>
               <div className="text-2xl font-bold text-orange-600">
@@ -481,8 +519,8 @@ export function ModernDashboard() {
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-blue-500" />
                 <div>
-                  <p className="text-sm font-medium">{t("dashboard:upcoming")}</p>
-                  <p className="text-xs text-gray-600">{t("dashboard:next30Days")}</p>
+                  <p className="text-sm font-medium">{t("upcoming")}</p>
+                  <p className="text-xs text-gray-600">{t("next30Days")}</p>
                 </div>
               </div>
               <div className="text-2xl font-bold text-blue-600">
@@ -495,8 +533,8 @@ export function ModernDashboard() {
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500" />
                 <div>
-                  <p className="text-sm font-medium">{t("dashboard:active")}</p>
-                  <p className="text-xs text-gray-600">{t("dashboard:loftsWithBills")}</p>
+                  <p className="text-sm font-medium">{t("active")}</p>
+                  <p className="text-xs text-gray-600">{t("loftsWithBills")}</p>
                 </div>
               </div>
               <div className="text-2xl font-bold text-green-600">
@@ -508,19 +546,19 @@ export function ModernDashboard() {
           {/* Status Summary */}
           <div className="mt-6 pt-4 border-t">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">{t("dashboard:systemStatus")}</span>
+              <span className="text-sm text-gray-600">{t("systemStatus")}</span>
               <div className="flex items-center gap-2">
                 {billMonitoringStats.overdueBills === 0 && billMonitoringStats.dueToday === 0 ? (
                   <Badge className="bg-green-100 text-green-800 border-green-200">
-                    {t("dashboard:allBillsCurrent")}
+                    {t("allBillsCurrent")}
                   </Badge>
                 ) : billMonitoringStats.overdueBills > 0 ? (
                   <Badge variant="destructive">
-                    {t("dashboard:actionRequired")}
+                    {t("actionRequired")}
                   </Badge>
                 ) : (
                   <Badge variant="secondary">
-                    {t("dashboard:attentionNeeded")}
+                    {t("attentionNeeded")}
                   </Badge>
                 )}
               </div>
@@ -528,8 +566,8 @@ export function ModernDashboard() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Bills Section */}
+ 
+     {/* Bills Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Overdue Bills */}
         <Card className="border-0 shadow-xl">
@@ -538,10 +576,10 @@ export function ModernDashboard() {
               <div>
                 <CardTitle className="text-2xl font-bold text-red-600 flex items-center gap-2">
                   <AlertTriangle className="h-6 w-6" />
-                  {t("dashboard:overdueBillsTitle")}
+                  {t("overdueBillsTitle")}
                 </CardTitle>
                 <p className="text-muted-foreground mt-1">
-                  {overdueBills.length} {t("dashboard:billsNeedAttention")}
+                  {overdueBills.length} {t("billsNeedAttention")}
                 </p>
               </div>
               <Badge variant="destructive" className="text-lg px-3 py-1">
@@ -553,8 +591,8 @@ export function ModernDashboard() {
             {overdueBills.length === 0 ? (
               <div className="text-center py-12">
                 <CheckCircle className="h-16 w-16 mx-auto text-green-500 mb-4" />
-                <p className="text-lg font-medium text-green-600">{t("dashboard:excellent")}</p>
-                <p className="text-muted-foreground">{t("dashboard:noOverdueBills")}</p>
+                <p className="text-lg font-medium text-green-600">{t("excellent")}</p>
+                <p className="text-muted-foreground">{t("noOverdueBills")}</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -574,7 +612,7 @@ export function ModernDashboard() {
                             {getUtilityLabel(bill.utility_type)}
                           </p>
                           <p className="text-xs text-gray-500">
-                            {t("dashboard:bills.due")}: {new Date(bill.due_date).toLocaleDateString()}
+                            {t("bills.due")}: {new Date(bill.due_date).toLocaleDateString(getBrowserLocale())}
                           </p>
                         </div>
                       </div>
@@ -587,7 +625,7 @@ export function ModernDashboard() {
                           className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
                           onClick={() => markBillAsPaid(bill)}
                         >
-                          {t("dashboard:pay")}
+                          {t("pay")}
                         </Button>
                       </div>
                     </div>
@@ -605,10 +643,10 @@ export function ModernDashboard() {
               <div>
                 <CardTitle className="text-2xl font-bold text-blue-600 flex items-center gap-2">
                   <Clock className="h-6 w-6" />
-                  {t("dashboard:upcomingBillsTitle")}
+                  {t("upcomingBillsTitle")}
                 </CardTitle>
                 <p className="text-muted-foreground mt-1">
-                  {t("dashboard:nextDueDates")}
+                  {t("nextDueDates")}
                 </p>
               </div>
               <Badge variant="secondary" className="text-lg px-3 py-1">
@@ -620,8 +658,8 @@ export function ModernDashboard() {
             {upcomingBills.length === 0 ? (
               <div className="text-center py-12">
                 <Calendar className="h-16 w-16 mx-auto text-blue-500 mb-4" />
-                <p className="text-lg font-medium text-blue-600">{t("dashboard:noUpcomingBills")}</p>
-                <p className="text-muted-foreground">{t("dashboard:upToDate")}</p>
+                <p className="text-lg font-medium text-blue-600">{t("noUpcomingBills")}</p>
+                <p className="text-muted-foreground">{t("upToDate")}</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -641,7 +679,7 @@ export function ModernDashboard() {
                             {getUtilityLabel(bill.utility_type)}
                           </p>
                           <p className="text-xs text-gray-500">
-                            {t("dashboard:bills.due")}: {new Date(bill.due_date).toLocaleDateString()}
+                            {t("bills.due")}: {new Date(bill.due_date).toLocaleDateString(getBrowserLocale())}
                           </p>
                         </div>
                       </div>
@@ -658,7 +696,7 @@ export function ModernDashboard() {
                           className="w-full hover:bg-blue-50"
                           onClick={() => markBillAsPaid(bill)}
                         >
-                          {t("dashboard:pay")}
+                          {t("pay")}
                         </Button>
                       </div>
                     </div>
@@ -677,9 +715,9 @@ export function ModernDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-bold">
               <BarChart3 className="h-6 w-6 text-blue-600" />
-              {t("dashboard:revenueVsExpenses")}
+              {t("revenueVsExpenses")}
             </CardTitle>
-            <CardDescription>{t("dashboard:monthlyFinancialOverview")}</CardDescription>
+            <CardDescription>{t("monthlyFinancialOverview")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ChartContainer 
@@ -725,9 +763,9 @@ export function ModernDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-bold">
               <ClipboardList className="h-6 w-6 text-purple-600" />
-              {t("dashboard:recentTasks")}
+              {t("recentTasks")}
             </CardTitle>
-            <CardDescription>{t("dashboard:latestTaskUpdates")}</CardDescription>
+            <CardDescription>{t("latestTaskUpdates")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -740,7 +778,7 @@ export function ModernDashboard() {
                     </p>
                     {task.due_date && (
                       <p className="text-xs text-muted-foreground">
-                        {t("dashboard:due")}: {format(new Date(task.due_date), "d MMM yyyy")}
+                        {t("due")}: {format(new Date(task.due_date), "d MMM yyyy", { locale: getDateFnsLocale() })}
                       </p>
                     )}
                   </div>
@@ -753,16 +791,16 @@ export function ModernDashboard() {
                         : "bg-gray-100 text-gray-800 border-gray-200"
                     }
                   >
-                    {task.status === 'todo' ? t("dashboard:tasks.status.todo") : 
-                     task.status === 'in_progress' ? t("dashboard:tasks.status.inProgress") : 
-                     task.status === 'completed' ? t("dashboard:tasks.status.completed") : task.status}
+                    {task.status === 'todo' ? t("tasks.status.todo") : 
+                     task.status === 'in_progress' ? t("tasks.status.inProgress") : 
+                     task.status === 'completed' ? t("tasks.status.completed") : task.status}
                   </Badge>
                 </div>
               ))}
               {recentTasks.length === 0 && (
                 <div className="text-center py-8 text-muted-foreground">
                   <ClipboardList className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                  <p>{t("dashboard:noRecentTasks")}</p>
+                  <p>{t("noRecentTasks")}</p>
                 </div>
               )}
             </div>
@@ -773,25 +811,25 @@ export function ModernDashboard() {
       {/* Quick Actions */}
       <Card className="border-0 shadow-xl bg-gradient-to-r from-indigo-50 to-purple-50">
         <CardHeader>
-          <CardTitle className="text-xl font-bold">{t("dashboard:quickActions")}</CardTitle>
+          <CardTitle className="text-xl font-bold">{t("quickActions")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Button className="h-20 flex-col gap-2 bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
               <Building2 className="h-6 w-6" />
-              <span className="text-sm">{t("dashboard:lofts.addLoft")}</span>
+              <span className="text-sm">{t("lofts.addLoft")}</span>
             </Button>
             <Button className="h-20 flex-col gap-2 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700">
               <Users className="h-6 w-6" />
-              <span className="text-sm">{t("tasks:addTask")}</span>
+              <span className="text-sm">{tTasks("addTask")}</span>
             </Button>
             <Button className="h-20 flex-col gap-2 bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700">
               <DollarSign className="h-6 w-6" />
-              <span className="text-sm">{t("dashboard:addTransaction")}</span>
+              <span className="text-sm">{t("addTransaction")}</span>
             </Button>
             <Button className="h-20 flex-col gap-2 bg-gradient-to-br from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
               <TrendingUp className="h-6 w-6" />
-              <span className="text-sm">{t("common:viewReports")}</span>
+              <span className="text-sm">{t("viewReports")}</span>
             </Button>
           </div>
         </CardContent>

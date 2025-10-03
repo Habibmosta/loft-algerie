@@ -21,9 +21,9 @@ export async function getZoneAreas(): Promise<ZoneArea[]> {
   return data;
 }
 
-export async function updateZoneArea(id: string, formData: FormData) {
+export async function updateZoneArea(id: string, data: { name: string } | FormData) {
   const supabase = await createClient(); // Create client here
-  const name = formData.get("name") as string;
+  const name = data instanceof FormData ? data.get("name") as string : data.name;
 
   if (!name || name.trim() === "") {
     return { error: "Zone area name cannot be empty." };
@@ -46,9 +46,9 @@ export async function updateZoneArea(id: string, formData: FormData) {
   return { success: true };
 }
 
-export async function createZoneArea(formData: FormData) {
+export async function createZoneArea(data: { name: string } | FormData) {
   const supabase = await createClient(); // Create client here
-  const name = formData.get("name") as string;
+  const name = data instanceof FormData ? data.get("name") as string : data.name;
 
   if (!name || name.trim() === "") {
     return { error: "Zone area name cannot be empty." };

@@ -102,25 +102,5 @@
   "thisMonth": "Ce mois-ci",
   "thisQuarter": "Ce trimestre",
   "thisWeek": "Cette semaine",
-  "thisYear": "Cette année",
-  "months": {
-    "jan": "Jan",
-    "feb": "Fév",
-    "mar": "Mar",
-    "apr": "Avr",
-    "may": "Mai",
-    "jun": "Jun",
-    "jul": "Jul",
-    "aug": "Aoû",
-    "sep": "Sep",
-    "oct": "Oct",
-    "nov": "Nov",
-    "dec": "Déc"
-  },
-  "top5ProfitableLofts": "Top 5 des Lofts les Plus Rentables",
-  "mostValuableAssets": "Actifs les Plus Précieux",
-  "revenueExpensesByLoft": "Revenus et Dépenses par Loft",
-  "detailedFinancialPerformance": "Performance Financière Détaillée",
-  "monthlyFinancialTrend": "Tendance Financière Mensuelle",
-  "trackRevenueExpenses": "Suivez les revenus et les dépenses au fil du temps."
+  "thisYear": "Cette année"
 }

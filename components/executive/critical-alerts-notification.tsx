@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, X, CheckCircle } from "lucide-react"
 import { toast } from "sonner"
-import { useTranslation } from 'react-i18next'
+// Removed next-intl dependency
 
 interface CriticalAlert {
   id: string
@@ -26,14 +26,25 @@ interface CriticalAlertsNotificationProps {
 }
 
 export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsNotificationProps) {
-  const { t } = useTranslation(['executive'])
+  // Retour anticipé si l'utilisateur n'est pas executive
+  if (userRole !== 'executive') {
+    return null;
+  }
+
+  // Simple French text instead of translations
+  const t = (key: string) => {
+    const translations: Record<string, string> = {
+      'criticalAlerts': 'Alertes Critiques',
+      'resolve': 'Résoudre',
+      'dismiss': 'Ignorer'
+    }
+    return translations[key] || key
+  }
   const [alerts, setAlerts] = useState<CriticalAlert[]>([])
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
   useEffect(() => {
-    if (userRole !== 'executive') return
-
     loadAlerts()
     
     // Écouter les nouvelles alertes en temps réel
@@ -92,7 +103,7 @@ export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsN
       if (error) throw error
       setAlerts(data || [])
     } catch (error) {
-      console.error('Erreur lors du chargement des alertes:', error)
+      console.error('Erreur lors du chargement des alertes:', error || 'Unknown error')
     } finally {
       setLoading(false)
     }
@@ -112,10 +123,10 @@ export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsN
       if (error) throw error
 
       setAlerts(prev => prev.filter(alert => alert.id !== alertId))
-      toast.success(t('alerts:resolved'))
+      toast.success(t('alerts.resolved'))
     } catch (error) {
-      console.error('Erreur lors de la résolution de l\'alerte:', error)
-      toast.error(t('alerts:resolveError'))
+      console.error('Erreur lors de la résolution de l\'alerte:', error || 'Unknown error')
+      toast.error(t('alerts.resolveError'))
     }
   }
 
@@ -139,7 +150,7 @@ export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsN
     }
   }
 
-  if (userRole !== 'executive' || loading) return null
+  if (loading) return null
 
   if (alerts.length === 0) return null
 
@@ -175,7 +186,7 @@ export function CriticalAlertsNotification({ userId, userRole }: CriticalAlertsN
                       className="h-6 px-2 text-xs"
                     >
                       <CheckCircle className="h-3 w-3 mr-1" />
-{t('alerts:resolve')}
+{t('alerts.resolve')}
                     </Button>
                   </div>
                 </div>

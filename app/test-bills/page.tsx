@@ -1,5 +1,7 @@
 import { BillAlerts } from '@/components/dashboard/bill-alerts'
 
+export const dynamic = 'force-dynamic'
+
 export default function TestBillsPage() {
   return (
     <div className="container mx-auto p-8">

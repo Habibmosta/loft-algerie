@@ -7,19 +7,21 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Sidebar } from "@/components/layout/sidebar"
 import { LanguageSelector } from "@/components/ui/language-selector"
 import type { User } from "@/lib/types"
-
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useTranslations } from "next-intl"
 
 interface HeaderProps {
   user: User
 }
 
 export function Header({ user }: HeaderProps) {
+  const t = useTranslations('nav')
+
   return (
     <header className="flex h-16 items-center justify-between bg-gray-900 px-4 md:hidden">
       <Link href="/dashboard" className="flex items-center">
         <Building2 className="h-8 w-8 text-white" />
-        <span className="ml-2 text-xl font-semibold text-white">LoftManager</span>
+        <span className="ml-2 text-xl font-semibold text-white">{t('loftManager')}</span>
       </Link>
       <div className="flex items-center gap-2">
         <div className="flex items-center bg-white/20 dark:bg-gray-800 rounded-md p-1 gap-1">

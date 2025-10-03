@@ -3,11 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { TeamForm } from "@/components/forms/team-form"
 import { getTeam, updateTeam } from "@/app/actions/teams"
-<<<<<<< HEAD
-import { useTranslation } from 'react-i18next';
-=======
 import { useTranslations } from 'next-intl';
->>>>>>> 0181c663fd95b9542a53fdc8606aef496de0bbce
 import { useEffect, useState } from "react"
 import type { Team } from "@/lib/types"
 

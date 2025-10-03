@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import {
   Select,
   SelectContent,
@@ -33,7 +33,7 @@ const typeOptions = ["income", "expense"] as const
 export function NewTransactionForm({ onSubmit }: { 
   onSubmit: (data: z.infer<typeof transactionSchema>) => Promise<void> 
 }) {
-  const { t } = useTranslation();
+  const t = useTranslations("transactions");
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<z.infer<typeof transactionSchema>>({
     defaultValues: {
       transaction_type: "income",
@@ -97,7 +97,7 @@ export function NewTransactionForm({ onSubmit }: {
                   defaultValue="income"
                 >
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
-                    <SelectValue placeholder={t('common:selectOption')} />
+                    <SelectValue placeholder={t('common.selectOption')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="income">
@@ -129,7 +129,7 @@ export function NewTransactionForm({ onSubmit }: {
                   defaultValue="completed"
                 >
                   <SelectTrigger className="bg-white border-2 hover:border-blue-300 transition-colors">
-                    <SelectValue placeholder={t('common:selectOption')} />
+                    <SelectValue placeholder={t('common.selectOption')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="pending">
@@ -179,7 +179,7 @@ export function NewTransactionForm({ onSubmit }: {
                     step="0.01"
                     {...register("amount", { valueAsNumber: true })} 
                     className="bg-white border-2 hover:border-blue-300 focus:border-blue-500 transition-colors pl-8"
-                    placeholder="0.00"
+                    placeholder={t('amountPlaceholder')}
                   />
                   <DollarSign className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 </div>
@@ -194,6 +194,7 @@ export function NewTransactionForm({ onSubmit }: {
                 <Input
                   type="date"
                   {...register("date")} 
+                  placeholder="jj/mm/aaaa"
                   className="bg-white border-2 hover:border-blue-300 focus:border-blue-500 transition-colors"
                 />
                 {errors.date && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="h-3 w-3" />{errors.date.message}</p>}

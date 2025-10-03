@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from "@/components/ui/chart"
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslations } from "next-intl"
 
 interface MonthlyRevenueData {
   month: string;
@@ -16,15 +16,15 @@ interface RevenueChartProps {
 }
 
 export function RevenueChart({ monthlyRevenue }: RevenueChartProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('dashboard');
   
   const chartConfig = {
     revenue: {
-      label: t('dashboard:revenue'),
+      label: t('revenue'),
       color: "hsl(var(--chart-1))",
     },
     expenses: {
-      label: t('dashboard:expenses'),
+      label: t('expenses'),
       color: "hsl(var(--chart-2))",
     },
   } satisfies ChartConfig
@@ -32,8 +32,8 @@ export function RevenueChart({ monthlyRevenue }: RevenueChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('dashboard:revenueVsExpenses')}</CardTitle>
-        <CardDescription>{t('dashboard:monthlyFinancialOverview')}</CardDescription>
+        <CardTitle>{t('revenueVsExpenses')}</CardTitle>
+        <CardDescription>{t('monthlyFinancialOverview')}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[300px]">

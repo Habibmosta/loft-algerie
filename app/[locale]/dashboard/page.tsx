@@ -1,16 +1,15 @@
 import { requireAuth } from "@/lib/auth"
 import { ErrorBoundary } from "@/components/error-boundary"
-import { ModernDashboard } from "@/components/dashboard/modern-dashboard"
+import { DashboardClientWrapper } from "@/components/dashboard/dashboard-client-wrapper"
 
 export default async function DashboardPage() {
-  // Temporarily bypass requireAuth for debugging purposes
-  // const session = await requireAuth();
-  // console.log('DashboardPage: requireAuth() returned, session:', session ? 'Session found' : 'No session');
+  // This is the main dashboard page after login.
+  const session = await requireAuth();
 
   return (
     <ErrorBoundary>
       <div className="min-h-screen">
-        <ModernDashboard />
+        <DashboardClientWrapper />
       </div>
     </ErrorBoundary>
   )

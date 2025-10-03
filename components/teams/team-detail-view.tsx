@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { format } from "date-fns"
@@ -22,7 +22,7 @@ interface TeamDetailViewProps {
 }
 
 export function TeamDetailView({ team, teamId }: TeamDetailViewProps) {
-  const { t } = useTranslation('teams')
+  const t = useTranslations('teams')
   const router = useRouter()
 
   if (!team) {

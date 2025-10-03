@@ -22,7 +22,7 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
-  const { t } = useTranslation();
+  const t = useTranslations("auth");
 
   const {
     register,
@@ -61,8 +61,8 @@ export function LoginForm() {
   return (
     <FormWrapper 
       maxWidth="md"
-      title={t('auth:welcomeBack')}
-      description={t('auth:signInDescription')}
+      title={t('auth.welcomeBack')}
+      description={t('auth.signInDescription')}
       icon="🔐"
     >
       <div className="flex justify-end mb-4">
@@ -78,11 +78,11 @@ export function LoginForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email">{t('auth:email')}</Label>
+            <Label htmlFor="email">{t('auth.email')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder={t('auth:enterEmail')}
+              placeholder="votre@email.com"
               {...register("email")}
               disabled={isLoading}
               className="bg-white"
@@ -91,12 +91,12 @@ export function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">{t('auth:password')}</Label>
+            <Label htmlFor="password">{t('auth.password')}</Label>
             <div className="relative">
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder={t('auth:enterPassword')}
+                placeholder="••••••••"
                 {...register("password")}
                 disabled={isLoading}
                 className="bg-white"
@@ -117,12 +117,12 @@ export function LoginForm() {
 
           <div className="flex items-center justify-between">
             <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-              {t('auth:forgotPassword')}
+              {t('auth.forgotPassword')}
             </Link>
           </div>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? t('auth:signingIn') : t('auth:signIn')}
+            {isLoading ? t('auth.signingIn') : t('auth.signIn')}
           </Button>
         </form>
       </FormSection>
@@ -130,25 +130,25 @@ export function LoginForm() {
       <FormSection colorScheme="blue">
         <div className="text-center">
           <p className="text-sm text-muted-foreground mb-4">
-            {t('auth:noAccount')}{" "}
+            {t('auth.noAccount')}{" "}
             <Link href="/register" className="text-blue-600 hover:underline font-medium">
-              {t('auth:signUp')}
+              {t('auth.signUp')}
             </Link>
           </p>
           
           <Separator className="my-4" />
           
           <div>
-            <p className="text-sm font-medium mb-3 text-blue-900">{t('auth:demoAccounts')}</p>
+            <p className="text-sm font-medium mb-3 text-blue-900">{t('auth.demoAccounts')}</p>
             <div className="space-y-2 text-xs text-blue-700">
               <p>
-                <strong>{t('auth:admin')}:</strong> admin@loftmanager.com / password123
+                <strong>{t('auth.admin')}:</strong> admin@loftmanager.com / password123
               </p>
               <p>
-                <strong>{t('auth:manager')}:</strong> manager@loftmanager.com / password123
+                <strong>{t('auth.manager')}:</strong> manager@loftmanager.com / password123
               </p>
               <p>
-                <strong>{t('auth:member')}:</strong> member@loftmanager.com / password123
+                <strong>{t('auth.member')}:</strong> member@loftmanager.com / password123
               </p>
             </div>
           </div>

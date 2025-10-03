@@ -1,19 +1,20 @@
-import React from 'react';
-import { getNotifications } from '@/app/actions/notifications';
-import { getSession } from '@/lib/auth';
-import { NotificationsWrapper } from '@/components/notifications/notifications-wrapper';
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
-export default async function NotificationsPage() {
-  const session = await getSession();
-
-  if (!session) {
-    redirect('/login');
+export default async function NotificationsRedirectPage() {
+  // Get the Accept-Language header to determine preferred locale
+  const headersList = await headers()
+  const acceptLanguage = headersList.get('accept-language') || ''
+  
+  // Simple locale detection based on Accept-Language header
+  let locale = 'fr' // default
+  
+  if (acceptLanguage.includes('en')) {
+    locale = 'en'
+  } else if (acceptLanguage.includes('ar')) {
+    locale = 'ar'
   }
-
-  const { data: initialNotifications } = await getNotifications(session.user.id);
-
-  return (
-    <NotificationsWrapper notifications={initialNotifications || []} />
-  );
+  
+  // Redirect to the localized notifications page
+  redirect(`/${locale}/notifications`)
 }

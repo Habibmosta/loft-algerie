@@ -1,22 +1,20 @@
-import { ReportGenerator } from '@/components/reports/report-generator'
-import { ReportsWrapper } from '@/components/reports/reports-wrapper'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { FileText, BarChart3, TrendingUp, Sparkles } from 'lucide-react'
-import { getMonthlyRevenueData, getLoftRevenueData } from '@/app/actions/reports'
-import { ReportsPageClient } from './reports-page-client'
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
-export default async function ReportsPage() {
-  // Récupérer les vraies données depuis la base de données
-  const [monthlyRevenueData, loftRevenueData] = await Promise.all([
-    getMonthlyRevenueData(),
-    getLoftRevenueData()
-  ])
-
-  return (
-    <ReportsPageClient 
-      monthlyRevenueData={monthlyRevenueData}
-      loftRevenueData={loftRevenueData}
-    />
-  )
+export default async function ReportsRedirectPage() {
+  // Get the Accept-Language header to determine preferred locale
+  const headersList = await headers()
+  const acceptLanguage = headersList.get('accept-language') || ''
+  
+  // Simple locale detection based on Accept-Language header
+  let locale = 'fr' // default
+  
+  if (acceptLanguage.includes('en')) {
+    locale = 'en'
+  } else if (acceptLanguage.includes('ar')) {
+    locale = 'ar'
+  }
+  
+  // Redirect to the localized reports page
+  redirect(`/${locale}/reports`)
 }
-

@@ -102,25 +102,5 @@
   "thisMonth": "This Month",
   "thisQuarter": "This Quarter",
   "thisWeek": "This Week",
-  "thisYear": "This Year",
-  "months": {
-    "jan": "Jan",
-    "feb": "Feb",
-    "mar": "Mar",
-    "apr": "Apr",
-    "may": "May",
-    "jun": "Jun",
-    "jul": "Jul",
-    "aug": "Aug",
-    "sep": "Sep",
-    "oct": "Oct",
-    "nov": "Nov",
-    "dec": "Dec"
-  },
-  "top5ProfitableLofts": "Top 5 Most Profitable Lofts",
-  "mostValuableAssets": "Most Valuable Assets",
-  "revenueExpensesByLoft": "Revenue and Expenses by Loft",
-  "detailedFinancialPerformance": "Detailed Financial Performance",
-  "monthlyFinancialTrend": "Monthly Financial Trend",
-  "trackRevenueExpenses": "Track revenue and expenses over time."
+  "thisYear": "This Year"
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -31,7 +31,7 @@ interface ConversationHeaderProps {
 
 export function ConversationHeader({ conversation, currentUserId }: ConversationHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { t } = useTranslation();
+  const t = useTranslations('conversations')
 
   const getConversationName = () => {
     if (conversation.name) {
@@ -42,10 +42,10 @@ export function ConversationHeader({ conversation, currentUserId }: Conversation
       const otherParticipant = conversation.participants.find(
         p => p.user_id !== currentUserId
       )
-      return otherParticipant?.user.full_name || otherParticipant?.user.email || 'Unknown User'
+      return otherParticipant?.user.full_name || otherParticipant?.user.email || t('unknownUser')
     }
     
-    return `Group (${conversation.participants.length} members)`
+    return `${t('group')} ${conversation.id.slice(0, 8)}`
   }
 
   const getConversationAvatar = () => {
@@ -53,122 +53,81 @@ export function ConversationHeader({ conversation, currentUserId }: Conversation
       const otherParticipant = conversation.participants.find(
         p => p.user_id !== currentUserId
       )
-      return {
-        src: (otherParticipant?.user as any)?.avatar_url,
-        fallback: otherParticipant?.user.full_name?.charAt(0) || 'U'
-      }
-    }
-    
-    return {
-      src: undefined,
-      fallback: conversation.name?.charAt(0) || 'G'
-    }
-  }
-
-  const getOnlineStatus = () => {
-    if (conversation.type === 'direct') {
-      // In a real app, you'd check online status from your real-time system
-      return 'online' // This would come from your real-time presence system
+      return otherParticipant?.user.avatar_url
     }
     return null
   }
 
-  const avatar = getConversationAvatar()
-  const onlineStatus = getOnlineStatus()
-  const isCurrentUserAdmin = conversation.participants.find(
-    p => p.user_id === currentUserId
-  )?.role === 'admin'
+  const getConversationInitials = () => {
+    const name = getConversationName()
+    return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2)
+  }
 
   return (
-    <div className="flex items-center justify-between p-4 border-b bg-background">
-      <div className="flex items-center gap-3">
-        <div className="relative">
-          <Avatar className="h-10 w-10">
-            <AvatarImage src={avatar.src} />
-            <AvatarFallback>{avatar.fallback}</AvatarFallback>
-          </Avatar>
-          
-          {conversation.type === 'group' && (
-            <div className="absolute -bottom-1 -right-1 bg-background border rounded-full p-0.5">
-              <Users className="h-3 w-3 text-muted-foreground" />
-            </div>
-          )}
-          
-          {onlineStatus === 'online' && conversation.type === 'direct' && (
-            <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-green-500 border-2 border-background rounded-full" />
-          )}
-        </div>
+    <div className="flex items-center justify-between p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex items-center gap-3 flex-1 min-w-0">
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={getConversationAvatar()} />
+          <AvatarFallback className="bg-primary/10 text-primary font-medium">
+            {getConversationInitials()}
+          </AvatarFallback>
+        </Avatar>
         
         <div className="flex-1 min-w-0">
-          <h2 className="font-semibold text-lg truncate">
-            {getConversationName()}
-          </h2>
-          
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            {conversation.type === 'direct' ? (
-              <span>
-                {onlineStatus === 'online' ? 'Online' : 'Last seen recently'}
-              </span>
-            ) : (
-              <div className="flex items-center gap-1">
-                <Users className="h-3 w-3" />
-                <span>{conversation.participants.length} members</span>
-              </div>
+          <div className="flex items-center gap-2">
+            <h2 className="font-semibold truncate">{getConversationName()}</h2>
+            {conversation.type === 'group' && (
+              <Badge variant="secondary" className="text-xs">
+                <Users className="w-3 h-3 mr-1" />
+                {conversation.participants.length}
+              </Badge>
             )}
           </div>
+          <p className="text-xs text-muted-foreground">
+            {conversation.type === 'direct' 
+              ? t('online')
+              : `${conversation.participants.length} ${t('participants')}`
+            }
+          </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        {conversation.type === 'direct' && (
-          <>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <Phone className="h-4 w-4" />
-            </Button>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <Video className="h-4 w-4" />
-            </Button>
-          </>
-        )}
-
+      <div className="flex items-center gap-1">
+        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+          <Phone className="h-4 w-4" />
+        </Button>
+        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+          <Video className="h-4 w-4" />
+        </Button>
+        
         <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
               <MoreVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
             {conversation.type === 'group' && (
               <>
-                <DropdownMenuItem className="gap-2">
-                  <Users className="h-4 w-4" />
-                  {t('notifications:viewMembers')}
+                <DropdownMenuItem>
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  {t('addMembers')}
                 </DropdownMenuItem>
-                {isCurrentUserAdmin && (
-                  <DropdownMenuItem className="gap-2">
-                    <UserPlus className="h-4 w-4" />
-                    Add Members
-                  </DropdownMenuItem>
-                )}
+                <DropdownMenuItem>
+                  <Settings className="w-4 h-4 mr-2" />
+                  {t('groupSettings')}
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
               </>
             )}
-            
-            <DropdownMenuItem className="gap-2">
-              <Settings className="h-4 w-4" />
-              Conversation Settings
+            <DropdownMenuItem>
+              <Archive className="w-4 h-4 mr-2" />
+              {t('archiveConversation')}
             </DropdownMenuItem>
-            
-            <DropdownMenuItem className="gap-2">
-              <Archive className="h-4 w-4" />
-              Archive Conversation
-            </DropdownMenuItem>
-            
             <DropdownMenuSeparator />
-            
-            <DropdownMenuItem className="gap-2 text-destructive">
-              <Trash2 className="h-4 w-4" />
-              {conversation.type === 'direct' ? 'Delete Conversation' : 'Leave Group'}
+            <DropdownMenuItem className="text-destructive">
+              <Trash2 className="w-4 h-4 mr-2" />
+              {t('deleteConversation')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

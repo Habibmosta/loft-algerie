@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,18 +12,23 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { SimpleLanguageSelector } from "@/components/ui/simple-language-selector"
-import { useSimpleTranslation } from "@/hooks/use-simple-translation"
 import { Eye, EyeOff, Building2 } from "lucide-react"
 import Link from "next/link"
 import { login } from "@/lib/auth"
 import { loginSchema, type LoginFormData } from "@/lib/validations"
 
+/**
+ * Version migrée vers next-intl
+ * Ancienne version sauvegardée dans backup/simple-login-form-i18next.tsx
+ */
 export function SimpleLoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
-  const { t } = useSimpleTranslation()
+  
+  // Utilisation de next-intl au lieu de useSimpleTranslation
+  const t = useTranslations('auth')
 
   const {
     register,
@@ -62,10 +68,10 @@ export function SimpleLoginForm() {
             </div>
           </div>
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-            🔐 {t('auth:welcomeBack')}
+            🔐 {t('welcomeBack')}
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            {t('auth:signInDescription')}
+            {t('signInDescription')}
           </p>
         </div>
 
@@ -77,7 +83,7 @@ export function SimpleLoginForm() {
         {/* Login Form */}
         <Card className="shadow-xl">
           <CardHeader>
-            <CardTitle className="text-center text-xl">{t('auth:signIn')}</CardTitle>
+            <CardTitle className="text-center text-xl">{t('signIn')}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -88,11 +94,11 @@ export function SimpleLoginForm() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">{t('auth:email')}</Label>
+                <Label htmlFor="email">{t('email')}</Label>
                 <Input 
                   id="email" 
                   type="email" 
-                  placeholder={t('auth:enterEmail')} 
+                  placeholder="votre@email.com" 
                   {...register("email")} 
                   disabled={isLoading}
                   className="bg-white"
@@ -101,12 +107,12 @@ export function SimpleLoginForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">{t('auth:password')}</Label>
+                <Label htmlFor="password">{t('password')}</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder={t('auth:enterPassword')}
+                    placeholder="••••••••"
                     {...register("password")}
                     disabled={isLoading}
                     className="bg-white"
@@ -127,12 +133,12 @@ export function SimpleLoginForm() {
 
               <div className="flex items-center justify-between">
                 <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-                  {t('auth:forgotPassword')}
+                  {t('forgotPassword')}
                 </Link>
               </div>
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? t('auth:signingIn') : t('auth:signIn')}
+                {isLoading ? t('signingIn') : t('signIn')}
               </Button>
             </form>
           </CardContent>
@@ -143,25 +149,25 @@ export function SimpleLoginForm() {
           <CardContent className="pt-6">
             <div className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
-                {t('auth:noAccount')}{" "}
+                {t('noAccount')}{" "}
                 <Link href="/register" className="text-blue-600 hover:underline font-medium">
-                  {t('auth:signUp')}
+                  {t('signUp')}
                 </Link>
               </p>
               
               <Separator className="my-4" />
               
               <div>
-                <p className="text-sm font-medium mb-3 text-blue-900">{t('auth:demoAccounts')}</p>
+                <p className="text-sm font-medium mb-3 text-blue-900">{t('demoAccounts')}</p>
                 <div className="space-y-2 text-xs text-blue-700">
                   <p>
-                    <strong>{t('auth:admin')}:</strong> admin@loftmanager.com / password123
+                    <strong>{t('admin')}:</strong> admin@loftmanager.com / password123
                   </p>
                   <p>
-                    <strong>{t('auth:manager')}:</strong> manager@loftmanager.com / password123
+                    <strong>{t('manager')}:</strong> manager@loftmanager.com / password123
                   </p>
                   <p>
-                    <strong>{t('auth:member')}:</strong> member@loftmanager.com / password123
+                    <strong>{t('member')}:</strong> member@loftmanager.com / password123
                   </p>
                 </div>
               </div>

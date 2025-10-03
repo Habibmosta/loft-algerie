@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import type { Task as BaseTask } from "@/lib/types" // Import BaseTask from lib/types
-import { useTranslation } from "@/lib/i18n/context"
+import { useTranslations } from "next-intl"
 
 interface DisplayTask extends Omit<BaseTask, 'due_date'> {
   assigned_user?: { full_name: string } | null;
@@ -17,7 +17,7 @@ interface RecentTasksProps {
 }
 
 export function RecentTasks({ tasks }: RecentTasksProps) {
-  const { t } = useTranslation(['dashboard']);
+  const t = useTranslations('dashboard');
   
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -35,8 +35,8 @@ export function RecentTasks({ tasks }: RecentTasksProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('dashboard:recentTasks')}</CardTitle>
-        <CardDescription>{t('dashboard:latestTaskUpdates')}</CardDescription>
+        <CardTitle>{t('recentTasks')}</CardTitle>
+        <CardDescription>{t('latestTaskUpdates')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -48,13 +48,13 @@ export function RecentTasks({ tasks }: RecentTasksProps) {
                   {task.loft?.name} • {task.assigned_user?.full_name}
                 </p>
                 {task.due_date && (
-                  <p className="text-xs text-muted-foreground">{t('dashboard:due')}: {format(new Date(task.due_date), "d MMM yyyy")}</p>
+                  <p className="text-xs text-muted-foreground">{t('due')}: {format(new Date(task.due_date), "d MMM yyyy")}</p>
                 )}
               </div>
               <Badge className={getStatusColor(task.status)}>
-                {task.status === 'todo' ? t('dashboard:tasks.status.todo') : 
-                 task.status === 'in_progress' ? t('dashboard:tasks.status.inProgress') : 
-                 task.status === 'completed' ? t('dashboard:tasks.status.completed') : task.status}
+                {task.status === 'todo' ? t('tasks.status.todo') : 
+                 task.status === 'in_progress' ? t('tasks.status.inProgress') : 
+                 task.status === 'completed' ? t('tasks.status.completed') : task.status}
               </Badge>
             </div>
           ))}

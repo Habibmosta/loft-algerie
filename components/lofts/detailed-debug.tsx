@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, XCircle, Loader2, Bug, FileSearch } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface DebugStep {
   step: string
@@ -27,6 +28,7 @@ interface DebugResult {
 export function DetailedDebug() {
   const [isRunning, setIsRunning] = useState(false)
   const [result, setResult] = useState<DebugResult | null>(null)
+  const t = useTranslations('debug')
 
   const runDetailedDebug = () => {
     const input = document.createElement('input')
@@ -56,13 +58,13 @@ export function DetailedDebug() {
       } catch (error) {
         setResult({
           success: false,
-          error: error instanceof Error ? error.message : 'Erreur inconnue',
+          error: error instanceof Error ? error.message : t('unknownError'),
           debugInfo: {
             timestamp: new Date().toISOString(),
             steps: [{
               step: 'Network Error',
               status: 'error',
-              message: 'Impossible de contacter l\'API de debug',
+              message: t('networkError'),
               details: error
             }]
           }
@@ -85,9 +87,9 @@ export function DetailedDebug() {
 
   const getStepBadge = (status: 'success' | 'error') => {
     return status === 'success' ? (
-      <Badge className="bg-green-100 text-green-800">OK</Badge>
+      <Badge className="bg-green-100 text-green-800">{t('ok')}</Badge>
     ) : (
-      <Badge className="bg-red-100 text-red-800">Erreur</Badge>
+      <Badge className="bg-red-100 text-red-800">{t('error')}</Badge>
     )
   }
 
@@ -96,14 +98,14 @@ export function DetailedDebug() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bug className="h-5 w-5" />
-          Debug Détaillé Upload Photos
+          {t('title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Alert>
           <FileSearch className="h-4 w-4" />
           <AlertDescription>
-            Ce debug analyse chaque étape de l'upload pour identifier précisément où le problème se situe.
+            {t('description')}
           </AlertDescription>
         </Alert>
 
@@ -115,12 +117,12 @@ export function DetailedDebug() {
           {isRunning ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Debug en cours...
+              {t('running')}
             </>
           ) : (
             <>
               <Bug className="mr-2 h-4 w-4" />
-              Lancer le Debug Détaillé
+              {t('runDebug')}
             </>
           )}
         </Button>
@@ -131,16 +133,16 @@ export function DetailedDebug() {
             <Alert className={result.success ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}>
               <AlertDescription className={result.success ? "text-green-700" : "text-red-700"}>
                 <strong>
-                  {result.success ? "✅ Debug réussi!" : "❌ Problème détecté"}
+                  {result.success ? `✅ ${t('success')}` : `❌ ${t('problemDetected')}`}
                 </strong>
                 {result.message && <div className="mt-1">{result.message}</div>}
-                {result.error && <div className="mt-1">Erreur: {result.error}</div>}
+                {result.error && <div className="mt-1">{t('error')}: {result.error}</div>}
               </AlertDescription>
             </Alert>
 
             {/* Étapes détaillées */}
             <div className="space-y-3">
-              <h3 className="font-semibold text-lg">Étapes du Debug</h3>
+              <h3 className="font-semibold text-lg">{t('steps')}</h3>
               
               {result.debugInfo.steps.map((step, index) => (
                 <Card key={index} className={`border-l-4 ${step.status === 'success' ? 'border-l-green-500' : 'border-l-red-500'}`}>
@@ -158,7 +160,7 @@ export function DetailedDebug() {
                     {step.details && (
                       <details className="text-xs">
                         <summary className="cursor-pointer text-gray-500 hover:text-gray-700">
-                          Voir les détails techniques
+                          {t('viewDetails')}
                         </summary>
                         <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto max-h-32">
                           {JSON.stringify(step.details, null, 2)}
@@ -173,13 +175,13 @@ export function DetailedDebug() {
             {/* Recommandations */}
             {!result.success && (
               <div className="space-y-3">
-                <h3 className="font-semibold text-lg">Solutions Recommandées</h3>
+                <h3 className="font-semibold text-lg">{t('recommendations')}</h3>
                 
                 {result.debugInfo.steps.some(s => s.step === 'Table Check' && s.status === 'error') && (
                   <Alert className="border-orange-200 bg-orange-50">
                     <AlertDescription className="text-orange-700">
-                      <strong>Table loft_photos manquante:</strong>
-                      <br />Exécutez la migration: <code className="bg-orange-100 px-1 rounded">supabase db push</code>
+                      <strong>{t('tableMissing')}:</strong>
+                      <br />{t('runMigration')}: <code className="bg-orange-100 px-1 rounded">supabase db push</code>
                     </AlertDescription>
                   </Alert>
                 )}
@@ -187,8 +189,8 @@ export function DetailedDebug() {
                 {result.debugInfo.steps.some(s => s.step === 'Storage' && s.status === 'error') && (
                   <Alert className="border-orange-200 bg-orange-50">
                     <AlertDescription className="text-orange-700">
-                      <strong>Problème de Storage:</strong>
-                      <br />Créez le bucket 'loft-photos' dans l'interface Supabase Storage
+                      <strong>{t('storageProblem')}:</strong>
+                      <br />{t('createBucket')}
                     </AlertDescription>
                   </Alert>
                 )}
@@ -196,8 +198,8 @@ export function DetailedDebug() {
                 {result.debugInfo.steps.some(s => s.step === 'Database' && s.status === 'error') && (
                   <Alert className="border-orange-200 bg-orange-50">
                     <AlertDescription className="text-orange-700">
-                      <strong>Problème de connexion DB:</strong>
-                      <br />Vérifiez vos variables d'environnement Supabase
+                      <strong>{t('dbProblem')}:</strong>
+                      <br />{t('checkEnvVars')}
                     </AlertDescription>
                   </Alert>
                 )}
@@ -206,7 +208,7 @@ export function DetailedDebug() {
 
             {/* Timestamp */}
             <p className="text-xs text-gray-500 text-center">
-              Debug exécuté le: {new Date(result.debugInfo.timestamp).toLocaleString('fr-FR')}
+              {t('executedOn')}: {new Date(result.debugInfo.timestamp).toLocaleString()}
             </p>
           </div>
         )}

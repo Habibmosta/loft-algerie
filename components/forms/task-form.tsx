@@ -13,10 +13,11 @@ import { useRouter } from 'next/navigation'
 import type { Task, User, AuthSession } from '@/lib/types'
 import { getSession } from '@/lib/auth'
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
+import { fetchLoftsForSelection, formatLoftDisplayName, type LoftSelectionItem } from '@/lib/services/loft'
 
 interface TaskFormProps {
-  task?: Task
+  task?: Task & { loft?: { id: string; name: string; address: string } | null }
   users: User[]
   onSubmit: (data: TaskFormData | TaskStatusUpdateData) => Promise<void>
   isSubmitting?: boolean
@@ -25,7 +26,10 @@ interface TaskFormProps {
 export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFormProps) {
   const router = useRouter()
   const [session, setSession] = useState<AuthSession | null>(null)
-  const { t } = useTranslation();
+  const [lofts, setLofts] = useState<LoftSelectionItem[]>([])
+  const [loftsLoading, setLoftsLoading] = useState(false)
+  const t = useTranslations('tasks');
+  const tCommon = useTranslations('common');
 
   useEffect(() => {
     async function fetchSession() {
@@ -34,6 +38,27 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
     }
     fetchSession();
   }, []);
+
+  // Fetch lofts for selection (only for admins and managers)
+  useEffect(() => {
+    async function loadLofts() {
+      if (session?.user?.role === 'admin' || session?.user?.role === 'manager') {
+        setLoftsLoading(true)
+        try {
+          const response = await fetchLoftsForSelection()
+          setLofts(response.lofts)
+        } catch (error) {
+          console.error('Error loading lofts:', error)
+        } finally {
+          setLoftsLoading(false)
+        }
+      }
+    }
+    
+    if (session) {
+      loadLofts()
+    }
+  }, [session]);
 
   // Use different validation schema based on user role
   const isMember = session?.user?.role === 'member'
@@ -49,23 +74,24 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
         description: task.description ?? undefined, // Convert null to undefined
         due_date: task.due_date ? new Date(task.due_date).toISOString().split('T')[0] : undefined,
         assigned_to: task.assigned_to ?? 'unassigned', // Convert null to 'unassigned'
+        loft_id: task.loft_id ?? 'no_loft', // Convert null to 'no_loft'
       }
-    ) : { status: 'todo', due_date: new Date().toISOString().split('T')[0] },
+    ) : { status: 'todo', due_date: new Date().toISOString().split('T')[0], loft_id: 'no_loft' },
   })
 
   return (
     <FormWrapper 
       maxWidth="2xl"
-      title={task ? (session?.user?.role === 'member' ? t('tasks:form.updateTaskStatus') : t('tasks:form.editTask')) : t('tasks:form.addNewTask')}
+      title={task ? (session?.user?.role === 'member' ? t('form.updateTaskStatus') : t('form.editTask')) : t('form.addNewTask')}
       description={task ? 
-        (session?.user?.role === 'member' ? t('tasks:form.updateStatusDescription') : t('tasks:form.updateTaskInfo')) : 
-        t('tasks:form.createNewTask')
+        (session?.user?.role === 'member' ? t('form.updateStatusDescription') : t('form.updateTaskInfo')) : 
+        t('form.createNewTask')
       }
       icon="📋"
     >
       <FormSection 
-        title={t('tasks:taskDetails')}
-        description={session?.user?.role === 'member' ? t('tasks:memberCanOnlyUpdateStatus') : t('tasks:fillTaskInformation')}
+        title={t('taskDetails')}
+        description={session?.user?.role === 'member' ? t('memberCanOnlyUpdateStatus') : t('fillTaskInformation')}
         icon="✅"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -73,7 +99,7 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {(session?.user?.role === 'admin' || session?.user?.role === 'manager') && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="title">{t('tasks:taskTitle')}</Label>
+                <Label htmlFor="title">{t('taskTitle')}</Label>
                 <Input 
                   id="title" 
                   {...register('title')}
@@ -83,7 +109,7 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">{t('tasks:taskDescription')}</Label>
+                <Label htmlFor="description">{t('taskDescription')}</Label>
                 <Textarea 
                   id="description" 
                   {...register('description')}
@@ -98,12 +124,12 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {session?.user?.role === 'member' && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="title">{t('tasks:taskTitle')}</Label>
+                <Label htmlFor="title">{t('taskTitle')}</Label>
                 <Input id="title" value={task?.title || ''} disabled className="bg-muted" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">{t('tasks:taskDescription')}</Label>
+                <Label htmlFor="description">{t('taskDescription')}</Label>
                 <Textarea id="description" value={task?.description || ''} disabled className="bg-muted" />
               </div>
             </>
@@ -111,15 +137,15 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
 
           {/* Status field - editable for all roles */}
           <div className="space-y-2">
-            <Label htmlFor="status">{t('tasks:taskStatus')}</Label>
+            <Label htmlFor="status">{t('taskStatus')}</Label>
             <Select onValueChange={(value) => setValue('status', value as any)} defaultValue={task?.status}>
               <SelectTrigger className="bg-white">
-                <SelectValue placeholder={t('common:selectOption')} />
+                <SelectValue placeholder={tCommon('selectOption')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="todo">{t('tasks:status.todo')}</SelectItem>
-                <SelectItem value="in_progress">{t('tasks:status.inProgress')}</SelectItem>
-                <SelectItem value="completed">{t('tasks:status.completed')}</SelectItem>
+                <SelectItem value="todo">{t('status.todo')}</SelectItem>
+                <SelectItem value="in_progress">{t('status.inProgress')}</SelectItem>
+                <SelectItem value="completed">{t('status.completed')}</SelectItem>
               </SelectContent>
             </Select>
             {(errors as any).status && <p className="text-sm text-red-500">{(errors as any).status.message}</p>}
@@ -129,24 +155,25 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {(session?.user?.role === 'admin' || session?.user?.role === 'manager') && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="due_date">{t('tasks:taskDueDate')}</Label>
+                <Label htmlFor="due_date">{t('taskDueDate')}</Label>
                 <Input 
                   id="due_date" 
                   type="date" 
                   {...register('due_date')}
+                  placeholder="jj/mm/aaaa"
                   className="bg-white"
                 />
                 {(errors as any).due_date && <p className="text-sm text-red-500">{(errors as any).due_date.message}</p>}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="assigned_to">{t('tasks:assignTo')}</Label>
+                <Label htmlFor="assigned_to">{t('assignTo')}</Label>
                 <Select onValueChange={(value) => setValue('assigned_to', value === 'unassigned' ? null : value)} defaultValue={task?.assigned_to || 'unassigned'}>
                   <SelectTrigger className="bg-white">
-                    <SelectValue placeholder={t('common:selectOption')} />
+                    <SelectValue placeholder={tCommon('selectOption')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="unassigned">{t('common:none')}</SelectItem>
+                    <SelectItem value="unassigned">{tCommon('none')}</SelectItem>
                     {users.map((user) => (
                       <SelectItem key={user.id} value={user.id}>
                         {user.full_name} ({user.email})
@@ -156,6 +183,28 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
                 </Select>
                 {(errors as any).assigned_to && <p className="text-sm text-red-500">{(errors as any).assigned_to.message}</p>}
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="loft_id">{t('associatedLoft')}</Label>
+                <Select 
+                  onValueChange={(value) => setValue('loft_id', value === 'no_loft' ? null : value)} 
+                  defaultValue={task?.loft_id || 'no_loft'}
+                  disabled={loftsLoading}
+                >
+                  <SelectTrigger className="bg-white">
+                    <SelectValue placeholder={loftsLoading ? t('loadingLofts') : tCommon('selectOption')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="no_loft">{t('noLoftAssociated')}</SelectItem>
+                    {lofts.map((loft) => (
+                      <SelectItem key={loft.id} value={loft.id}>
+                        {formatLoftDisplayName(loft)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {(errors as any).loft_id && <p className="text-sm text-red-500">{(errors as any).loft_id.message}</p>}
+              </div>
             </>
           )}
 
@@ -163,20 +212,32 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
           {session?.user?.role === 'member' && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="due_date_readonly">{t('tasks:taskDueDate')}</Label>
+                <Label htmlFor="due_date_readonly">{t('taskDueDate')}</Label>
                 <Input 
                   id="due_date_readonly" 
-                  value={task?.due_date ? new Date(task.due_date).toLocaleDateString() : t('tasks:noDueDate')} 
+                  value={task?.due_date ? new Date(task.due_date).toLocaleDateString() : t('noDueDate')} 
                   disabled 
                   className="bg-muted" 
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="assigned_to_readonly">{t('tasks:assignedTo')}</Label>
+                <Label htmlFor="assigned_to_readonly">{t('assignedTo')}</Label>
                 <Input 
                   id="assigned_to_readonly" 
-                  value={task?.assigned_to ? users.find(u => u.id === task.assigned_to)?.full_name || 'Unknown User' : t('common:none')} 
+                  value={task?.assigned_to ? users.find(u => u.id === task.assigned_to)?.full_name || 'Unknown User' : tCommon('none')} 
+                  disabled 
+                  className="bg-muted" 
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="loft_readonly">{t('associatedLoft')}</Label>
+                <Input 
+                  id="loft_readonly" 
+                  value={task?.loft ? 
+                    formatLoftDisplayName(task.loft) : 
+                    t('noLoftAssociated')} 
                   disabled 
                   className="bg-muted" 
                 />
@@ -186,12 +247,12 @@ export function TaskForm({ task, users, onSubmit, isSubmitting = false }: TaskFo
 
           <div className="flex gap-4 pt-4">
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? t('tasks:saving') : 
-               task ? (session?.user?.role === 'member' ? t('tasks:updateStatus') : t('tasks:updateTask')) : 
-               t('tasks:createTask')}
+              {isSubmitting ? t('saving') : 
+               task ? (session?.user?.role === 'member' ? t('updateStatus') : t('updateTask')) : 
+               t('createTask')}
             </Button>
             <Button type="button" variant="outline" onClick={() => router.push('/tasks')}>
-              {t('tasks:cancel')}
+              {t('cancel')}
             </Button>
           </div>
         </form>

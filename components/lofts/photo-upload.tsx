@@ -5,7 +5,7 @@ import { Upload, X, Image as ImageIcon, Loader2, AlertTriangle } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import Image from "next/image";
 
@@ -30,7 +30,7 @@ export function PhotoUpload({
   onPhotosChange,
   maxPhotos = 10,
 }: PhotoUploadProps) {
-  const { t } = useTranslation("lofts");
+  const t = useTranslations("lofts");
   const [photos, setPhotos] = useState<LoftPhoto[]>(existingPhotos);
   const [isDragging, setIsDragging] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState<{

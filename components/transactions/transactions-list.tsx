@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from 'react-i18next'
+import { useTranslations, useLocale } from 'next-intl'
 import { 
   translateTransactionDescription, 
   translateTransactionStatus, 
@@ -31,8 +31,8 @@ interface TransactionsListProps {
 }
 
 export function TransactionsList({ transactions, categories, lofts, currencies, paymentMethods, isAdmin, children }: TransactionsListProps) {
-  const { i18n } = useTranslation()
-  const language = i18n.language
+  const locale = useLocale()
+  const language = locale
 
   return (
     <div>

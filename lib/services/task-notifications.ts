@@ -1,7 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { logger, measurePerformance } from '@/lib/logger'
 import { createNotification } from '@/app/actions/notifications'
-
 export interface TaskNotificationData {
   taskId: string
   taskTitle: string
@@ -31,10 +30,13 @@ export async function notifyTaskAssignment(
 
       await createNotification(
         assignedUserId,
-        "New Task Assigned",
-        `You have been assigned a new task: "${taskData.taskTitle}"${dueDateText}`,
+        "newTaskAssigned",
+        "newTaskAssignedMessage",
         'info',
-        `/tasks/${taskData.taskId}`
+        `/tasks/${taskData.taskId}`,
+        assignedByUserId,
+        undefined, // title_payload
+        { taskTitle: taskData.taskTitle, dueDate: dueDateText.replace(' (Due: ', '').replace(')', '') } // message_payload
       )
 
       logger.info('Task assignment notification created successfully')
@@ -69,10 +71,11 @@ export async function notifyTaskReassignment(
 
         await createNotification(
           newAssigneeId,
-          "Task Assigned to You",
+          "notifications.Task Assigned to You",
           `You have been assigned to task: "${taskData.taskTitle}"${dueDateText}`,
           'info',
-          `/tasks/${taskData.taskId}`
+          `/tasks/${taskData.taskId}`,
+          updatedByUserId
         )
       }
 
@@ -80,10 +83,11 @@ export async function notifyTaskReassignment(
       if (oldAssigneeId && oldAssigneeId !== updatedByUserId && oldAssigneeId !== newAssigneeId) {
         await createNotification(
           oldAssigneeId,
-          "Task Reassigned",
+          "notifications.Task Reassigned",
           `Task "${taskData.taskTitle}" has been reassigned to someone else by ${updatedByName}.`,
           'warning',
-          `/tasks/${taskData.taskId}`
+          `/tasks/${taskData.taskId}`,
+          updatedByUserId
         )
       }
 
@@ -103,38 +107,55 @@ export async function notifyTaskStatusChange(
   updatedByName: string
 ): Promise<void> {
   return measurePerformance(async () => {
-    logger.info('Creating task status change notifications', { 
-      taskId: taskData.taskId, 
+    logger.info('Creating task status change notifications', {
+      taskId: taskData.taskId,
       oldStatus,
       newStatus,
-      updatedBy: updatedByUserId 
+      updatedBy: updatedByUserId
     })
 
     try {
+      // Helper function to get translated status
+      const getTranslatedStatus = (status: string) => {
+        const statusMap: Record<string, string> = {
+          'todo': 'To Do',
+          'in_progress': 'In Progress',
+          'completed': 'Completed'
+        }
+        return statusMap[status] || status
+      }
+
+      const translatedNewStatus = getTranslatedStatus(newStatus)
+      const translatedOldStatus = getTranslatedStatus(oldStatus)
+
       // Notify the task creator if they're not the one making the change
       if (taskData.createdBy && taskData.createdBy !== updatedByUserId) {
         const notificationType = newStatus === 'completed' ? 'success' : 'info'
-        
+
         await createNotification(
           taskData.createdBy,
-          "Task Status Updated",
-          `Task "${taskData.taskTitle}" status changed from "${oldStatus}" to "${newStatus}" by ${updatedByName}.`,
+          "Task Status Updated", // Literal title for the notification
+          "taskStatusUpdatedMessage", // message_key for translation
           notificationType,
-          `/tasks/${taskData.taskId}`
-        )
+          `/tasks/${taskData.taskId}`,
+          updatedByUserId,
+          { taskTitle: taskData.taskTitle, oldStatus: translatedOldStatus, newStatus: translatedNewStatus } // message_payload with translated status
+        );
       }
 
       // Notify the assigned user if they're not the one making the change
       if (taskData.assignedTo && taskData.assignedTo !== updatedByUserId && taskData.assignedTo !== taskData.createdBy) {
         const notificationType = newStatus === 'completed' ? 'success' : 'info'
-        
+
         await createNotification(
           taskData.assignedTo,
-          "Your Task Status Updated",
-          `Status of your assigned task "${taskData.taskTitle}" has been updated to "${newStatus}".`,
+          "Your Task Status Updated", // Literal title for the notification
+          "taskStatusUpdatedMessage", // message_key for translation
           notificationType,
-          `/tasks/${taskData.taskId}`
-        )
+          `/tasks/${taskData.taskId}`,
+          updatedByUserId,
+          { taskTitle: taskData.taskTitle, newStatus: translatedNewStatus } // message_payload with translated status
+        );
       }
 
       logger.info('Task status change notifications created successfully')
@@ -172,11 +193,13 @@ export async function notifyTaskDueDateChange(
 
         await createNotification(
           taskData.assignedTo,
-          "Task Due Date Updated",
-          `Due date for task "${taskData.taskTitle}" has been updated. ${dueDateText}`,
+          "Task Due Date Updated", // Literal title
+          "taskDueDateUpdatedMessage", // message_key
           'info',
-          `/tasks/${taskData.taskId}`
-        )
+          `/tasks/${taskData.taskId}`,
+          updatedByUserId,
+          { taskTitle: taskData.taskTitle, newDueDate: (newDueDate ? new Date(newDueDate).toLocaleDateString() : '') } // message_payload
+        );
       }
 
       logger.info('Task due date change notification created successfully')
@@ -199,7 +222,7 @@ export async function notifyTaskDeletion(
     })
 
     try {
-      const usersToNotify = []
+      const usersToNotify: string[] = []
       
       // Notify assigned user
       if (taskData.assignedTo && taskData.assignedTo !== deletedByUserId) {
@@ -218,7 +241,8 @@ export async function notifyTaskDeletion(
           "Task Deleted",
           `Task "${taskData.taskTitle}" has been deleted by ${deletedByName}.`,
           'warning',
-          '/tasks'
+          '/tasks',
+          deletedByUserId
         )
       }
 
@@ -271,7 +295,8 @@ export async function notifyTaskOverdue(): Promise<void> {
             "Task Overdue",
             `Your task "${task.title}" is ${daysOverdue} day(s) overdue.`,
             'error',
-            `/tasks/${task.id}`
+            `/tasks/${task.id}`,
+            null
           )
         }
 
@@ -282,7 +307,8 @@ export async function notifyTaskOverdue(): Promise<void> {
             "Task Overdue",
             `Task "${task.title}" assigned to someone is ${daysOverdue} day(s) overdue.`,
             'warning',
-            `/tasks/${task.id}`
+            `/tasks/${task.id}`,
+            null
           )
         }
       }

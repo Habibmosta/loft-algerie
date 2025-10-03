@@ -6,6 +6,7 @@
     "ownershipType": "نوع الملكية"
   },
   "selectOption": "اختر خياراً",
+  "saving": "جاري الحفظ...",
   "error": "خطأ",
   "systemError": "خطأ في النظام",
   "view": "عرض",

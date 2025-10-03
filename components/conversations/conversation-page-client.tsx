@@ -8,7 +8,7 @@ import { MessagesList } from '@/components/conversations/messages-list'
 import { MessageInputRealtime } from '@/components/conversations/message-input-realtime'
 import { Conversation, Message } from '@/lib/services/conversations'
 import { toast } from 'sonner'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface ConversationPageClientProps {
   initialConversation: Conversation
@@ -24,7 +24,7 @@ export function ConversationPageClient({
   const [conversation, setConversation] = useState(initialConversation)
   const [messages, setMessages] = useState(initialMessages)
   const [isLoading, setIsLoading] = useState(false)
-  const { t } = useTranslation();
+  const t = useTranslations('conversations')
   const supabase = createClient()
   const router = useRouter()
 
@@ -38,37 +38,20 @@ export function ConversationPageClient({
     })
   }, [])
 
-  const handleSendMessage = async (content: string) => {
-    try {
-      const response = await fetch('/api/conversations/send-message', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          conversation_id: conversation.id,
-          content,
-          message_type: 'text'
-        })
-      })
+  const updateMessage = useCallback((messageId: string, updates: Partial<Message>) => {
+    setMessages(prev => prev.map(msg => 
+      msg.id === messageId ? { ...msg, ...updates } : msg
+    ))
+  }, [])
 
-      if (!response.ok) {
-        throw new Error('Failed to send message')
-      }
+  const deleteMessage = useCallback((messageId: string) => {
+    setMessages(prev => prev.filter(msg => msg.id !== messageId))
+  }, [])
 
-      const newMessage = await response.json()
-      addMessage(newMessage)
-    } catch (error) {
-      console.error('Failed to send message:', error)
-      toast.error('Failed to send message')
-      throw error
-    }
-  }
-
-  // Set up real-time subscription for new messages in this conversation
+  // Set up real-time subscription for new messages
   useEffect(() => {
-    const messagesSubscription = supabase
-      .channel(`conversation-${conversation.id}`)
+    const channel = supabase
+      .channel(`conversation:${conversation.id}`)
       .on(
         'postgres_changes',
         {
@@ -77,76 +60,87 @@ export function ConversationPageClient({
           table: 'messages',
           filter: `conversation_id=eq.${conversation.id}`
         },
-        async (payload) => {
-          const newMessage = payload.new as any
-          
-          // Fetch full message data with sender info
-          const { data, error } = await supabase
-            .from('messages')
-            .select(`
-              id,
-              conversation_id,
-              sender_id,
-              content,
-              message_type,
-              created_at,
-              updated_at,
-              edited,
-              sender:profiles (
-                id,
-                full_name,
-                email,
-                avatar_url
-              )
-            `)
-            .eq('id', newMessage.id)
-            .single()
-
-          if (data && !error) {
-            addMessage(data as any)
-            
-            // Show notification for messages from others
-            if (data.sender_id !== currentUserId) {
-              const senderName = (data.sender as any)?.full_name || 'Someone'
-              toast.success(t('notifications:newMessageFrom').replace('{name}', senderName), {
-                description: data.content.length > 50 
-                  ? data.content.substring(0, 50) + '...' 
-                  : data.content
-              })
-            }
+        (payload) => {
+          const newMessage = payload.new as Message
+          // Only add if it's not from the current user (to avoid duplicates)
+          if (newMessage.sender_id !== currentUserId) {
+            addMessage(newMessage)
           }
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'messages',
+          filter: `conversation_id=eq.${conversation.id}`
+        },
+        (payload) => {
+          const updatedMessage = payload.new as Message
+          updateMessage(updatedMessage.id, updatedMessage)
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'messages',
+          filter: `conversation_id=eq.${conversation.id}`
+        },
+        (payload) => {
+          const deletedMessage = payload.old as Message
+          deleteMessage(deletedMessage.id)
         }
       )
       .subscribe()
 
-    // Mark conversation as read when user opens it
-    const markAsRead = async () => {
-      try {
-        await fetch('/api/conversations/mark-read', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            conversation_id: conversation.id
-          })
-        })
-      } catch (error) {
-        console.error('Failed to mark conversation as read:', error)
-      }
-    }
-
-    markAsRead()
-
     return () => {
-      messagesSubscription.unsubscribe()
+      supabase.removeChannel(channel)
     }
-  }, [conversation.id, currentUserId, supabase, addMessage])
+  }, [conversation.id, currentUserId, addMessage, updateMessage, deleteMessage, supabase])
+
+  const handleSendMessage = async (content: string, messageType: 'text' | 'image' = 'text') => {
+    if (!content.trim()) return
+
+    setIsLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('messages')
+        .insert({
+          conversation_id: conversation.id,
+          sender_id: currentUserId,
+          content: content.trim(),
+          message_type: messageType
+        })
+        .select()
+        .single()
+
+      if (error) throw error
+
+      // Add the message immediately for the sender
+      addMessage(data as Message)
+      
+      // Update conversation's last message
+      setConversation(prev => ({
+        ...prev,
+        last_message: content.trim(),
+        last_message_at: new Date().toISOString()
+      }))
+
+    } catch (error) {
+      console.error('Error sending message:', error)
+      toast.error(t('errorSendingMessage'))
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
+    <div className="flex flex-col h-full">
       <ConversationHeader 
-        conversation={conversation} 
+        conversation={conversation}
         currentUserId={currentUserId}
       />
       
@@ -158,10 +152,10 @@ export function ConversationPageClient({
         />
       </div>
       
-      <MessageInputRealtime 
-        conversationId={conversation.id}
-        currentUserId={currentUserId}
+      <MessageInputRealtime
         onSendMessage={handleSendMessage}
+        disabled={isLoading}
+        placeholder={t('typeMessage')}
       />
     </div>
   )

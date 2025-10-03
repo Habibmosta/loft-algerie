@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PhotoUpload } from "./photo-upload";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import { useLoftPhotos } from "@/hooks/use-loft-photos";
 import { Loader2 } from "lucide-react";
 
@@ -19,7 +19,7 @@ interface LoftPhotosProps {
 }
 
 export function LoftPhotos({ loftId }: LoftPhotosProps) {
-  const { t } = useTranslation("lofts");
+  const t = useTranslations("lofts");
   const { photos, loading, refreshPhotos } = useLoftPhotos(loftId);
 
   const handlePhotosChange = () => {

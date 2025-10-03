@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import {
   LineChart,
   Line,
@@ -48,7 +48,7 @@ export function AdvancedCharts({
   maintenanceCosts
 }: AdvancedChartsProps) {
   const [timeRange, setTimeRange] = useState('12months')
-  const { t } = useTranslation('analytics');
+  const t = useTranslations('analytics');
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -83,10 +83,10 @@ export function AdvancedCharts({
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">{t('analytics:overview')}</TabsTrigger>
-          <TabsTrigger value="financial">{t('analytics:financial')}</TabsTrigger>
-          <TabsTrigger value="occupancy">{t('analytics:occupancy')}</TabsTrigger>
-          <TabsTrigger value="maintenance">{t('analytics:maintenance')}</TabsTrigger>
+          <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
+          <TabsTrigger value="financial">{t('financial')}</TabsTrigger>
+          <TabsTrigger value="occupancy">{t('occupancy')}</TabsTrigger>
+          <TabsTrigger value="maintenance">{t('maintenance')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -206,8 +206,8 @@ export function AdvancedCharts({
         <TabsContent value="occupancy" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('analytics:occupancyRateTrends')}</CardTitle>
-              <CardDescription>{t('analytics:monthlyOccupancyRates')}</CardDescription>
+              <CardTitle>{t('occupancyRateTrends')}</CardTitle>
+              <CardDescription>{t('monthlyOccupancyRates')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>

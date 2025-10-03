@@ -112,7 +112,7 @@ const UTILITY_CONFIG = {
 };
 
 export function ModernDashboard() {
-  const { t } = useTranslation(["common", "bills", "dashboard"]);
+  const { t } = useTranslation("dashboard");
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
   const [overdueBills, setOverdueBills] = useState<BillAlert[]>([]);
   const [stats, setStats] = useState<DashboardStats>({

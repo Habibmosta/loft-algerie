@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useTransition, useActionState } from 'react';
+import { useState, useTransition, useActionState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTranslation } from '@/lib/i18n/context'; // Changed from 'react-i18next' to use the custom context
+import { useTranslations } from 'next-intl';
 import { Calendar, Ban, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import { blockDates, unblockDates } from '@/lib/actions/reservations';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -29,7 +29,9 @@ export default function AvailabilityManager({
   selectedLoftId,
   onUpdate,
 }: AvailabilityManagerProps) {
-  const { t, i18n } = useTranslation('reservations');
+  const t = useTranslations('reservations');
+  const tAvailability = useTranslations('availability');
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [mode, setMode] = useState<'block' | 'unblock'>('block');
   
@@ -49,12 +51,45 @@ export default function AvailabilityManager({
     });
   };
 
+  // Handle success/error states with simple alerts that auto-dismiss
+  useEffect(() => {
+    if (blockState?.success) {
+      setSuccessMessage(`✅ Blocage créé avec succès ! Raison: ${blockState.data?.blocked_reason} • ${blockState.data?.blocked_dates} dates bloquées`);
+      
+      // Auto-dismiss after 4 seconds
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 4000);
+      
+      // Refresh calendar immediately
+      if (onUpdate) {
+        onUpdate();
+      }
+    }
+  }, [blockState, onUpdate]);
+
+  useEffect(() => {
+    if (unblockState?.success) {
+      setSuccessMessage('✅ Déblocage effectué avec succès ! Les dates ont été débloquées');
+      
+      // Auto-dismiss after 4 seconds
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 4000);
+      
+      // Refresh calendar
+      if (onUpdate) {
+        onUpdate();
+      }
+    }
+  }, [unblockState, onUpdate]);
+
   return (
     <Card className="border-0 shadow-xl bg-white/90 backdrop-blur-sm">
       <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
         <CardTitle className="flex items-center gap-2">
           <Calendar className="h-5 w-5" />
-          {t('reservations:availability.management')}
+          {tAvailability('management')}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
@@ -66,7 +101,7 @@ export default function AvailabilityManager({
               className="flex items-center gap-2"
             >
               <Ban className="h-4 w-4" />
-              {t('reservations:availability.blockDates')}
+              {tAvailability('blockDates')}
             </Button>
             <Button
               variant={mode === 'unblock' ? 'default' : 'outline'}
@@ -74,22 +109,32 @@ export default function AvailabilityManager({
               className="flex items-center gap-2"
             >
               <CheckCircle className="h-4 w-4" />
-              {t('reservations:availability.unblockDates')}
+              {tAvailability('unblockDates')}
             </Button>
           </div>
 
-          {/* Display server action errors */}
+          {/* Success message with auto-dismiss */}
+          {successMessage && (
+            <Alert className="border-green-200 bg-green-50 text-green-800">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <AlertDescription>
+                {successMessage}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {/* Error messages */}
           {blockState?.error && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{blockState.error}</AlertDescription>
+              <AlertDescription>❌ Erreur lors du blocage: {blockState.error}</AlertDescription>
             </Alert>
           )}
 
           {unblockState?.error && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{unblockState.error}</AlertDescription>
+              <AlertDescription>❌ Erreur lors du déblocage: {unblockState.error}</AlertDescription>
             </Alert>
           )}
 
@@ -98,10 +143,10 @@ export default function AvailabilityManager({
             <form action={handleBlockSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="loft_id">{t('reservations:availability.selectLoft')}</Label>
+                  <Label htmlFor="loft_id">{tAvailability('selectLoft')}</Label>
                   <Select name="loft_id" defaultValue={selectedLoftId} required>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('reservations:availability.chooseLoft')} />
+                      <SelectValue placeholder={tAvailability('chooseLoft')} />
                     </SelectTrigger>
                     <SelectContent>
                       {lofts.map((loft) => (
@@ -114,16 +159,16 @@ export default function AvailabilityManager({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="blocked_reason">{t('reservations:availability.reasonForBlocking')}</Label>
+                  <Label htmlFor="blocked_reason">{tAvailability('reasonForBlocking')}</Label>
                   <Select name="blocked_reason" required>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('reservations:availability.selectReason')} />
+                      <SelectValue placeholder={tAvailability('selectReason')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="maintenance">{t('reservations:availability.maintenance')}</SelectItem>
-                      <SelectItem value="personal_use">{t('reservations:availability.personalUse')}</SelectItem>
-                      <SelectItem value="renovation">{t('reservations:availability.renovation')}</SelectItem>
-                      <SelectItem value="other">{t('reservations:availability.other')}</SelectItem>
+                      <SelectItem value="maintenance">{tAvailability('maintenance')}</SelectItem>
+                      <SelectItem value="personal_use">{tAvailability('personalUse')}</SelectItem>
+                      <SelectItem value="renovation">{tAvailability('renovation')}</SelectItem>
+                      <SelectItem value="other">{tAvailability('other')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -131,7 +176,7 @@ export default function AvailabilityManager({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="start_date">{t('reservations:availability.startDate')}</Label>
+                  <Label htmlFor="start_date">{t('availability.startDate')}</Label>
                   <Input
                     type="date"
                     name="start_date"
@@ -141,7 +186,7 @@ export default function AvailabilityManager({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="end_date">{t('reservations:availability.endDate')}</Label>
+                  <Label htmlFor="end_date">{t('availability.endDate')}</Label>
                   <Input
                     type="date"
                     name="end_date"
@@ -153,18 +198,18 @@ export default function AvailabilityManager({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="price_override">{t('reservations:availability.priceOverride')}</Label>
+                  <Label htmlFor="price_override">{t('availability.priceOverride')}</Label>
                   <Input
                     type="number"
                     name="price_override"
                     step="0.01"
                     min="0"
-                    placeholder={t('reservations:availability.priceOverridePlaceholder')}
+                    placeholder={t('availability.priceOverridePlaceholder')}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="minimum_stay">{t('reservations:availability.minimumStay', { count: 1 })}</Label>
+                  <Label htmlFor="minimum_stay">{t('availability.minimumStay', { count: 1 })}</Label>
                   <Input
                     type="number"
                     name="minimum_stay"
@@ -184,7 +229,7 @@ export default function AvailabilityManager({
                 ) : (
                   <Ban className="h-4 w-4" />
                 )}
-                {t('reservations:availability.blockDates')}
+                {t('availability.blockDates')}
               </Button>
             </form>
           )}
@@ -193,10 +238,10 @@ export default function AvailabilityManager({
           {mode === 'unblock' && (
             <form action={handleUnblockSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="loft_id">{t('reservations:availability.selectLoft')}</Label>
+                <Label htmlFor="loft_id">{t('availability.selectLoft')}</Label>
                 <Select name="loft_id" defaultValue={selectedLoftId} required>
                   <SelectTrigger>
-                    <SelectValue placeholder={t('reservations:availability.chooseLoft')} />
+                    <SelectValue placeholder={t('availability.chooseLoft')} />
                   </SelectTrigger>
                   <SelectContent>
                     {lofts.map((loft) => (
@@ -210,7 +255,7 @@ export default function AvailabilityManager({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="start_date">{t('reservations:availability.startDate')}</Label>
+                  <Label htmlFor="start_date">{t('availability.startDate')}</Label>
                   <Input
                     type="date"
                     name="start_date"
@@ -220,7 +265,7 @@ export default function AvailabilityManager({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="end_date">{t('reservations:availability.endDate')}</Label>
+                  <Label htmlFor="end_date">{t('availability.endDate')}</Label>
                   <Input
                     type="date"
                     name="end_date"
@@ -240,7 +285,7 @@ export default function AvailabilityManager({
                 ) : (
                   <CheckCircle className="h-4 w-4" />
                 )}
-                {t('reservations:availability.unblockDates')}
+                {t('availability.unblockDates')}
               </Button>
             </form>
           )}

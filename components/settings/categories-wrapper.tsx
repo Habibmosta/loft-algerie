@@ -1,11 +1,12 @@
 "use client"
 
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { CategoriesList } from "@/app/settings/categories/categories-list"
+import { CategoriesList } from "@/components/settings/categories-list"
 import { Plus, Tag, TrendingUp, TrendingDown, Sparkles, BarChart3 } from "lucide-react"
 import Link from "next/link"
+import { useLocale } from "next-intl"
 import type { Category } from "@/lib/types"
 
 interface CategoriesWrapperProps {
@@ -13,7 +14,10 @@ interface CategoriesWrapperProps {
 }
 
 export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
-  const { t } = useTranslation(["common", "settings"]);
+  const t = useTranslations("settings");
+  const tNav = useTranslations("nav");
+  const tCommon = useTranslations("common");
+  const locale = useLocale();
 
   const incomeCategories = categories.filter(cat => cat.type === 'income')
   const expenseCategories = categories.filter(cat => cat.type === 'expense')
@@ -32,24 +36,28 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
               <div className="p-3 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 shadow-lg">
                 <Tag className="h-8 w-8 text-primary" />
               </div>
-              {t('nav.categories')}
+              {tNav('categories')}
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl">{t('settings.categories.subtitle')}</p>
+            <p className="text-muted-foreground text-lg max-w-2xl">{t('categories.subtitle')}</p>
             <div className="flex items-center gap-4 pt-2">
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
                 <TrendingUp className="h-4 w-4" />
-                <span className="text-sm font-medium">{incomeCategories.length} revenus</span>
+                <span className="text-sm font-medium">
+                  {t('categories.incomeCount', { count: incomeCategories.length })}
+                </span>
               </div>
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400">
                 <TrendingDown className="h-4 w-4" />
-                <span className="text-sm font-medium">{expenseCategories.length} dépenses</span>
+                <span className="text-sm font-medium">
+                  {t('categories.expenseCount', { count: expenseCategories.length })}
+                </span>
               </div>
             </div>
           </div>
           <Button asChild className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 px-6 py-3 h-auto">
-            <Link href="/settings/categories/new">
+            <Link href={`/${locale}/settings/categories/new`}>
               <Plus className="mr-2 h-5 w-5" />
-              {t('settings.categories.addNew')}
+              {t('categories.addNew')}
             </Link>
           </Button>
         </div>
@@ -67,10 +75,10 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
               <div className="p-3 rounded-2xl bg-gradient-to-br from-green-200 to-green-100 dark:from-green-800 dark:to-green-900 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                 <TrendingUp className="h-6 w-6" />
               </div>
-              {t('settings.categories.incomeCategories')}
+              {t('categories.incomeCategories')}
             </CardTitle>
             <CardDescription className="text-green-600/80 dark:text-green-400/80 text-base">
-              {t('settings.categories.manageCategoriesIncome')}
+              {t('categories.manageCategoriesIncome')}
             </CardDescription>
           </CardHeader>
           <CardContent className="relative">
@@ -81,12 +89,12 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                     <TrendingUp className="h-12 w-12 text-green-400" />
                   </div>
                   <p className="text-muted-foreground text-base mb-2">
-                    {t('settings.categories.noIncomeCategories')}
+                    {t('categories.noIncomeCategories')}
                   </p>
                   <Button asChild variant="outline" className="border-green-200 text-green-700 hover:bg-green-50">
-                    <Link href="/settings/categories/new">
+                    <Link href={`/${locale}/settings/categories/new`}>
                       <Plus className="mr-2 h-4 w-4" />
-                      Ajouter une catégorie
+                      {t('categories.addNew')}
                     </Link>
                   </Button>
                 </div>
@@ -110,8 +118,8 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                       </div>
                     </div>
                     <Button variant="ghost" size="sm" asChild className="opacity-0 group-hover/item:opacity-100 transition-all duration-200 hover:bg-green-100 dark:hover:bg-green-900/30">
-                      <Link href={`/settings/categories/edit/${category.id}`}>
-                        {t('common.edit')}
+                      <Link href={`/${locale}/settings/categories/edit/${category.id}`}>
+                        {tCommon('edit')}
                       </Link>
                     </Button>
                   </div>
@@ -131,10 +139,10 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
               <div className="p-3 rounded-2xl bg-gradient-to-br from-red-200 to-red-100 dark:from-red-800 dark:to-red-900 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                 <TrendingDown className="h-6 w-6" />
               </div>
-              {t('settings.categories.expenseCategories')}
+              {t('categories.expenseCategories')}
             </CardTitle>
             <CardDescription className="text-red-600/80 dark:text-red-400/80 text-base">
-              {t('settings.categories.manageCategoriesExpense')}
+              {t('categories.manageCategoriesExpense')}
             </CardDescription>
           </CardHeader>
           <CardContent className="relative">
@@ -145,12 +153,12 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                     <TrendingDown className="h-12 w-12 text-red-400" />
                   </div>
                   <p className="text-muted-foreground text-base mb-2">
-                    {t('settings.categories.noExpenseCategories')}
+                    {t('categories.noExpenseCategories')}
                   </p>
                   <Button asChild variant="outline" className="border-red-200 text-red-700 hover:bg-red-50">
-                    <Link href="/settings/categories/new">
+                    <Link href={`/${locale}/settings/categories/new`}>
                       <Plus className="mr-2 h-4 w-4" />
-                      Ajouter une catégorie
+                      {t('categories.addNew')}
                     </Link>
                   </Button>
                 </div>
@@ -174,8 +182,8 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
                       </div>
                     </div>
                     <Button variant="ghost" size="sm" asChild className="opacity-0 group-hover/item:opacity-100 transition-all duration-200 hover:bg-red-100 dark:hover:bg-red-900/30">
-                      <Link href={`/settings/categories/edit/${category.id}`}>
-                        {t('common.edit')}
+                      <Link href={`/${locale}/settings/categories/edit/${category.id}`}>
+                        {tCommon('edit')}
                       </Link>
                     </Button>
                   </div>
@@ -193,10 +201,10 @@ export function CategoriesWrapper({ categories }: CategoriesWrapperProps) {
             <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10">
               <BarChart3 className="h-5 w-5 text-primary" />
             </div>
-            {t('settings.categories.allCategories')}
+            {t('categories.allCategories')}
           </CardTitle>
           <CardDescription className="text-base">
-            {t('settings.categories.totalCategories', { count: categories.length })}
+            {t('categories.totalCategories', { count: categories.length })}
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">

@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -26,7 +26,8 @@ interface TeamsWrapperProps {
 }
 
 export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
-  const { t, ready } = useTranslation(["common", "teams"])
+  const t = useTranslations("teams")
+  const tCommon = useTranslations("common")
   const [searchTerm, setSearchTerm] = useState("")
   const [filteredTeams, setFilteredTeams] = useState(teams)
 
@@ -43,7 +44,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
 
 
   // Attendre que les traductions soient prêtes
-  if (!ready) {
+  if (false) { // next-intl translations are ready immediately
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="container mx-auto px-6 py-8">
@@ -54,8 +55,8 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-indigo-400/20 animate-pulse"></div>
               </div>
               <div className="space-y-2">
-                <p className="text-xl font-semibold text-gray-700">Chargement des équipes...</p>
-                <p className="text-gray-500">Préparation de votre espace de travail</p>
+                <p className="text-xl font-semibold text-gray-700">{t('loading')}</p>
+                <p className="text-gray-500">{t('preparingWorkspace')}</p>
               </div>
               <div className="flex justify-center space-x-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
@@ -84,16 +85,16 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                   </div>
                   <div>
                     <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                      {t('title', { ns: 'teams' })}
+                      {t('title')}
                     </h1>
                     <div className="flex items-center gap-2 mt-1">
                       <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"></div>
-                      <span className="text-sm text-gray-500 font-medium">{filteredTeams.length} équipe{filteredTeams.length !== 1 ? 's' : ''}</span>
+                      <span className="text-sm text-gray-500 font-medium">{t(filteredTeams.length === 1 ? 'teamCount' : 'teamCountPlural', { count: filteredTeams.length })}</span>
                     </div>
                   </div>
                 </div>
                 <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-                  {t('subtitle', { ns: 'teams' })}
+                  {t('subtitle')}
                 </p>
               </div>
               
@@ -104,7 +105,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                 >
                   <Link href="/teams/new" className="flex items-center gap-3 px-8 py-4 text-base font-semibold">
                     <Plus className="h-5 w-5" />
-                    <span>{t('addTeam', { ns: 'teams' })}</span>
+                    <span>{t('addTeam')}</span>
                   </Link>
                 </Button>
               )}
@@ -119,7 +120,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <Input
                 type="text"
-                placeholder="Rechercher une équipe..."
+                placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 pr-4 py-3 w-full border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
@@ -135,7 +136,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
             </div>
             {searchTerm && (
               <p className="text-center text-sm text-gray-600 mt-3">
-                {filteredTeams.length} équipe{filteredTeams.length !== 1 ? 's' : ''} trouvée{filteredTeams.length !== 1 ? 's' : ''}
+                {t(filteredTeams.length === 1 ? 'teamFoundCount' : 'teamFoundCountPlural', { count: filteredTeams.length })}
               </p>
             )}
           </div>
@@ -149,12 +150,12 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
                   <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
-                    {t('totalTeams', { ns: 'teams' })}
+                    {t('totalTeams')}
                   </p>
                   <p className="text-4xl font-bold text-gray-900">{filteredTeams.length}</p>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <TrendingUp className="h-4 w-4 text-green-500" />
-                    <span>Équipes actives</span>
+                    <span>{t('activeTeams')}</span>
                   </div>
                 </div>
                 <div className="p-4 bg-blue-100 rounded-2xl group-hover:bg-blue-200 transition-colors duration-300">
@@ -170,14 +171,14 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
                   <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wide">
-                    {t('activeMembers', { ns: 'teams' })}
+                    {t('activeMembers')}
                   </p>
                   <p className="text-4xl font-bold text-gray-900">
                     {filteredTeams.reduce((total, team) => total + parseInt(team.member_count), 0)}
                   </p>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Activity className="h-4 w-4 text-emerald-500" />
-                    <span>Collaborateurs</span>
+                    <span>{t('collaborators')}</span>
                   </div>
                 </div>
                 <div className="p-4 bg-emerald-100 rounded-2xl group-hover:bg-emerald-200 transition-colors duration-300">
@@ -193,14 +194,14 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
                   <p className="text-sm font-semibold text-amber-600 uppercase tracking-wide">
-                    {t('tasksInProgress', { ns: 'teams' })}
+                    {t('tasksInProgress')}
                   </p>
                   <p className="text-4xl font-bold text-gray-900">
                     {filteredTeams.reduce((total, team) => total + parseInt(team.active_tasks), 0)}
                   </p>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Target className="h-4 w-4 text-amber-500" />
-                    <span>En cours</span>
+                    <span>{t('inProgress')}</span>
                   </div>
                 </div>
                 <div className="p-4 bg-amber-100 rounded-2xl group-hover:bg-amber-200 transition-colors duration-300">
@@ -222,10 +223,10 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-2xl font-bold text-gray-900">
-                    Aucune équipe trouvée
+                    {t('noTeamsFound')}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Commencez par créer votre première équipe pour organiser votre travail et collaborer efficacement.
+                    {t('noTeamsDescription')}
                   </p>
                 </div>
                 {userRole === "admin" && (
@@ -235,7 +236,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                   >
                     <Link href="/teams/new" className="flex items-center gap-2 px-8 py-3">
                       <Plus className="h-5 w-5" />
-                      <span className="font-semibold">Créer une équipe</span>
+                      <span className="font-semibold">{t('createTeam')}</span>
                     </Link>
                   </Button>
                 )}
@@ -252,10 +253,10 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-2xl font-bold text-gray-900">
-                    Aucune équipe trouvée
+                    {t('noTeamsFound')}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Aucune équipe ne correspond à votre recherche "{searchTerm}". Essayez avec d'autres mots-clés.
+                    {t('noSearchResults', { searchTerm })}
                   </p>
                 </div>
                 <Button 
@@ -263,7 +264,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                   variant="outline"
                   className="border-gray-300 text-gray-700 hover:bg-gray-50"
                 >
-                  Effacer la recherche
+                  {t('clearSearch')}
                 </Button>
               </div>
             </CardContent>
@@ -296,7 +297,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                       </div>
                       <CardDescription className="text-sm text-gray-600 flex items-center gap-2">
                         <Clock className="h-4 w-4" />
-                        <span className="font-medium">{t('createdBy', { ns: 'teams' })}</span> 
+                        <span className="font-medium">{t('createdBy')}</span> 
                         <span className={`${teamColor.text} font-semibold`}>{team.created_by_name}</span>
                       </CardDescription>
                     </div>
@@ -324,7 +325,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                     <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-xl p-4 text-center">
                       <div className="flex items-center justify-center gap-2 mb-2">
                         <Activity className="h-4 w-4 text-emerald-600" />
-                        <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">Membres</span>
+                        <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">{t("members")}</span>
                       </div>
                       <p className="text-2xl font-bold text-emerald-800">{parseInt(team.member_count)}</p>
                     </div>
@@ -332,7 +333,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                     <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-xl p-4 text-center">
                       <div className="flex items-center justify-center gap-2 mb-2">
                         <Target className="h-4 w-4 text-amber-600" />
-                        <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">Tâches</span>
+                        <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">{t("tasks")}</span>
                       </div>
                       <p className="text-2xl font-bold text-amber-800">{parseInt(team.active_tasks)}</p>
                     </div>
@@ -349,8 +350,8 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                       }`}
                     >
                       {parseInt(team.active_tasks) > 0 
-                        ? `${parseInt(team.active_tasks)} tâche${parseInt(team.active_tasks) !== 1 ? 's' : ''} active${parseInt(team.active_tasks) !== 1 ? 's' : ''}`
-                        : "Aucune tâche active"
+                        ? t(parseInt(team.active_tasks) === 1 ? "activeTaskCount" : "activeTaskCountPlural", { count: parseInt(team.active_tasks) })
+                        : t("noActiveTasks")
                       }
                     </Badge>
                   </div>
@@ -365,7 +366,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                     >
                       <Link href={`/teams/${team.id}`} className="flex items-center justify-center gap-2">
                         <Users className="h-4 w-4" />
-                        <span>Voir</span>
+                        <span>{t("view")}</span>
                       </Link>
                     </Button>
                     
@@ -378,7 +379,7 @@ export function TeamsWrapper({ teams, userRole }: TeamsWrapperProps) {
                       >
                         <Link href={`/teams/${team.id}/edit`} className="flex items-center justify-center gap-2">
                           <Settings className="h-4 w-4" />
-                          <span>Modifier</span>
+                          <span>{t("edit")}</span>
                         </Link>
                       </Button>
                     )}

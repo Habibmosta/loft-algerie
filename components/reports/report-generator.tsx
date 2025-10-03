@@ -23,7 +23,7 @@ import { CalendarIcon, FileText, Download, TrendingUp, TrendingDown, DollarSign,
 import { format, subDays, startOfMonth, endOfMonth } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { useReports, type ReportFilters } from '@/hooks/use-reports'
-import { useTranslation } from '@/lib/i18n/context'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 
 interface QuickStats {
@@ -34,7 +34,7 @@ interface QuickStats {
 }
 
 export function ReportGenerator() {
-  const { t } = useTranslation(['reports', 'common'])
+  const t = useTranslations('reports')
   const {
     isLoading,
     error,
@@ -141,14 +141,14 @@ export function ReportGenerator() {
       switch (type) {
         case 'loft':
           if (!id) {
-            toast.error(t('reports:selectLoftError'))
+            toast.error(t('selectLoftError'))
             return
           }
           await generateLoftReport(id, filters, reportOptions)
           break
         case 'owner':
           if (!id) {
-            toast.error(t('reports:selectOwnerError'))
+            toast.error(t('selectOwnerError'))
             return
           }
           await generateOwnerReport(id, filters, reportOptions)
@@ -168,13 +168,13 @@ export function ReportGenerator() {
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
           <FileText className="w-4 h-4" />
-          {t('reports:pdfGeneration')}
+          {t('pdfGeneration')}
         </div>
         <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-          {t('reports:financialReports')}
+          {t('financialReports')}
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          {t('reports:generateDetailedReports')}
+          {t('generateDetailedReports')}
         </p>
       </div>
 
@@ -185,7 +185,7 @@ export function ReportGenerator() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-green-700 dark:text-green-300">{t('reports:revenue')}</p>
+                  <p className="text-sm font-medium text-green-700 dark:text-green-300">{t('revenue')}</p>
                   <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {quickStats.totalIncome.toLocaleString()} DA
                   </p>
@@ -201,7 +201,7 @@ export function ReportGenerator() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-red-700 dark:text-red-300">{t('reports:expenses')}</p>
+                  <p className="text-sm font-medium text-red-700 dark:text-red-300">{t('expenses')}</p>
                   <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                     {quickStats.totalExpenses.toLocaleString()} DA
                   </p>
@@ -217,7 +217,7 @@ export function ReportGenerator() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300">{t('reports:netResult')}</p>
+                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300">{t('netResult')}</p>
                   <p className={`text-2xl font-bold ${quickStats.netResult >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                     {quickStats.netResult.toLocaleString()} DA
                   </p>
@@ -233,7 +233,7 @@ export function ReportGenerator() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-purple-700 dark:text-purple-300">{t('reports:transactionsCount')}</p>
+                  <p className="text-sm font-medium text-purple-700 dark:text-purple-300">{t('transactionsCount')}</p>
                   <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                     {quickStats.transactionCount}
                   </p>
@@ -254,24 +254,24 @@ export function ReportGenerator() {
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-gradient-to-r from-gray-500 to-slate-500"></div>
               <CardTitle className="text-lg font-semibold bg-gradient-to-r from-gray-600 to-slate-600 bg-clip-text text-transparent">
-                {t('reports:reportFilters')}
+                {t('reportFilters')}
               </CardTitle>
             </div>
             <CardDescription className="text-sm text-muted-foreground">
-              {t('reports:configureFilters')}
+              {t('configureFilters')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Période rapide */}
             <div>
-              <Label className="text-sm font-medium">{t('reports:quickPeriod')}</Label>
+              <Label className="text-sm font-medium">{t('quickPeriod')}</Label>
               <div className="grid grid-cols-2 gap-2 mt-2">
                 {[
-                  { key: 'today', label: t('reports:today') },
-                  { key: 'week', label: t('reports:sevenDays') },
-                  { key: 'month', label: t('reports:thisMonth') },
-                  { key: 'quarter', label: t('reports:quarter') },
-                  { key: 'year', label: t('reports:thisYear') }
+                  { key: 'today', label: t('today') },
+                  { key: 'week', label: t('sevenDays') },
+                  { key: 'month', label: t('thisMonth') },
+                  { key: 'quarter', label: t('quarter') },
+                  { key: 'year', label: t('thisYear') }
                 ].map(({ key, label }) => (
                   <Button
                     key={key}
@@ -291,22 +291,24 @@ export function ReportGenerator() {
             {/* Dates personnalisées */}
             <div className="space-y-3">
               <div>
-                <Label htmlFor="startDate">{t('reports:startDate')}</Label>
+                <Label htmlFor="startDate">{t('startDate')}</Label>
                 <Input
                   id="startDate"
                   type="date"
                   value={format(filters.startDate, 'yyyy-MM-dd')}
                   onChange={(e) => handleFilterChange('startDate', new Date(e.target.value))}
+                  placeholder="jj/mm/aaaa"
                 />
               </div>
 
               <div>
-                <Label htmlFor="endDate">{t('reports:endDate')}</Label>
+                <Label htmlFor="endDate">{t('endDate')}</Label>
                 <Input
                   id="endDate"
                   type="date"
                   value={format(filters.endDate, 'yyyy-MM-dd')}
                   onChange={(e) => handleFilterChange('endDate', new Date(e.target.value))}
+                  placeholder="jj/mm/aaaa"
                 />
               </div>
             </div>
@@ -315,33 +317,33 @@ export function ReportGenerator() {
 
             {/* Type de transaction */}
             <div>
-              <Label>{t('reports:transactionType')}</Label>
+              <Label>{t('transactionType')}</Label>
               <select
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 value={filters.transactionType}
                 onChange={(e) => handleFilterChange('transactionType', e.target.value)}
               >
-                <option value="all">{t('reports:allTransactions')}</option>
-                <option value="income">{t('reports:revenueOnly')}</option>
-                <option value="expense">{t('reports:expensesOnly')}</option>
+                <option value="all">{t('allTransactions')}</option>
+                <option value="income">{t('revenueOnly')}</option>
+                <option value="expense">{t('expensesOnly')}</option>
               </select>
             </div>
 
             {/* Catégorie */}
             <div>
-              <Label>{t('reports:category')}</Label>
+              <Label>{t('category')}</Label>
               <select
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 value={filters.category || ''}
                 onChange={(e) => handleFilterChange('category', e.target.value || undefined)}
               >
-                <option value="">{t('reports:allCategories')}</option>
-                <option value="rent">{t('reports:rent')}</option>
-                <option value="maintenance">{t('reports:maintenance')}</option>
-                <option value="utilities">{t('reports:utilities')}</option>
-                <option value="insurance">{t('reports:insurance')}</option>
-                <option value="taxes">{t('reports:taxes')}</option>
-                <option value="other">{t('reports:other')}</option>
+                <option value="">{t('allCategories')}</option>
+                <option value="rent">{t('rent')}</option>
+                <option value="maintenance">{t('maintenance')}</option>
+                <option value="utilities">{t('utilities')}</option>
+                <option value="insurance">{t('insurance')}</option>
+                <option value="taxes">{t('taxes')}</option>
+                <option value="other">{t('other')}</option>
               </select>
             </div>
 
@@ -349,7 +351,7 @@ export function ReportGenerator() {
 
             {/* Options du rapport */}
             <div className="space-y-3">
-              <Label className="text-sm font-medium">{t('reports:reportOptions')}</Label>
+              <Label className="text-sm font-medium">{t('reportOptions')}</Label>
               
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -360,7 +362,7 @@ export function ReportGenerator() {
                   }
                 />
                 <Label htmlFor="includeDetails" className="text-sm">
-                  {t('reports:includeDetails')}
+                  {t('includeDetails')}
                 </Label>
               </div>
 
@@ -373,12 +375,12 @@ export function ReportGenerator() {
                   }
                 />
                 <Label htmlFor="includeSummary" className="text-sm">
-                  {t('reports:includeSummary')}
+                  {t('includeSummary')}
                 </Label>
               </div>
 
               <div>
-                <Label className="text-sm">{t('reports:groupBy')}</Label>
+                <Label className="text-sm">{t('groupBy')}</Label>
                 <select
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   value={reportOptions.groupBy}
@@ -386,9 +388,9 @@ export function ReportGenerator() {
                     setReportOptions(prev => ({ ...prev, groupBy: e.target.value }))
                   }
                 >
-                  <option value="category">{t('reports:groupByCategory')}</option>
-                  <option value="loft">{t('reports:groupByLoft')}</option>
-                  <option value="month">{t('reports:groupByMonth')}</option>
+                  <option value="category">{t('groupByCategory')}</option>
+                  <option value="loft">{t('groupByLoft')}</option>
+                  <option value="month">{t('groupByMonth')}</option>
                 </select>
               </div>
             </div>
@@ -398,29 +400,29 @@ export function ReportGenerator() {
         {/* Génération de rapports */}
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>{t('reports:generateReports')}</CardTitle>
+            <CardTitle>{t('generateReports')}</CardTitle>
             <CardDescription>
-              {t('reports:chooseReportType')}
+              {t('chooseReportType')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="loft" className="space-y-4">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="loft">{t('reports:byLoft')}</TabsTrigger>
-                <TabsTrigger value="owner">{t('reports:byOwner')}</TabsTrigger>
-                <TabsTrigger value="global">{t('reports:globalReportTab')}</TabsTrigger>
+                <TabsTrigger value="loft">{t('byLoft')}</TabsTrigger>
+                <TabsTrigger value="owner">{t('byOwner')}</TabsTrigger>
+                <TabsTrigger value="global">{t('globalReportTab')}</TabsTrigger>
               </TabsList>
 
               {/* Rapport par loft */}
               <TabsContent value="loft" className="space-y-4">
                 <div>
-                  <Label>{t('reports:selectLoft')}</Label>
+                  <Label>{t('selectLoft')}</Label>
                   <select
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     onChange={(e) => setFilters(prev => ({ ...prev, loftId: e.target.value }))}
                     defaultValue=""
                   >
-                    <option value="">{t('reports:chooseLoft')}</option>
+                    <option value="">{t('chooseLoft')}</option>
                     {lofts.map((loft) => (
                       <option key={loft.id} value={loft.id}>
                         {loft.name} - {loft.owner_name}
@@ -435,20 +437,20 @@ export function ReportGenerator() {
                   className="w-full"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  {isLoading ? t('reports:generatingInProgress') : t('reports:generateLoftReport')}
+                  {isLoading ? t('generatingInProgress') : t('generateLoftReport')}
                 </Button>
               </TabsContent>
 
               {/* Rapport par propriétaire */}
               <TabsContent value="owner" className="space-y-4">
                 <div>
-                  <Label>{t('reports:selectOwner')}</Label>
+                  <Label>{t('selectOwner')}</Label>
                   <select
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     onChange={(e) => setFilters(prev => ({ ...prev, ownerId: e.target.value }))}
                     defaultValue=""
                   >
-                    <option value="">{t('reports:chooseOwner')}</option>
+                    <option value="">{t('chooseOwner')}</option>
                     {owners.map((owner) => (
                       <option key={owner.id} value={owner.id}>
                         {owner.name} ({owner.lofts_count} loft{owner.lofts_count > 1 ? 's' : ''})
@@ -463,16 +465,16 @@ export function ReportGenerator() {
                   className="w-full"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  {isLoading ? t('reports:generatingInProgress') : t('reports:generateOwnerReport')}
+                  {isLoading ? t('generatingInProgress') : t('generateOwnerReport')}
                 </Button>
               </TabsContent>
 
               {/* Rapport global */}
               <TabsContent value="global" className="space-y-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <h4 className="font-medium mb-2">{t('reports:globalReport')}</h4>
+                  <h4 className="font-medium mb-2">{t('globalReport')}</h4>
                   <p className="text-sm text-muted-foreground">
-                    {t('reports:globalReportDescription')}
+                    {t('globalReportDescription')}
                   </p>
                 </div>
 
@@ -482,7 +484,7 @@ export function ReportGenerator() {
                   className="w-full"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  {isLoading ? t('reports:generatingInProgress') : t('reports:generateGlobalReport')}
+                  {isLoading ? t('generatingInProgress') : t('generateGlobalReport')}
                 </Button>
               </TabsContent>
             </Tabs>
@@ -500,28 +502,28 @@ export function ReportGenerator() {
       {/* Informations sur les rapports */}
       <Card>
         <CardHeader>
-          <CardTitle>{t('reports:aboutPdfReports')}</CardTitle>
+          <CardTitle>{t('aboutPdfReports')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div>
-              <h4 className="font-medium mb-2">{t('reports:loftReportTitle')}</h4>
+              <h4 className="font-medium mb-2">{t('loftReportTitle')}</h4>
               <div className="text-muted-foreground whitespace-pre-line">
-                {t('reports:loftReportInfo')}
+                {t('loftReportInfo')}
               </div>
             </div>
             
             <div>
-              <h4 className="font-medium mb-2">{t('reports:ownerReportTitle')}</h4>
+              <h4 className="font-medium mb-2">{t('ownerReportTitle')}</h4>
               <div className="text-muted-foreground whitespace-pre-line">
-                {t('reports:ownerReportInfo')}
+                {t('ownerReportInfo')}
               </div>
             </div>
             
             <div>
-              <h4 className="font-medium mb-2">{t('reports:globalReportTitle')}</h4>
+              <h4 className="font-medium mb-2">{t('globalReportTitle')}</h4>
               <div className="text-muted-foreground whitespace-pre-line">
-                {t('reports:globalReportInfo')}
+                {t('globalReportInfo')}
               </div>
             </div>
           </div>

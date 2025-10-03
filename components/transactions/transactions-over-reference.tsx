@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { AlertTriangle, TrendingUp, TrendingDown, RefreshCw, Calendar } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 import { toast } from 'sonner'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface TransactionOverReference {
   transaction_id: string
@@ -24,7 +24,7 @@ interface TransactionOverReference {
 }
 
 export function TransactionsOverReference() {
-  const { t } = useTranslation(['common', 'transactions'])
+  const t = useTranslations('transactions')
   const [transactions, setTransactions] = useState<TransactionOverReference[]>([])
   const [loading, setLoading] = useState(true)
   const [daysBack, setDaysBack] = useState(30)
@@ -79,7 +79,7 @@ export function TransactionsOverReference() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5" />
-{t('overReference:title', { ns: 'transactions' })}
+{t('overReference.title', { ns: 'transactions' })}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -98,7 +98,7 @@ export function TransactionsOverReference() {
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="flex items-center gap-2">
           <AlertTriangle className="h-5 w-5" />
-{t('overReference:title', { ns: 'transactions' })} ({transactions.length})
+{t('overReference.title', { ns: 'transactions' })} ({transactions.length})
         </CardTitle>
         <div className="flex items-center gap-2">
           <Select value={daysBack.toString()} onValueChange={(value) => setDaysBack(parseInt(value))}>
@@ -121,8 +121,8 @@ export function TransactionsOverReference() {
         {transactions.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
             <AlertTriangle className="h-12 w-12 mx-auto mb-3 text-green-500" />
-            <p>{t('overReference:noTransactions', { ns: 'transactions' })}</p>
-            <p className="text-sm">{t('overReference:allWithinReference', { ns: 'transactions' })}</p>
+            <p>{t('overReference.noTransactions', { ns: 'transactions' })}</p>
+            <p className="text-sm">{t('overReference.allWithinReference', { ns: 'transactions' })}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -139,7 +139,7 @@ export function TransactionsOverReference() {
                         ) : (
                           <TrendingUp className="h-4 w-4 text-green-500" />
                         )}
-                        {getCategoryLabel(transaction.category)} • {transaction.loft_name || t('overReference:loftNotSpecified', { ns: 'transactions' })}
+                        {getCategoryLabel(transaction.category)} • {transaction.loft_name || t('overReference.loftNotSpecified', { ns: 'transactions' })}
                       </div>
                     </div>
                   </div>
@@ -149,7 +149,7 @@ export function TransactionsOverReference() {
                       {transaction.amount.toLocaleString()} {transaction.currency}
                     </div>
                     <div className="text-sm text-gray-500">
-{t('overReference:reference', { ns: 'transactions' })}: {transaction.reference_amount.toLocaleString()} {transaction.currency}
+{t('overReference.reference', { ns: 'transactions' })}: {transaction.reference_amount.toLocaleString()} {transaction.currency}
                     </div>
                   </div>
                 </div>

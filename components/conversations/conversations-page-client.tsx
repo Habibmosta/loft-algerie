@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { MessagesSquare, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 
 interface ConversationsPageClientProps {
   conversations: any[]
@@ -12,7 +12,7 @@ interface ConversationsPageClientProps {
 }
 
 export function ConversationsPageClient({ conversations, currentUserId }: ConversationsPageClientProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('conversations')
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
 
   // Fonction pour récupérer les compteurs de messages non lus
@@ -28,108 +28,70 @@ export function ConversationsPageClient({ conversations, currentUserId }: Conver
     }
   }
 
-  // Récupérer les compteurs au chargement et toutes les 3 secondes (plus fréquent pour une meilleure réactivité)
   useEffect(() => {
     fetchUnreadCounts()
-    const interval = setInterval(fetchUnreadCounts, 3000)
+    // Actualiser toutes les 30 secondes
+    const interval = setInterval(fetchUnreadCounts, 30000)
     return () => clearInterval(interval)
   }, [])
 
-  // Écouter les événements de focus pour rafraîchir immédiatement
-  useEffect(() => {
-    const handleFocus = () => {
-      fetchUnreadCounts()
-    }
-    
-    window.addEventListener('focus', handleFocus)
-    return () => window.removeEventListener('focus', handleFocus)
-  }, [])
+  if (!conversations || conversations.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+        <MessagesSquare className="h-16 w-16 text-muted-foreground mb-4" />
+        <h3 className="text-lg font-semibold mb-2">{t('noConversations')}</h3>
+        <p className="text-muted-foreground mb-4">{t('startFirstConversation')}</p>
+        <Link href="/conversations/new">
+          <Button>{t('newConversation')}</Button>
+        </Link>
+      </div>
+    )
+  }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)]">
-      <div className="w-1/3 border-r flex flex-col">
-        <div className="p-4 border-b flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h2 className="text-xl font-semibold">{t('conversations:messages')}</h2>
-          </div>
-          <Button size="sm" variant="outline" asChild>
-            <Link href="/conversations/new">{t('conversations:new')}</Link>
-          </Button>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto">
-          {conversations.length === 0 ? (
-            <div className="p-4 text-center text-muted-foreground">
-              <MessagesSquare className="w-12 h-12 mx-auto mb-2 opacity-50" />
-              <p>{t('conversations:noConversations')}</p>
-              <Button size="sm" className="mt-2" asChild>
-                <Link href="/conversations/new">{t('conversations:startConversation')}</Link>
-              </Button>
-            </div>
-          ) : (
-            <div className="divide-y">
-              {conversations.map((conv) => (
-                <Link
-                  key={conv.id}
-                  href={`/conversations/${conv.id}`}
-                  className="block p-4 hover:bg-muted/50 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1">
-                        <h3 className="font-medium">
-                          {conv.name || `Conversation ${conv.id.slice(0, 8)}`}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {conv.type === 'group' ? t('conversations:group') : t('conversations:direct')} • {conv.participant_count} {conv.participant_count > 1 ? t('conversations:participants') : t('conversations:participant')}
-                        </p>
-                      </div>
-                      
-                      {/* Point rouge pour les messages non lus */}
-                      {unreadCounts[conv.id] > 0 && (
-                        <div className="flex items-center gap-2">
-                          <div className="bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5">
-                            {unreadCounts[conv.id] > 99 ? '99+' : unreadCounts[conv.id]}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="text-xs text-muted-foreground">
-                      {new Date(conv.updated_at).toLocaleDateString()}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">{t('conversations')}</h1>
+        <Link href="/conversations/new">
+          <Button>{t('newConversation')}</Button>
+        </Link>
       </div>
-      
-      <div className="w-2/3 flex flex-col items-center justify-center h-full bg-muted/20">
-        <div className="text-center max-w-md">
-          <MessagesSquare className="w-16 h-16 text-muted-foreground/50 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">{t('conversations:selectConversation')}</h3>
-          <p className="text-muted-foreground mb-4">
-            {t('conversations:selectConversationDesc')}
-          </p>
-          
-          {conversations.length === 0 ? (
-            <div className="mt-6">
-              <Button asChild>
-                <Link href="/conversations/new">{t('conversations:startConversation')}</Link>
-              </Button>
-            </div>
-          ) : (
-            <div className="mt-6">
-              <Button asChild>
-                <Link href="/conversations/new">{t('conversations:newConversation')}</Link>
-              </Button>
-            </div>
-          )}
-          
 
-        </div>
+      <div className="grid gap-4">
+        {conversations.map((conversation) => {
+          const unreadCount = unreadCounts[conversation.id] || 0
+          
+          return (
+            <div key={conversation.id} className="border rounded-lg p-4 hover:bg-muted/50 transition-colors">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-semibold">{conversation.title || t('untitledConversation')}</h3>
+                  {conversation.last_message && (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {conversation.last_message}
+                    </p>
+                  )}
+                  {conversation.last_message_at && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {new Date(conversation.last_message_at).toLocaleString()}
+                    </p>
+                  )}
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  {unreadCount > 0 && (
+                    <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                  <Link href={`/conversations/${conversation.id}`}>
+                    <Button variant="outline" size="sm">{t('view')}</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

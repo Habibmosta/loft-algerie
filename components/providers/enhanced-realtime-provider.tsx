@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState, useCallback } from 'rea
 import { useSupabase } from './supabase-provider'
 import { toast } from 'sonner'
 import { useNotificationSound } from '@/lib/hooks/use-notification-sound'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface EnhancedRealtimeContextType {
   unreadMessagesCount: number
@@ -36,7 +36,14 @@ export function EnhancedRealtimeProvider({ children, userId }: EnhancedRealtimeP
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0)
   const [isOnline, setIsOnline] = useState(true)
   const { playNotificationSound } = useNotificationSound()
-  const { t } = useTranslation('notifications');
+  // Gestion sécurisée des traductions avec fallback
+  let t: any;
+  try {
+    t = useTranslations('notifications');
+  } catch (error) {
+    // Fallback si les traductions ne sont pas disponibles
+    t = (key: string) => key;
+  }
   const { supabase } = useSupabase()
 
   const refreshCounts = useCallback(async () => {
@@ -145,7 +152,7 @@ export function EnhancedRealtimeProvider({ children, userId }: EnhancedRealtimeP
             description: newNotification.message,
             duration: 6000, // Show for 6 seconds
             action: newNotification.link ? {
-              label: t('notifications:view'),
+              label: t('view'),
               onClick: () => {
                 window.location.href = newNotification.link
               }

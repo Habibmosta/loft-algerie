@@ -20,9 +20,8 @@ import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SearchInput } from '@/components/ui/search'
 import { Checkbox } from '@/components/ui/checkbox'
-// Remove direct imports since we'll use API endpoints
 import { User, Users, X, Loader2 } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 interface NewConversationDialogProps {
   children: React.ReactNode
@@ -46,7 +45,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
   const [isSearching, setIsSearching] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
   const router = useRouter()
-  const { t } = useTranslation();
+  const t = useTranslations('conversations')
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query)
@@ -66,7 +65,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
       setSearchResults(results)
     } catch (error) {
       console.error('Search error:', error)
-      toast.error(t('conversations:failedToSearchUsers'))
+      toast.error(t('failedToSearchUsers'))
     } finally {
       setIsSearching(false)
     }
@@ -91,12 +90,12 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
 
   const handleCreateConversation = async () => {
     if (selectedUsers.length === 0) {
-      toast.error(t('conversations:selectAtLeastOneUser'))
+      toast.error(t('selectAtLeastOneUser'))
       return
     }
 
     if (activeTab === 'group' && !groupName.trim()) {
-      toast.error(t('conversations:enterGroupName'))
+      toast.error(t('enterGroupName'))
       return
     }
 
@@ -120,7 +119,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
 
       const conversation = await response.json()
 
-      toast.success(`${activeTab === 'direct' ? t('conversations:conversation') : t('conversations:group')} ${t('conversations:createdSuccessfully')}`)
+      toast.success(`${activeTab === 'direct' ? t('conversation') : t('group')} ${t('createdSuccessfully')}`)
       setOpen(false)
       router.push(`/conversations/${conversation.id}`)
       
@@ -131,7 +130,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
       setSearchResults([])
     } catch (error) {
       console.error('Create conversation error:', error)
-      toast.error(t('conversations:failedToCreateConversation'))
+      toast.error(t('failedToCreateConversation'))
     } finally {
       setIsCreating(false)
     }
@@ -157,9 +156,9 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t('conversations:startNewConversation')}</DialogTitle>
+          <DialogTitle>{t('startNewConversation')}</DialogTitle>
           <DialogDescription>
-            {t('conversations:createDirectOrGroup')}
+            {t('createDirectOrGroup')}
           </DialogDescription>
         </DialogHeader>
 
@@ -167,19 +166,19 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="direct" className="gap-2">
               <User className="h-4 w-4" />
-              {t('conversations:directMessage')}
+              {t('directMessage')}
             </TabsTrigger>
             <TabsTrigger value="group" className="gap-2">
               <Users className="h-4 w-4" />
-              {t('conversations:groupChat')}
+              {t('groupChat')}
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="direct" className="space-y-4">
             <div className="space-y-2">
-              <Label>{t('conversations:findUserToMessage')}</Label>
+              <Label>{t('findUserToMessage')}</Label>
               <SearchInput
-                placeholder={t('conversations:searchByNameOrEmail')}
+                placeholder={t('searchByNameOrEmail')}
                 value={searchQuery}
                 onChange={handleSearch}
               />
@@ -187,7 +186,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
 
             {selectedUsers.length > 0 && (
               <div className="space-y-2">
-                <Label>{t('conversations:selectedUser')}</Label>
+                <Label>{t('selectedUser')}</Label>
                 <div className="flex items-center gap-2 p-2 bg-muted rounded-lg">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={selectedUsers[0].avatar_url} />
@@ -217,19 +216,19 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
 
           <TabsContent value="group" className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="groupName">{t('conversations:groupName')}</Label>
+              <Label htmlFor="groupName">{t('groupName')}</Label>
               <Input
                 id="groupName"
-                placeholder={t('conversations:enterGroupName')}
+                placeholder={t('enterGroupName')}
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
               />
             </div>
 
             <div className="space-y-2">
-              <Label>{t('conversations:addMembers')}</Label>
+              <Label>{t('addMembers')}</Label>
               <SearchInput
-                placeholder={t('conversations:searchByNameOrEmail')}
+                placeholder={t('searchByNameOrEmail')}
                 value={searchQuery}
                 onChange={handleSearch}
               />
@@ -237,7 +236,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
 
             {selectedUsers.length > 0 && (
               <div className="space-y-2">
-                <Label>{t('conversations:selectedMembers')} ({selectedUsers.length})</Label>
+                <Label>{t('selectedMembers')} ({selectedUsers.length})</Label>
                 <div className="flex flex-wrap gap-2">
                   {selectedUsers.map((user) => (
                     <Badge key={user.id} variant="secondary" className="gap-1">
@@ -261,16 +260,16 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
         {/* Search Results */}
         {searchQuery.length >= 2 && (
           <div className="space-y-2">
-            <Label>{t('conversations:searchResults')}</Label>
+            <Label>{t('searchResults')}</Label>
             <div className="max-h-48 overflow-y-auto border rounded-lg">
               {isSearching ? (
                 <div className="p-4 text-center">
                   <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">{t('conversations:searching')}</p>
+                  <p className="text-sm text-muted-foreground">{t('searching')}</p>
                 </div>
               ) : searchResults.length === 0 ? (
                 <div className="p-4 text-center">
-                  <p className="text-sm text-muted-foreground">{t('conversations:noUsersFound')}</p>
+                  <p className="text-sm text-muted-foreground">{t('noUsersFound')}</p>
                 </div>
               ) : (
                 <div className="space-y-1 p-2">
@@ -299,12 +298,12 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
                             </p>
                             {(user as any).role === 'admin' && (
                               <span className="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">
-                                {t('auth:admin')}
+                                Admin
                               </span>
                             )}
                             {(user as any).role === 'manager' && (
                               <span className="text-xs bg-green-100 text-green-800 px-1.5 py-0.5 rounded">
-                                {t('auth:manager')}
+                                Manager
                               </span>
                             )}
                           </div>
@@ -323,7 +322,7 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
 
         <DialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)}>
-            {t('common:cancel')}
+            {t('cancel')}
           </Button>
           <Button 
             onClick={handleCreateConversation}
@@ -332,10 +331,10 @@ export function NewConversationDialog({ children, userId }: NewConversationDialo
             {isCreating ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                {t('common:create')}...
+                {t('create')}...
               </>
             ) : (
-              `${t('common:create')} ${activeTab === 'direct' ? t('conversations:conversation') : t('conversations:group')}`
+              `${t('create')} ${activeTab === 'direct' ? t('conversation') : t('group')}`
             )}
           </Button>
         </DialogFooter>

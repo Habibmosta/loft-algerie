@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslation } from '@/lib/i18n/context'
-
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,12 +10,16 @@ import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Calendar, MapPin, User, Users, DollarSign, Filter, RotateCcw, ChevronDown, X } from 'lucide-react'
-import { format } from 'date-fns'
+import { Calendar as CalendarIcon, MapPin, User, Users, DollarSign, Filter, RotateCcw, ChevronDown, X } from 'lucide-react'
+import { format, addDays } from 'date-fns'
+import { DateRange } from 'react-day-picker'
+import { Calendar } from '@/components/ui/calendar'
 
 interface FilterPanelProps {
   filters: any
   onFiltersChange: (filters: any) => void
+  dateRange: DateRange | undefined
+  onDateRangeChange: (range: DateRange | undefined) => void
   isLoading: boolean
   filterOptions: {
     regions: Array<{ value: string; label: string }>
@@ -26,18 +29,24 @@ interface FilterPanelProps {
   }
 }
 
-export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions }: FilterPanelProps) {
-  const { t } = useTranslation(['availability', 'common'])
+const ALL_STATUSES = [
+  { value: 'available', label: 'available' },
+  { value: 'occupied', label: 'occupied' },
+  { value: 'maintenance', label: 'maintenance' },
+  { value: 'personal_use', label: 'personal_use' },
+];
 
-  // Use real data from database and translate labels
+export function FilterPanel({ filters, onFiltersChange, dateRange, onDateRangeChange, isLoading, filterOptions }: FilterPanelProps) {
+  const t = useTranslations('availability')
+
   const regions = filterOptions.regions.length > 0 ? filterOptions.regions.map(region => ({
     ...region,
-    label: region.label.startsWith('availability:') ? t(region.label) : region.label
+    label: region.label.startsWith('availability:') ? t(region.label.replace('availability:', '')) : region.label
   })) : [
-    { value: 'all', label: t('availability:allRegions') }
+    { value: 'all', label: t('allRegions') }
   ]
 
-  const owners = filterOptions.owners.length > 0 ? filterOptions.owners.slice(1) : [] // Remove 'all' option for multi-select
+  const owners = filterOptions.owners.length > 0 ? filterOptions.owners.slice(1) : []
 
   const handleFilterChange = (key: string, value: any) => {
     onFiltersChange({
@@ -48,27 +57,29 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
 
   const resetFilters = () => {
     onFiltersChange({
-      startDate: new Date(),
-      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       region: 'all',
-      owners: [], // Array of owner IDs
-      loft: 'all',
+      owners: [],
       guests: 2,
       minPrice: 0,
-      maxPrice: 50000
+      maxPrice: 1000000,
+      statuses: []
+    })
+    onDateRangeChange({
+      from: new Date(),
+      to: addDays(new Date(), 29),
     })
   }
 
   const activeFiltersCount = Object.entries(filters).filter(([key, value]) => {
-    if (key === 'region' || key === 'loft') return value !== 'all'
+    if (key === 'region') return value !== 'all'
     if (key === 'owners') return Array.isArray(value) && value.length > 0
+    if (key === 'statuses') return Array.isArray(value) && value.length > 0
     if (key === 'guests') return value !== 2
     if (key === 'minPrice') return value !== 0
-    if (key === 'maxPrice') return value !== 50000
+    if (key === 'maxPrice') return value !== 1000000
     return false
-  }).length
+  }).length + (dateRange?.from || dateRange?.to ? 1 : 0)
 
-  // Gestion du filtre multi-sélection des propriétaires
   const handleOwnerToggle = (ownerValue: string) => {
     const currentOwners = filters.owners || []
     const updatedOwners = currentOwners.includes(ownerValue)
@@ -89,13 +100,42 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
   const getSelectedOwnersText = () => {
     const selectedOwners = filters.owners || []
     if (selectedOwners.length === 0) {
-      return t('availability:allOwners')
+      return t('allOwners')
     }
     if (selectedOwners.length === 1) {
       const owner = owners.find(o => o.value === selectedOwners[0])
       return owner?.label || selectedOwners[0]
     }
-    return t('availability:ownersSelected', { count: selectedOwners.length })
+    return t('ownersSelected', { count: selectedOwners.length })
+  }
+
+  const handleStatusToggle = (statusValue: string) => {
+    const currentStatuses = filters.statuses || []
+    const updatedStatuses = currentStatuses.includes(statusValue)
+      ? currentStatuses.filter((status: string) => status !== statusValue)
+      : [...currentStatuses, statusValue]
+    
+    handleFilterChange('statuses', updatedStatuses)
+  }
+
+  const clearAllStatuses = () => {
+    handleFilterChange('statuses', [])
+  }
+
+  const selectAllStatuses = () => {
+    handleFilterChange('statuses', ALL_STATUSES.map(status => status.value))
+  }
+
+  const getSelectedStatusesText = () => {
+    const selectedStatuses = filters.statuses || []
+    if (selectedStatuses.length === 0) {
+      return t('allStatuses')
+    }
+    if (selectedStatuses.length === 1) {
+      const status = ALL_STATUSES.find(s => s.value === selectedStatuses[0])
+      return t(status?.label || selectedStatuses[0])
+    }
+    return t('statusesSelected', { count: selectedStatuses.length })
   }
 
   return (
@@ -105,7 +145,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500"></div>
             <CardTitle className="text-lg font-semibold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-              {t('availability:filters')}
+              {t('filters')}
             </CardTitle>
           </div>
           {activeFiltersCount > 0 && (
@@ -115,7 +155,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
           )}
         </div>
         <CardDescription className="text-sm text-muted-foreground">
-          {t('availability:filtersDescription')}
+          {t('filtersDescription')}
         </CardDescription>
       </CardHeader>
       
@@ -123,35 +163,114 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         {/* Date Range */}
         <div className="space-y-3">
           <Label className="text-sm font-medium flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-green-600" />
-            {t('availability:dateRange')}
+            <CalendarIcon className="h-4 w-4 text-green-600" />
+            {t('dateRange')}
           </Label>
-          <div className="space-y-2">
-            <div>
-              <Label htmlFor="startDate" className="text-xs text-muted-foreground">
-                {t('availability:startDate')}
-              </Label>
-              <Input
-                id="startDate"
-                type="date"
-                value={format(filters.startDate, 'yyyy-MM-dd')}
-                onChange={(e) => handleFilterChange('startDate', new Date(e.target.value))}
-                className="mt-1"
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                id="date"
+                variant={"outline"}
+                className="w-full justify-center text-center font-normal text-sm"
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {dateRange?.from ? (
+                  dateRange.to ? (
+                    <>
+                      {format(dateRange.from, "dd/MM/yy")} - {format(dateRange.to, "dd/MM/yy")}
+                    </>
+                  ) : (
+                    format(dateRange.from, "LLL dd, y")
+                  )
+                ) : (
+                  <span>{t('pickDate')}</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                initialFocus
+                mode="range"
+                defaultMonth={dateRange?.from}
+                selected={dateRange}
+                onSelect={onDateRangeChange}
+                numberOfMonths={2}
               />
-            </div>
-            <div>
-              <Label htmlFor="endDate" className="text-xs text-muted-foreground">
-                {t('availability:endDate')}
-              </Label>
-              <Input
-                id="endDate"
-                type="date"
-                value={format(filters.endDate, 'yyyy-MM-dd')}
-                onChange={(e) => handleFilterChange('endDate', new Date(e.target.value))}
-                className="mt-1"
-              />
-            </div>
-          </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+
+        <Separator />
+
+        {/* Status Filter */}
+        <div className="space-y-3">
+          <Label className="text-sm font-medium flex items-center gap-2">
+            <Filter className="h-4 w-4 text-yellow-600" />
+            {t('status')}
+          </Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full justify-between text-left font-normal"
+              >
+                <span className="truncate">{getSelectedStatusesText()}</span>
+                <div className="flex items-center gap-1">
+                  {filters.statuses && filters.statuses.length > 0 && (
+                    <Badge variant="secondary" className="ml-2">
+                      {filters.statuses.length}
+                    </Badge>
+                  )}
+                  <ChevronDown className="h-4 w-4 opacity-50" />
+                </div>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0" align="start">
+              <div className="p-3 border-b">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-medium text-sm">{t('selectStatuses')}</h4>
+                  {filters.statuses && filters.statuses.length > 0 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={clearAllStatuses}
+                      className="h-6 px-2 text-xs"
+                    >
+                      <X className="h-3 w-3 mr-1" />
+                      {t('clearAll')}
+                    </Button>
+                  )}
+                </div>
+              </div>
+              <div className="p-2">
+                <div className="space-y-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={selectAllStatuses}
+                    className="w-full justify-start text-xs h-8"
+                  >
+                    {t('selectAll')}
+                  </Button>
+                  {ALL_STATUSES.map((status) => (
+                    <div key={status.value} className="flex items-center space-x-2 p-2 hover:bg-accent rounded-sm">
+                      <Checkbox
+                        id={`status-${status.value}`}
+                        checked={filters.statuses?.includes(status.value) || false}
+                        onCheckedChange={() => handleStatusToggle(status.value)}
+                      />
+                      <Label
+                        htmlFor={`status-${status.value}`}
+                        className="text-sm font-normal cursor-pointer flex-1"
+                      >
+                        {t(status.label)}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
         <Separator />
@@ -160,7 +279,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         <div className="space-y-3">
           <Label className="text-sm font-medium flex items-center gap-2">
             <MapPin className="h-4 w-4 text-blue-600" />
-            {t('availability:region')}
+            {t('region')}
           </Label>
           <select
             value={filters.region}
@@ -179,7 +298,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         <div className="space-y-3">
           <Label className="text-sm font-medium flex items-center gap-2">
             <User className="h-4 w-4 text-purple-600" />
-            {t('availability:owners')}
+            {t('owners')}
           </Label>
           
           <Popover>
@@ -203,7 +322,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
             <PopoverContent className="w-full p-0" align="start">
               <div className="p-3 border-b">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-medium text-sm">{t('availability:selectOwners')}</h4>
+                  <h4 className="font-medium text-sm">{t('selectOwners')}</h4>
                   {filters.owners && filters.owners.length > 0 && (
                     <Button
                       variant="ghost"
@@ -212,7 +331,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
                       className="h-6 px-2 text-xs"
                     >
                       <X className="h-3 w-3 mr-1" />
-                      {t('availability:clearAll')}
+                      {t('clearAll')}
                     </Button>
                   )}
                 </div>
@@ -223,12 +342,12 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
                   <div className="flex items-center justify-center py-4">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                     <span className="ml-2 text-sm text-muted-foreground">
-                      {t('availability:loadingOwners')}
+                      {t('loadingOwners')}
                     </span>
                   </div>
                 ) : owners.length === 0 ? (
                   <div className="text-center py-4">
-                    <p className="text-sm text-muted-foreground">{t('availability:noOwnersFound')}</p>
+                    <p className="text-sm text-muted-foreground">{t('noOwnersFound')}</p>
                   </div>
                 ) : (
                   <div className="space-y-2">
@@ -238,7 +357,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
                       onClick={selectAllOwners}
                       className="w-full justify-start text-xs h-8"
                     >
-                      {t('availability:selectAll')}
+                      {t('selectAll')}
                     </Button>
                     
                     {owners.map((owner) => (
@@ -295,7 +414,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         <div className="space-y-3">
           <Label className="text-sm font-medium flex items-center gap-2">
             <Users className="h-4 w-4 text-orange-600" />
-            {t('availability:guests')}
+            {t('guests')}
           </Label>
           <Input
             type="number"
@@ -311,12 +430,12 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         <div className="space-y-3">
           <Label className="text-sm font-medium flex items-center gap-2">
             <DollarSign className="h-4 w-4 text-green-600" />
-            {t('availability:priceRange')}
+            {t('priceRange')}
           </Label>
           <div className="space-y-2">
             <div>
               <Label htmlFor="minPrice" className="text-xs text-muted-foreground">
-                {t('availability:minPrice')}
+                {t('minPrice')}
               </Label>
               <Input
                 id="minPrice"
@@ -324,13 +443,13 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
                 min="0"
                 step="1000"
                 value={filters.minPrice}
-                onChange={(e) => handleFilterChange('minPrice', parseInt(e.target.value))}
+                onChange={(e) => handleFilterChange('minPrice', e.target.value === '' ? '' : parseInt(e.target.value))}
                 className="mt-1"
               />
             </div>
             <div>
               <Label htmlFor="maxPrice" className="text-xs text-muted-foreground">
-                {t('availability:maxPrice')}
+                {t('maxPrice')}
               </Label>
               <Input
                 id="maxPrice"
@@ -338,7 +457,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
                 min="0"
                 step="1000"
                 value={filters.maxPrice}
-                onChange={(e) => handleFilterChange('maxPrice', parseInt(e.target.value))}
+                onChange={(e) => handleFilterChange('maxPrice', e.target.value === '' ? '' : parseInt(e.target.value))}
                 className="mt-1"
               />
             </div>
@@ -355,7 +474,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
             className="w-full flex items-center gap-2 hover:bg-gradient-to-r hover:from-gray-500 hover:to-slate-500 hover:text-white hover:border-transparent transition-all duration-300"
           >
             <RotateCcw className="h-4 w-4" />
-            {t('availability:resetFilters')}
+            {t('resetFilters')}
           </Button>
         </div>
 
@@ -363,7 +482,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         {activeFiltersCount > 0 && (
           <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700/50">
             <p className="text-xs text-green-700 dark:text-green-300 font-medium">
-              {t('availability:activeFilters', { count: activeFiltersCount })}
+              {t('activeFilters', { count: activeFiltersCount })}
             </p>
           </div>
         )}

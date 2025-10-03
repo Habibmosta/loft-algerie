@@ -15,7 +15,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { ThemeToggle } from "@/components/theme-toggle"
 import { NotificationBadge } from "@/components/ui/notification-badge"
 import { useEnhancedRealtime } from "@/components/providers/enhanced-realtime-provider"
-import { useTranslation } from "react-i18next"
+import { useTranslations } from "next-intl"
 
 interface EnhancedSidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   user: User;
@@ -26,7 +26,10 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
   const pathname = usePathname()
   const [isSettingsOpen, setIsSettingsOpen] = useState(pathname?.startsWith('/settings') || false)
   const { unreadMessagesCount, unreadNotificationsCount, playSound } = useEnhancedRealtime()
-  const { t } = useTranslation();
+  const t = useTranslations('nav')
+  const tRoles = useTranslations('roles')
+  const tAuth = useTranslations('auth')
+  const tConversations = useTranslations('conversations')
 
   useEffect(() => {
     const handleNotificationReceived = (event: CustomEvent) => {
@@ -41,28 +44,28 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
   }, [playSound])
 
   const navigation = [
-    { name: t('nav:dashboard'), href: "/dashboard", icon: LayoutDashboard, roles: ["admin", "manager", "member"] },
-    { name: t('nav:conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
-    { name: t('nav:notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
-    { name: t('nav:lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
-    { name: t('nav:tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
-    { name: t('nav:teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
-    { name: t('nav:owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },
-    { name: t('nav:transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
-    { name: t('nav:reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
-    { name: t('nav:availability'), href: "/availability", icon: Search, roles: ["admin", "manager", "member"] },
+    { name: t('dashboard'), href: "/dashboard", icon: LayoutDashboard, roles: ["admin", "manager", "member"] },
+    { name: t('conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
+    { name: t('notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
+    { name: t('lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
+    { name: t('tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
+    { name: t('teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
+    { name: t('owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },
+    { name: t('transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
+    { name: t('reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager", "executive"] },
+    { name: t('availability'), href: "/availability", icon: Search, roles: ["admin", "manager", "member"] },
     { 
-      name: t('nav:settings'), 
+      name: t('settings'), 
       href: "/settings", 
       icon: Settings, 
       roles: ["admin", "manager", "member"],
       subItems: [
-        { name: t('nav:categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
-        { name: t('nav:currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
-        { name: t('nav:zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
-        { name: t('nav:paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
-        { name: t('nav:internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
-        { name: t('nav:application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
+        { name: t('categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
+        { name: t('currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
+        { name: t('zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
+        { name: t('paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
+        { name: t('internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
+        { name: t('application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
       ]
     },
   ]
@@ -78,7 +81,7 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
             <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full border-2 border-gray-900 bg-blue-500"></div>
           </div>
           <span className="ml-3 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-            {t('loftManager', { ns: 'conversations' })}
+            {tConversations('loftManager')}
           </span>
         </Link>
         <div className="hover:bg-gray-800/50 transition-colors rounded-md">
@@ -146,13 +149,13 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
                 {item.name}
               </div>
               
-              {item.name === "Conversations" && unreadMessagesCount > 0 && (
+              {item.name === t('conversations') && unreadMessagesCount > 0 && (
                 <NotificationBadge 
                   count={unreadMessagesCount} 
                   className="ml-2 animate-pulse" 
                 />
               )}
-              {item.name === "Notifications" && unreadNotificationsCount > 0 && (
+              {item.name === t('notifications') && unreadNotificationsCount > 0 && (
                 <NotificationBadge 
                   count={unreadNotificationsCount} 
                   className="ml-2 animate-pulse" 
@@ -173,9 +176,9 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-white truncate">
-              {user.full_name === 'member1' ? 'Membre 1' : user.full_name}
+              {user.full_name === 'member1' ? t('conversations.member1') : user.full_name}
             </p>
-            <p className="text-xs text-gray-300 capitalize">{t(`roles.${user.role}`)}</p>
+            <p className="text-xs text-gray-300 capitalize">{tRoles(user.role)}</p>
           </div>
         </div>
         <Button
@@ -185,7 +188,7 @@ export function EnhancedSidebar({ user, unreadCount, className }: EnhancedSideba
           onClick={() => logout()}
         >
           <LogOut className="mr-2 h-4 w-4" />
-          {t('auth:signOut')}
+          {tAuth('signOut')}
         </Button>
       </div>
     </div>
