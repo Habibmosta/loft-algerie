@@ -43,12 +43,20 @@ function getFieldDisplayName(tableName: string, fieldName: string): string {
 }
 
 // Fonction pour formater les valeurs
-function formatAuditValue(tableName: string, fieldName: string, value: string | null): string {
+function formatAuditValue(tableName: string, fieldName: string, value: string | null, enrichedData?: any): string {
   if (!value) return 'Vide'
 
-  // Mapping des devises - le code sera affiché directement depuis les données enrichies
+  // Mapping des devises - utiliser les données enrichies si disponibles
   if (fieldName === 'currency_id') {
-    return value // Le code de la devise sera affiché directement
+    if (enrichedData?.currency_code) {
+      return enrichedData.currency_code
+    }
+    // Fallback pour les devises communes
+    const commonCurrencies: Record<string, string> = {
+      'a0e57cd8-d74e-4a2d-8bfa-a94c5b4c0c7c': 'EUR (€)',
+      '0fa82c9a-6e85-4ba3-ae71-cf438466df7b': 'DZD (DA)'
+    }
+    return commonCurrencies[value] || `Devise: ${value.substring(0, 8)}...`
   }
 
   // Mapping des méthodes de paiement
@@ -61,9 +69,12 @@ function formatAuditValue(tableName: string, fieldName: string, value: string | 
     return paymentMethods[value] || `Paiement: ${value.substring(0, 8)}...`
   }
 
-  // Mapping des lofts - afficher le nom complet sans préfixe
+  // Mapping des lofts - utiliser les données enrichies si disponibles
   if (fieldName === 'loft_id') {
-    return value // Le nom complet du loft sera affiché directement
+    if (enrichedData?.loft_name) {
+      return enrichedData.loft_name
+    }
+    return `Loft: ${value.substring(0, 8)}...`
   }
 
   // Mapping des statuts
@@ -283,7 +294,7 @@ export function AuditLogItem({ log, className, showDetails = false }: AuditLogIt
                             {t('oldValue')}
                           </div>
                           <div className="p-2 bg-red-50 border border-red-200 rounded text-red-800 text-xs break-words">
-                            {formatAuditValue(log.tableName, field, oldValue)}
+                            {formatAuditValue(log.tableName, field, oldValue, log.oldValues)}
                           </div>
                         </div>
                         <div className="space-y-1 min-w-0">
@@ -291,7 +302,7 @@ export function AuditLogItem({ log, className, showDetails = false }: AuditLogIt
                             {t('newValue')}
                           </div>
                           <div className="p-2 bg-green-50 border border-green-200 rounded text-green-800 text-xs break-words">
-                            {formatAuditValue(log.tableName, field, newValue)}
+                            {formatAuditValue(log.tableName, field, newValue, log.newValues)}
                           </div>
                         </div>
                       </div>

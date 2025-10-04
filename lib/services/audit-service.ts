@@ -70,82 +70,44 @@ export class AuditService {
       }
       const offset = (page - 1) * limit;
 
-      // Build the query with filters
-      let query = supabase
-        .from('audit.audit_logs')
-        .select(`
-          id,
-          table_name,
-          record_id,
-          action,
-          user_id,
-          user_email,
-          timestamp,
-          old_values,
-          new_values,
-          changed_fields,
-          ip_address,
-          user_agent,
-          integrity_hash
-        `, { count: 'exact' })
-        .order('timestamp', { ascending: false });
-
-      // Apply filters
-      if (filters.tableName) {
-        query = query.eq('table_name', filters.tableName);
-      }
-      
-      if (filters.recordId) {
-        query = query.eq('record_id', filters.recordId);
-      }
-      
-      if (filters.userId) {
-        query = query.eq('user_id', filters.userId);
-      }
-      
-      if (filters.action) {
-        query = query.eq('action', filters.action);
-      }
-      
-      if (filters.dateFrom) {
-        query = query.gte('timestamp', filters.dateFrom);
-      }
-      
-      if (filters.dateTo) {
-        query = query.lte('timestamp', filters.dateTo);
-      }
-
-      // Apply text search across multiple fields
-      if (filters.search) {
-        query = query.or(`user_email.ilike.%${filters.search}%,action.ilike.%${filters.search}%,table_name.ilike.%${filters.search}%`);
-      }
-
-      // Apply pagination
-      query = query.range(offset, offset + limit - 1);
-
-      const { data, error, count } = await query;
+      // Use RPC function to access audit logs from audit schema
+      const { data: rpcResult, error } = await supabase.rpc('get_all_audit_logs', {
+        p_limit: limit,
+        p_offset: offset
+      });
 
       if (error) {
-        logger.error('Failed to fetch audit logs', error, { filters, page, limit });
+        logger.error('Failed to fetch audit logs via RPC', error, { filters, page, limit });
         throw new Error(`Failed to fetch audit logs: ${error.message}`);
       }
 
-      // Transform data to match AuditLog interface
-      const logs: AuditLog[] = (data || []).map(row => ({
-        id: row.id,
-        tableName: row.table_name,
-        recordId: row.record_id,
-        action: row.action as AuditAction,
-        userId: row.user_id,
-        userEmail: row.user_email,
-        timestamp: row.timestamp,
-        oldValues: row.old_values,
-        newValues: row.new_values,
-        changedFields: row.changed_fields || [],
-        ipAddress: row.ip_address,
-        userAgent: row.user_agent,
-        integrityHash: row.integrity_hash
-      }));
+      let logs: AuditLog[] = [];
+      let total = 0;
+
+      if (rpcResult && rpcResult.success) {
+        const data = rpcResult.data || [];
+        total = rpcResult.count || 0;
+        
+        // Transform data to match AuditLog interface
+        logs = data.map((row: any) => ({
+          id: row.id,
+          tableName: row.table_name,
+          recordId: row.record_id,
+          action: row.action as AuditAction,
+          userId: row.user_id,
+          userEmail: row.user_email,
+          timestamp: row.timestamp,
+          oldValues: row.old_values,
+          newValues: row.new_values,
+          changedFields: row.changed_fields || [],
+          ipAddress: row.ip_address,
+          userAgent: row.user_agent,
+          integrityHash: row.integrity_hash
+        }));
+      } else {
+        logger.error('RPC function returned error', rpcResult?.error, { filters, page, limit });
+        throw new Error(`RPC function error: ${rpcResult?.error || 'Unknown error'}`);
+      }
       
       // Update access log with actual records accessed (optional)
       try {
@@ -157,13 +119,13 @@ export class AuditService {
 
       logger.info('Audit logs fetched successfully', { 
         count: logs.length, 
-        total: count || 0,
+        total,
         filters 
       });
 
       return {
         logs,
-        total: count || 0
+        total
       };
 
     } catch (error) {

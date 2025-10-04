@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
     let schemaError = null;
     try {
       const { data: altData, error: altError } = await supabase
-        .from('audit.audit_logs')
+        .from('audit_logs')
         .select('id')
         .limit(1);
       schemaExists = !altError;
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     let tableError = null;
     try {
       const { data: tableData, error: tableErr } = await supabase
-        .from('audit.audit_logs')
+        .from('audit_logs')
         .select('id')
         .limit(1);
       tableExists = !tableErr;
@@ -62,25 +62,25 @@ export async function GET(request: NextRequest) {
 
     console.log('📋 Table test:', tableExists ? 'OK' : 'FAILED', tableError);
 
-    // Test 5: Test audit_logs access and count
+    // Test 5: Test audit_logs access via RPC
     let auditLogsTest = false;
     let auditLogsError = null;
     let auditLogsCount = 0;
 
     try {
-      const { data: auditData, error: auditError, count } = await supabase
-        .from('audit.audit_logs')
-        .select('id', { count: 'exact' })
-        .limit(1);
+      const { data: rpcResult, error: auditError } = await supabase.rpc('get_all_audit_logs', {
+        p_limit: 1,
+        p_offset: 0
+      });
 
-      auditLogsTest = !auditError;
-      auditLogsError = auditError;
-      auditLogsCount = count || 0;
+      auditLogsTest = !auditError && rpcResult?.success;
+      auditLogsError = auditError || rpcResult?.error;
+      auditLogsCount = rpcResult?.count || 0;
       
-      console.log('📊 Audit logs query test:', auditLogsTest ? 'OK' : 'FAILED', auditError);
+      console.log('📊 Audit logs RPC test:', auditLogsTest ? 'OK' : 'FAILED', auditLogsError);
     } catch (error) {
       auditLogsError = error;
-      console.log('📊 Audit logs query test: FAILED', error);
+      console.log('📊 Audit logs RPC test: FAILED', error);
     }
 
     // Test 6: Check user permissions

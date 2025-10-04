@@ -69,7 +69,9 @@ export function AuditFilters({
 
   // Update local filter state
   const updateLocalFilter = (key: keyof AuditFiltersType, value: string | undefined) => {
-    const newFilters = { ...localFilters, [key]: value || undefined }
+    // Treat "all" as undefined (no filter)
+    const filterValue = value === "all" ? undefined : value || undefined
+    const newFilters = { ...localFilters, [key]: filterValue }
     setLocalFilters(newFilters)
   }
 
@@ -161,14 +163,14 @@ export function AuditFilters({
               {t('tableName')}
             </Label>
             <Select 
-              value={localFilters.tableName || ''} 
+              value={localFilters.tableName || 'all'} 
               onValueChange={(value) => updateLocalFilter('tableName', value)}
             >
               <SelectTrigger>
                 <SelectValue placeholder={t('allTables')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">{t('allTables')}</SelectItem>
+                <SelectItem value="all">{t('allTables')}</SelectItem>
                 {tableNames.map(table => (
                   <SelectItem key={table.value} value={table.value}>
                     {table.label}
@@ -185,14 +187,14 @@ export function AuditFilters({
               {t('action')}
             </Label>
             <Select 
-              value={localFilters.action || ''} 
+              value={localFilters.action || 'all'} 
               onValueChange={(value) => updateLocalFilter('action', value)}
             >
               <SelectTrigger>
                 <SelectValue placeholder={t('allActions')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">{t('allActions')}</SelectItem>
+                <SelectItem value="all">{t('allActions')}</SelectItem>
                 {actions.map(action => (
                   <SelectItem key={action.value} value={action.value}>
                     {action.label}
@@ -209,14 +211,14 @@ export function AuditFilters({
               {t('user')}
             </Label>
             <Select 
-              value={localFilters.userId || ''} 
+              value={localFilters.userId || 'all'} 
               onValueChange={(value) => updateLocalFilter('userId', value)}
             >
               <SelectTrigger>
                 <SelectValue placeholder={t('allUsers')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">{t('allUsers')}</SelectItem>
+                <SelectItem value="all">{t('allUsers')}</SelectItem>
                 {availableUsers.map(user => (
                   <SelectItem key={user.id} value={user.id}>
                     {user.full_name || user.email}

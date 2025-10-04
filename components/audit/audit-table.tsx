@@ -236,7 +236,7 @@ export function AuditTable({
                   <TableHead className="w-12">
                     <Checkbox
                       checked={allSelected}
-                      indeterminate={someSelected}
+                      indeterminate={someSelected || undefined}
                       onCheckedChange={handleSelectAll}
                       aria-label={t('selectAll')}
                     />
@@ -292,7 +292,7 @@ export function AuditTable({
 
                 {showActions && (
                   <TableHead className="w-12">
-                    <span className="sr-only">{t('actions')}</span>
+                    <span className="sr-only">{t('actionsColumn')}</span>
                   </TableHead>
                 )}
               </TableRow>

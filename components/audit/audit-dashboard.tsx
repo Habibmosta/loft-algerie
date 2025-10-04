@@ -127,10 +127,19 @@ export function AuditDashboard({ userRole, userId, className }: AuditDashboardPr
         topActions
       })
 
-      // Fetch available users for filters
-      if (data.users) {
-        setAvailableUsers(data.users)
-      }
+      // Extract unique users from audit logs for filters
+      const availableUsersList = Array.from(
+        new Map(
+          data.logs
+            .filter(log => log.userEmail) // Include all users, even "Unknown User"
+            .map(log => [log.userEmail, { // Use email as unique key instead of userId
+              id: log.userId || log.userEmail, // Use userId if available, otherwise email
+              email: log.userEmail,
+              full_name: log.userEmail === 'Unknown User' ? 'Unknown User' : log.userEmail.split('@')[0]
+            }])
+        ).values()
+      )
+      setAvailableUsers(availableUsersList)
       
     } catch (err) {
       console.error('Error fetching audit logs:', err)
@@ -150,6 +159,51 @@ export function AuditDashboard({ userRole, userId, className }: AuditDashboardPr
   const handleFiltersChange = (newFilters: AuditFiltersType) => {
     setFilters(newFilters)
   }
+
+  // Apply filters to logs
+  useEffect(() => {
+    let filtered = [...logs]
+
+    // Filter by table name
+    if (filters.tableName && filters.tableName !== 'all') {
+      filtered = filtered.filter(log => log.tableName === filters.tableName)
+    }
+
+    // Filter by action
+    if (filters.action && filters.action !== 'all') {
+      filtered = filtered.filter(log => log.action === filters.action)
+    }
+
+    // Filter by user
+    if (filters.userId && filters.userId !== 'all') {
+      filtered = filtered.filter(log => log.userId === filters.userId || log.userEmail === filters.userId)
+    }
+
+    // Filter by record ID
+    if (filters.recordId) {
+      filtered = filtered.filter(log => log.recordId.toLowerCase().includes(filters.recordId!.toLowerCase()))
+    }
+
+    // Filter by date range
+    if (filters.dateFrom) {
+      filtered = filtered.filter(log => new Date(log.timestamp) >= new Date(filters.dateFrom!))
+    }
+    if (filters.dateTo) {
+      filtered = filtered.filter(log => new Date(log.timestamp) <= new Date(filters.dateTo!))
+    }
+
+    // Filter by search term
+    if (filters.search) {
+      const searchTerm = filters.search.toLowerCase()
+      filtered = filtered.filter(log => 
+        log.userEmail.toLowerCase().includes(searchTerm) ||
+        log.action.toLowerCase().includes(searchTerm) ||
+        log.tableName.toLowerCase().includes(searchTerm)
+      )
+    }
+
+    setFilteredLogs(filtered)
+  }, [logs, filters])
 
   // Apply filters
   const handleApplyFilters = () => {

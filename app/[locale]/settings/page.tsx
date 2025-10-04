@@ -193,6 +193,29 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
         </RoleBasedAccess>
+
+        <RoleBasedAccess 
+          userRole={session.user.role}
+          allowedRoles={['admin', 'manager']}
+          showFallback={false}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5" />
+                Audit et Traçabilité
+              </CardTitle>
+              <CardDescription>Consulter l'historique des modifications et les logs d'audit</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/settings/audit">
+                  Voir les logs d'audit
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </RoleBasedAccess>
         
         <RoleBasedAccess 
           userRole={session.user.role}
@@ -211,6 +234,29 @@ export default function SettingsPage() {
               <Button variant="outline" size="sm" asChild>
                 <Link href="/settings/payment-methods">
                   {t('settings.managePaymentMethodsBtn')}
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </RoleBasedAccess>
+
+        <RoleBasedAccess 
+          userRole={session.user.role}
+          allowedRoles={['admin', 'manager']}
+          showFallback={false}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5" />
+                Audit et Traçabilité
+              </CardTitle>
+              <CardDescription>Consulter l'historique des modifications et les logs d'audit</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/settings/audit">
+                  Voir les logs d'audit
                 </Link>
               </Button>
             </CardContent>
