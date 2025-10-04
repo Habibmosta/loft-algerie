@@ -20,6 +20,76 @@ import {
 import { AuditLog } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
+// Mapping des noms de champs
+const FIELD_DISPLAY_NAMES: Record<string, Record<string, string>> = {
+  transactions: {
+    amount: 'Montant',
+    transaction_type: 'Type de transaction',
+    status: 'Statut',
+    description: 'Description',
+    date: 'Date',
+    category: 'Catégorie',
+    loft_id: 'Loft',
+    currency_id: 'Devise',
+    payment_method_id: 'Méthode de paiement',
+    ratio_at_transaction: 'Taux de change',
+    equivalent_amount_default_currency: 'Montant équivalent'
+  }
+}
+
+// Fonction pour obtenir le nom d'affichage d'un champ
+function getFieldDisplayName(tableName: string, fieldName: string): string {
+  return FIELD_DISPLAY_NAMES[tableName]?.[fieldName] || fieldName
+}
+
+// Fonction pour formater les valeurs
+function formatAuditValue(tableName: string, fieldName: string, value: string | null): string {
+  if (!value) return 'Vide'
+
+  // Mapping des devises - le code sera affiché directement depuis les données enrichies
+  if (fieldName === 'currency_id') {
+    return value // Le code de la devise sera affiché directement
+  }
+
+  // Mapping des méthodes de paiement
+  if (fieldName === 'payment_method_id') {
+    const paymentMethods: Record<string, string> = {
+      '993465f2-b191-40ee-bd1e-c8567aa2531b': 'Carte bancaire',
+      '251170fd-1729-4779-b2d0-0f70213bce9e': 'Virement bancaire',
+      '9b8dad46-a14d-4460-8bf6-68ad8c7057b8': 'Espèces'
+    }
+    return paymentMethods[value] || `Paiement: ${value.substring(0, 8)}...`
+  }
+
+  // Mapping des lofts - afficher le nom complet sans préfixe
+  if (fieldName === 'loft_id') {
+    return value // Le nom complet du loft sera affiché directement
+  }
+
+  // Mapping des statuts
+  if (fieldName === 'status') {
+    const statusLabels: Record<string, string> = {
+      pending: 'En attente',
+      completed: 'Terminé',
+      failed: 'Échoué',
+      cancelled: 'Annulé'
+    }
+    return statusLabels[value] || value
+  }
+
+  // Mapping des types de transaction
+  if (fieldName === 'transaction_type') {
+    const typeLabels: Record<string, string> = {
+      income: 'Recette',
+      expense: 'Dépense',
+      transfer: 'Virement'
+    }
+    return typeLabels[value] || value
+  }
+
+  return value
+}
+
 interface AuditLogItemProps {
   log: AuditLog
   className?: string
@@ -104,8 +174,28 @@ export function AuditLogItem({ log, className, showDetails = false }: AuditLogIt
     }
 
     return log.changedFields.map(field => {
-      const oldValue = log.oldValues?.[field]
-      const newValue = log.newValues?.[field]
+      let oldValue = log.oldValues?.[field]
+      let newValue = log.newValues?.[field]
+      
+      // Pour loft_id, utiliser le nom du loft si disponible
+      if (field === 'loft_id') {
+        if (log.oldValues?.loft_name) {
+          oldValue = log.oldValues.loft_name
+        }
+        if (log.newValues?.loft_name) {
+          newValue = log.newValues.loft_name
+        }
+      }
+      
+      // Pour currency_id, utiliser le code de la devise si disponible
+      if (field === 'currency_id') {
+        if (log.oldValues?.currency_code) {
+          oldValue = log.oldValues.currency_code
+        }
+        if (log.newValues?.currency_code) {
+          newValue = log.newValues.currency_code
+        }
+      }
       
       return {
         field,
@@ -185,23 +275,23 @@ export function AuditLogItem({ log, className, showDetails = false }: AuditLogIt
                   <div className="space-y-2">
                     {fieldChanges.map(({ field, oldValue, newValue }) => (
                       <div key={field} className="grid grid-cols-3 gap-4 text-sm">
-                        <div className="font-medium text-muted-foreground">
-                          {field}
+                        <div className="font-medium text-muted-foreground min-w-0">
+                          {getFieldDisplayName(log.tableName, field)}
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 min-w-0">
                           <div className="text-xs text-muted-foreground">
                             {t('oldValue')}
                           </div>
-                          <div className="p-2 bg-red-50 border border-red-200 rounded text-red-800 font-mono text-xs">
-                            {oldValue || t('empty')}
+                          <div className="p-2 bg-red-50 border border-red-200 rounded text-red-800 text-xs break-words">
+                            {formatAuditValue(log.tableName, field, oldValue)}
                           </div>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 min-w-0">
                           <div className="text-xs text-muted-foreground">
                             {t('newValue')}
                           </div>
-                          <div className="p-2 bg-green-50 border border-green-200 rounded text-green-800 font-mono text-xs">
-                            {newValue || t('empty')}
+                          <div className="p-2 bg-green-50 border border-green-200 rounded text-green-800 text-xs break-words">
+                            {formatAuditValue(log.tableName, field, newValue)}
                           </div>
                         </div>
                       </div>

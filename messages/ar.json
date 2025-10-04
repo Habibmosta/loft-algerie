@@ -482,7 +482,6 @@
     "error": "خطأ",
     "success": "نجاح",
     "loading": "جاري التحميل...",
-    "actions": "الإجراءات",
     "name": "الاسم",
     "next": "التالي",
     "none": "لا شيء",
@@ -491,6 +490,7 @@
       "ownershipType": "نوع الملكية"
     },
     "page": "الصفحة",
+    "pickDateRange": "اختر نطاق التاريخ",
     "previous": "السابق",
     "results": "النتائج",
     "selectOption": "اختر خياراً",
@@ -2153,6 +2153,7 @@
     "type": "النوع",
     "updateTransaction": "تحديث المعاملة",
     "updateTransactionInfo": "تحديث معلومات المعاملة",
+    "original": "الأصلي",
     "loadingError": "خطأ في تحميل المبالغ المرجعية.",
     "updateSuccess": "تم تحديث المبلغ المرجعي بنجاح.",
     "updateError": "خطأ في تحديث المبلغ المرجعي.",

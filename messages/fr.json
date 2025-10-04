@@ -481,7 +481,6 @@
     "error": "Erreur",
     "success": "Succès",
     "loading": "Chargement...",
-    "actions": "Actions",
     "name": "Nom",
     "next": "Suivant",
     "none": "Aucun",
@@ -490,6 +489,7 @@
       "ownershipType": "Type de propriété"
     },
     "page": "Page",
+    "pickDateRange": "Sélectionner une plage de dates",
     "previous": "Précédent",
     "results": "résultats",
     "selectOption": "Sélectionner une option",
@@ -2127,6 +2127,7 @@
     "type": "Type",
     "updateTransaction": "Mettre à jour la transaction",
     "updateTransactionInfo": "Mettre à jour les informations de la transaction",
+    "original": "Original",
     "loadingError": "Erreur de chargement des montants de référence.",
     "updateSuccess": "Montant de référence mis à jour avec succès.",
     "updateError": "Erreur lors de la mise à jour du montant de référence.",

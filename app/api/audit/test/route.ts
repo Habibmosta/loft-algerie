@@ -28,28 +28,19 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     console.log('🗄️ Database connection test...');
 
-    // Test 3: Check if audit schema exists (simple query)
+    // Test 3: Check if audit schema exists by trying to access audit_logs table
     let schemaExists = false;
     let schemaError = null;
     try {
-      const { data: schemaData, error: schemaErr } = await supabase
-        .rpc('exec_sql', { sql: "SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'audit'" });
-      schemaExists = schemaData && schemaData.length > 0;
-      schemaError = schemaErr;
-    } catch (error) {
-      schemaError = error;
-      // Try alternative approach
-      try {
-        const { data: altData, error: altError } = await supabase
-          .from('audit.audit_logs')
-          .select('id')
-          .limit(1);
-        schemaExists = !altError;
-        schemaError = altError;
-      } catch (altErr) {
-        schemaExists = false;
-        schemaError = altErr;
-      }
+      const { data: altData, error: altError } = await supabase
+        .from('audit.audit_logs')
+        .select('id')
+        .limit(1);
+      schemaExists = !altError;
+      schemaError = altError;
+    } catch (altErr) {
+      schemaExists = false;
+      schemaError = altErr;
     }
 
     console.log('📊 Schema test:', schemaExists ? 'OK' : 'FAILED', schemaError);

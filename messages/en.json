@@ -491,6 +491,7 @@
       "ownershipType": "Ownership Type"
     },
     "page": "Page",
+    "pickDateRange": "Pick date range",
     "previous": "Previous",
     "results": "results",
     "selectOption": "Select an option",
@@ -505,7 +506,8 @@
     "notificationsEnabledDescription": "You will now receive instant notifications for tasks and messages.",
     "transfer": "Transfer",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "pickDateRange": "Pick a date range"
   },
   "conversations": {
     "addMembers": "Add Members",
@@ -2139,6 +2141,7 @@
     "type": "Type",
     "updateTransaction": "Update Transaction",
     "updateTransactionInfo": "Update transaction information",
+    "original": "Original",
     "loadingError": "Error loading reference amounts.",
     "updateSuccess": "Reference amount updated successfully.",
     "updateError": "Error updating reference amount.",

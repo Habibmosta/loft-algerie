@@ -81,11 +81,13 @@ export function AuditHistory({
         throw new Error(data.error)
       }
 
-      setLogs(data.logs || [])
+      // Handle both API response formats
+      const auditLogs = data.data?.auditHistory || data.logs || []
+      setLogs(auditLogs)
       
       // Extract unique users for filter
       const users = Array.from(new Set(
-        (data.logs || [])
+        auditLogs
           .map((log: AuditLog) => log.userEmail)
           .filter(Boolean)
       )) as string[]

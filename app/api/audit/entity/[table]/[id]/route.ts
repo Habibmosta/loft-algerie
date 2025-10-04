@@ -12,18 +12,20 @@ const VALID_TABLES: AuditableTable[] = ['transactions', 'tasks', 'reservations',
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { table: string; id: string } }
+  { params }: { params: Promise<{ table: string; id: string }> }
 ) {
   let session: any = null;
   let table: string = '';
   let id: string = '';
   
   try {
-    console.log('🔍 Audit API called with params:', params);
+    // Await params in Next.js 15+
+    const resolvedParams = await params;
+    console.log('🔍 Audit API called with params:', resolvedParams);
     
     // Extract params safely
-    table = params?.table || '';
-    id = params?.id || '';
+    table = resolvedParams?.table || '';
+    id = resolvedParams?.id || '';
     
     console.log('📋 Extracted params:', { table, id });
     

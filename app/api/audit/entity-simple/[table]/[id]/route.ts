@@ -8,23 +8,31 @@ import { createClient } from '@/utils/supabase/server';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { table: string; id: string } }
+  { params }: { params: Promise<{ table: string; id: string }> }
 ) {
+  let table: string = '';
+  let id: string = '';
+  
   try {
     console.log('🧪 Simple Audit API called');
-    console.log('📋 Params received:', params);
+    
+    // Await params in Next.js 15+
+    const resolvedParams = await params;
+    console.log('📋 Params received:', resolvedParams);
+
+    // Extract params safely
+    table = resolvedParams?.table || '';
+    id = resolvedParams?.id || '';
 
     // Basic validation
-    if (!params || !params.table || !params.id) {
+    if (!table || !id) {
       console.log('❌ Missing params');
       return NextResponse.json({
         success: false,
         error: "Missing parameters",
-        received: params
+        received: { table, id }
       }, { status: 400 });
     }
-
-    const { table, id } = params;
     console.log('📊 Processing:', { table, id });
 
     // Check authentication
@@ -76,8 +84,8 @@ export async function GET(
     console.log('🔍 Querying audit logs...');
     const supabase = await createClient();
     
-    // Use simple RPC function to access audit logs from audit schema
-    console.log('🔍 Using simple RPC function to query audit logs...');
+    // Use the working RPC function to access audit logs
+    console.log('🔍 Using get_audit_logs_for_entity RPC function...');
     
     const { data: rpcResult, error } = await supabase.rpc('get_audit_logs_for_entity', {
       p_table_name: table,
@@ -85,7 +93,7 @@ export async function GET(
       p_limit: 10
     });
     
-    console.log('📊 RPC Result:', rpcResult);
+    console.log('📊 RPC Result:', { rpcResult, error });
     
     let data = [];
     let count = 0;
@@ -95,6 +103,12 @@ export async function GET(
       count = rpcResult.count || 0;
     } else if (rpcResult && !rpcResult.success) {
       console.log('❌ RPC function returned error:', rpcResult.error);
+      return NextResponse.json({
+        success: false,
+        error: "RPC function error",
+        details: rpcResult.error,
+        query: { table_name: table, record_id: id }
+      }, { status: 500 });
     }
 
     if (error) {

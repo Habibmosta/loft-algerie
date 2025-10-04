@@ -204,7 +204,9 @@
   - Add archived audit log access functionality
   - _Requirements: 6.3_
 
-- [-] 12. Documentation and deployment
+- [x] 12. Documentation and deployment
+
+
 
 - [x] 12.1 Create audit system documentation
 

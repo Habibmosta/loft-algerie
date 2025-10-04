@@ -246,7 +246,10 @@ export class AuditService {
         count: logs.length 
       });
 
-      return logs;
+      // Enrichir les données avec les noms des relations
+      const enrichedLogs = await this.enrichAuditLogsWithRelationNames(logs);
+
+      return enrichedLogs;
 
     } catch (error) {
       logger.error('Error in getEntityAuditHistory', error, { tableName, recordId });
@@ -627,6 +630,131 @@ export class AuditService {
     } catch (error) {
       logger.error('Error in getAuditStatistics', error, { tableName, days });
       throw error;
+    }
+  }
+
+  /**
+   * Enrichir les logs d'audit avec les noms des relations
+   * @param logs - Array of audit logs to enrich
+   * @returns Promise containing enriched logs
+   */
+  private static async enrichAuditLogsWithRelationNames(logs: AuditLog[]): Promise<AuditLog[]> {
+    try {
+      const supabase = await createClient();
+      
+      // Collecter tous les IDs à résoudre
+      const loftIds = new Set<string>();
+      const currencyIds = new Set<string>();
+      
+      logs.forEach(log => {
+        if (log.tableName === 'transactions') {
+          // Collecter les loft_ids
+          if (log.oldValues?.loft_id) {
+            loftIds.add(log.oldValues.loft_id);
+          }
+          if (log.newValues?.loft_id) {
+            loftIds.add(log.newValues.loft_id);
+          }
+          
+          // Collecter les currency_ids
+          if (log.oldValues?.currency_id) {
+            currencyIds.add(log.oldValues.currency_id);
+          }
+          if (log.newValues?.currency_id) {
+            currencyIds.add(log.newValues.currency_id);
+          }
+        }
+      });
+
+      // Récupérer les noms des lofts en une seule requête
+      const loftNames = new Map<string, string>();
+      if (loftIds.size > 0) {
+        const { data: lofts, error } = await supabase
+          .from('lofts')
+          .select('id, name')
+          .in('id', Array.from(loftIds));
+
+        if (!error && lofts) {
+          lofts.forEach(loft => {
+            loftNames.set(loft.id, loft.name);
+          });
+        }
+      }
+
+      // Récupérer les codes des devises en une seule requête
+      const currencyCodes = new Map<string, string>();
+      if (currencyIds.size > 0) {
+        const { data: currencies, error } = await supabase
+          .from('currencies')
+          .select('id, code, name')
+          .in('id', Array.from(currencyIds));
+
+        if (!error && currencies) {
+          currencies.forEach(currency => {
+            currencyCodes.set(currency.id, currency.code || currency.name);
+          });
+        }
+      }
+
+      // Enrichir les logs avec les noms des lofts
+      const enrichedLogs = logs.map(log => {
+        if (log.tableName === 'transactions') {
+          const enrichedLog = { ...log };
+          
+          // Enrichir les anciennes valeurs
+          if (enrichedLog.oldValues?.loft_id) {
+            const loftName = loftNames.get(enrichedLog.oldValues.loft_id);
+            if (loftName) {
+              enrichedLog.oldValues = {
+                ...enrichedLog.oldValues,
+                loft_name: loftName
+              };
+            }
+          }
+          
+          if (enrichedLog.oldValues?.currency_id) {
+            const currencyCode = currencyCodes.get(enrichedLog.oldValues.currency_id);
+            if (currencyCode) {
+              enrichedLog.oldValues = {
+                ...enrichedLog.oldValues,
+                currency_code: currencyCode
+              };
+            }
+          }
+          
+          // Enrichir les nouvelles valeurs
+          if (enrichedLog.newValues?.loft_id) {
+            const loftName = loftNames.get(enrichedLog.newValues.loft_id);
+            if (loftName) {
+              enrichedLog.newValues = {
+                ...enrichedLog.newValues,
+                loft_name: loftName
+              };
+            }
+          }
+          
+          if (enrichedLog.newValues?.currency_id) {
+            const currencyCode = currencyCodes.get(enrichedLog.newValues.currency_id);
+            if (currencyCode) {
+              enrichedLog.newValues = {
+                ...enrichedLog.newValues,
+                currency_code: currencyCode
+              };
+            }
+          }
+          
+          return enrichedLog;
+        }
+        
+        return log;
+      });
+
+      return enrichedLogs;
+
+    } catch (error) {
+      logger.error('Error enriching audit logs with relation names', error);
+      // Retourner les logs originaux en cas d'erreur
+      return logs;
     }
   }
 
